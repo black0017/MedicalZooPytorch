@@ -1,4 +1,4 @@
-# MedicalZooPytorch
+# Medical Zoo Pytorch
 We strongly believe in open and reproducible deep learning research. In order to reproduce our results, the code (alpha release) and materials of this thesis are available in this repository. The first stable release of our repository is expected to be publised in the end of September.
 
 ## Alpha release - work in progress
