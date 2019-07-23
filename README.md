@@ -15,7 +15,7 @@ This MSc Thesis is focused on multi-modal brain segmentation. For our experiment
 
 ![Alt text](./figs/unet_3d_loss.jpg?raw=true "Dice loss")
 
-### Visual out volume features visualization
+### Out volume features visualization
 ![Alt text](./figs/a1.png?raw=true "Slice viz")
 
 ![Alt text](./figs/a2.png?raw=true "Slice viz")
