@@ -8,6 +8,8 @@ This MSc Thesis is focused on multi-modal brain segmentation. For our experiment
 
 ## Early results
 
+
+### Train-Val curves
 ![Alt text](./figs/unet_3d_dice_coeff.jpg?raw=true "Dice coeff.")
 
 
@@ -19,6 +21,12 @@ This MSc Thesis is focused on multi-modal brain segmentation. For our experiment
 ![Alt text](./figs/a2.png?raw=true "Slice viz")
 
 ![Alt text](./figs/a3.png?raw=true "Slice viz")
+
+## Virtual env
+This command should get you working. Better Documentation after summer holidays :)
+```
+pip install torch numpy nibabel
+```
 
 
 
