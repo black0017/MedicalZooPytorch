@@ -8,6 +8,9 @@ This MSc Thesis is focused on multi-modal brain segmentation. For our experiment
 
 ## Early results
 
+## Comparison with Ground truth data
+![Alt text](./comparison.png?raw=true "Dice coeff.")
+
 
 ### Train-Val curves
 ![Alt text](./figs/unet_3d_dice_coeff.jpg?raw=true "Dice coeff.")
