@@ -4,7 +4,7 @@ We strongly believe in open and reproducible deep learning research.
 In order to reproduce our results, the code (alpha release) and materials of this work are available in this repository.
 This project started as an MSc Thesis and is currently under further development.
 
-I deeply thank my partner IliasPap for accepting my invitaton to further develop this project.
+I deeply thank my partner @IliasPap for accepting my invitaton to further develop this project.
 
 ## Alpha release - work in progress
 
