@@ -1,48 +1,37 @@
 # Medical Zoo Pytorch
-We strongly believe in open and reproducible deep learning research. In order to reproduce our results, the code (alpha release) and materials of this thesis are available in this repository. The goal is to implementent an open-source medical segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is expected to be publised in the end of September. 
+Our goal is to implementent an open-source medical image segmentation library of state of the art 2D/3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is expected to be publised in the end of September. 
+We strongly believe in open and reproducible deep learning research.
+In order to reproduce our results, the code (alpha release) and materials of this work are available in this repository.
+This project started as an MSc Thesis and is currently under further development.
+
+I deeply thank my partner IliasPap for accepting my invitaton to further develop this project.
 
 ## Alpha release - work in progress
-![Alt text](./figs/intro.png?raw=true "title")
 
-This MSc Thesis is focused on multi-modal brain segmentation.   For our experiments, we used two common benchmark datasets(ISEG 2017 & MRBRAINS2018) from MICCAI MRI image challenges. Brain MR segmentation challenges aim to evaluate state-of-the-art methods for the segmentation of brain by providing a 3D MRI dataset with ground truth tumor segmentation labels annotated by physicians. We perform a comparative analysis of the modern 3D architectures through extensive evaluations. The implemented networks were based on the specifications of the original papers. Finally, we discuss the reported results and provide future directions.
+Although this work was focused on 3D multi-modal brain MRI segmentation we will slowly add more architectures and dataloaders.
 
-## Early results
+## Top priorities
 
-## Comparison with Ground truth data
-![Alt text](./comparison.png?raw=true "Dice coeff.")
+1. Docker image for installation guide
+2. Documentation
+3. Brats2018 dataloaders
+4. Examples
 
+## Implemented dataloaders
 
-### Train-Val curves
-![Alt text](./figs/unet_3d_dice_coeff.jpg?raw=true "Dice coeff.")
+ISEG 2017
+MRBRAINS2018
 
+## Implemented architectures
 
-![Alt text](./figs/unet_3d_loss.jpg?raw=true "Dice loss")
-
-### Out volume features visualization
-![Alt text](./figs/a1.png?raw=true "Slice viz")
-
-![Alt text](./figs/a2.png?raw=true "Slice viz")
-
-![Alt text](./figs/a3.png?raw=true "Slice viz")
-
-## Virtual env
-This command should get you working. Better Documentation after summer holidays :)
-```
-pip install torch numpy nibabel
-```
-
-## Where to brain-MRI segmentation datasets
-
-### iSeg-2017
-```
-http://iseg2017.web.unc.edu/
-```
-### MR-BRAINS 2018 DATASET
-```
-https://mrbrains18.isi.uu.nl/
-```
-
+Densenet3D (1-stream, 2-stream and 3-stream)
+Unet3D
+Vnet + lighter version
 
 ## Support 
 
 If you like this repo and find it useful, please consider (★) starring it, so that it can reach a broader audience.
+
+## Contributions
+
+For contributions check the corresponding folder.
