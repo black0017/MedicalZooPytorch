@@ -1,5 +1,7 @@
 # Medical Zoo Pytorch Alpha release (Master Thesis project)
-We strongly believe in open and reproducible deep learning research. In order to reproduce our results, the code (alpha release) and materials of this thesis are available in this repository. The goal is to implementent an open-source medical segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is expected to be publised in the end of September. 
+We strongly believe in open and reproducible deep learning research. In order to reproduce our results, the code (alpha release) and materials of this thesis are available in this repository. The goal is to implementent an open-source medical segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets.
+
+For an updated version check the master branch.
 
 ## Alpha release - work in progress
 ![Alt text](./figs/intro.png?raw=true "title")
