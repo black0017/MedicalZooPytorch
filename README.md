@@ -28,7 +28,7 @@ This MSc Thesis is focused on multi-modal brain segmentation.   For our experime
 ![Alt text](./figs/a3.png?raw=true "Slice viz")
 
 ## Virtual env
-This command should get you working. Better Documentation after summer holidays :)
+This command should get you working. Better Documentation in the master branch.
 ```
 pip install torch numpy nibabel
 ```
