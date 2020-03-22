@@ -9,10 +9,16 @@ For 3D multi-modal brain MRI segmentation check the thesis branch of this reposi
 
 ## Top priorities
 
+1. batch size support!!!!
+2. on the fly volume vizualization in tensorboard
+3. fix Brats2018 and mrbrains dataloaders
+4. add hyper densenet and unet++ 3d
+
+
+Documentation
 1. Docker image for installation guide
-2. Documentation !!!!
-3. Brats2018 dataloaders
-4. Examples
+2. Examples 
+
 
 ## Implemented dataloaders
 ISEG 2017
@@ -28,6 +34,3 @@ Vnet + lighter version
 
 ## Support 
 If you like this repo and find it useful, please consider (★) starring it, so that it can reach a broader audience.
-
-## Contributions
-I deeply thank my partner @IliasPap for accepting my invitaton to further develop this project(probably in October).
