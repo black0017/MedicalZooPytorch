@@ -2,3 +2,6 @@ numpy
 scipy
 nibabel
 torch
+torchvision
+tensorborad
+matplotlib

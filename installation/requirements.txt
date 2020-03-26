@@ -1,5 +1,7 @@
-scipy
 numpy
-torch
+scipy
 nibabel
-
+torch
+torchvision
+tensorborad
+matplotlib
