@@ -24,7 +24,7 @@ Although this work was initially focused on 3D multi-modal brain MRI segmentatio
 3. Save produced 3d-segmenentation as medical image 
 
 
-##Documentation
+## Documentation
 Check installation folder for instructions 
 
 
