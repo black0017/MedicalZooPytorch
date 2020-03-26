@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ```
 
 
-## Where to the supported datasets
+## Where to find the supported datasets
 
 ### iSeg-2017
 ```
