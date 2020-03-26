@@ -9,7 +9,7 @@ This project started as an MSc Thesis and is currently under further development
 ## Beta release - work in progress
 Although this work was initially focused on 3D multi-modal brain MRI segmentation we will slowly add more architectures and dataloaders.
 
-## New released cool features
+## New released cool features (03/2020)
 
 1. Batch size training support
 2. On the fly volume vizualization
