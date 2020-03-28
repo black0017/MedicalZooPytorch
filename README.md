@@ -32,9 +32,13 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 ## Implemented architectures
 [Densenet3D](https://arxiv.org/abs/1804.02967)
+
 [Unet3D](https://arxiv.org/abs/1606.06650)
+
 [Vnet](https://arxiv.org/abs/1606.04797)
+
 [Hyperdensenet](https://arxiv.org/abs/1804.02967)
+
 [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf)
 
 ## Results
