@@ -38,11 +38,9 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf)
 
 ## Results
+
 #### To be updated **really really** soon......
 
-|   | iseg-2017  | mrbrains-2018 (4 classes)   | mrbrains-2018 (8 classes)  | 
-|---|---|---|---|---|
-| 3D-Unet  | 93.84   | 89.02   | ...   | 
 
 
 
@@ -51,6 +49,7 @@ Check installation folder for instructions. To be updated...
 
 ## Our current team
 ### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
+
 ### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
 
 ## Support 
