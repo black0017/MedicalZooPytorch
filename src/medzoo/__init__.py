@@ -4,6 +4,7 @@ import torch.optim as optim
 from .Densenet3D import DualPathDenseNet, DualSingleDensenet, SinglePathDenseNet
 from .Unet3D import UNet3D
 from .Vnet import VNet, VNetLight
+from .HyperDensenet import HyperDenseNet,HyperDenseNet_2Mod
 from .Dice import DiceLoss
 
 
@@ -23,6 +24,10 @@ def create_model(model_name, optimizer_name, lr, in_channels):
         model = DualPathDenseNet(input_channels=in_channels, num_classes=4)
     elif model_name == 'DENSENET3':
         model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=4)
+    elif model_name == 'HYPER1':
+        model = HyperDenseNet_2Mod(nClasses=4)
+    elif model_name == 'HYPER':
+        model = HyperDenseNet(nClasses=4)
 
     print('Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
