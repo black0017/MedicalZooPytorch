@@ -11,15 +11,23 @@ def generate_datasets(dataset_name="iseg", path='.././datasets/', dim=(32, 32, 3
               'shuffle': True,
               'num_workers': 1}
 
-    train_loader = MRIDatasetISEG2017('train', dataset_path=path, dim=dim,
-                                      fold_id=fold_id, samples=samples_train, save=True)
+    if dataset_name == "iseg":
+        train_loader = MRIDatasetISEG2017('train', dataset_path=path, dim=dim,
+                                          fold_id=fold_id, samples=samples_train, save=True)
 
-    val_loader = MRIDatasetISEG2017('val', dataset_path=path, dim=dim, fold_id=fold_id,
-                                    samples=samples_val, save=False)
+        val_loader = MRIDatasetISEG2017('val', dataset_path=path, dim=dim, fold_id=fold_id,
+                                        samples=samples_val, save=True)
+    elif dataset_name == "mrbrains":
 
-    if len(train_loader) != 0 and len(val_loader) != 0:
-        print("data are loaded")
+        train_loader = MRIDatasetMRBRAINS2018('train', dataset_path=path, dim=dim,
+                                              fold_id=fold_id, classes=4, samples=samples_train, save=True)
+
+        val_loader = MRIDatasetMRBRAINS2018('val', dataset_path=path, dim=dim, fold_id=fold_id,
+                                            classes=4,
+                                            samples=samples_val, save=True)
+
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
 
-    return training_generator, val_generator, val_loader.full_volume
+    print("DATA SAMPLES HAVE BEEN GENERATED SUCCESFULLY")
+    return training_generator, val_generator, val_loader.full_volume, val_loader.affine

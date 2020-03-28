@@ -13,14 +13,16 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=3)
-    parser.add_argument('--dataset_name', type=str, default="mrbrains")
-    parser.add_argument('--nEpochs', type=int, default=100)
-    parser.add_argument('--inChannels', type=int, default=3)
+    parser.add_argument('--batchSz', type=int, default=16)
+    parser.add_argument('--dataset_name', type=str, default="iseg")
+    parser.add_argument('--dice', action='store_true', default=True)
+    parser.add_argument('--nEpochs', type=int, default=250)
+    parser.add_argument('--inChannels', type=int, default=2)
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                         help='manual epoch number (useful on restarts)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
+
     parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
 
     parser.add_argument('--lr', default=1e-3, type=float,
@@ -43,18 +45,19 @@ def main():
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     best_prec1 = 100.
-    DIM = (32, 32, 32)
-    samples_train = 50
-    samples_val = 10
+    DIM = (64, 64, 64)
+    samples_train = 2500
+    samples_val = 200
     seed = 1777777
     torch.manual_seed(seed)
     if args.cuda:
         torch.cuda.manual_seed(seed)
 
-    training_generator, val_generator = medical_loaders.generate_datasets(path='.././datasets', dim=DIM,
-                                                                          batch=args.batchSz, fold_id=args.fold_id,
-                                                                          samples_train=samples_train,
-                                                                          samples_val=samples_val)
+    training_generator, val_generator, full_volume = medical_loaders.generate_datasets(path='.././datasets', dim=DIM,
+                                                                                       batch=args.batchSz,
+                                                                                       fold_id=args.fold_id,
+                                                                                       samples_train=samples_train,
+                                                                                       samples_val=samples_val)
     model, optimizer = medical_zoo.create_model(args.model, args.opt, args.lr, args.inChannels)
     criterion = medical_zoo.DiceLoss()
 
@@ -79,9 +82,12 @@ def main():
 
         train_stats = train_dice(args, epoch, model, training_generator, optimizer, criterion, train_f, writer)
 
-        val_stats = test_dice(args, epoch, model, val_generator, optimizer, criterion, val_f, writer)
+        val_stats = test_dice(args, epoch, model, val_generator, criterion, val_f, writer)
 
         utils.write_train_val_score(writer, epoch, train_stats, val_stats)
+
+        utils.visualize_no_overlap(args, full_volume, model, epoch, DIM, writer)
+
 
         dice_loss = val_stats[0]
         is_best = False
@@ -114,7 +120,6 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
     for batch_idx, input_tuple in enumerate(trainLoader):
         optimizer.zero_grad()
         img_t1, img_t2, target = input_tuple
-        batch_size = img_t1.shape[0]
         if args.inChannels == 2:
             input_tensor = torch.cat((img_t1, img_t2), dim=1)
         else:
@@ -129,7 +134,8 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
         loss_dice.backward()
         optimizer.step()
 
-        n_processed += batch_size
+        partial_epoch = epoch + batch_idx / len(trainLoader) - 1
+        n_processed = batch_idx +1
         dice_coeff = 100. * (1. - loss_dice.item())
         avg_air += per_ch_score[0]
         avg_csf += per_ch_score[1]
@@ -142,12 +148,10 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
         utils.write_train_score(writer, iter, loss_dice, dice_coeff, per_ch_score)
 
         if batch_idx % stop == 0:
-            partial_epoch = epoch + batch_idx / len(trainLoader) - 1
-            print('Train Epoch: {:.2f} [{}/{}] \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t'
-                  'AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n'.format(
-                partial_epoch, n_processed, n_train,
-                train_loss / n_processed, dice_avg_coeff / n_processed, avg_air / n_processed,
-                avg_csf / n_processed, avg_gm / n_processed, avg_wm / n_processed))
+            display_status(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, partial_epoch,
+                           n_processed)
+
+
 
     avg_air = avg_air / n_processed
     avg_csf = avg_csf / n_processed
@@ -156,17 +160,12 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
     dice_avg_coeff = dice_avg_coeff / n_processed
     train_loss = train_loss / n_processed
 
-    print(
-        '\nEpoch Summary: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t  AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}'.format(
-            epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-
-    trainF.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-    trainF.flush()
+    display_status(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, summary=True)
 
     return train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm
 
 
-def test_dice(args, epoch, model, testLoader, optimizer, criterion, testF, writer):
+def test_dice(args, epoch, model, testLoader, criterion, testF, writer):
     model.eval()
     test_loss = 0
     avg_dice_coef = 0
@@ -174,6 +173,7 @@ def test_dice(args, epoch, model, testLoader, optimizer, criterion, testF, write
 
     for batch_idx, input_tuple in enumerate(testLoader):
         img_t1, img_t2, target = input_tuple
+
         if args.inChannels == 2:
             input_tensor = torch.cat((img_t1, img_t2), dim=1)
         else:
@@ -192,7 +192,6 @@ def test_dice(args, epoch, model, testLoader, optimizer, criterion, testF, write
         avg_gm += per_ch_score[2]
         avg_wm += per_ch_score[3]
 
-
     nTotal = len(testLoader)
     test_loss /= nTotal
     coef = 100. * avg_dice_coef / nTotal
@@ -201,22 +200,28 @@ def test_dice(args, epoch, model, testLoader, optimizer, criterion, testF, write
     avg_gm = avg_gm / nTotal
     avg_wm = avg_wm / nTotal
 
-    print('\n\n\nTest set: {} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t'
-          'AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n\n\n'.format(
-        epoch, test_loss, coef, avg_air,
-        avg_csf, avg_gm, avg_wm))
+    display_status(testF, epoch, test_loss, coef, avg_air,
+                   avg_csf, avg_gm, avg_wm, summary=True)
 
     utils.write_val_score(writer, test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm, epoch)
-    testF.write('{},{},{},{},{},{},{}\n'.format(epoch, test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm))
-    testF.flush()
-
-    #utils.visualize3d(testLoader.full_volume, model, DIM, stride=8)
-
 
     return test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm
 
 
+def display_status(csv_file, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, partial_epoch=0,
+                   n_processed=0, summary=False):
+    if not summary:
+        print('Train Epoch: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t'
+              'AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n'.format(
+            partial_epoch, train_loss / n_processed, dice_avg_coeff / n_processed, avg_air / n_processed,
+                           avg_csf / n_processed, avg_gm / n_processed, avg_wm / n_processed))
+    else:
+        print(
+            '\n\nEpoch Summary: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t  AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n\n'.format(
+                epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
 
+    csv_file.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
+    csv_file.flush()
 
 
 if __name__ == '__main__':

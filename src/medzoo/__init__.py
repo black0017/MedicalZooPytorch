@@ -6,6 +6,7 @@ from .Unet3D import UNet3D
 from .Vnet import VNet, VNetLight
 from .HyperDensenet import HyperDenseNet,HyperDenseNet_2Mod
 from .Dice import DiceLoss
+from .ResNet3D_VAE import *
 
 
 def create_model(model_name, optimizer_name, lr, in_channels):

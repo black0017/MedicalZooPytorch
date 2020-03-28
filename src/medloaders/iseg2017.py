@@ -1,10 +1,9 @@
 import os
-import torch
 from torch.utils.data import Dataset
 import glob
 import numpy as np
-import nibabel as nib
 
+from src.medloaders import img_loader
 import src.utils as utils
 
 
@@ -12,10 +11,8 @@ class MRIDatasetISEG2017(Dataset):
     """
     Code for reading the infant brain MRI dataset of ISEG 2017 challenge
     """
-
     def __init__(self, mode, dataset_path='./datasets', dim=(32, 32, 32), fold_id=1, samples=1000, save=True):
         """
-
         :param mode: 'train','val','test'
         :param dataset_path: root dataset folder
         :param dim: subvolume tuple
@@ -28,17 +25,15 @@ class MRIDatasetISEG2017(Dataset):
         self.testing_path = self.root + '/iseg_2017/iSeg-2017-Testing/'
         self.save = save
         self.CLASSES = 4
-        self.height = 256
-        self.width = 192
-        self.slices = 144
-        self.crop_height = dim[0]
-        self.crop_width = dim[1]
-        self.crop_slices = dim[2]
+        self.full_vol_dim = (144, 192, 256)  # slice, width, height
+        self.crop_size = dim
         self.fold = str(fold_id)
         self.list = []
         self.samples = samples
         self.full_volume = None
-        subvol = '_vol_' + str(self.crop_height) + 'x' + str(self.crop_width) + 'x' + str(self.crop_slices)
+
+
+        subvol = '_vol_' + str(dim[0]) + 'x' + str(dim[1]) + 'x' + str(dim[2])
 
         if self.save:
             self.sub_vol_path = self.root + '/iseg_2017/generated/' + mode + subvol + '/'
@@ -47,6 +42,7 @@ class MRIDatasetISEG2017(Dataset):
         list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
         list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*T2.img')))
         labels = sorted(glob.glob(os.path.join(self.training_path, '*label.img')))
+        self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
 
         training_labels, training_list_IDsT1, training_list_IDsT2, val_list_IDsT1, val_list_IDsT2, val_labels = [], [], [], [], [], []
         print("SELECT subject with ID {} for Validation".format(self.fold))
@@ -96,6 +92,7 @@ class MRIDatasetISEG2017(Dataset):
 
     def get_samples(self):
         total = len(self.list_IDsT1)
+        TH = 160  # threshold for non empty volumes
         print('Mode: ' + self.mode + ' Subvolume samples to generate: ', self.samples, ' Volumes: ', total)
 
         for i in range(self.samples):
@@ -104,17 +101,19 @@ class MRIDatasetISEG2017(Dataset):
             path_T2 = self.list_IDsT2[random_index]
 
             while True:
-                h_crop = np.random.randint(self.height - self.crop_height)
-                w_crop = np.random.randint(self.width - self.crop_width)
-                slices = np.random.randint(self.slices - self.crop_slices)
+                slices = np.random.randint(self.full_vol_dim[0] - self.crop_size[0])
+                w_crop = np.random.randint(self.full_vol_dim[1] - self.crop_size[1])
+                h_crop = np.random.randint(self.full_vol_dim[2] - self.crop_size[2])
 
-                if self.labels != None:
+                if self.labels is not None:
                     label_path = self.labels[random_index]
-                    segmentation_map = self.load_medical_image(label_path, crop=(slices, w_crop, h_crop))
-
-                    if segmentation_map.sum() > 160:
-                        img_t1_tensor = self.load_medical_image(path_T1, crop=(slices, w_crop, h_crop), type="T1")
-                        img_t2_tensor = self.load_medical_image(path_T2, crop=(slices, w_crop, h_crop), type="T2")
+                    segmentation_map = img_loader.load_medical_image(label_path, crop_size=self.crop_size,
+                                                                     crop=(slices, w_crop, h_crop), type='label')
+                    if segmentation_map.sum() > TH:
+                        img_t1_tensor = img_loader.load_medical_image(path_T1, crop_size=self.crop_size,
+                                                                      crop=(slices, w_crop, h_crop), type="T1")
+                        img_t2_tensor = img_loader.load_medical_image(path_T2, crop_size=self.crop_size,
+                                                                      crop=(slices, w_crop, h_crop), type="T2")
                         segmentation_map = self.fix_seg_map(segmentation_map)
                         break
                     else:
@@ -141,53 +140,17 @@ class MRIDatasetISEG2017(Dataset):
         3d total vol shape : torch.Size([1, 144, 192, 256])
         :return:
         """
-        total = len(self.list_IDsT1)
         TEST_SUBJECT = 0
         path_T1 = self.list_IDsT1[TEST_SUBJECT]
         path_T2 = self.list_IDsT2[TEST_SUBJECT]
         label_path = self.labels[TEST_SUBJECT]
 
-        segmentation_map = self.load_medical_image(label_path, viz3d=True)
-        img_t1_tensor = self.load_medical_image(path_T1, type="T1", viz3d=True)
-        img_t2_tensor = self.load_medical_image(path_T2, type="T2", viz3d=True)
+        segmentation_map = img_loader.load_medical_image(label_path, viz3d=True)
+        img_t1_tensor = img_loader.load_medical_image(path_T1, type="T1", viz3d=True)
+        img_t2_tensor = img_loader.load_medical_image(path_T2, type="T2", viz3d=True)
         segmentation_map = self.fix_seg_map(segmentation_map)
         print("Full validation volume has been generated")
         self.full_volume = tuple((img_t1_tensor, img_t2_tensor, segmentation_map))
-
-    def load_medical_image(self, path, crop=(0, 0, 0), type=None, normalization="mean", viz3d=False):
-        slices, w_crop, h_crop = crop
-
-        img = nib.load(path)
-        img_np = np.squeeze(img.get_fdata())
-
-        if not viz3d:
-            img_np = img_np[slices:slices + self.crop_slices, w_crop:w_crop + self.crop_width,
-                     h_crop:h_crop + self.crop_height]
-        img_tensor = torch.from_numpy(img_np).float()
-
-        if type == "T1":
-            if normalization == "mean":
-                mask = img_tensor.ne(0.0)
-                desired = img_tensor[mask]
-                mean_val, std_val = desired.mean(), desired.std()
-                img_tensor = (img_tensor - mean_val) / std_val
-            else:
-                img_tensor = img_tensor / 250.0
-
-            return img_tensor.unsqueeze(0)
-
-        elif type == "T2":
-            if normalization == "mean":
-                mask = img_tensor.ne(0.0)
-                desired = img_tensor[mask]
-                mean_val, std_val = desired.mean(), desired.std()
-                img_tensor = (img_tensor - mean_val) / std_val
-            else:
-                img_tensor = img_tensor / 250.0
-
-            return img_tensor.unsqueeze(0)
-        else:
-            return img_tensor
 
     def fix_seg_map(self, segmentation_map):
         # visual labels of ISEG-2017

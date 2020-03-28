@@ -7,7 +7,7 @@ class UNet3D(nn.Module):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, n_classes, base_n_filter=8):
+    def __init__(self, in_channels, n_classes, base_n_filter=16):
         super(UNet3D, self).__init__()
         self.in_channels = in_channels
         self.n_classes = n_classes
@@ -18,7 +18,6 @@ class UNet3D(nn.Module):
         self.upsacle = nn.Upsample(scale_factor=2, mode='nearest')
         self.softmax = nn.Softmax(dim=1)
 
-        # Level 1 context pathway
         self.conv3d_c1_1 = nn.Conv3d(self.in_channels, self.base_n_filter, kernel_size=3, stride=1, padding=1,
                                      bias=False)
         self.conv3d_c1_2 = nn.Conv3d(self.base_n_filter, self.base_n_filter, kernel_size=3, stride=1, padding=1,
@@ -26,25 +25,21 @@ class UNet3D(nn.Module):
         self.lrelu_conv_c1 = self.lrelu_conv(self.base_n_filter, self.base_n_filter)
         self.inorm3d_c1 = nn.InstanceNorm3d(self.base_n_filter)
 
-        # Level 2 context pathway
         self.conv3d_c2 = nn.Conv3d(self.base_n_filter, self.base_n_filter * 2, kernel_size=3, stride=2, padding=1,
                                    bias=False)
         self.norm_lrelu_conv_c2 = self.norm_lrelu_conv(self.base_n_filter * 2, self.base_n_filter * 2)
         self.inorm3d_c2 = nn.InstanceNorm3d(self.base_n_filter * 2)
 
-        # Level 3 context pathway
         self.conv3d_c3 = nn.Conv3d(self.base_n_filter * 2, self.base_n_filter * 4, kernel_size=3, stride=2, padding=1,
                                    bias=False)
         self.norm_lrelu_conv_c3 = self.norm_lrelu_conv(self.base_n_filter * 4, self.base_n_filter * 4)
         self.inorm3d_c3 = nn.InstanceNorm3d(self.base_n_filter * 4)
 
-        # Level 4 context pathway
         self.conv3d_c4 = nn.Conv3d(self.base_n_filter * 4, self.base_n_filter * 8, kernel_size=3, stride=2, padding=1,
                                    bias=False)
         self.norm_lrelu_conv_c4 = self.norm_lrelu_conv(self.base_n_filter * 8, self.base_n_filter * 8)
         self.inorm3d_c4 = nn.InstanceNorm3d(self.base_n_filter * 8)
 
-        # Level 5 context pathway, level 0 localization pathway
         self.conv3d_c5 = nn.Conv3d(self.base_n_filter * 8, self.base_n_filter * 16, kernel_size=3, stride=2, padding=1,
                                    bias=False)
         self.norm_lrelu_conv_c5 = self.norm_lrelu_conv(self.base_n_filter * 16, self.base_n_filter * 16)
@@ -55,28 +50,24 @@ class UNet3D(nn.Module):
                                    bias=False)
         self.inorm3d_l0 = nn.InstanceNorm3d(self.base_n_filter * 8)
 
-        # Level 1 localization pathway
         self.conv_norm_lrelu_l1 = self.conv_norm_lrelu(self.base_n_filter * 16, self.base_n_filter * 16)
         self.conv3d_l1 = nn.Conv3d(self.base_n_filter * 16, self.base_n_filter * 8, kernel_size=1, stride=1, padding=0,
                                    bias=False)
         self.norm_lrelu_upscale_conv_norm_lrelu_l1 = self.norm_lrelu_upscale_conv_norm_lrelu(self.base_n_filter * 8,
                                                                                              self.base_n_filter * 4)
 
-        # Level 2 localization pathway
         self.conv_norm_lrelu_l2 = self.conv_norm_lrelu(self.base_n_filter * 8, self.base_n_filter * 8)
         self.conv3d_l2 = nn.Conv3d(self.base_n_filter * 8, self.base_n_filter * 4, kernel_size=1, stride=1, padding=0,
                                    bias=False)
         self.norm_lrelu_upscale_conv_norm_lrelu_l2 = self.norm_lrelu_upscale_conv_norm_lrelu(self.base_n_filter * 4,
                                                                                              self.base_n_filter * 2)
 
-        # Level 3 localization pathway
         self.conv_norm_lrelu_l3 = self.conv_norm_lrelu(self.base_n_filter * 4, self.base_n_filter * 4)
         self.conv3d_l3 = nn.Conv3d(self.base_n_filter * 4, self.base_n_filter * 2, kernel_size=1, stride=1, padding=0,
                                    bias=False)
         self.norm_lrelu_upscale_conv_norm_lrelu_l3 = self.norm_lrelu_upscale_conv_norm_lrelu(self.base_n_filter * 2,
                                                                                              self.base_n_filter)
 
-        # Level 4 localization pathway
         self.conv_norm_lrelu_l4 = self.conv_norm_lrelu(self.base_n_filter * 2, self.base_n_filter * 2)
         self.conv3d_l4 = nn.Conv3d(self.base_n_filter * 2, self.n_classes, kernel_size=1, stride=1, padding=0,
                                    bias=False)
@@ -209,7 +200,3 @@ class UNet3D(nn.Module):
         out = out_pred + ds1_ds2_sum_upscale_ds3_sum_upscale
         seg_layer = out
         return seg_layer
-
-
-def passthrough(x, **kwargs):
-    return x
