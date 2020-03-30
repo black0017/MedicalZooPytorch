@@ -19,6 +19,23 @@ def save_checkpoint(state, is_best, path, prefix, filename='checkpoint.pth.tar')
         shutil.copyfile(name, prefix_save + '_BEST.pth.tar')
 
 
+def save_model(model, args, val_stats, epoch, best_pred_loss):
+    dice_loss = val_stats[0]
+    is_best = False
+    if dice_loss < best_pred_loss:
+        is_best = True
+        best_pred_loss = dice_loss
+        save_checkpoint({'epoch': epoch,
+                         'state_dict': model.state_dict(),
+                         'best_prec1': best_pred_loss},
+                        is_best, args.save, args.model + "_best")
+    elif epoch % 5 == 0:
+        save_checkpoint({'epoch': epoch,
+                         'state_dict': model.state_dict(),
+                         'best_prec1': best_pred_loss},
+                        is_best, args.save, args.model + "_epoch_" + str(epoch))
+
+
 def make_dirs(path):
     if os.path.exists(path):
         shutil.rmtree(path)
@@ -90,51 +107,68 @@ def write_train_val_score(writer, epoch, train_stats, val_stats):
     return
 
 
-def visualize_no_overlap(args, input_tuple, affine, model, epoch, dim, writer, classes=4):
+def visualize_no_overlap(args, full_volume, affine, model, epoch, dim, writer):
     """
     this function will produce NON-overlaping  sub-volumes prediction
     that produces full 3d medical image
     compare some slices with ground truth
-    :param input_tuple: t1, t2, segment
+    :param full_volume: t1, t2, segment
     :param dim: (d1,d2,d3))
     :return: 3d reconstructed volume
     """
-    ## TODO generalize function - currently in CPU due to memory
-    model.eval()
-    model = model.cpu()
-    t1, t2, segment_map = input_tuple
-    t1 = t1.cpu()
-    t2 = t2.cpu()
-    segment_map = segment_map.cpu()
+    print(full_volume[0].shape)
+    _ , slices, height, width = full_volume[0].shape
 
-    B, S, H, W = t1.shape
+    ## TODO generalize function - currently in CPU due to memory problems
+    args.cuda = False
+    classes = args.classes
+    model = model.eval()
+    if not args.cuda:
+        model = model.cpu()
 
-    ### Create sub-volumes
-    img_t1 = t1.view(-1, dim[0], dim[1], dim[2])
-    img_t2 = t2.view(-1, dim[0], dim[1], dim[2])
+    input_tensor, segment_map = create_3d_subvol(args, full_volume, dim)
 
-    sub_volumes = len(img_t1)
-
+    sub_volumes = input_tensor.shape[0]
     predictions = torch.tensor([]).cpu()
+
     # TODO generalize
+
     for i in range(sub_volumes):
-        if args.inChannels == 2:
-            input_tensor = torch.cat((img_t1[i].unsqueeze(0).unsqueeze(0), img_t2[i].unsqueeze(0).unsqueeze(0)), dim=1)
-        else:
-            input_tensor = img_t1[i].unsqueeze(0).unsqueeze(0)
-
-        input_tensor = input_tensor.cpu()
-
         predicted = model(input_tensor).cpu()
         predictions = torch.cat((predictions, predicted))
 
-    predictions = predictions.view(-1, classes, S, H, W).detach()
-    path_2d_fig = args.save + '/' + 'epoch__' + str(epoch).zfill(4) + '.png'
-    create_2d_views(predictions, segment_map, epoch, writer, path_2d_fig)
+    predictions = predictions.view(-1, classes, slices, height, width).detach()
+
+    save_path_2d_fig = args.save + '/' + 'epoch__' + str(epoch).zfill(4) + '.png'
+    create_2d_views(predictions, segment_map, epoch, writer, save_path_2d_fig)
 
     # TODO test save
-    # save_path = args.save + '/Pred_volume_epoch_' + str(epoch)
-    # save_3d_vol(predictions, affinne, path):
+    save_path = args.save + '/Pred_volume_epoch_' + str(epoch)
+    save_3d_vol(predictions, affine, save_path)
+
+
+def create_3d_subvol(args, full_volume, dim):
+    if args.inChannels == 3:
+        img_1, img_2, img_3, target = full_volume
+        print(img_1.shape)
+
+        img_1 = torch.squeeze(img_1, dim=0).view(-1, dim[0], dim[1], dim[2])
+        img_2 = img_2.view(-1, dim[0], dim[1], dim[2])
+        img_3 = img_3.view(-1, dim[0], dim[1], dim[2])
+        input_tensor = torch.stack((img_1, img_2, img_3), dim=1)
+
+    elif args.inChannels == 2:
+        img_1, img_2, target = full_volume
+
+        img_1 = img_1.view(-1, dim[0], dim[1], dim[2])
+        img_2 = img_2.view(-1, dim[0], dim[1], dim[2])
+        input_tensor = torch.stack((img_1, img_2), dim=1)
+
+    elif args.inChannels == 1:
+        img_t1, _, target = full_volume
+        input_tensor = torch.unsqueeze(img_t1, dim=1)
+
+    return input_tensor, target
 
 
 def create_2d_views(predictions, segment_map, epoch, writer, path_to_save):
@@ -190,9 +224,9 @@ def create_2d_views(predictions, segment_map, epoch, writer, path_to_save):
 
 
 # Todo  test!
-def save_3d_vol(predictions, affinne, save_path):
+def save_3d_vol(predictions, affine, save_path):
     # np.save(save_path+'.npy', predictions)
-    pred_nifti_img = nib.Nifti1Image(predictions, affinne)
+    pred_nifti_img = nib.Nifti1Image(predictions, affine)
     nib.save(pred_nifti_img, save_path + '.nii.gz')
 
 
