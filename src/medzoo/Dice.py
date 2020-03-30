@@ -1,18 +1,21 @@
 import torch.nn as nn
 import torch
 
+
 class DiceLoss(nn.Module):
-    """Computes multi channel Dice Loss
-     The output from the network during training is assumed to be un-normalized probabilities
+    """
+    Computes multi channel Dice Loss
+    The output from the network during training is assumed to be un-normalized probabilities
     """
 
-    def __init__(self, all_classes=4, epsilon=1e-5, sigmoid_normalization=True, desired_classes=0):
+    def __init__(self, all_classes=4, desired_classes=0, epsilon=1e-5, sigmoid_normalization=True, ):
         super(DiceLoss, self).__init__()
         self.epsilon = epsilon
         self.ignore = False
         self.all_classes = all_classes
         self.desired_classes = desired_classes
         self.flag = (desired_classes != 0)
+        print(self.flag)
 
         if sigmoid_normalization:
             self.normalization = nn.Sigmoid()
@@ -34,7 +37,7 @@ class DiceLoss(nn.Module):
         inp_shape = input.size()  # 4D input image (NxDxHxW)
         src = input.unsqueeze(desired_class_dimension)
 
-        # creates desired shape 5D input image (NxCxDxHxW) in a list
+        # Creates desired shape 5D input image (NxCxDxHxW) in a list
         out_shape_list = list(inp_shape)
         out_shape_list.insert(desired_class_dimension, self.all_classes)
         desired_shape = tuple(out_shape_list)
@@ -45,30 +48,29 @@ class DiceLoss(nn.Module):
             target = target.clone()[:, 0:self.desired_classes, ...]
         return target
 
-    def compute_per_channel_dice(self, input, target):
+    def compute_per_channel_dice(self, prediction, target):
         epsilon = 1e-5
-        batch, classes, d1, d2, d3 = input.shape
+        batch, classes, d1, d2, d3 = prediction.shape
         target = self.expand_as_one_hot(target.long())
 
-        assert input.size() == target.size(), "'input' and 'target' must have the same shape"
+        assert prediction.size() == target.size(), " 'prediction' and 'target' must have the same shape"
 
-        input = input.view(batch, classes, -1)
+        prediction = prediction.view(batch, classes, -1)
         target = target.view(batch, classes, -1).float()
 
         # Compute per channel Dice Coefficient
-        intersect = (input * target).sum(2)
-        denominator = (input + target).sum(2)
+        intersect = (prediction * target).sum(2)
+        denominator = (prediction + target).sum(2)
         results = 2. * intersect / denominator.clamp(min=epsilon)
         return results
 
-    def forward(self, input, target):
-        input = self.normalization(input)
-        per_channel_dice = self.compute_per_channel_dice(input, target)
+    def forward(self, prediction, target):
+        prediction = self.normalization(prediction)
+        per_channel_dice = self.compute_per_channel_dice(prediction, target)
         total_loss = torch.mean(1. - per_channel_dice)
 
-        #TODO test
+        # TODO test
         with torch.no_grad():
             temp = per_channel_dice.cpu().detach().clone()
-            scores = torch.mean(temp, dim=0).numpy()  # mean batch score
-
+            scores = torch.mean(temp, dim=0).numpy()  # mean batch score statistics
         return total_loss, scores

@@ -4,31 +4,30 @@ import torch.optim as optim
 from .Densenet3D import DualPathDenseNet, DualSingleDensenet, SinglePathDenseNet
 from .Unet3D import UNet3D
 from .Vnet import VNet, VNetLight
-from .HyperDensenet import HyperDenseNet,HyperDenseNet_2Mod
 from .Dice import DiceLoss
-from .ResNet3D_VAE import *
 
 
-def create_model(model_name, optimizer_name, lr, in_channels):
+def create_model(args):
+    model_name = args.model
+    optimizer_name = args.opt
+    lr = args.lr
+    in_channels = args.inChannels
+    num_classes = args.classes
     weight_decay = 0.0000000005
     print("Building Model . . . . . . . ." + model_name)
 
     if model_name == 'VNET2':
-        model = VNetLight(elu=False, nll=False)
+        model = VNetLight(in_channels=in_channels, elu=False, nll=False, num_classes=num_classes)
     elif model_name == 'VNET':
-        model = VNet(in_channels=in_channels, elu=False, nll=False)
+        model = VNet(in_channels=in_channels, elu=False, nll=False, num_classes=num_classes)
     elif model_name == 'UNET3D':
-        model = UNet3D(in_channels=in_channels, n_classes=4)
+        model = UNet3D(in_channels=in_channels, n_classes=num_classes, base_n_filter=8)
     elif model_name == 'DENSENET1':
-        model = SinglePathDenseNet(input_channels=in_channels, num_classes=4)
+        model = SinglePathDenseNet(input_channels=in_channels, num_classes=num_classes)
     elif model_name == 'DENSENET2':
-        model = DualPathDenseNet(input_channels=in_channels, num_classes=4)
+        model = DualPathDenseNet(input_channels=in_channels, num_classes=num_classes)
     elif model_name == 'DENSENET3':
-        model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=4)
-    elif model_name == 'HYPER1':
-        model = HyperDenseNet_2Mod(nClasses=4)
-    elif model_name == 'HYPER':
-        model = HyperDenseNet(nClasses=4)
+        model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=num_classes)
 
     print('Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))

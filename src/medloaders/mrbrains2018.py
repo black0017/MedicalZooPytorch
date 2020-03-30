@@ -8,13 +8,13 @@ import src.utils as utils
 
 
 class MRIDatasetMRBRAINS2018(Dataset):
-    def __init__(self, mode, dataset_path='../datasets', dim=(32, 32, 32), fold_id=1, classes=4, samples=1000,
+    def __init__(self, mode, dataset_path='../datasets', classes=4, dim=(32, 32, 32), fold_id=0, samples=1000,
                  save=True):
         self.mode = mode
         self.root = dataset_path
+        self.classes = classes
         self.training_path = self.root + '/mrbrains_2018/training'
         self.dirs = os.listdir(self.training_path)
-        self.CLASSES = classes
         self.samples = samples
         self.save = save
         self.list = []
@@ -42,12 +42,12 @@ class MRIDatasetMRBRAINS2018(Dataset):
                 self.list_flair.append(path_img + "FLAIR.nii.gz")
                 self.list_reg_ir.append(path_img + "reg_IR.nii.gz")
                 self.list_reg_t1.append(path_img + "reg_T1.nii.gz")
+                self.get_viz_set()
             elif str(counter) != fold_id and mode == "train":
                 self.labels.append(path_seg + "/segm.nii.gz")
                 self.list_flair.append(path_img + "FLAIR.nii.gz")
                 self.list_reg_ir.append(path_img + "reg_IR.nii.gz")
                 self.list_reg_t1.append(path_img + "reg_T1.nii.gz")
-
         self.affine = img_loader.load_affine_matrix(self.list_reg_t1[0])
         self.get_samples()
 
@@ -63,21 +63,21 @@ class MRIDatasetMRBRAINS2018(Dataset):
         else:
             return self.list[index]
 
-    def fix_seg_map(self, segmentation_map, classes=4):
+
+    def fix_seg_map(self, segmentation_map):
         GM = 1
         WM = 2
         CSF = 3
-        OTHER = 7
         segmentation_map[segmentation_map == 1] = GM
         segmentation_map[segmentation_map == 2] = GM
         segmentation_map[segmentation_map == 3] = WM
         segmentation_map[segmentation_map == 4] = WM
         segmentation_map[segmentation_map == 5] = CSF
         segmentation_map[segmentation_map == 6] = CSF
-        segmentation_map[segmentation_map >= 7] = OTHER
         return segmentation_map
 
     def get_samples(self):
+        # threshhold for rejecting empty air sub volumes that make training instable
         TH = 10
         total = len(self.labels)
         print('Mode: ' + self.mode + ' Subvolume samples to generate: ', self.samples, ' Volumes: ', total)
@@ -98,7 +98,9 @@ class MRIDatasetMRBRAINS2018(Dataset):
                     label_path = self.labels[random_index]
                     segmentation_map = img_loader.load_medical_image(label_path, crop_size=self.crop_dim,
                                                                      crop=crop, type='label')
-                    segmentation_map = self.fix_seg_map(segmentation_map)
+
+                    if self.classes == 4:
+                        segmentation_map = self.fix_seg_map(segmentation_map)
 
                     if segmentation_map.sum() > TH:
                         img_t1_tensor = img_loader.load_medical_image(path_reg_t1, crop_size=self.crop_dim,
@@ -137,14 +139,17 @@ class MRIDatasetMRBRAINS2018(Dataset):
         Returns total 3d input volumes(t1 and t2) and segmentation maps
         3d total vol shape : torch.Size([1, 144, 192, 256])
         """
-        path_t1 = self.list_reg_t1[self.fold]
-        path_ir = self.list_ir[self.fold]
-        path_flair = self.list_flair[self.fold]
-        label_path = self.labels[self.fold]
+        path_t1 = self.list_reg_t1[0]
+        path_ir = self.list_reg_ir[0]
+        path_flair = self.list_flair[0]
+        label_path = self.labels[0]
         segmentation_map = img_loader.load_medical_image(label_path, type="label", viz3d=True)
         img_t1_tensor = img_loader.load_medical_image(path_t1, type="T1", viz3d=True)
         img_ir_tensor = img_loader.load_medical_image(path_ir, type="T2", viz3d=True)
         img_flair_tensor = img_loader.load_medical_image(path_flair, type="FLAIR", viz3d=True)
-        segmentation_map = self.fix_seg_map(segmentation_map)
+
+        if self.classes == 4:
+            segmentation_map = self.fix_seg_map(segmentation_map)
+
         self.full_volume = tuple((img_t1_tensor, img_ir_tensor, img_flair_tensor, segmentation_map))
         print("Full validation volume has been generated")

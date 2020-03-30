@@ -7,7 +7,7 @@ class UNet3D(nn.Module):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, n_classes, base_n_filter=16):
+    def __init__(self, in_channels, n_classes, base_n_filter=8):
         super(UNet3D, self).__init__()
         self.in_channels = in_channels
         self.n_classes = n_classes

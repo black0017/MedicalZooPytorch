@@ -97,10 +97,10 @@ class UpTransition(nn.Module):
 
 
 class OutputTransition(nn.Module):
-    def __init__(self, inChans, classes, elu, nll):
+    def __init__(self, in_channels, classes, elu, nll):
         super(OutputTransition, self).__init__()
         self.classes = classes
-        self.conv1 = nn.Conv3d(inChans, classes, kernel_size=5, padding=2)
+        self.conv1 = nn.Conv3d(in_channels, classes, kernel_size=5, padding=2)
         self.bn1 = torch.nn.BatchNorm3d(classes)
 
         self.conv2 = nn.Conv3d(classes, classes, kernel_size=1)
@@ -108,20 +108,12 @@ class OutputTransition(nn.Module):
         if nll:
             self.softmax = F.log_softmax
         else:
-            # self.softmax = F.softmax
             self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         # convolve 32 down to channels as the desired classes
         out = self.relu1(self.bn1(self.conv1(x)))
         out = self.conv2(out)
-
-        # make channels the last axis
-        # out = out.permute(0, 2, 3, 4, 1).contiguous()
-        # flatten
-        # out = out.view(out.numel() // self.classes, self.classes) # out.view(-1,self.classes)
-        # out = self.softmax(out)
-        # treat channel 0 as the predicted output
         return out
 
 
@@ -130,7 +122,7 @@ class VNet(nn.Module):
     Implementations based on the Vnet paper: https://arxiv.org/abs/1606.04797
     """
 
-    def __init__(self, elu=True, nll=False, in_channels=1):
+    def __init__(self, elu=True, nll=False, in_channels=1, num_classes=4):
         super(VNet, self).__init__()
         self.in_tr = InputTransition(in_channels, elu=elu)
         self.down_tr32 = DownTransition(16, 1, elu)
@@ -141,7 +133,7 @@ class VNet(nn.Module):
         self.up_tr128 = UpTransition(256, 128, 2, elu, dropout=True)
         self.up_tr64 = UpTransition(128, 64, 1, elu)
         self.up_tr32 = UpTransition(64, 32, 1, elu)
-        self.out_tr = OutputTransition(32, 4, elu, nll)
+        self.out_tr = OutputTransition(32, num_classes, elu, nll)
 
     def forward(self, x):
         out16 = self.in_tr(x)
@@ -159,64 +151,28 @@ class VNet(nn.Module):
 
 class VNetLight(nn.Module):
     """
-    A lighter version of Vnet that skips down_tr256 and up_tr256 in oreder to redice space complexity
+    A lighter version of Vnet that skips down_tr256 and up_tr256 in oreder to reduce time and space complexity
     """
 
-    def __init__(self, elu=True, nll=False):
+    def __init__(self, elu=True, nll=False, in_channels=1, num_classes=4):
         super(VNetLight, self).__init__()
         self.debug = False
-        self.in_tr = InputTransition(elu)
+        self.in_tr = InputTransition(in_channels, elu)
         self.down_tr32 = DownTransition(16, 1, elu)
         self.down_tr64 = DownTransition(32, 2, elu)
         self.down_tr128 = DownTransition(64, 3, elu, dropout=True)
         self.up_tr128 = UpTransition(128, 128, 2, elu, dropout=True)
         self.up_tr64 = UpTransition(128, 64, 1, elu)
         self.up_tr32 = UpTransition(64, 32, 1, elu)
-        self.out_tr = OutputTransition(32, 4, elu, nll)
+        self.out_tr = OutputTransition(32, num_classes, elu, nll)
 
     def forward(self, x):
         out16 = self.in_tr(x)
-        if self.debug:
-            print("InputTransition DONE")
-            print("out16", out16.shape)
-
         out32 = self.down_tr32(out16)
-        if self.debug:
-            print("DownTransition DONE - 1")
-            print("out32", out32.shape)
-
         out64 = self.down_tr64(out32)
-
-        if self.debug:
-            print("DownTransition DONE - 2")
-            print("out64", out64.shape)
-
         out128 = self.down_tr128(out64)
-
-        if self.debug:
-            print("DownTransition DONE - 3")
-            print("out128", out128.shape)
-
         out = self.up_tr128(out128, out64)
-
-        if self.debug:
-            print("up Transition DONE - 6")
-            print("out", out.shape)
-
         out = self.up_tr64(out, out32)
-
-        if self.debug:
-            print("up Transition DONE - 7")
-            print("out", out.shape)
-
         out = self.up_tr32(out, out16)
-
-        if self.debug:
-            print("up Transition DONE - 8")
-            print("out", out.shape)
-
         out = self.out_tr(out)
-
-        if self.debug:
-            print("Final")
         return out
