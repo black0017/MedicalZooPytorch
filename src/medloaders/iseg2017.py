@@ -123,6 +123,7 @@ class MRIDatasetISEG2017(Dataset):
                     break
 
             if self.save:
+
                 filename = self.sub_vol_path + 'id_' + str(random_index) + '_s_' + str(i) + '_'
                 f_t1 = filename + 'T1.npy'
                 f_t2 = filename + 'T2.npy'
@@ -146,11 +147,42 @@ class MRIDatasetISEG2017(Dataset):
         label_path = self.labels[TEST_SUBJECT]
 
         segmentation_map = img_loader.load_medical_image(label_path, viz3d=True)
+
         img_t1_tensor = img_loader.load_medical_image(path_T1, type="T1", viz3d=True)
         img_t2_tensor = img_loader.load_medical_image(path_T2, type="T2", viz3d=True)
         segmentation_map = self.fix_seg_map(segmentation_map)
-        print("Full validation volume has been generated")
-        self.full_volume = tuple((img_t1_tensor, img_t2_tensor, segmentation_map))
+
+
+
+        ### TO DO SAVE FULL VOLUME AS numpy
+
+        if self.save:
+            self.full_volume = []
+
+            segmentation_map = segmentation_map.reshape(-1, self.crop_size[0], self.crop_size[1], self.crop_size[2])
+            img_t1_tensor = img_t1_tensor.reshape(-1, self.crop_size[0], self.crop_size[1], self.crop_size[2])
+            img_t2_tensor = img_t1_tensor.reshape(-1, self.crop_size[0], self.crop_size[1], self.crop_size[2])
+            self.sub_vol_path = self.root + '/iseg_2017/generated/visualize/'
+            utils.make_dirs(self.sub_vol_path)
+
+
+
+            for i in range(len(img_t1_tensor)):
+
+                filename = self.sub_vol_path + 'id_' + str(TEST_SUBJECT) + '_VIZ_' + str(i) + '_'
+                f_t1 = filename + 'T1.npy'
+                f_t2 = filename + 'T2.npy'
+                f_seg = filename + 'seg.npy'
+
+                np.save(f_t1, img_t1_tensor[i])
+                np.save(f_t2, img_t2_tensor[i])
+
+                np.save(f_seg, segmentation_map[i])
+                self.full_volume.append(tuple((f_t1, f_t2, f_seg)))
+            print("Full validation volume has been generated")
+        else:
+            self.full_volume = tuple((img_t1_tensor, img_t2_tensor, segmentation_map))
+
 
     def fix_seg_map(self, segmentation_map):
         # visual labels of ISEG-2017
