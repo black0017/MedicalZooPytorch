@@ -12,18 +12,20 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 ## New released cool features (03/2020)
 
 1. Batch size training support
-2. On the fly volume vizualization
+2. On the fly 3D total volume vizualization
 3. Tensorboard and PyTorch 1.4 support to track training progress
 3. Code cleanup and package creation
 4. Offline sub-volume generation 
 5. Add hyperdensenet and 3dresnet-vae
 6. Fix mrbrains dataloader
+7. Add MICCAI 2019 gleason challenge
+8. Add confusion matrix support for understaning training dynamics
 
 ## Top priorities
 
 1. Fix Brats2018 dataloaders
-2. Add hyper densenet and other architectures
-3. Save produced 3d-segmenentation as medical images 
+2. Test new architectures
+3. Save produced 3d-segmenentation as medical images files 
 
 ## Implemented dataloaders
 [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
