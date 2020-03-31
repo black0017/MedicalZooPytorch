@@ -5,6 +5,8 @@ from .Densenet3D import DualPathDenseNet, DualSingleDensenet, SinglePathDenseNet
 from .Unet3D import UNet3D
 from .Vnet import VNet, VNetLight
 from .Dice import DiceLoss
+from .Dice2D import DiceLoss2D
+from .Unet2D import Unet
 
 
 def create_model(args):
@@ -28,6 +30,8 @@ def create_model(args):
         model = DualPathDenseNet(input_channels=in_channels, num_classes=num_classes)
     elif model_name == 'DENSENET3':
         model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=num_classes)
+    elif model_name == "UNET2D":
+        model = Unet(in_channels, num_classes)
 
     print('Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))

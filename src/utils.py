@@ -5,11 +5,20 @@ import shutil
 import matplotlib.pyplot as plt
 import nibabel as nib
 import numpy as np
+import random
 
 
 def datestr():
     now = time.gmtime()
     return '{}{:02}{:02}_{:02}{:02}'.format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
+
+
+def shuffle_lists(a, b, seed=777):
+    c = list(zip(a, b))
+    random.seed(seed)
+    random.shuffle(c)
+    a, b = zip(*c)
+    return a, b
 
 
 def save_checkpoint(state, is_best, path, prefix, filename='checkpoint.pth.tar'):
@@ -20,8 +29,7 @@ def save_checkpoint(state, is_best, path, prefix, filename='checkpoint.pth.tar')
         shutil.copyfile(name, prefix_save + '_BEST.pth.tar')
 
 
-def save_model(model, args, val_stats, epoch, best_pred_loss):
-    dice_loss = val_stats[0]
+def save_model(model, args, dice_loss, epoch, best_pred_loss):
     is_best = False
     if dice_loss < best_pred_loss:
         is_best = True
@@ -35,6 +43,7 @@ def save_model(model, args, val_stats, epoch, best_pred_loss):
                          'state_dict': model.state_dict(),
                          'best_prec1': best_pred_loss},
                         is_best, args.save, args.model + "_epoch_" + str(epoch))
+    return best_pred_loss
 
 
 def make_dirs(path):
@@ -152,30 +161,28 @@ def visualize_offline(args, epoch, model, full_volume, affine, writer, criterion
     model.eval()
     test_loss = 0
 
-
     classes, slices, height, width = 4, 144, 192, 256
 
     predictions = torch.tensor([]).cpu()
     segment_map = torch.tensor([]).cpu()
     for batch_idx, input_tuple in enumerate(full_volume):
         with torch.no_grad():
-
             t1_path, t2_path, seg_path = input_tuple
 
             img_t1, img_t2, sub_segment_map = torch.tensor(np.load(t1_path), dtype=torch.float32)[None, None], \
-                                          torch.tensor(np.load(t2_path), dtype=torch.float32)[None, None], torch.tensor(
-                np.load(seg_path), dtype=torch.float32)[None]
+                                              torch.tensor(np.load(t2_path), dtype=torch.float32)[None, None], \
+                                              torch.tensor(
+                                                  np.load(seg_path), dtype=torch.float32)[None]
 
             input_tensor, sub_segment_map = prepare_input(args, (img_t1, img_t2, sub_segment_map))
             input_tensor.requires_grad = False
 
             predicted = model(input_tensor).cpu()
             predictions = torch.cat((predictions, predicted))
-            segment_map = torch.cat((segment_map,sub_segment_map.cpu()))
-
+            segment_map = torch.cat((segment_map, sub_segment_map.cpu()))
 
     predictions = predictions.view(-1, classes, slices, height, width).detach()
-    segment_map = segment_map.view(-1,  slices, height, width).detach()
+    segment_map = segment_map.view(-1, slices, height, width).detach()
     save_path_2d_fig = args.save + '/' + 'epoch__' + str(epoch).zfill(4) + '.png'
 
     create_2d_views(predictions, segment_map, epoch, writer, save_path_2d_fig)
@@ -183,8 +190,6 @@ def visualize_offline(args, epoch, model, full_volume, affine, writer, criterion
     # TODO test save
     save_path = args.save + '/Pred_volume_epoch_' + str(epoch)
     save_3d_vol(predictions, affine, save_path)
-
-
 
     return test_loss
 
@@ -295,3 +300,82 @@ def prepare_input(args, input_tuple):
         input_tensor, target = input_tensor.cuda(), target.cuda()
 
     return input_tensor, target
+
+
+# TODO test!!!!!!
+# conf_matrix = tnt.meter.ConfusionMeter(classes)
+# conf_matrix.add(y_pred.detach(), y_true)
+# plot_confusion_matrix(conf_matrix.conf, list_keys, normalize=False, title="Confusion Matrix TEST - Last epoch")
+def plot_confusion_matrix(cm, target_names,
+                          title='Confusion matrix',
+                          cmap=None,
+                          normalize=True):
+    import itertools
+
+    accuracy = np.trace(cm) / float(np.sum(cm))
+    misclass = 1 - accuracy
+
+    if cmap is None:
+        cmap = plt.get_cmap('Blues')
+
+    plt.figure(figsize=(16, 16))
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+
+    if target_names is not None:
+        tick_marks = np.arange(len(target_names))
+        plt.xticks(tick_marks, target_names, rotation=45)
+        plt.yticks(tick_marks, target_names)
+
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+
+    thresh = cm.max() / 1.5 if normalize else cm.max() / 2
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        if normalize:
+            plt.text(j, i, "{:0.4f}".format(cm[i, j]),
+                     horizontalalignment="center",
+                     color="white" if cm[i, j] > thresh else "black")
+        else:
+            plt.text(j, i, "{:,}".format(cm[i, j]),
+                     horizontalalignment="center",
+                     color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label\naccuracy={:0.4f}; misclass={:0.4f}'.format(accuracy, misclass))
+    plt.savefig(title + str(accuracy) + '.png')
+    plt.close('all')
+    # TODO save to tensorboard!!!!!!!
+
+
+def expand_as_one_hot(target, classes):
+    shape = target.size()
+    shape = list(shape)
+    shape.insert(1, classes)
+    shape = tuple(shape)
+    src = target.unsqueeze(1)
+    return torch.zeros(shape).to(target.device).scatter_(1, src, 1).squeeze(0)
+
+
+def add_conf_matrix(target, pred, conf_matrix):
+    batch_size = pred.shape[0]
+    classes = pred.shape[1]
+    target = target.detach().cpu().long()
+    target = expand_as_one_hot(target, classes)
+    if batch_size == 1:
+        tar = target.view(classes, -1).permute(1, 0)
+        pr = pred.view(classes, -1).permute(1, 0)
+        # Accepts N x K tensors where N is the number of voxels and K the number of classes
+        conf_matrix.add(pr, tar)
+    else:
+
+        for i in range(batch_size):
+            tar = target[i, ...]
+            pr = pred[i, ...]
+            tar = tar.view(classes, -1).permute(1, 0)
+            pr = pr.view(classes, -1).permute(1, 0)
+            conf_matrix.add(pr, tar)
+    return conf_matrix

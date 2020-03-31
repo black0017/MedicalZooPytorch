@@ -18,27 +18,22 @@ def main():
     args = get_arguments()
     utils.make_dirs(args.save)
     train_f, val_f = utils.create_stats_files(args.save)
-    name_model = args.model + "_" + args.dataset_name + "_" +  utils.datestr()
+    name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     best_prec1 = 100.
-    DIM = (128, 128, 32)
-    samples_train = 30
-    samples_val = 30
+    samples_train = 100
+    samples_val = 10
 
-    training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(
-        dataset_name=args.dataset_name,
-        classes=args.classes,
-        path='.././datasets', dim=DIM,
-        batch=args.batchSz,
-        fold_id=args.fold_id,
-        samples_train=samples_train,
-        samples_val=samples_val)
+    training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
+                                                                                               path='.././datasets',
+                                                                                               samples_train=samples_train,
+                                                                                               samples_val=samples_val)
 
     model, optimizer = medzoo.create_model(args)
 
     # we want to train in for labels 0 to 8 (9 classes)
-    criterion = medzoo.DiceLoss(all_classes=args.classes, desired_classes=9)
+    criterion = medzoo.DiceLoss(all_classes=11, desired_classes=args.classes)
 
     if args.resume:
         if os.path.isfile(args.resume):
@@ -67,9 +62,9 @@ def main():
 
         # TODO - check memory issues
         # if epoch % 5 == 0:
-            #utils.visualize_no_overlap(args, full_volume, affine, model, epoch, DIM, writer)
+        # utils.visualize_no_overlap(args, full_volume, affine, model, epoch, DIM, writer)
 
-        utils.save_model(model, args, val_stats, epoch, best_prec1)
+        utils.save_model(model, args, val_stats[0], epoch, best_prec1)
 
     train_f.close()
     val_f.close()
@@ -77,9 +72,10 @@ def main():
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=4)
+    parser.add_argument('--batchSz', type=int, default=8)
     parser.add_argument('--dataset_name', type=str, default="mrbrains")
-    parser.add_argument('--classes', type=int, default=11)
+    parser.add_argument('--dim', nargs="+", type=int, default=(32, 32, 32))
+    parser.add_argument('--classes', type=int, default=9)
     parser.add_argument('--nEpochs', type=int, default=250)
     parser.add_argument('--inChannels', type=int, default=3)
     parser.add_argument('--inModalities', type=int, default=3)
@@ -89,7 +85,7 @@ def get_arguments():
 
     parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
 
-    parser.add_argument('--lr', default=1e-3, type=float,
+    parser.add_argument('--lr', default=1e-4, type=float,
                         help='learning rate (default: 1e-3)')
 
     parser.add_argument('--cuda', action='store_true', default=True)

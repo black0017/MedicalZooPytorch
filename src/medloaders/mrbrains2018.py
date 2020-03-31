@@ -63,7 +63,6 @@ class MRIDatasetMRBRAINS2018(Dataset):
         else:
             return self.list[index]
 
-
     def fix_seg_map(self, segmentation_map):
         GM = 1
         WM = 2
