@@ -30,16 +30,20 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
 
+[Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
+
 ## Implemented architectures
 [Densenet3D](https://arxiv.org/abs/1804.02967)
 
-[Unet3D](https://arxiv.org/abs/1606.06650)
+[U-Net3D](https://arxiv.org/abs/1606.06650)
 
 [Vnet](https://arxiv.org/abs/1606.04797)
 
 [Hyperdensenet](https://arxiv.org/abs/1804.02967)
 
 [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf)
+
+[U-Net2D](https://arxiv.org/abs/1505.04597 "official paper")
 
 ## Results
 
