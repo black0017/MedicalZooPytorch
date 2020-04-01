@@ -124,3 +124,11 @@ def display_status_8_classes(csv_file, epoch, statistics, partial_epoch=0,
 
     csv_file.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
     csv_file.flush()
+
+
+
+
+
+
+
+##### COVIDNET #############

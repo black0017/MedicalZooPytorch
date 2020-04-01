@@ -7,7 +7,7 @@ from .Vnet import VNet, VNetLight
 from .Dice import DiceLoss
 from .Dice2D import DiceLoss2D
 from .Unet2D import Unet
-
+from .COVIDNet import CovidNet
 
 def create_model(args):
     model_name = args.model
@@ -32,6 +32,9 @@ def create_model(args):
         model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=num_classes)
     elif model_name == "UNET2D":
         model = Unet(in_channels, num_classes)
+    elif model_name == "COVIDNET":
+        model = CovidNet(num_classes)
+
 
     print('Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))

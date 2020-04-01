@@ -27,7 +27,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 - [x] Fix Brats2018 dataloaders
 - [x] Test new architectures
 - [x] Minimal test pred example with pretrained models
-- [x] Save produced 3d-total-segmenentation as nifti files  
+- [x] Save produced 3d-total-segmenentation as nifti files
 - [ ] Test conf. matrix
 
 
@@ -50,6 +50,8 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf)
 
 [U-Net2D](https://arxiv.org/abs/1505.04597 "official paper")
+
+[COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf)
 
 ## Results
 
