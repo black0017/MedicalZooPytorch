@@ -29,9 +29,6 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 - [x] Minimal test pred example with pretrained models
 - [x] Save produced 3d-total-segmenentation as nifti files  
 - [ ] Test conf. matrix
-- [ ] Test 3d-Vizualization memory occupation
-- [ ] Tensorboard Logging
-- [ ] Smart sampling
 
 
 ## Implemented dataloaders
