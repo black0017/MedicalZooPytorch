@@ -22,10 +22,17 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 8. Add confusion matrix support for understaning training dynamics
 
 ## Top priorities
+- [ ] Unify/Generalize Train and Test functions
+- [x] Fix mrbrains dataloader(4 & 8 classes)
+- [x] Fix Brats2018 dataloaders
+- [x] Test new architectures
+- [x] Minimal test pred example with pretrained models
+- [x] Save produced 3d-total-segmenentation as nifti files  
+- [ ] Test conf. matrix
+- [ ] Test 3d-Vizualization memory occupation
+- [ ] Tensorboard Logging
+- [ ] Smart sampling
 
-1. Fix Brats2018 dataloaders
-2. Test new architectures
-3. Save produced 3d-segmenentation as medical images files 
 
 ## Implemented dataloaders
 [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
