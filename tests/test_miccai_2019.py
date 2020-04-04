@@ -3,8 +3,6 @@ MICCAI 2019 Medical Deep Learning 2D high resolution image segmentation project:
 MICCAI 2019 Prostate Cancer segmentation challenge
 Data can be downloaded from here: https://gleason2019.grand-challenge.org/
 
-
-proof of concept script.
 """
 import argparse
 import torch, os
@@ -17,13 +15,13 @@ import src.medloaders as medical_loaders
 import src.medzoo as medzoo
 import src.train as train
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
 torch.manual_seed(seed)
 
 
 # TODO train and evaluate will be generalized and added to src/train.py
-def train(args, epoch, model, trainLoader, optimizer, criterion, trainF):
+def train_old(args, epoch, model, trainLoader, optimizer, criterion, trainF):
     model.train()
     n_train = len(trainLoader.dataset)
     train_loss = 0
@@ -54,7 +52,7 @@ def train(args, epoch, model, trainLoader, optimizer, criterion, trainF):
     trainF.flush()
 
 
-def evaluate(args, epoch, model, val_generator, criterion, val_f):
+def evaluate_old(args, epoch, model, val_generator, criterion, val_f):
     import torchnet as tnt
     conf_matrix = tnt.meter.ConfusionMeter(7)
     list_keys = ["c1", "c2", "c3", "c4", "c5", "c6", "c7"]
@@ -69,7 +67,8 @@ def evaluate(args, epoch, model, val_generator, criterion, val_f):
             input_tensor, target = input_tensor.cuda(), target.cuda()
             output = model(input_tensor)
 
-            loss_dice, per_ch_score = criterion(output.squeeze(0), target)
+            # loss_dice, per_ch_score = criterion(output.squeeze(0), target)
+            loss_dice, per_ch_score = criterion(output, target)
             # Keep Training statistics
             dice_coeff = 100. * (1. - loss_dice.item())
             val_loss += loss_dice.item()
@@ -77,7 +76,7 @@ def evaluate(args, epoch, model, val_generator, criterion, val_f):
 
             conf_matrix = utils.add_conf_matrix(target.detach().cpu(), output.detach().cpu(), conf_matrix)
     title_name = args.save + "/Confusion Matrix Epoch_" + str(epoch) + '_score_'
-    utils.plot_confusion_matrix(conf_matrix.conf, list_keys, normalize=True,
+    utils.plot_confusion_matrix(conf_matrix.conf, list_keys, normalize=False,
                                 title=title_name)
 
     # Mean statistics
@@ -95,13 +94,12 @@ def main():
     utils.make_dirs(args.save)
     train_f, val_f = utils.create_stats_files(args.save)
 
-    # TODO add writer for training with src/train.py
-    # name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
-    # writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
+    name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
+    writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     best_pred = 1.01
-    samples_train = 2000
-    samples_val = 250
+    samples_train = 200
+    samples_val = 200
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets',
                                                                                                samples_train=samples_train,
@@ -115,9 +113,12 @@ def main():
         model = model.cuda()
 
     for epoch in range(1, args.nEpochs + 1):
-        train(args, epoch, model, training_generator, optimizer, criterion, train_f)
-        dice_loss = evaluate(args, epoch, model, val_generator, criterion, val_f)
-        best_pred = utils.save_model(model=model, args=args, dice_loss=dice_loss, epoch=epoch, best_pred_loss=best_pred)
+        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion, train_f, writer)
+        val_stats = train.test_dice(args, epoch, model, val_generator, criterion, val_f, writer)
+
+        utils.write_train_val_score(writer, epoch, train_stats, val_stats)
+        best_pred = utils.save_model(model=model, args=args, dice_loss=val_stats[0], epoch=epoch,
+                                     best_pred_loss=best_pred)
 
     train_f.close()
     val_f.close()
@@ -128,7 +129,7 @@ def get_arguments():
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="miccai2019")
     parser.add_argument('--nEpochs', type=int, default=100)
-    parser.add_argument('--dim', nargs="+", type=int, default=(512, 512))
+    parser.add_argument('--dim', nargs="+", type=int, default=(256, 256))
     parser.add_argument('--classes', type=int, default=7)
     parser.add_argument('--inChannels', type=int, default=3)
     parser.add_argument('--inModalities', type=int, default=1)

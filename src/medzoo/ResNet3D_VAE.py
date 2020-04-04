@@ -59,13 +59,13 @@ class BlueBlock(nn.Module):
         return self.conv(x)
 
 
-class UpBlock_1(nn.Module):
+class UpBlock1(nn.Module):
     """
     TODO fix transpose conv to double spatial dim
     """
 
     def __init__(self, in_channels, out_channels):
-        super(UpBlock_1, self).__init__()
+        super(UpBlock1, self).__init__()
         self.transp_conv = nn.ConvTranspose3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1, 1),
                                               stride=2, padding=1)
 
@@ -73,10 +73,10 @@ class UpBlock_1(nn.Module):
         return self.transp_conv(x)
 
 
-class UpBlock_2(nn.Module):
+class UpBlock2(nn.Module):
 
     def __init__(self, in_channels, out_channels):
-        super(UpBlock_2, self).__init__()
+        super(UpBlock2, self).__init__()
         self.conv_1 = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1, 1),
                                 stride=1)
         # self.up_sample_1 = nn.Upsample(scale_factor=2, mode="bilinear") # TODO currently not supported in PyTorch 1.4 :(
@@ -86,13 +86,20 @@ class UpBlock_2(nn.Module):
         return self.up_sample_1(self.conv_1(x))
 
 
+def reparametrize(mu, logvar):
+    std = torch.exp(0.5 * logvar)
+    eps = torch.randn_like(std)
+    return eps.mul(std).add_(mu)
+
+
 class ResNetEncoder(nn.Module):
-    def __init__(self, in_channels):
+    def __init__(self, in_channels, start_channels=32):
         super(ResNetEncoder, self).__init__()
-        self.start_channels = 32
-        self.down_channels_1 = 64
-        self.down_channels_2 = 128
-        self.down_channels_3 = 256
+
+        self.start_channels = start_channels
+        self.down_channels_1 = 2 * self.start_channels
+        self.down_channels_2 = 2 * self.down_channels_1
+        self.down_channels_3 = 2 * self.down_channels_2
 
         self.blue_1 = BlueBlock(in_channels=in_channels, out_channels=self.start_channels)
 
@@ -145,15 +152,15 @@ class Decoder(nn.Module):
         out_up_2_channels = int(out_up_1_channels / 2)
         out_up_3_channels = int(out_up_2_channels / 2)
 
-        self.up_1 = UpBlock_2(in_channels=in_channels, out_channels=out_up_1_channels)
+        self.up_1 = UpBlock2(in_channels=in_channels, out_channels=out_up_1_channels)
 
         self.green_1 = GreenBlock(in_channels=out_up_1_channels)
 
-        self.up_2 = UpBlock_2(in_channels=out_up_1_channels, out_channels=out_up_2_channels)
+        self.up_2 = UpBlock2(in_channels=out_up_1_channels, out_channels=out_up_2_channels)
 
         self.green_2 = GreenBlock(in_channels=out_up_2_channels)
 
-        self.up_3 = UpBlock_2(in_channels=out_up_2_channels, out_channels=out_up_3_channels)
+        self.up_3 = UpBlock2(in_channels=out_up_2_channels, out_channels=out_up_3_channels)
 
         self.green_3 = GreenBlock(in_channels=out_up_3_channels)
 
@@ -170,12 +177,6 @@ class Decoder(nn.Module):
         return y
 
 
-def reparametrize(mu, logvar):
-    std = torch.exp(0.5 * logvar)
-    eps = torch.randn_like(std)
-    return eps.mul(std).add_(mu)
-
-
 class VAE(nn.Module):
     def __init__(self, in_channels=256, in_dim=(10, 10, 10), out_dim=(2, 64, 64, 64)):
         super(VAE, self).__init__()
@@ -185,12 +186,12 @@ class VAE(nn.Module):
         self.modalities = out_dim[0]
         self.encoder_channels = 16
         self.split_dim = int(self.in_channels / 2)
-        self.reshape_dim = (int(self.out_dim[1] / 16), int(self.out_dim[2] / 16), int(self.out_dim[3] / 16) )
+        self.reshape_dim = (int(self.out_dim[1] / 16), int(self.out_dim[2] / 16), int(self.out_dim[3] / 16))
         self.linear_in_dim = int(16 * (in_dim[0] / 2) * (in_dim[1] / 2) * (in_dim[2] / 2))
         self.linear_vu_dim = self.encoder_channels * self.reshape_dim[0] * self.reshape_dim[1] * self.reshape_dim[2]
-        channels_vup2 = int(self.in_channels / 2) # 128
-        channels_vup1 = int(channels_vup2 / 2) # 64
-        channels_vup0 = int(channels_vup1 / 2) # 32
+        channels_vup2 = int(self.in_channels / 2)  # 128
+        channels_vup1 = int(channels_vup2 / 2)  # 64
+        channels_vup0 = int(channels_vup1 / 2)  # 32
 
         group_1 = nn.GroupNorm(num_groups=8, num_channels=in_channels)
         relu_1 = nn.ReLU()
@@ -203,16 +204,16 @@ class VAE(nn.Module):
         # TODO VU layer here
         self.linear_vu = nn.Linear(channels_vup2, self.linear_vu_dim)
         relu_vu = nn.ReLU()
-        VUup_block = UpBlock_2(in_channels=self.encoder_channels, out_channels=self.in_channels)
+        VUup_block = UpBlock2(in_channels=self.encoder_channels, out_channels=self.in_channels)
         self.VU = nn.Sequential(relu_vu, VUup_block)
 
-        self.Vup2 = UpBlock_2(in_channels, channels_vup2)
+        self.Vup2 = UpBlock2(in_channels, channels_vup2)
         self.Vblock2 = GreenBlock(channels_vup2)
 
-        self.Vup1 = UpBlock_2(channels_vup2, channels_vup1)
+        self.Vup1 = UpBlock2(channels_vup2, channels_vup1)
         self.Vblock1 = GreenBlock(channels_vup1)
 
-        self.Vup0 = UpBlock_2(channels_vup1, channels_vup0)
+        self.Vup0 = UpBlock2(channels_vup1, channels_vup0)
         self.Vblock0 = GreenBlock(channels_vup0)
 
         self.Vend = BlueBlock(channels_vup0, self.modalities)
@@ -223,7 +224,7 @@ class VAE(nn.Module):
         x = self.linear_1(x)
         mu = x[:, :self.split_dim]
         logvar = torch.log(x[:, self.split_dim:])
-        y = reparametrize(mu,logvar)
+        y = reparametrize(mu, logvar)
         print("output shape is", y.shape)
         y = self.linear_vu(y)
         y = y.view(-1, self.encoder_channels, self.reshape_dim[0], self.reshape_dim[1], self.reshape_dim[2])
@@ -240,12 +241,31 @@ class VAE(nn.Module):
         print('output of y vup0(before vblock0) out is : ', y.shape)
         y = self.Vblock0(y)
         dec = self.Vend(y)
-        return dec,mu,logvar
+        return dec, mu, logvar
 
 
-# TODO check training
+class ResNet3dVAE(nn.Module):
+    def __init__(self, max_conv_channels=256, dim=(64,64,64), modalities=2, classes=4):
+        super(ResNet3dVAE, self).__init__()
+        vae_in_dim = (int(dim[0] / 8), int(dim[1] / 8), int(dim[0] / 8))
+        vae_out_dim = (modalities, dim[0], dim[1], dim[2])
 
-def test_model():
+        self.classes = classes
+        modalities = self.out_dim[0]
+        start_channels = int(max_conv_channels / 8)
+
+        self.encoder = ResNetEncoder(in_channels=modalities, start_channels=start_channels)
+        self.decoder = Decoder(in_channels=max_conv_channels, classes=classes)
+        self.vae = VAE(in_channels=max_conv_channels, in_dim=vae_in_dim, out_dim=vae_out_dim)
+
+    def forward(self, x):
+        x1, x2, x3, x4 = self.encoder(x)
+        y = self.decoder(x1, x2, x3, x4)
+        vae_out, mu, logvar = self.vae(x4)
+        return y, vae_out, mu, logvar
+
+
+def test_enc_dec():
     model = ResNetEncoder(in_channels=2)
     input = torch.rand(1, 2, 80, 80, 80)
 
@@ -260,11 +280,23 @@ def test_model():
     print("out", y.shape)
 
 
-def testVAEonly():
+def testVAE():
     input = torch.rand(1, 256, 10, 10, 10)
     model = VAE(in_channels=256, in_dim=(10, 10, 10), out_dim=(2, 128, 128, 128))
     out, mu, logvar = model(input)
     print("Done.\n Final out shape is: ", out.shape)
 
-#testVAEonly()
-#test_model()
+
+def test_total():
+    inp = torch.rand(1, 2, 80, 80, 80)
+    model = ResNet3dVAE(max_conv_channels=256, vae_in_dim=(10, 10, 10), vae_out_dim=(2, 64, 64, 64), classes=4)
+
+    y, vae_out, mu, logvar = model(inp)
+    print(y.shape)
+    print(vae_out.shape)
+    print(mu.shape)
+    print(logvar.shape)
+
+# test_enc_dec()
+# testVAE()
+# test_total()

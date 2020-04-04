@@ -22,8 +22,8 @@ def main():
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     best_prec1 = 100.
-    samples_train = 100
-    samples_val = 10
+    samples_train = 30
+    samples_val = 30
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets',
@@ -74,9 +74,9 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=8)
     parser.add_argument('--dataset_name', type=str, default="mrbrains")
-    parser.add_argument('--dim', nargs="+", type=int, default=(32, 32, 32))
+    parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 32))
     parser.add_argument('--classes', type=int, default=9)
-    parser.add_argument('--nEpochs', type=int, default=250)
+    parser.add_argument('--nEpochs', type=int, default=200)
     parser.add_argument('--inChannels', type=int, default=3)
     parser.add_argument('--inModalities', type=int, default=3)
 

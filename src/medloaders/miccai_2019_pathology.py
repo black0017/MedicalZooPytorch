@@ -45,6 +45,8 @@ class MICCAI2019_gleason_pathology(Dataset):
         if self.per_image_sample < 1:
             self.per_image_sample = 1
 
+        print("per image sampleeeeee", self.per_image_sample)
+
         sub_grid = '_2dgrid_' + str(crop_dim[0]) + 'x' + str(crop_dim[1])
 
         if self.save:
@@ -83,14 +85,14 @@ class MICCAI2019_gleason_pathology(Dataset):
             label_numpy = imageio.imread(label_path)
             for i in range(self.per_image_sample):
                 h_crop, w_crop = self.generate_patch(img_numpy)
-                img_numpy = img_numpy[h_crop:(h_crop + self.crop_dim[0]),
+                img_cropped = img_numpy[h_crop:(h_crop + self.crop_dim[0]),
                             w_crop:(w_crop + self.crop_dim[1]), :]
 
-                label_numpy = label_numpy[h_crop:(h_crop + self.crop_dim[0]),
+                label_cropped = label_numpy[h_crop:(h_crop + self.crop_dim[0]),
                               w_crop:(w_crop + self.crop_dim[1])]
 
-                img_tensor = torch.from_numpy(img_numpy).float()
-                label_tensor = torch.from_numpy(label_numpy)
+                img_tensor = torch.from_numpy(img_cropped).float()
+                label_tensor = torch.from_numpy(label_cropped)
 
                 img_tensor = img_tensor.permute(2, 0, 1)
                 img_tensor = self.norm_img(img_tensor)

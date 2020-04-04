@@ -35,21 +35,21 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
         avg_wm += per_ch_score[3]
         train_loss += loss_dice.item()
         dice_avg_coeff += dice_coeff
-        iter = epoch * n_train + batch_idx
-
-        utils.write_train_score(writer, iter, loss_dice, dice_coeff, per_ch_score)
 
         if batch_idx % stop == 0:
             display_status_4_classes(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm,
                                      partial_epoch,
                                      n_processed)
-
     avg_air = avg_air / n_processed
     avg_csf = avg_csf / n_processed
     avg_gm = avg_gm / n_processed
     avg_wm = avg_wm / n_processed
     dice_avg_coeff = dice_avg_coeff / n_processed
     train_loss = train_loss / n_processed
+
+    per_ch_score_avg = (avg_air, avg_csf, avg_gm, avg_wm)
+
+    utils.write_score(writer, epoch, loss_dice, dice_coeff, per_ch_score_avg, mode="Train/")
 
     display_status_4_classes(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, summary=True)
 
@@ -85,10 +85,11 @@ def test_dice(args, epoch, model, testLoader, criterion, testF, writer):
     avg_gm = avg_gm / nTotal
     avg_wm = avg_wm / nTotal
 
+    per_ch_score_avg = (avg_air, avg_csf, avg_gm, avg_wm)
+    utils.write_score(writer, epoch, test_loss, coef, per_ch_score_avg, mode="Val/")
+
     display_status_4_classes(testF, epoch, test_loss, coef, avg_air,
                              avg_csf, avg_gm, avg_wm, summary=True)
-
-    utils.write_val_score(writer, test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm, epoch)
 
     return test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm
 
@@ -108,27 +109,3 @@ def display_status_4_classes(csv_file, epoch, train_loss, dice_avg_coeff, avg_ai
 
     csv_file.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
     csv_file.flush()
-
-
-def display_status_8_classes(csv_file, epoch, statistics, partial_epoch=0,
-                             n_processed=0, summary=False):
-    if not summary:
-        print('Train Epoch: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t'
-              'AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n'.format(
-            partial_epoch, train_loss / n_processed, dice_avg_coeff / n_processed, avg_air / n_processed,
-                           avg_csf / n_processed, avg_gm / n_processed, avg_wm / n_processed))
-    else:
-        print(
-            '\n\nEpoch Summary: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t  AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n\n'.format(
-                epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-
-    csv_file.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-    csv_file.flush()
-
-
-
-
-
-
-
-##### COVIDNET #############

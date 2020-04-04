@@ -7,7 +7,10 @@ from .Vnet import VNet, VNetLight
 from .Dice import DiceLoss
 from .Dice2D import DiceLoss2D
 from .Unet2D import Unet
+from .ResNet3D_VAE import ResNet3dVAE
+from .SkipDenseNet3D import SkipDenseNet3D
 from .COVIDNet import CovidNet
+
 
 def create_model(args):
     model_name = args.model
@@ -15,7 +18,7 @@ def create_model(args):
     lr = args.lr
     in_channels = args.inChannels
     num_classes = args.classes
-    weight_decay = 0.0000000005
+    weight_decay = 0.0000000001
     print("Building Model . . . . . . . ." + model_name)
 
     if model_name == 'VNET2':
@@ -32,9 +35,13 @@ def create_model(args):
         model = DualSingleDensenet(input_channels=in_channels, drop_rate=0.1, num_classes=num_classes)
     elif model_name == "UNET2D":
         model = Unet(in_channels, num_classes)
+    elif model_name == "RESNET3DVAE":
+        model = ResNet3dVAE(max_conv_channels=256, dim=args.dim, modalities=args.inModalities, classes=num_classes)
+    elif model_name == "SKIPDENSENET3D":
+        model = SkipDenseNet3D(growth_rate=16, block_config=(4, 4, 4, 4), num_init_features=32, drop_rate=0.1,
+                               num_classes=4)
     elif model_name == "COVIDNET":
         model = CovidNet(num_classes)
-
 
     print('Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))

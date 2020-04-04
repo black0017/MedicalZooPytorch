@@ -35,7 +35,7 @@ class DiceLoss2D(nn.Module):
     def compute_per_channel_dice(self, input, target):
         epsilon = 1e-5
         target = self.expand_as_one_hot(target.long())
-        assert input.size() == target.size(), "input' and 'target' must have the same shape"
+        assert input.size() == target.size(), "input' and 'target' must have the same shape"+ str(input.size()) + " and " + str(target.size())
 
         input = self.flatten(input)
         target = self.flatten(target).float()
