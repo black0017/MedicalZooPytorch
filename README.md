@@ -41,21 +41,21 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 ## Implemented architectures
 
 
-[U-Net3D](https://arxiv.org/abs/1606.06650) 3D U-Net: Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
+[U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
 
-[Vnet](https://arxiv.org/abs/1606.04797) V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
+[V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
 
 [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf) 3D MRI brain tumor segmentation usingautoencoder regularization
 
 [U-Net2D](https://arxiv.org/abs/1505.04597 "official paper") U-Net: Convolutional Networks for Biomedical Image Segmentation
 
-[COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) COVID-Net: A Tailored Deep Convolutional Neural Network Design forDetection of COVID-19 Cases from Chest Radiography Images
+[COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design forDetection of COVID-19 Cases from Chest Radiography Images
 
 [SkipDesneNet3D](https://arxiv.org/pdf/1709.03199.pdf) 3D Densely Convolutional Networks for VolumetricSegmentation
 
-[Hyperdensenet](https://arxiv.org/abs/1804.02967) HyperDense-Net: A hyper-densely connected CNN for multi-modal image segmentation
+[HyperDense-Net](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
 
-[Densenet3D](https://arxiv.org/abs/1804.02967) HyperDense-Net: A hyper-densely connected CNN for multi-modal image segmentation
+[Densenet3D](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
 
 ## Results
 
