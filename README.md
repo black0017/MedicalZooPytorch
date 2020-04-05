@@ -1,13 +1,8 @@
 # Medical Zoo Pytorch
-Our goal is to implementent an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready.
-
-We strongly believe in open and **reproducible deep learning research**.
-In order to reproduce our results, the code and materials of this work are available in this repository.
-
-This project started as an MSc Thesis and is currently under further development. For 3D multi-modal brain MRI segmentation check the thesis branch of this repository.
+Our goal is to implementent an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready. We strongly believe in open and **reproducible deep learning research**. This project started as an MSc Thesis and is currently under further development.
 
 ## Beta release - work in progress!
-Although this work was initially focused on **3D multi-modal brain MRI segmentation** we will slowly add more architectures and dataloaders.
+Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and dataloaders. Stay tuned!
 
 ## New released cool features (03/2020)
 
@@ -48,6 +43,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
 
 [Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
+
 ## Results
 
 #### To be updated **really really** soon......
