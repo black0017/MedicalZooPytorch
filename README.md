@@ -16,7 +16,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 3. Tensorboard and PyTorch 1.4 support to track training progress
 3. Code cleanup and package creation
 4. Offline sub-volume generation 
-5. Add hyperdensenet and 3dresnet-vae
+5. Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
 6. Fix mrbrains dataloader
 7. Add MICCAI 2019 gleason challenge
 8. Add confusion matrix support for understaning training dynamics
@@ -24,7 +24,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 ## Implemented architectures
 
-#### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
+### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
 
 [V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
 
