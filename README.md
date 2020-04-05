@@ -21,27 +21,10 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 7. Add MICCAI 2019 gleason challenge
 8. Add confusion matrix support for understaning training dynamics
 
-## Top priorities
-- [ ] Unify/Generalize Train and Test functions
-- [x] Fix mrbrains dataloader(4 & 8 classes)
-- [x] Fix Brats2018 dataloaders
-- [x] Test new architectures
-- [x] Minimal test pred example with pretrained models
-- [x] Save produced 3d-total-segmenentation as nifti files
-- [ ] Test conf. matrix
-
-
-## Implemented dataloaders
-[Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
-
-[Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
-
-[Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
 ## Implemented architectures
 
-
-[U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
+#### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
 
 [V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
 
@@ -57,6 +40,14 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 [Densenet3D](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
 
+[DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
+
+## Implemented dataloaders
+[Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
+
+[Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
+
+[Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 ## Results
 
 #### To be updated **really really** soon......
@@ -67,9 +58,19 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 Check installation folder for instructions. To be updated...
 
 ## Our current team
-### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
+#### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
 
-### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
+#### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
+
+
+## Top priorities
+- [ ] Unify/Generalize Train and Test functions
+- [x] Fix mrbrains dataloader(4 & 8 classes)
+- [x] Fix Brats2018 dataloaders
+- [x] Test new architectures
+- [x] Minimal test pred example with pretrained models
+- [x] Save produced 3d-total-segmenentation as nifti files
+- [ ] Test conf. matrix
 
 ## Support 
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people.
