@@ -4,6 +4,12 @@ Our goal is to implementent an open-source medical image segmentation library of
 ## Beta release - work in progress!
 Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and dataloaders. Stay tuned!
 
+## Quick Start
+- If you want to quickly understand the foundamental concepts we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
+
+- Alternatively, you can create a virtual enviroment and install the requirements. Check installation folder for more instructions.
+
+
 ## New released cool features (03/2020)
 
 1. Batch size training support
@@ -46,12 +52,9 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 ## Results
 
-#### To be updated **really really** soon......
+ To be updated **really really** soon......
 
 
-
-## Documentation
-Check installation folder for instructions. To be updated...
 
 ## Our current team
 #### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
