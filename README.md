@@ -9,20 +9,6 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - Alternatively, you can create a virtual enviroment and install the requirements. Check installation folder for more instructions.
 
-
-## New released cool features (03/2020)
-
-1. Batch size training support
-2. On the fly 3D total volume vizualization
-3. Tensorboard and PyTorch 1.4 support to track training progress
-3. Code cleanup and package creation
-4. Offline sub-volume generation 
-5. Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
-6. Fix mrbrains dataloader
-7. Add MICCAI 2019 gleason challenge
-8. Add confusion matrix support for understaning training dynamics
-
-
 ## Implemented architectures
 
 #### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse AnnotationLearning Dense Volumetric Segmentation from Sparse Annotation
@@ -56,10 +42,17 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 
 
-## Our current team
-#### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
+## New released cool features (03/2020)
 
-#### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
+1. Batch size training support
+2. On the fly 3D total volume vizualization
+3. Tensorboard and PyTorch 1.4 support to track training progress
+3. Code cleanup and package creation
+4. Offline sub-volume generation 
+5. Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
+6. Fix mrbrains dataloader
+7. Add MICCAI 2019 gleason challenge
+8. Add confusion matrix support for understaning training dynamics
 
 
 ## Top priorities
@@ -69,7 +62,17 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 - [x] Test new architectures
 - [x] Minimal test pred example with pretrained models
 - [x] Save produced 3d-total-segmenentation as nifti files
-- [ ] Test conf. matrix
+- [x] Test conf. matrix
+
+## Current team
+
+#### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
+
+#### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
+
+
+## License
+Advice the LICENSE.md file
 
 ## Support 
-If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people.
+If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :)
