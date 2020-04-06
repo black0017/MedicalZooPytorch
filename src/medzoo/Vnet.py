@@ -1,7 +1,12 @@
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
-
+"""
+Implementation of this model is borrowed and modified
+(to support multi-channels and latest pytoch version)
+from here:
+https://github.com/Dawn90/V-Net.pytorch
+"""
 
 def ELUCons(elu, nchan):
     if elu:
