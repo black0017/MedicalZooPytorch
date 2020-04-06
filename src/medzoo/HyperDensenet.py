@@ -5,16 +5,9 @@ import torch.nn.init as init
 import torch.nn.functional as F
 import pdb
 import math
-
-'''def conv_block(in_dim, out_dim, act_fn):
-    model = nn.Sequential(
-        nn.Conv2d(in_dim, out_dim, kernel_size=3, stride=1, padding=1),
-        nn.BatchNorm2d(out_dim),
-        act_fn,
-    )
-    return model
-'''
-
+"""
+Code was borrowed and modified from this repo: https://github.com/josedolz/HyperDenseNet_pytorch 
+"""
 
 def conv(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Conv2d,
          BN=False, ws=False, activ=nn.LeakyReLU(0.2), gainWS=2):
