@@ -40,7 +40,47 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
  To be updated **really really** soon......
 
+## Usage
 
+#### How to train your model 
+- For Iseg-2017 :
+```
+python ./tests/train_iseg.py --args
+```
+- For MR brains 2018 (4 classes)
+```
+python ./tests/train_mrbrains_4_classes.py --args
+```
+- For MR brains 2018 (8 classes)
+```
+python ./tests/train_mrbrains_8_classes.py --args
+```
+- For MICCAI 2019 Gleason Challenge
+```
+python ./tests/test_miccai_2019.py --args
+```
+- Arguments that ypu can modify
+```
+--batchSz, default=4
+
+--dim,  default=(64, 64, 64)
+
+--nEpochs, default=250
+
+--inChannels, values=1,2,3
+
+--inModalities, values=1,2,3
+
+--fold_id, default='1', type=str, help='Select subject for fold validation')
+
+--lr, default=1e-3, type=float, help='learning rate (default: 1e-3)')
+
+--cuda, default=True)
+
+--model, type=str, default='UNET3D', choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3','HYPERDENSENET'))
+
+ --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop'))
+```
 
 ## New released cool features (03/2020)
 
@@ -58,11 +98,11 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 ## Top priorities
 - [ ] Unify/Generalize Train and Test functions
 - [x] Fix mrbrains dataloader(4 & 8 classes)
-- [x] Fix Brats2018 dataloaders
+- [ ] Fix Brats2018 dataloaders
 - [x] Test new architectures
 - [x] Minimal test pred example with pretrained models
 - [x] Save produced 3d-total-segmenentation as nifti files
-- [x] Test conf. matrix
+- [ ] Test conf. matrix
 
 ## Current team
 
@@ -72,7 +112,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 
 ## License
-Advice the LICENSE.md file
+Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms.
 
 ## Support 
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :)
