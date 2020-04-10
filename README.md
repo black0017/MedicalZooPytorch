@@ -1,13 +1,18 @@
-# Medical Zoo Pytorch
+![](/home/nikolas/Desktop/lib/MedicalZooPytorch/figures/medzoo.png)
+
+# A 3D multi-modal medical image segmentation library in PyTorch
+
+![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
+
 Our goal is to implementent an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready. We strongly believe in open and **reproducible deep learning research**. This project started as an MSc Thesis and is currently under further development.
 
 ## Beta release - work in progress!
 Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and dataloaders. Stay tuned!
 
 ## Quick Start
-- If you want to quickly understand the foundamental concepts we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
+- If you want to quickly understand the fundamental concepts we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
 
-- Alternatively, you can create a virtual enviroment and install the requirements. Check installation folder for more instructions.
+- Alternatively, you can create a virtual environment and install the requirements. Check installation folder for more instructions.
 
 ## Implemented architectures
 
@@ -15,11 +20,11 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 #### [V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
 
-#### [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf) 3D MRI brain tumor segmentation usingautoencoder regularization
+#### [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf) 3D MRI brain tumor segmentation using autoencoder regularization
 
 #### [U-Net](https://arxiv.org/abs/1505.04597 "official paper") Convolutional Networks for Biomedical Image Segmentation
 
-#### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design forDetection of COVID-19 Cases from Chest Radiography Images
+#### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
 
 #### [SkipDesneNet3D](https://arxiv.org/pdf/1709.03199.pdf) 3D Densely Convolutional Networks for VolumetricSegmentation
 
@@ -59,7 +64,7 @@ python ./tests/train_mrbrains_8_classes.py --args
 ```
 python ./tests/test_miccai_2019.py --args
 ```
-- Arguments that ypu can modify
+- Arguments that you can modify
 ```
 --batchSz, type=int, default=4, help='The batch size for training and validation'
 
@@ -85,14 +90,14 @@ python ./tests/test_miccai_2019.py --args
 ## New released cool features (03-04/2020)
 
 1. Batch size training support
-2. On the fly 3D total volume vizualization
+2. On the fly 3D total volume visualization
 3. Tensorboard and PyTorch 1.4 support to track training progress
 3. Code cleanup and package creation
 4. Offline sub-volume generation 
 5. Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
 6. Fix mrbrains dataloader
 7. Add MICCAI 2019 gleason challenge
-8. Add confusion matrix support for understaning training dynamics
+8. Add confusion matrix support for understanding training dynamics
 
 
 ## Top priorities
@@ -123,7 +128,7 @@ school = {University of Patras},
 note="\url{https://github.com/black0017/MedicalZooPytorch}",
 year = {2019},
 organization={Nemertes}}
- ```
+```
 
 ## Support 
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :)
