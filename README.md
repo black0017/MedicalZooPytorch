@@ -1,7 +1,6 @@
 <div align="center">
 <img src="figures/medzoo.png" width=662 height=332/>
 </div>
-
 # A 3D multi-modal medical image segmentation library in PyTorch
 
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
