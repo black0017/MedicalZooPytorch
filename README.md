@@ -120,6 +120,7 @@ author = {Adaloglou Nikolaos},
 title={Deep learning in medical image analysis: a comparative analysis of
 multi-modal brain-MRI segmentation with 3D deep neural networks},
 school = {University of Patras},
+url="https://github.com/black0017/MedicalZooPytorch",
 year = {2019},
 organization={Nemertes}}
  ```
