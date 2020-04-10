@@ -1,4 +1,6 @@
-![](/home/nikolas/Desktop/lib/MedicalZooPytorch/figures/medzoo.png)
+<div width=662 height=332>
+    ![](figures/medzoo.png)
+</div>
 
 # A 3D multi-modal medical image segmentation library in PyTorch
 
