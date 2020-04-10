@@ -61,28 +61,28 @@ python ./tests/test_miccai_2019.py --args
 ```
 - Arguments that ypu can modify
 ```
---batchSz, default=4
+--batchSz, type=int, default=4, help='The batch size for training and validation'
 
---dim,  default=(64, 64, 64)
+--dim,  default=(64, 64, 64),  help='The sub-image or sub-volume that you want to crop'
 
---nEpochs, default=250
+--nEpochs, type=int, default=250 ,  help='The training epochs'
 
---inChannels, values=1,2,3
+--inChannels, type=int, choices=(1,2,3) , help='The desired modalities/channels that you want to use'
 
---inModalities, values=1,2,3
+--inModalities, type=int, choices=(1,2,3), help='The modalities of the dataset'
 
---fold_id, default='1', type=str, help='Select subject for fold validation')
+--fold_id, default='1', type=str, help='Select subject for fold validation'
 
---lr, default=1e-3, type=float, help='learning rate (default: 1e-3)')
+--lr, default=1e-3, type=float, help='learning rate (default: 1e-3)'
 
---cuda, default=True)
+--cuda, default=True, help='whether you want to use cuda'
 
---model, type=str, default='UNET3D', choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3','HYPERDENSENET'))
+--model, type=str, default='UNET3D', choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3','HYPERDENSENET')
 
- --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop'))
+ --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop')
 ```
 
-## New released cool features (03/2020)
+## New released cool features (03-04/2020)
 
 1. Batch size training support
 2. On the fly 3D total volume vizualization
@@ -111,8 +111,18 @@ python ./tests/test_miccai_2019.py --args
 #### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
 
 
-## License
-Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms.
+## License and citation
+Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the original models and datasets. If you want, you can also cite this work as:
+
+```
+@MastersThesis{adaloglou2019MRIsegmentation,
+author = {Adaloglou Nikolaos},
+title={Deep learning in medical image analysis: a comparative analysis of
+multi-modal brain-MRI segmentation with 3D deep neural networks},
+school = {University of Patras},
+year = {2019},
+organization={Nemertes}}
+ ```
 
 ## Support 
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :)
