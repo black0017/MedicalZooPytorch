@@ -7,7 +7,6 @@ google-auth==1.12.0
 google-auth-oauthlib==0.4.1
 grpcio==1.27.2
 idna==2.9
-imageio==2.8.0
 jsonpatch==1.25
 jsonpointer==2.0
 kiwisolver==1.1.0

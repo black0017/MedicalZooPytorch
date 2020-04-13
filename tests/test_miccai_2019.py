@@ -10,17 +10,17 @@ import torch, os
 from torch.utils.tensorboard import SummaryWriter
 
 # Lib files
-import src.utils as utils
-import src.medloaders as medical_loaders
-import src.medzoo as medzoo
-import src.train as train
+import lib.utils as utils
+import lib.medloaders as medical_loaders
+import lib.medzoo as medzoo
+import lib.train as train
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
 torch.manual_seed(seed)
 
 
-# TODO train and evaluate will be generalized and added to src/train.py
+# TODO train and evaluate will be generalized and added to lib/train.py
 def train_old(args, epoch, model, trainLoader, optimizer, criterion, trainF):
     model.train()
     n_train = len(trainLoader.dataset)
