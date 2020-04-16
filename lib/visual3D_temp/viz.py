@@ -46,7 +46,7 @@ def visualize_no_overlap(args, full_volume, affine, model, epoch, dim, writer):
     save_3d_vol(predictions, affine, save_path)
 
 
-def visualize_offline(args, epoch, model, full_volume, affine, writer, criterion=None):
+def visualize_offline(args, epoch, model, full_volume, affine, writer):
     model.eval()
     test_loss = 0
 
@@ -83,6 +83,7 @@ def visualize_offline(args, epoch, model, full_volume, affine, writer, criterion
     return test_loss
 
 
+# TODO re-utilize prepare input here if possible
 def create_3d_subvol(args, full_volume, dim):
     if args.inChannels == 3:
         img_1, img_2, img_3, target = full_volume
@@ -107,6 +108,7 @@ def create_3d_subvol(args, full_volume, dim):
     return input_tensor, target
 
 
+# TODO utilize and modify show_mid_slice
 def create_2d_views(predictions, segment_map, epoch, writer, path_to_save):
     """
     Comparative 2d vizualization of median slices:
@@ -123,7 +125,7 @@ def create_2d_views(predictions, segment_map, epoch, writer, path_to_save):
     h = int(height / 2.0)
     w = int(width / 2.0)
     _, segment_pred = predictions.max(dim=1)
-    segment_pred = seg_map_vizualization(segment_pred)
+    segment_pred = seg_map_vizualization_iseg(segment_pred)
 
     s1 = segment_pred[0, s, :, :].long()
     s2 = segment_pred[0, :, w, :].long()
@@ -166,7 +168,7 @@ def save_3d_vol(predictions, affine, save_path):
     nib.save(pred_nifti_img, save_path + '.nii.gz')
 
 
-def seg_map_vizualization(segmentation_map):
+def seg_map_vizualization_iseg(segmentation_map):
     # visual labels of ISEG-2017
     label_values = [0, 10, 150, 250]
     for c, j in enumerate(label_values):
@@ -202,3 +204,35 @@ def plot_segm(segm, ground_truth, plots_dir='.'):
 
         file_name = f'segm_{str(uuid.uuid4())[:8]}.png'
         plt.savefig(os.path.join(plots_dir, file_name))
+
+
+# 2D visualization
+def show_mid_slice(img_numpy):
+    """
+    Accepts an 3D numpy array and shows median slices in all three planes
+    :param img_numpy:
+    """
+    assert img_numpy.ndim == 3, "please provide a 3d numpy image"
+    n_i, n_j, n_k = img_numpy.shape
+
+    # saggital
+    center_i1 = int((n_i - 1) / 2)
+    # transverse
+    center_j1 = int((n_j - 1) / 2)
+    # axial slice
+    center_k1 = int((n_k - 1) / 2)
+
+    show_slices([img_numpy[center_i1, :, :],
+                 img_numpy[:, center_j1, :],
+                 img_numpy[:, :, center_k1]])
+    plt.suptitle("Center slices for epi_img_numpy image")
+
+
+def show_slices(slices):
+    """
+    Function to display a row of image slices
+    Input is a list of numpy 2D image slices
+    """
+    fig, axes = plt.subplots(1, len(slices))
+    for i, slice in enumerate(slices):
+        axes[i].imshow(slice.T, cmap="gray", origin="lower")

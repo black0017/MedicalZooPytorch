@@ -6,7 +6,7 @@ import random, time
 
 def datestr():
     now = time.gmtime()
-    return '{}{:02}{:02}_{:02}{:02}'.format(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
+    return '{:02}_{:02}___{:02}_{:02}'.format(now.tm_mday, now.tm_mon,  now.tm_hour, now.tm_min)
 
 
 def shuffle_lists(a, b, seed=777):
@@ -21,14 +21,14 @@ def prepare_input(args, input_tuple):
     if args.inModalities == 4:
         if args.inChannels == 4:
             img_1, img_2, img_3, img_4, target = input_tuple
-            input_tensor = torch.cat((img_1, img_2, img_3,img_4), dim=1)
+            input_tensor = torch.cat((img_1, img_2, img_3, img_4), dim=1)
         elif args.inChannels == 3:
             # t1 post constast is ommited
             img_1, _, img_3, img_4, target = input_tuple
             input_tensor = torch.cat((img_1, img_3, img_4), dim=1)
         elif args.inChannels == 2:
             # t1 and t2 only
-            img_1, _,img_3, _, target = input_tuple
+            img_1, _, img_3, _, target = input_tuple
             input_tensor = torch.cat((img_1, img_3), dim=1)
         elif args.inChannels == 1:
             # t1 only
@@ -51,8 +51,6 @@ def prepare_input(args, input_tuple):
     elif args.inModalities == 1:
         input_tensor, target = input_tuple
 
-    # TODO expand target as one hot here
-    ###################################
     if args.cuda:
         input_tensor, target = input_tensor.cuda(), target.cuda()
 
@@ -82,39 +80,3 @@ def make_dirs(path):
         os.makedirs(path)
 
 
-def create_stats_files(path):
-    train_f = open(os.path.join(path, 'train.csv'), 'w')
-    val_f = open(os.path.join(path, 'val.csv'), 'w')
-    return train_f, val_f
-
-
-def expand_as_one_hot(input, C, ignore_index=None):
-    """
-    Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted to its corresponding one-hot vector
-    :param input: 4D input image (NxDxHxW)
-    :param C: number of channels/labels
-    :param ignore_index: ignore index to be kept during the expansion
-    :return: 5D output image (NxCxDxHxW)
-    """
-    assert input.dim() == 4
-
-    # expand the input tensor to Nx1xDxHxW before scattering
-    input = input.unsqueeze(1).long()
-    # create result tensor shape (NxCxDxHxW)
-    shape = list(input.size())
-    shape[1] = C
-
-    if ignore_index is not None:
-        # create ignore_index mask for the result
-        mask = input.expand(shape) == ignore_index
-        # clone the src tensor and zero out ignore_index in the input
-        input = input.clone()
-        input[input == ignore_index] = 0
-        # scatter to get the one-hot tensor
-        result = torch.zeros(shape).to(input.device).scatter_(1, input, 1)
-        # bring back the ignore_index in the result
-        result[mask] = ignore_index
-        return result
-    else:
-        # scatter to get the one-hot tensor
-        return torch.zeros(shape).to(input.device).scatter_(1, input, 1)

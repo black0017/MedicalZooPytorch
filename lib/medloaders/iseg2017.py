@@ -3,7 +3,8 @@ from torch.utils.data import Dataset
 import glob
 import numpy as np
 
-from lib.medloaders import img_loader
+#from lib.medloaders import img_loader
+from lib.medloaders import medical_image_process as img_loader
 import lib.utils as utils
 
 

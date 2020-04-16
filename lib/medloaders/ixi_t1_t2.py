@@ -5,7 +5,8 @@ import glob
 import numpy as np
 
 import lib.utils as utils
-from lib.medloaders import img_loader
+#from lib.medloaders import img_loader
+from lib.medloaders import medical_image_process as img_loader
 
 
 class IXIMRIdataset(Dataset):

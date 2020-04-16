@@ -67,17 +67,17 @@ class SkipDenseNet3D(BaseModel):
         bn_size (int) - multiplicative factor for number of bottle neck layers
           (i.e. bn_size * k features in the bottleneck layer)
         drop_rate (float) - dropout rate after each dense layer
-        num_classes (int) - number of classification classes
+        classes (int) - number of classification classes
     """
 
-    def __init__(self, growth_rate=16, block_config=(4, 4, 4, 4), num_init_features=32, drop_rate=0.1, num_classes=4,
+    def __init__(self, in_channels=2, classes=4, growth_rate=16, block_config=(4, 4, 4, 4), num_init_features=32, drop_rate=0.1,
                  bn_size=4):
 
         super(SkipDenseNet3D, self).__init__()
-        self.num_classes = num_classes
+        self.num_classes = classes
         # First three convolutions
         self.features = nn.Sequential(OrderedDict([
-            ('conv0', nn.Conv3d(2, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
+            ('conv0', nn.Conv3d(in_channels, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
             ('norm0', nn.BatchNorm3d(num_init_features)),
             ('relu0', nn.ReLU(inplace=True)),
             ('conv1', nn.Conv3d(num_init_features, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
@@ -106,9 +106,9 @@ class SkipDenseNet3D(BaseModel):
 
             num_features = num_features + num_layers * growth_rate
 
-            up_block = nn.ConvTranspose3d(num_features, num_classes, kernel_size=2 ** (i + 1) + 2,
+            up_block = nn.ConvTranspose3d(num_features, classes, kernel_size=2 ** (i + 1) + 2,
                                           stride=2 ** (i + 1),
-                                          padding=1, groups=num_classes, bias=False)
+                                          padding=1, groups=classes, bias=False)
 
             self.upsampling_blocks.append(up_block)
 
@@ -126,8 +126,8 @@ class SkipDenseNet3D(BaseModel):
         # self.bn4 = nn.BatchNorm3d(num_features)
 
         # ----------------------- classifier -----------------------
-        self.bn_class = nn.BatchNorm3d(num_classes * 4 + num_init_features)
-        self.conv_class = nn.Conv3d(num_classes * 4 + num_init_features, num_classes, kernel_size=1, padding=0)
+        self.bn_class = nn.BatchNorm3d(classes * 4 + num_init_features)
+        self.conv_class = nn.Conv3d(classes * 4 + num_init_features, classes, kernel_size=1, padding=0)
         self.relu_last = nn.ReLU()
         # ----------------------------------------------------------
 

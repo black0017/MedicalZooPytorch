@@ -73,24 +73,24 @@ class _HyperDenseBlockEarlyFusion(nn.Sequential):
 
 
 class SinglePathDenseNet(BaseModel):
-    def __init__(self, input_channels, drop_rate=0.1, num_classes=4, return_logits=True, early_fusion=False):
+    def __init__(self, in_channels, classes=4, drop_rate=0.1, return_logits=True, early_fusion=False):
         super(SinglePathDenseNet, self).__init__()
         self.return_logits = return_logits
         self.features = nn.Sequential()
-        self.num_classes = num_classes
-        self.input_channels = input_channels
+        self.num_classes = classes
+        self.input_channels = in_channels
 
         if early_fusion:
-            block = _HyperDenseBlockEarlyFusion(num_input_features=input_channels, drop_rate=drop_rate)
-            if input_channels == 52:
+            block = _HyperDenseBlockEarlyFusion(num_input_features=in_channels, drop_rate=drop_rate)
+            if in_channels == 52:
                 total_conv_channels = 477
             else:
                 # total_conv_channels = 503
                 total_conv_channels = 426
 
         else:
-            block = _HyperDenseBlock(num_input_features=input_channels, drop_rate=drop_rate)
-            if input_channels == 2:
+            block = _HyperDenseBlock(num_input_features=in_channels, drop_rate=drop_rate)
+            if in_channels == 2:
                 total_conv_channels = 452
             else:
                 total_conv_channels = 451
@@ -139,17 +139,17 @@ class SinglePathDenseNet(BaseModel):
 
 
 class DualPathDenseNet(BaseModel):
-    def __init__(self, input_channels, drop_rate=0, num_classes=4, fusion='concat'):
+    def __init__(self, in_channels, num_classes=4, drop_rate=0,  fusion='concat'):
         """
         2-stream and 3-stream implementation with late fusion
-        :param input_channels: 2 or 3 (dual or triple path based on paper specifications).
+        :param in_channels: 2 or 3 (dual or triple path based on paper specifications).
         Channels are the input modalities i.e T1,T2 etc..
         :param drop_rate:  dropout rate for dense layers
         :param num_classes: number of classes to segment
         :param fusion: 'concat or 'sum'
         """
         super(DualPathDenseNet, self).__init__()
-        self.input_channels = input_channels
+        self.input_channels = in_channels
         self.num_classes = num_classes
 
         self.fusion = fusion
@@ -160,17 +160,17 @@ class DualPathDenseNet(BaseModel):
 
         if self.input_channels == 2:
             # here!!!!
-            self.stream_1 = SinglePathDenseNet(input_channels=1, drop_rate=drop_rate, num_classes=num_classes,
+            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
                                                return_logits=False, early_fusion=True)
-            self.stream_2 = SinglePathDenseNet(input_channels=1, drop_rate=drop_rate, num_classes=num_classes,
+            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
                                                return_logits=False, early_fusion=True)
 
         if self.input_channels == 3:
-            self.stream_1 = SinglePathDenseNet(input_channels=1, drop_rate=drop_rate, num_classes=num_classes,
+            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
                                                return_logits=False)
-            self.stream_2 = SinglePathDenseNet(input_channels=1, drop_rate=drop_rate, num_classes=num_classes,
+            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
                                                return_logits=False)
-            self.stream_3 = SinglePathDenseNet(input_channels=1, drop_rate=drop_rate, num_classes=num_classes,
+            self.stream_3 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
                                                return_logits=False)
 
         self.classifier = nn.Sequential()
@@ -229,25 +229,25 @@ class DualSingleDenseNet(BaseModel):
     dual-single-densenet OR Disentangled modalities with early fusion in the paper
     """
 
-    def __init__(self, input_channels=2, drop_rate=0.5, num_classes=4):
+    def __init__(self, in_channels, classes=4, drop_rate=0.5,):
         """
 
         :param input_channels: 2 or 3 (dual or triple path based on paper specifications).
         Channels are the input modalities i.e T1,T2 etc..
         :param drop_rate:  dropout rate for dense layers
-        :param num_classes: number of classes to segment
+        :param classes: number of classes to segment
         :param fusion: 'concat or 'sum'
         """
         super(DualSingleDenseNet, self).__init__()
-        self.input_channels = input_channels
-        self.num_classes = num_classes
+        self.input_channels = in_channels
+        self.num_classes = classes
 
         if self.input_channels == 2:
             self.early_conv_1 = _HyperDenseLayer(num_input_features=1, num_output_channels=25, drop_rate=drop_rate)
             self.early_conv_2 = _HyperDenseLayer(num_input_features=1, num_output_channels=25, drop_rate=drop_rate)
             single_path_channels = 52
-            self.stream_1 = SinglePathDenseNet(input_channels=single_path_channels, drop_rate=drop_rate,
-                                               num_classes=num_classes, return_logits=True, early_fusion=True)
+            self.stream_1 = SinglePathDenseNet(in_channels=single_path_channels, drop_rate=drop_rate,
+                                               classes=classes, return_logits=True, early_fusion=True)
             self.classifier = nn.Sequential()
 
         if self.input_channels == 3:
@@ -255,8 +255,8 @@ class DualSingleDenseNet(BaseModel):
             self.early_conv_2 = _HyperDenseLayer(num_input_features=1, num_output_channels=25, drop_rate=0)
             self.early_conv_3 = _HyperDenseLayer(num_input_features=1, num_output_channels=25, drop_rate=0)
             single_path_channels = 78
-            self.stream_1 = SinglePathDenseNet(input_channels=single_path_channels, drop_rate=drop_rate,
-                                               num_classes=num_classes, return_logits=True, early_fusion=True)
+            self.stream_1 = SinglePathDenseNet(in_channels=single_path_channels, drop_rate=drop_rate,
+                                               classes=classes, return_logits=True, early_fusion=True)
 
     def forward(self, multi_channel_medical_img):
         """

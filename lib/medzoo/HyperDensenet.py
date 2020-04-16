@@ -270,10 +270,11 @@ def convBatch(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=n
     )
 
 
-class HyperDenseNet_2Mod(nn.Module):
-    def __init__(self, num_classes=4):
+class HyperDenseNet_2Mod(BaseModel):
+    def __init__(self, in_channels=2, classes=4):
         super(HyperDenseNet_2Mod, self).__init__()
-        self.num_classes = num_classes
+        self.num_classes = classes
+        assert in_channels == 2 , "input channels must be two for this architecture"
 
         # Path-Top
         self.conv1_Top = convBlock(1, 25)
@@ -300,7 +301,7 @@ class HyperDenseNet_2Mod(nn.Module):
         self.fully_1 = nn.Conv3d(1800, 400, kernel_size=1)
         self.fully_2 = nn.Conv3d(400, 200, kernel_size=1)
         self.fully_3 = nn.Conv3d(200, 150, kernel_size=1)
-        self.final = nn.Conv3d(150, num_classes, kernel_size=1)
+        self.final = nn.Conv3d(150, classes, kernel_size=1)
 
     def forward(self, input):
         # ----- First layer ------ #
@@ -420,9 +421,10 @@ class HyperDenseNet_2Mod(nn.Module):
 
 
 class HyperDenseNet(BaseModel):
-    def __init__(self, in_channels=1, num_classes=4):
+    def __init__(self, in_channels=3, classes=4):
         super(HyperDenseNet, self).__init__()
-        self.num_classes = num_classes
+        assert in_channels==3 ,"HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod "
+        self.num_classes = classes
 
         # Path-Top
         self.conv1_Top = convBlock(1, 25)
@@ -460,7 +462,7 @@ class HyperDenseNet(BaseModel):
         self.fully_1 = nn.Conv3d(4050, 400, kernel_size=1)
         self.fully_2 = nn.Conv3d(400, 200, kernel_size=1)
         self.fully_3 = nn.Conv3d(200, 150, kernel_size=1)
-        self.final = nn.Conv3d(150, num_classes, kernel_size=1)
+        self.final = nn.Conv3d(150, classes, kernel_size=1)
 
     def forward(self, input):
         # ----- First layer ------ #

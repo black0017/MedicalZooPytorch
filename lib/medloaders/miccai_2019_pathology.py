@@ -1,10 +1,11 @@
 import torch
 import numpy as np
-import imageio
 import glob
-import torch.nn as nn
 from torch.utils.data import Dataset
 import lib.utils as utils
+
+#from lib.medloaders import img_loader
+from lib.medloaders import medical_image_process as img_loader
 
 """
 Based on this repository: https://github.com/black0017/MICCAI-2019-Prostate-Cancer-segmentation-challenge
@@ -81,8 +82,8 @@ class MICCAI2019_gleason_pathology(Dataset):
         for j in range(total_imgs):
             input_path = self.list_imgs[j]
             label_path = self.list_labels[j]
-            img_numpy = imageio.imread(input_path)
-            label_numpy = imageio.imread(label_path)
+            img_numpy = img_loader.load_2d_image(input_path,type="RGB")
+            label_numpy = img_loader.load_2d_image(label_path, type='LA')
             for i in range(self.per_image_sample):
                 h_crop, w_crop = self.generate_patch(img_numpy)
                 img_cropped = img_numpy[h_crop:(h_crop + self.crop_dim[0]),

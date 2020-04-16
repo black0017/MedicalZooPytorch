@@ -7,7 +7,9 @@ from torch.utils.tensorboard import SummaryWriter
 import lib.utils as utils
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
+
 import lib.train as train
+from lib.losses3D import DiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 seed = 1777777
@@ -17,17 +19,16 @@ torch.manual_seed(seed)
 def main():
     args = get_arguments()
     utils.make_dirs(args.save)
-    train_f, val_f = utils.create_stats_files(args.save)
     name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
-    writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
-    best_prec1 = 100.
+    # TODO visual3D_temp.Basewriter package
+    writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
     model, optimizer = medzoo.create_model(args)
-    criterion = medzoo.DiceLoss(all_classes=11, desired_classes=args.classes)
 
+    criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:
         torch.cuda.manual_seed(seed)
@@ -36,20 +37,14 @@ def main():
 
     print("START TRAINING...")
     for epoch in range(1, args.nEpochs + 1):
-        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion, train_f, writer)
+        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion)
 
-        val_stats = train.test_dice(args, epoch, model, val_generator, criterion, val_f, writer)
+        val_stats = train.test_dice(args, epoch, model, val_generator, criterion)
 
+        # old
         utils.write_train_val_score(writer, epoch, train_stats, val_stats)
 
-        # TODO - check memory issues
-        # if epoch % 5 == 0:
-        # utils.visualize_no_overlap(args, full_volume, model, epoch, DIM, writer)
-
-        utils.save_model(model, args, val_stats[0], epoch, best_prec1)
-
-    train_f.close()
-    val_f.close()
+        model.save_checkpoint(args.save, epoch, val_stats[0], optimizer=optimizer)
 
 
 def get_arguments():

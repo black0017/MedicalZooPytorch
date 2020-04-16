@@ -7,9 +7,9 @@ def main():
     args = get_arguments()
     summary_flag = True
 
-    model_list = ["RESNET3DVAE",'UNET3D',  'DENSENET1',
+    model_list = ['UNET3D',  'DENSENET1',
                   'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
-                  "DENSEVOXELNET",'VNET','VNET2']
+                  "DENSEVOXELNET",'VNET','VNET2',"RESNET3DVAE"]
 
     if summary_flag:
         for key in model_list:

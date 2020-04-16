@@ -1,6 +1,4 @@
-# __init__.py
 import torch.optim as optim
-
 from .Densenet3D import DualPathDenseNet, DualSingleDenseNet, SinglePathDenseNet
 from .Unet3D import UNet3D
 from .Vnet import VNet, VNetLight
@@ -28,24 +26,24 @@ def create_model(args):
     elif model_name == 'UNET3D':
         model = UNet3D(in_channels=in_channels, n_classes=num_classes, base_n_filter=8)
     elif model_name == 'DENSENET1':
-        model = SinglePathDenseNet(input_channels=in_channels, num_classes=num_classes)
+        model = SinglePathDenseNet(in_channels=in_channels, classes=num_classes)
     elif model_name == 'DENSENET2':
-        model = DualPathDenseNet(input_channels=in_channels, num_classes=num_classes)
+        model = DualPathDenseNet(in_channels=in_channels, num_classes=num_classes)
     elif model_name == 'DENSENET3':
-        model = DualSingleDenseNet(input_channels=in_channels, drop_rate=0.1, num_classes=num_classes)
+        model = DualSingleDenseNet(input_channels=in_channels, drop_rate=0.1, classes=num_classes)
     elif model_name == "UNET2D":
         model = Unet(in_channels, num_classes)
     elif model_name == "RESNET3DVAE":
-        model = ResNet3dVAE(max_conv_channels=128, dim=args.dim, modalities=in_channels, classes=num_classes)
+        model = ResNet3dVAE(max_conv_channels=128, dim=args.dim, in_channels=in_channels, classes=num_classes)
     elif model_name == "SKIPDENSENET3D":
-        model = SkipDenseNet3D(growth_rate=16, num_init_features=32, drop_rate=0.1, num_classes=num_classes)
+        model = SkipDenseNet3D(growth_rate=16, num_init_features=32, drop_rate=0.1, classes=num_classes)
     elif model_name == "COVIDNET":
         model = CovidNet(num_classes)
     elif model_name == "HYPERDENSENET":
         if args.inChannels == 2:
-            model = HyperDenseNet_2Mod(num_classes=num_classes)
+            model = HyperDenseNet_2Mod(classes=num_classes)
         elif args.inChannels == 3:
-            model = HyperDenseNet(num_classes=num_classes)
+            model = HyperDenseNet(classes=num_classes)
         else:
             raise NotImplementedError
     elif model_name == "DENSEVOXELNET":

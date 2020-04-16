@@ -18,18 +18,16 @@ torch.manual_seed(seed)
 def main():
     args = get_arguments()
     utils.make_dirs(args.save)
-    train_f, val_f = utils.create_stats_files(args.save)
     name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
+
+    # TODO visual3D_temp.Basewriter package
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
-    best_prec1 = 100.
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
     model, optimizer = medzoo.create_model(args)
-    criterion = DiceLoss(classes=args.classes)
 
-    if args.resume:
-        model, epoch, best_pred = utils.load_checkpoint(model,args.resume)
+    criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:
         torch.cuda.manual_seed(seed)
@@ -38,16 +36,15 @@ def main():
 
     print("START TRAINING...")
     for epoch in range(1, args.nEpochs + 1):
-        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion, train_f, writer)
+        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion)
 
-        val_stats = train.test_dice(args, epoch, model, val_generator, criterion, val_f, writer)
+        val_stats = train.test_dice(args, epoch, model, val_generator, criterion)
 
+        #old
         utils.write_train_val_score(writer, epoch, train_stats, val_stats)
 
-        utils.save_model(model, args, val_stats[0], epoch, best_prec1)
+        model.save_checkpoint(args.save, epoch, val_stats[0], optimizer=optimizer)
 
-    train_f.close()
-    val_f.close()
 
 
 def get_arguments():

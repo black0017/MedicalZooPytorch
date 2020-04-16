@@ -2,7 +2,10 @@ import shutil
 import torch
 import os
 
-
+"""
+Not used anymore. Will be removed soon.
+They now exist in the base class of the models.
+"""
 def save_checkpoint(state, is_best, path, prefix, filename='checkpoint.pth.tar'):
     prefix_save = os.path.join(path, prefix)
     name = prefix_save + '_' + filename

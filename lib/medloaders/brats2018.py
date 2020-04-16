@@ -3,7 +3,8 @@ from torch.utils.data import Dataset
 import glob
 import numpy as np
 
-from lib.medloaders import img_loader
+#from lib.medloaders import img_loader
+from lib.medloaders import medical_image_process as img_loader
 import lib.utils as utils
 
 
@@ -45,6 +46,8 @@ class MICCAIBraTS2018(Dataset):
         list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
         list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
         labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
+
+        # TODO shuffle lists
 
         self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
 

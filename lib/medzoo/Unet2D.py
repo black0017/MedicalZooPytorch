@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
+from lib.medzoo.BaseModelClass import BaseModel
 
 # 2D-Unet Model taken from https://github.com/milesial/Pytorch-UNet/blob/master/unet/unet_model.py
 class DoubleConv(nn.Module):
@@ -79,13 +80,13 @@ class OutConv(nn.Module):
         return x
 
 
-class Unet(nn.Module):
-    def __init__(self, n_channels, n_classes):
+class Unet(BaseModel):
+    def __init__(self, in_channels, classes):
         super(Unet, self).__init__()
-        self.n_channels = n_channels
-        self.n_classes =  n_classes
+        self.n_channels = in_channels
+        self.n_classes =  classes
 
-        self.inc = InConv(n_channels, 64)
+        self.inc = InConv(in_channels, 64)
         self.down1 = Down(64, 128)
         self.down2 = Down(128, 256)
         self.down3 = Down(256, 512)
@@ -94,7 +95,7 @@ class Unet(nn.Module):
         self.up2 = Up(512, 128)
         self.up3 = Up(256, 64)
         self.up4 = Up(128, 64)
-        self.outc = OutConv(64, n_classes)
+        self.outc = OutConv(64, classes)
 
     def forward(self, x):
         x1 = self.inc(x)

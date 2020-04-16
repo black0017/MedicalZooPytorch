@@ -45,7 +45,7 @@ class PEXP(nn.Module):
 
 
 class CovidNet(BaseModel):
-    def __init__(self, n_classes=4):
+    def __init__(self, in_channels=3, classes=4):
         super(CovidNet, self).__init__()
         filters = {
             'pexp1_1': [64, 256],
@@ -66,7 +66,7 @@ class CovidNet(BaseModel):
             'pexp4_3': [2048, 2048],
         }
 
-        self.add_module('conv1', nn.Conv2d(in_channels=3, out_channels=64, kernel_size=7, stride=2, padding=3))
+        self.add_module('conv1', nn.Conv2d(in_channels=in_channels, out_channels=64, kernel_size=7, stride=2, padding=3))
         self.add_module('conv1_1x1', nn.Conv2d(in_channels=64, out_channels=256, kernel_size=1))
         self.add_module('conv2_1x1', nn.Conv2d(in_channels=256, out_channels=512, kernel_size=1))
         self.add_module('conv3_1x1', nn.Conv2d(in_channels=512, out_channels=1024, kernel_size=1))
@@ -81,7 +81,7 @@ class CovidNet(BaseModel):
         self.add_module('fc1', nn.Linear(7 * 7 * 2048, 1024))
 
         self.add_module('fc2', nn.Linear(1024, 256))
-        self.add_module('classifier', nn.Linear(256, n_classes))
+        self.add_module('classifier', nn.Linear(256, classes))
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)), 2)

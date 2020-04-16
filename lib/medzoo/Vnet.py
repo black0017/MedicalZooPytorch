@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch
 from torchsummary import summary
+from lib.medzoo.BaseModelClass import BaseModel
 
 """
 Implementation of this model is borrowed and modified
@@ -124,7 +125,7 @@ class OutputTransition(nn.Module):
         return out
 
 
-class VNet(nn.Module):
+class VNet(BaseModel):
     """
     Implementations based on the Vnet paper: https://arxiv.org/abs/1606.04797
     """
@@ -167,7 +168,7 @@ class VNet(nn.Module):
         print("Vnet test is complete")
 
 
-class VNetLight(nn.Module):
+class VNetLight(BaseModel):
     """
     A lighter version of Vnet that skips down_tr256 and up_tr256 in oreder to reduce time and space complexity
     """

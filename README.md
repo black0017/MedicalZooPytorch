@@ -6,46 +6,46 @@
 
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
-Our goal is to implementent an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready. We strongly believe in open and **reproducible deep learning research**. This project started as an MSc Thesis and is currently under further development.
+Our goal is to implement an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready. We strongly believe in open and **reproducible deep learning research**. This project started as an MSc Thesis and is currently under further development.
 
 ## Beta release - work in progress!
-Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and dataloaders. Stay tuned!
+Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and data-loaders. Stay tuned! **More** updates are coming...
 
 ## Quick Start
 - If you want to quickly understand the fundamental concepts we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
 
-- Alternatively, you can create a virtual environment and install the requirements. Check installation folder for more instructions.
+- Alternatively, you can create a **virtual environment** and install the requirements. Check installation folder for more instructions.
 
 ## Implemented architectures
 
-#### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse Annotation Learning Dense Volumetric Segmentation from Sparse Annotation
+- ##### [U-Net3D](https://arxiv.org/abs/1606.06650) Learning Dense Volumetric Segmentation from Sparse Annotation Learning Dense Volumetric Segmentation from Sparse Annotation
 
-#### [V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
+- ##### [V-net](https://arxiv.org/abs/1606.04797) Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation
 
-#### [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf) 3D MRI brain tumor segmentation using autoencoder regularization
+- ##### [ResNet3D-VAE](https://arxiv.org/pdf/1810.11654.pdf) 3D MRI brain tumor segmentation using auto-encoder regularization
 
-#### [U-Net](https://arxiv.org/abs/1505.04597 "official paper") Convolutional Networks for Biomedical Image Segmentation
+- ##### [U-Net](https://arxiv.org/abs/1505.04597 "official paper") Convolutional Networks for Biomedical Image Segmentation
 
-#### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
+- ##### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
 
-#### [SkipDesneNet3D](https://arxiv.org/pdf/1709.03199.pdf) 3D Densely Convolutional Networks for Volumetric Segmentation
+- ##### [SkipDesneNet3D](https://arxiv.org/pdf/1709.03199.pdf) 3D Densely Convolutional Networks for Volumetric Segmentation
 
-#### [HyperDense-Net](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
+- ##### [HyperDense-Net](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
 
-#### [multi-stream Densenet3D](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
+- ##### [multi-stream Densenet3D](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
 
-#### [DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
+- ##### [DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
 
-## Implemented dataloaders
-[Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
+## Implemented data-loaders
+- ##### [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
 
-[Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
+- ##### [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
 
-[MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
+- ##### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
-[MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
+- ##### [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
 
-[ IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
+- ##### [ IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
 
 ## Results
 
@@ -113,8 +113,8 @@ python ./tests/test_miccai_2019.py --args
 ## Top priorities
 - [ ] Unify/Generalize Train and Test functions
 - [ ] Test new architectures
-- [ ] Minimal test pred example with pretrained models
-- [ ] Save produced 3d-total-segmenentation as nifti files
+- [ ] Minimal test prediction example with pre-trained models
+- [ ] Save produced 3d-total-segmentation as nifty files
 
 ## Current team
 

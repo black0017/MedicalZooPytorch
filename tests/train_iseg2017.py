@@ -7,6 +7,7 @@ from torch.utils.tensorboard import SummaryWriter
 import lib.utils as utils
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
+
 import lib.train as train
 from lib.losses3D import DiceLoss
 
@@ -18,10 +19,10 @@ torch.manual_seed(seed)
 def main():
     args = get_arguments()
     utils.make_dirs(args.save)
-    train_f, val_f = utils.create_stats_files(args.save)
     name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
+
+    # TODO visual3D_temp.Basewriter package
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
-    best_prec1 = 100.
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
@@ -36,21 +37,14 @@ def main():
 
     print("START TRAINING...")
     for epoch in range(1, args.nEpochs + 1):
-        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion, train_f, writer)
+        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion)
 
-        val_stats = train.test_dice(args, epoch, model, val_generator, criterion, val_f, writer)
+        val_stats = train.test_dice(args, epoch, model, val_generator, criterion)
 
+        #old
         utils.write_train_val_score(writer, epoch, train_stats, val_stats)
 
-        model.save_checkpoint(args.save, epoch, val_stats[0],optimizer=optimizer)
-
-        # if epoch % 5 == 0:
-        # utils.visualize_no_overlap(args, full_volume, affine, model, epoch, DIM, writer)
-
-        #utils.save_model(model, args, val_stats[0], epoch, best_prec1)
-
-    train_f.close()
-    val_f.close()
+        model.save_checkpoint(args.save, epoch, val_stats[0], optimizer=optimizer)
 
 
 def get_arguments():
@@ -70,7 +64,7 @@ def get_arguments():
     parser.add_argument('--cuda', action='store_true', default=False)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
-    parser.add_argument('--model', type=str, default='UNET3D',
+    parser.add_argument('--model', type=str, default='DENSEVOXELNET',
                         choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))

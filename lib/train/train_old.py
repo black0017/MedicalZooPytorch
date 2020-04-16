@@ -7,13 +7,13 @@ Currently works for 4-class segmentations
 """
 
 
-def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, writer):
+def train_dice(args, epoch, model, trainLoader, optimizer, criterion):
     model.train()
     n_processed = 0
     train_loss = 0
     dice_avg_coeff = 0
     avg_air, avg_csf, avg_gm, avg_wm = 0, 0, 0, 0
-    stop = 1 #int(n_train / 4.0)
+    stop = 1
 
     for batch_idx, input_tuple in enumerate(trainLoader):
         optimizer.zero_grad()
@@ -36,7 +36,7 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
         dice_avg_coeff += dice_coeff
 
         if batch_idx % stop == 0:
-            display_status_4_classes(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm,
+            display_status_4_classes(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm,
                                      partial_epoch,
                                      n_processed)
     avg_air = avg_air / n_processed
@@ -46,16 +46,12 @@ def train_dice(args, epoch, model, trainLoader, optimizer, criterion, trainF, wr
     dice_avg_coeff = dice_avg_coeff / n_processed
     train_loss = train_loss / n_processed
 
-    per_ch_score_avg = (avg_air, avg_csf, avg_gm, avg_wm)
-
-    utils.write_score(writer, epoch, loss_dice, dice_coeff, per_ch_score_avg, mode="Train/")
-
-    display_status_4_classes(trainF, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, summary=True)
+    display_status_4_classes(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm, summary=True)
 
     return train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm
 
 
-def test_dice(args, epoch, model, testLoader, criterion, testF, writer):
+def test_dice(args, epoch, model, testLoader, criterion):
     model.eval()
     test_loss = 0
     avg_dice_coef = 0
@@ -84,16 +80,13 @@ def test_dice(args, epoch, model, testLoader, criterion, testF, writer):
     avg_gm = avg_gm / nTotal
     avg_wm = avg_wm / nTotal
 
-    per_ch_score_avg = (avg_air, avg_csf, avg_gm, avg_wm)
-    utils.write_score(writer, epoch, test_loss, coef, per_ch_score_avg, mode="Val/")
-
-    display_status_4_classes(testF, epoch, test_loss, coef, avg_air,
+    display_status_4_classes(epoch, test_loss, coef, avg_air,
                              avg_csf, avg_gm, avg_wm, summary=True)
 
     return test_loss, coef, avg_air, avg_csf, avg_gm, avg_wm
 
 
-def display_status_4_classes(csv_file, epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm,
+def display_status_4_classes(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm,
                              partial_epoch=0,
                              n_processed=0, summary=False):
     if not summary:
@@ -106,5 +99,3 @@ def display_status_4_classes(csv_file, epoch, train_loss, dice_avg_coeff, avg_ai
             '\n\nEpoch Summary: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t  AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n\n'.format(
                 epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
 
-    csv_file.write('{},{},{},{},{},{},{}\n'.format(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-    csv_file.flush()
