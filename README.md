@@ -36,6 +36,8 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - #### [DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
 
+- #### [MED3D](https://arxiv.org/pdf/1904.00625.pdf) TRANSFER LEARNING  FOR 3D MEDICAL IMAGE ANALYSIS
+
 ## Implemented data-loaders
 - #### [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
 
