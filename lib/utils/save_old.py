@@ -1,6 +1,7 @@
-import shutil
-import torch
 import os
+import shutil
+
+import torch
 
 """
 Not used anymore. Will be removed soon.
@@ -33,7 +34,7 @@ def save_model(model, args, dice_loss, epoch, best_pred_loss):
 
 def load_checkpoint(checkpoint_path, model):
     if not os.path.exists(checkpoint_path):
-        raise IOError(f"Checkpoint '{checkpoint_path}' does not exist")
+        raise IOError("Checkpoint '{checkpoint_path}' does not exist")
 
     state = torch.load(checkpoint_path, map_location='cpu')
     model.load_state_dict(state['state_dict'])

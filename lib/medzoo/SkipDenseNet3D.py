@@ -1,7 +1,8 @@
+from collections import OrderedDict
+
 import torch
 import torch.nn as nn
 from torchsummary import summary
-from collections import OrderedDict
 
 from lib.medzoo.BaseModelClass import BaseModel
 

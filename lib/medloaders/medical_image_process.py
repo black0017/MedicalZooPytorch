@@ -1,8 +1,8 @@
 import nibabel as nib
-import torch
 import numpy as np
-from nibabel.processing import resample_to_output
+import torch
 from PIL import Image
+from nibabel.processing import resample_to_output
 from scipy import ndimage
 
 """
@@ -56,7 +56,9 @@ def load_affine_matrix(path):
 
 
 def load_2d_image(img_path, resize_dim=0, type='RGB'):
-    image = Image.open(img_path).convert(type)
+    image = Image.open(img_path)
+    if type == 'RGB':
+        image = image.convert(type)
     if resize_dim != 0:
         image = image.resize(resize_dim)
     pix = np.array(image)

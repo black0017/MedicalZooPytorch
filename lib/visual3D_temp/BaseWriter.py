@@ -1,7 +1,8 @@
-from datetime import datetime
-from torch.utils.tensorboard import SummaryWriter
 import os
+
 import numpy as np
+from torch.utils.tensorboard import SummaryWriter
+
 from lib.utils import datestr
 
 """
@@ -18,80 +19,106 @@ class TensorboardWriter():
 
     def __init__(self, args):
         name_model = args.model + "_" + args.dataset_name + "_" + datestr()
-        self.writer = SummaryWriter(log_dir=args.log_dir + name_model, comment=name_model)
+        self.writer = SummaryWriter(log_dir=args.tb_log_dir, comment=name_model)
 
-        self.step = 0
-        self.mode = ''
+        # self.step = 0
+        # self.mode = ''
         self.csv_train, self.csv_val = self.create_stats_files(args.save)
         self.dataset_name = args.dataset_name
         self.label_names = dict_class_names[args.dataset_name]
+        self.data = {"train": dict((label, 0.0) for label in self.label_names),
+                     "val": dict((label, 0.0) for label in self.label_names)}
+        self.data['train']['loss'] = 0.0
+        self.data['val']['loss'] = 0.0
+        self.data['train']['count'] = 1
+        self.data['val']['count'] = 1
 
-        # Average training stats per epoch
-        self.train_scores_mean = None
-        self.val_scores_mean = None
-        self.epoch_samples = 0
-        self.mean_train_loss = 0
-        self.mean_val_los = 0
+        self.data['train']['dsc'] = 0.0
+        self.data['val']['dsc'] = 0.0
 
-        self.tb_writer_ftns = {
-            'add_scalar', 'add_scalars', 'add_image', 'add_images', 'add_audio',
-            'add_text', 'add_histogram', 'add_pr_curve', 'add_embedding'
-        }
+        # self.tb_writer_ftns = {
+        #     'add_scalar', 'add_scalars', 'add_image', 'add_images', 'add_audio',
+        #     'add_text', 'add_histogram', 'add_pr_curve', 'add_embedding'
+        # }
+        #
+        # self.timer = datetime.now()
 
-        self.timer = datetime.now()
-
-    def display_terminal(self, iter, loss, per_channels_score=None, mode='Train', summary=False):
+    def display_terminal(self, iter, epoch, mode='train', summary=False):
         """
 
-        :param iter: epoch or partial epoch
+        :param iter: iteration or partial epoch
+        :param epoch: epoch of training
         :param loss: any loss numpy
-        :param per_channels_score:
-        :param mode:
-        :param summary:
-        :return:
+        :param mode: train or val ( for training and validation)
+        :param summary: to print total statistics at the end of epoch
         """
         if summary:
-            print("\n epoch", iter, ':', mode, 'summary', 'Loss:', loss)
-            if per_channels_score is not None:
-                for i in range(len(per_channels_score)):
-                    print(self.label_names[i], ":", per_channels_score[i])
+
+            info_print = "\n Epoch {} : {} summary Loss : {}".format(epoch, mode,
+                                                                     self.data[mode]['loss'] / self.data[mode]['count'])
+
+            for i in range(len(self.label_names)):
+                info_print += " {} : {}".format(self.label_names[i],
+                                                self.data[mode][self.label_names[i]] / self.data[mode]['count'])
+
+            print(info_print)
         else:
-            print("partial epoch:", iter, 'Loss:', loss)
-            for i in range(len(per_channels_score)):
-                print(self.label_names[i], ":", per_channels_score[i])
 
-        # TODO write csv files
-        # self.csv_val.write
+            info_print = "partial epoch: {} Loss:{}".format(iter, self.data[mode]['loss'] / self.data[mode]['count'])
 
-        return
+            for i in range(len(self.label_names)):
+                info_print += " {} : {}".format(self.label_names[i],
+                                                self.data[mode][self.label_names[i]] / self.data[mode]['count'])
+            print(info_print)
 
     def create_stats_files(self, path):
         train_f = open(os.path.join(path, 'train.csv'), 'w')
         val_f = open(os.path.join(path, 'val.csv'), 'w')
         return train_f, val_f
 
-    def write_train_val_score(self, epoch, loss_train, loss_val, train_channel_score, val_channel_score):
-        assert len(train_channel_score) == len(val_channel_score)
-        dice_coeff_tr = np.mean(train_channel_score) * 100
-        dice_coeff_val = np.mean(val_channel_score) * 100
-        channels = len(train_channel_score)
-        self.writer.add_scalars('DSC/', {'train': dice_coeff_tr,
-                                         'val': dice_coeff_val,
+    def reset(self, mode):
+        self.data[mode]['dsc'] = 0.0
+        self.data[mode]['loss'] = 0.0
+        self.data[mode]['count'] = 1
+        for i in range(len(self.label_names)):
+            self.data[mode][self.label_names[i]] = 0.0
+
+    def update_scores(self, iter, loss, channel_score, mode, writer_step):
+        """
+
+        :param iter: iteration or partial epoch
+        :param loss: any loss torch.tensor.item()
+        :param channel_score: per channel score or dice coef
+        :param mode: train or val ( for training and validation)
+        :param writer_step: tensorboard writer step
+        """
+        ## WARNING ASSUMING THAT CHANNELS IN SAME ORDER AS DICTIONARY  ###########
+
+        dice_coeff = np.mean(channel_score) * 100
+
+        num_channels = len(channel_score)
+        self.data[mode]['dsc'] += dice_coeff
+        self.data[mode]['loss'] += loss
+        self.data[mode]['count'] = iter
+
+        for i in range(num_channels):
+            self.data[mode][self.label_names[i]] += channel_score[i]
+            if self.writer != None:
+                self.writer.add_scalar(mode + '/' + self.label_names[i], channel_score[i], global_step=writer_step)
+
+    def _write_end_of_epoch(self, epoch):
+
+        self.writer.add_scalars('DSC/', {'train': self.data['train']['dsc'] / self.data['train']['count'],
+                                         'val': self.data['val']['dsc'] / self.data['val']['count'],
                                          }, epoch)
-        self.writer.add_scalars('Loss/', {'train': loss_train,
-                                          'val': loss_val,
+        self.writer.add_scalars('Loss/', {'train': self.data['train']['loss'] / self.data['train']['count'],
+                                          'val': self.data['val']['loss'] / self.data['val']['count'],
                                           }, epoch)
-        for i in range(channels):
-            self.writer.add_scalars(self.label_names[i], {'train': train_channel_score[i],
-                                                          'val': val_channel_score[i],
-                                                          }, epoch)
-
-        if self.epoch_samples == 0:
-            self.train_scores_mean = train_channel_score
-            self.val_scores_mean = val_channel_score
-            self.epoch_samples+=1
-        else:
-            self.train_scores_mean = (self.train_scores_mean * self.epoch_samples + train_channel_score)/(self.epoch_samples+1)
-            self.val_scores_mean = (self.val_scores_mean * self.epoch_samples + val_channel_score)/(self.epoch_samples+1)
-            self.epoch_samples = self.epoch_samples+1
-
+        for i in range(len(self.label_names)):
+            self.writer.add_scalars(self.label_names[i],
+                                    {'train': self.data['train'][self.label_names[i]] / self.data['train']['count'],
+                                     'val': self.data['val'][self.label_names[i]] / self.data['train']['count'],
+                                     }, epoch)
+        #    TODO write csv files
+        # self.csv_train.write()
+        # self.csv_test.write()
