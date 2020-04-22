@@ -6,15 +6,14 @@
 
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
-Our goal is to implement an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch along with data loaders of the most common medical MRI datasets. The first stable release of our repository is almost ready. We strongly believe in open and **reproducible deep learning research**. This project started as an MSc Thesis and is currently under further development.
+We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch. We also implemented a bunch of data loaders of the most common medical image datasets. **The first stable release of our repository is almost ready.**  This project started as an MSc Thesis and is currently **under further development.** 
 
-## Beta release - work in progress!
 Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and data-loaders. Stay tuned! **More** updates are coming...
 
 ## Quick Start
-- If you want to quickly understand the fundamental concepts we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
+- If you want to quickly understand the fundamental concepts, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
 
-- Alternatively, you can create a **virtual environment** and install the requirements. Check installation folder for more instructions.
+- Alternatively, you can create a **virtual environment** and install the requirements. Check the installation folder for more instructions.
 
 ## Implemented architectures
 
@@ -26,8 +25,6 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - #### [U-Net](https://arxiv.org/abs/1505.04597 "official paper") Convolutional Networks for Biomedical Image Segmentation
 
-- #### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
-
 - #### [SkipDesneNet3D](https://arxiv.org/pdf/1709.03199.pdf) 3D Densely Convolutional Networks for Volumetric Segmentation
 
 - #### [HyperDense-Net](https://arxiv.org/abs/1804.02967) A hyper-densely connected CNN for multi-modal image segmentation
@@ -36,22 +33,38 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - #### [DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
 
-- #### [MED3D](https://arxiv.org/pdf/1904.00625.pdf) TRANSFER LEARNING  FOR 3D MEDICAL IMAGE ANALYSIS
+- #### [MED3D](https://arxiv.org/pdf/1904.00625.pdf) Transfer learning for 3D medical image analysis
 
-## Implemented data-loaders
+- #### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
+
+## Implemented medical imaging data-loaders
+
 - #### [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
 
 - #### [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
-
-- #### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
 - #### [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
 
 - #### [ IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
 
-## Results
+- #### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
- To be updated **really really** soon......(this month)
+## Preliminary results
+
+### Visual results on Iseg-2017
+
+<img src="figures/comparison.png"/>
+
+### Iseg and Mr-brains 
+| Model | # Params (M) | MACS(G) |   Iseg 2017 DSC (%) | Mr-brains 4 classes DSC (%) |
+|:-----------------:|:------------:|:--------:|:-------------------:|:-------------------:|
+|   Unet3D   |   17 M   |  0.9  |  **93.84**  | **88.61** |
+|   Vnet   |   **45 M**   |  12  |   87.21 | 84.09 |
+|   DenseNet3D   |   3 M   |   5.1   |  81.65 |79.85|
+|   SkipDenseNet3D   |   1.5 M   |   **31**   |  - |-|
+|  DenseVoxelNet  |   1.8 M   |   8    | - | - |
+|  HyperDenseNet  |   10.4 M   |   5.8   | - | - |
+
 
 ## Usage
 
@@ -72,33 +85,7 @@ python ./tests/train_mrbrains_8_classes.py --args
 ```
 python ./tests/test_miccai_2019.py --args
 ```
-- Arguments that you can modify
-```
---batchSz, type=int, default=4, help='The batch size for training and validation'
-
---dim,  default=(64, 64, 64),  help='The sub-image or sub-volume that you want to crop for 2D specify as dim=(64, 64)' 
-
---nEpochs, type=int, default=250 ,  help='The training epochs'
-
---inChannels, type=int, choices=(1,2,3) , help='The desired modalities/channels that you want to use'
-
---inModalities, type=int, choices=(1,2,3), help='The modalities of the dataset'
-
---samples_train, type=int, default=10
-
---samples_val, type=int, default=10
-
---fold_id, default='1', type=str, help='Select subject for fold validation'
-
---lr, default=1e-3, type=float, help='learning rate (default: 1e-3)'
-
---cuda, default=True, help='whether you want to use cuda'
-
---model, type=str, default='UNET3D', choices=("RESNET3DVAE",'UNET3D',  'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
-                  "DENSEVOXELNET",'VNET','VNET2')
-
- --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop')
-```
+-  The arguments that you can modify are extensively listed in the manual.
 
 ## New released cool features (04/2020)
 
@@ -109,21 +96,24 @@ python ./tests/test_miccai_2019.py --args
 - Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
 - Fix mrbrains,Brats2018, IXI,MICCAI 2019 gleason challenge dataloaders
 - Add confusion matrix support for understanding training dynamics
-- Write Tests for the project
-
+- Visualizations
 
 ## Top priorities
-- [ ] Unify/Generalize Train and Test functions
-- [ ] Test new architectures
+- [x] Unify/Generalize Train and Test functions
 - [ ] Minimal test prediction example with pre-trained models
 - [ ] Save produced 3d-total-segmentation as nifty files
+
+## Support 
+If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :) !
+
+## Contributing to Medical ZOO
+If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues. More info on the contribute directory.
 
 ## Current team
 
 #### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
 
 #### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
-
 
 ## License and citation
 Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the original models and datasets. If you want, you can also cite this work as:
@@ -138,6 +128,3 @@ note="\url{https://github.com/black0017/MedicalZooPytorch}",
 year = {2019},
 organization={Nemertes}}
 ```
-
-## Support 
-If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :) !
