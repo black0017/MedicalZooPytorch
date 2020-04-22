@@ -45,7 +45,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - #### [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
 
-- #### [ IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
+- #### [IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
 
 - #### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
@@ -85,7 +85,7 @@ python ./tests/train_mrbrains_8_classes.py --args
 ```
 python ./tests/test_miccai_2019.py --args
 ```
--  The arguments that you can modify are extensively listed in the manual.
+-  The arguments that you can modify are extensively listed in the [manual](./manual/README.md)).
 
 ## New released cool features (04/2020)
 
@@ -107,7 +107,7 @@ python ./tests/test_miccai_2019.py --args
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated :) !
 
 ## Contributing to Medical ZOO
-If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues. More info on the contribute directory.
+If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues. More info on the [contribute directory](./contribute/readme.md).
 
 ## Current team
 
