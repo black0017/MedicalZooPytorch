@@ -13,11 +13,9 @@ class BaseModel(nn.Module, ABC):
     r"""
     BaseModel with basic functionalities for checkpointing and restoration.
     """
-    def __init__(self,in_channels,classes):
+    def __init__(self):
         super().__init__()
         self.best_loss = 1000000
-        self.in_channels = in_channels
-        self.classes = classes
 
     @abstractmethod
     def forward(self, x):

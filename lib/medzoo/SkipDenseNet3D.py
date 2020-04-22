@@ -168,12 +168,15 @@ class SkipDenseNet3D(BaseModel):
         # ----------------------------------------------------------
         return out
 
-    def test(self):
+    def test(self,device='cpu'):
+
         input_tensor = torch.rand(1, 2, 32, 32, 32)
         ideal_out = torch.rand(1, self.num_classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self, (2, 32, 32, 32))
+        summary(self.to(torch.device(device)), (2, 32, 32, 32),device=device)
+        import torchsummaryX
+        torchsummaryX.summary(self, input_tensor.to(device))
         print("SkipDenseNet3D test is complete")
 
 # model = SkipDenseNet3D(growth_rate=16, num_init_features=32, drop_rate=0.1,           num_classes=4)

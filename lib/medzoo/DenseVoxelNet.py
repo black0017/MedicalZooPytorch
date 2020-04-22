@@ -136,11 +136,14 @@ class DenseVoxelNet(BaseModel):
         y2 = self.conv_final(t)
         return y1, y2
 
-    def test(self):
+    def test(self,device='cpu'):
+
         a = torch.rand(1,self.in_channels, 32, 32, 32)
         ideal_out = torch.rand(1, self.classes, 32, 32, 32)
-        summary(self, (self.in_channels, 32, 32, 32))
+        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32),device=device)
         b, c = self.forward(a)
+        import torchsummaryX
+        torchsummaryX.summary(self, a.to(device))
         assert ideal_out.shape == b.shape
         assert ideal_out.shape == c.shape
         print("Test DenseVoxelNet is complete")

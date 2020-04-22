@@ -159,12 +159,14 @@ class VNet(BaseModel):
         out = self.out_tr(out)
         return out
 
-    def test(self):
+    def test(self,device='cpu'):
         input_tensor = torch.rand(1, self.in_channels, 32, 32, 32)
         ideal_out = torch.rand(1, self.num_classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self, (self.in_channels, 32, 32, 32))
+        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32),device=device)
+        # import torchsummaryX
+        # torchsummaryX.summary(self, input_tensor.to(device))
         print("Vnet test is complete")
 
 
@@ -198,12 +200,15 @@ class VNetLight(BaseModel):
         out = self.out_tr(out)
         return out
 
-    def test(self):
+    def test(self,device='cpu'):
         input_tensor = torch.rand(1, self.in_channels, 32, 32, 32)
         ideal_out = torch.rand(1, self.num_classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self, (self.in_channels, 32, 32, 32))
+        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32),device=device)
+        # import torchsummaryX
+        # torchsummaryX.summary(self, input_tensor.to(device))
+
         print("Vnet light test is complete")
 
 

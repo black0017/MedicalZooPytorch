@@ -110,11 +110,14 @@ class Unet(BaseModel):
         x = self.outc(x)
         return x
 
-    def test(self):
+    def test(self,device='cpu'):
+        device = torch.device(device)
         input_tensor = torch.rand(1, self.n_channels, 32, 32)
         ideal_out = torch.rand(1, self.n_classes, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self, (self.n_channels, 32, 32, 32))
+        summary(self.to(device), (self.n_channels, 32, 32, 32),device=device)
+        # import torchsummaryX
+        # torchsummaryX.summary(self, input_tensor.to(device))
         print("Unet 2D test is complete")
 

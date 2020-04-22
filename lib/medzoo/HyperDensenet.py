@@ -411,12 +411,14 @@ class HyperDenseNet_2Mod(BaseModel):
 
         return self.final(y)
 
-    def test(self):
+    def test(self,device='cpu'):
+
         input_tensor = torch.rand(1, 2, 22, 22, 22)
         ideal_out = torch.rand(1, self.num_classes, 22, 22, 22)
         out = self.forward(input_tensor)
         #assert ideal_out.shape == out.shape
-        summary(self, (2, 22, 22, 22))
+        summary(self.to(torch.device(device)), (2, 22, 22, 22),device=device)
+        torchsummaryX.summary(self,input_tensor.to(device))
         print("HyperDenseNet test is complete",out.shape)
 
 
@@ -596,12 +598,14 @@ class HyperDenseNet(BaseModel):
 
         return self.final(y)
 
-    def test(self):
+    def test(self,device='cpu'):
+        device = torch.device(device)
         input_tensor = torch.rand(1, 3, 20, 20, 20)
         ideal_out = torch.rand(1, self.num_classes, 20, 20, 20)
         out = self.forward(input_tensor)
         #assert ideal_out.shape == out.shape
         summary(self, (3, 16, 16, 16))
+        # torchsummaryX.summary(self, input_tensor.to(device))
         print("HyperDenseNet test is complete!!!",out.shape)
 
 

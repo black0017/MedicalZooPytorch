@@ -30,7 +30,7 @@ def create_model(args):
     elif model_name == 'DENSENET2':
         model = DualPathDenseNet(in_channels=in_channels, num_classes=num_classes)
     elif model_name == 'DENSENET3':
-        model = DualSingleDenseNet(input_channels=in_channels, drop_rate=0.1, classes=num_classes)
+        model = DualSingleDenseNet(in_channels=in_channels, drop_rate=0.1, classes=num_classes)
     elif model_name == "UNET2D":
         model = Unet(in_channels, num_classes)
     elif model_name == "RESNET3DVAE":
