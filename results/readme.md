@@ -17,8 +17,3 @@
 
 ![Alt text](../figures/a3.png?raw=true "Slice viz")
 
-
-## Top References
-```
-TODO
-```
