@@ -304,7 +304,5 @@ def testVAE():
 
 
 #m = ResNet3dVAE(max_conv_channels=128, dim=(32, 32, 32), modalities=2, classes=4)
-#m.test()
-testVAE()
-
-
+# m.test()
+# testVAE()

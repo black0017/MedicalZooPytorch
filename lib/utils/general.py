@@ -1,12 +1,34 @@
-import shutil
-import torch
+import json
 import os
-import random, time
+import random
+import shutil
+import time
+
+import torch
+import numpy as np
+import torch
+import torch.backends.cudnn as cudnn
+
+def reproducibility(args,seed):
+    torch.manual_seed(seed)
+    if args.cuda:
+        torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+    cudnn.deterministic = True
+    # FOR FASTER GPU TRAINING WHEN INPUT SIZE DOESN'T VARY
+    # LET'S TEST IT
+    cudnn.benchmark = True
+
+
+def save_arguments(args, path):
+    with open(path + '/training_arguments.txt', 'w') as f:
+        json.dump(args.__dict__, f, indent=2)
+    f.close()
 
 
 def datestr():
     now = time.gmtime()
-    return '{:02}_{:02}___{:02}_{:02}'.format(now.tm_mday, now.tm_mon,  now.tm_hour, now.tm_min)
+    return '{:02}_{:02}___{:02}_{:02}'.format(now.tm_mday, now.tm_mon, now.tm_hour, now.tm_min)
 
 
 def shuffle_lists(a, b, seed=777):

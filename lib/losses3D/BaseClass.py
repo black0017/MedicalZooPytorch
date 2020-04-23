@@ -1,5 +1,6 @@
 import torch
 from torch import nn as nn
+
 from lib.losses3D.basic import expand_as_one_hot
 
 
@@ -47,7 +48,7 @@ class _AbstractDiceLoss(nn.Module):
 
         if self.skip_index_after is not None:
             target = self.skip_target_channels(target, self.skip_index_after)
-
+        # print(input.size(),target.size())
         assert input.size() == target.size(), "'input' and 'target' must have the same shape"
         # get probabilities from logits
         input = self.normalization(input)

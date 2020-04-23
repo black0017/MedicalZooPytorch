@@ -30,8 +30,8 @@ class TensorboardWriter():
                      "val": dict((label, 0.0) for label in self.label_names)}
         self.data['train']['loss'] = 0.0
         self.data['val']['loss'] = 0.0
-        self.data['train']['count'] = 1
-        self.data['val']['count'] = 1
+        self.data['train']['count'] = 1.0
+        self.data['val']['count'] = 1.0
 
         self.data['train']['dsc'] = 0.0
         self.data['val']['dsc'] = 0.0
@@ -54,21 +54,27 @@ class TensorboardWriter():
         """
         if summary:
 
-            info_print = "\n Epoch {} : {} summary Loss : {}".format(epoch, mode,
-                                                                     self.data[mode]['loss'] / self.data[mode]['count'])
+            info_print = "\n Epoch {:2d} : {} summary Loss : {:.4f} DSC : {:.4f}  ".format(epoch, mode,
+                                                                                           self.data[mode]['loss'] /
+                                                                                           self.data[mode]['count'],
+                                                                                           self.data[mode]['dsc'] /
+                                                                                           self.data[mode]['count'])
 
             for i in range(len(self.label_names)):
-                info_print += " {} : {}".format(self.label_names[i],
-                                                self.data[mode][self.label_names[i]] / self.data[mode]['count'])
+                info_print += " {} : {:.4f}".format(self.label_names[i],
+                                                    self.data[mode][self.label_names[i]] / self.data[mode]['count'])
 
             print(info_print)
         else:
 
-            info_print = "partial epoch: {} Loss:{}".format(iter, self.data[mode]['loss'] / self.data[mode]['count'])
+            info_print = "partial epoch: {:.3f} Loss : {:.4f} DSC : {:.4f}".format(iter, self.data[mode]['loss'] /
+                                                                                   self.data[mode]['count'],
+                                                                                   self.data[mode]['dsc'] /
+                                                                                   self.data[mode]['count'])
 
             for i in range(len(self.label_names)):
-                info_print += " {} : {}".format(self.label_names[i],
-                                                self.data[mode][self.label_names[i]] / self.data[mode]['count'])
+                info_print += " {} : {:.4f}".format(self.label_names[i],
+                                                    self.data[mode][self.label_names[i]] / self.data[mode]['count'])
             print(info_print)
 
     def create_stats_files(self, path):
@@ -99,7 +105,7 @@ class TensorboardWriter():
         num_channels = len(channel_score)
         self.data[mode]['dsc'] += dice_coeff
         self.data[mode]['loss'] += loss
-        self.data[mode]['count'] = iter
+        self.data[mode]['count'] = iter + 1
 
         for i in range(num_channels):
             self.data[mode][self.label_names[i]] += channel_score[i]
@@ -119,6 +125,18 @@ class TensorboardWriter():
                                     {'train': self.data['train'][self.label_names[i]] / self.data['train']['count'],
                                      'val': self.data['val'][self.label_names[i]] / self.data['train']['count'],
                                      }, epoch)
-        #    TODO write csv files
-        # self.csv_train.write()
-        # self.csv_test.write()
+
+        #    TODO write labels accuracies in csv files
+
+        train_csv_line = 'Epoch:{:2d} Loss:{:.4f} DSC:{:.4f}'.format(epoch,
+                                                                     self.data['train']['loss'] / self.data['train'][
+                                                                         'count'],
+                                                                     self.data['train']['dsc'] / self.data['train'][
+                                                                         'count'])
+        val_csv_line = 'Epoch:{:2d} Loss:{:.4f} DSC:{:.4f}'.format(epoch,
+                                                                   self.data['val']['loss'] / self.data['val'][
+                                                                       'count'],
+                                                                   self.data['val']['dsc'] / self.data['val'][
+                                                                       'count'])
+        self.csv_train.write(train_csv_line + '\n')
+        self.csv_val.write(val_csv_line + '\n')

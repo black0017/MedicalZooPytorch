@@ -35,7 +35,7 @@ class Trainer:
             ## TODO WRITER SCALARS END OF EPOCH
 
             ## TODO SAVE CHECKPOINT
-            val_loss = str(self.writer.data['val']['loss'] / self.writer.data['val']['count'])
+            val_loss = self.writer.data['val']['loss'] / self.writer.data['val']['count']
             if self.args.save != None:
                 self.model.save_checkpoint(self.args.save,
                                            epoch, val_loss,
@@ -64,8 +64,9 @@ class Trainer:
 
             self.writer.update_scores(batch_idx, loss_dice.item(), per_ch_score, 'train',
                                       epoch * self.len_epoch + batch_idx)
-            # TODO display terminal statistics per batch or iteration steps
-            self.writer.display_terminal(partial_epoch, epoch, 'train')
+            ## TODO display terminal statistics per batch or iteration steps
+            if (batch_idx % 100 == 0):
+                self.writer.display_terminal(partial_epoch, epoch, 'train')
 
         # END OF EPOCH DISPLAY
         self.writer.display_terminal(self.len_epoch, epoch, mode='train', summary=True)
@@ -81,7 +82,7 @@ class Trainer:
                 output = self.model(input_tensor)
                 loss, per_ch_score = self.criterion(output, target)
 
-                self.writer.update_scores(batch_idx, loss.item(), per_ch_score, 'train',
+                self.writer.update_scores(batch_idx, loss.item(), per_ch_score, 'val',
                                           epoch * self.len_epoch + batch_idx)
 
-        self.writer.display_terminal(len(self.valid_data_loader), epoch, mode='train', summary=True)
+        self.writer.display_terminal(len(self.valid_data_loader), epoch, mode='val', summary=True)

@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torchsummary import summary
+
 from lib.medzoo.BaseModelClass import BaseModel
 
 """
@@ -412,14 +413,13 @@ class HyperDenseNet_2Mod(BaseModel):
         return self.final(y)
 
     def test(self,device='cpu'):
-
         input_tensor = torch.rand(1, 2, 22, 22, 22)
         ideal_out = torch.rand(1, self.num_classes, 22, 22, 22)
         out = self.forward(input_tensor)
-        #assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (2, 22, 22, 22),device=device)
-        torchsummaryX.summary(self,input_tensor.to(device))
-        print("HyperDenseNet test is complete",out.shape)
+        # assert ideal_out.shape == out.shape
+        # summary(self.to(torch.device(device)), (2, 22, 22, 22),device=device)
+        # torchsummaryX.summary(self,input_tensor.to(device))
+        print("HyperDenseNet test is complete", out.shape)
 
 
 class HyperDenseNet(BaseModel):

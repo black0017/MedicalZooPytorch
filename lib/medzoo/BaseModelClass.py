@@ -100,7 +100,7 @@ class BaseModel(nn.Module, ABC):
         if name is None:
             name = "{}_{}_epoch.pth".format(
                 os.path.basename(directory),  # netD or netG
-                epoch)
+                'last')
 
         torch.save(ckpt_dict, os.path.join(directory, name))
         if self.best_loss>loss:

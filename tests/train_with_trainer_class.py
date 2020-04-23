@@ -1,10 +1,6 @@
 import argparse
 import os
 
-import numpy as np
-import torch
-import torch.backends.cudnn as cudnn
-
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
 # Lib files
@@ -15,18 +11,13 @@ from lib.train.trainer import Trainer
 
 def main():
     args = get_arguments()
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## FOR REPRODUCIBILITY OF RESULTS
     seed = 1777777
-    torch.manual_seed(seed)
-    if args.cuda:
-        torch.cuda.manual_seed(seed)
-    np.random.seed(seed)
-    cudnn.deterministic = True
-    # FOR FASTER GPU TRAINING WHEN INPUT SIZE DOESN'T VARY
-    # cudnn.benchmark = True
+    utils.reproducibility(args, seed)
 
     utils.make_dirs(args.save)
+    utils.save_arguments(args, args.save)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
@@ -46,22 +37,22 @@ def main():
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=1)
-    parser.add_argument('--dataset_name', type=str, default="brats2018")
+    parser.add_argument('--batchSz', type=int, default=4)
+    parser.add_argument('--dataset_name', type=str, default="iseg2017")
     parser.add_argument('--dim', nargs="+", type=int, default=(32, 32, 32))
-    parser.add_argument('--nEpochs', type=int, default=10)
-    parser.add_argument('--classes', type=int, default=5)
-    parser.add_argument('--samples_train', type=int, default=10)
-    parser.add_argument('--samples_val', type=int, default=10)
-    parser.add_argument('--inChannels', type=int, default=4)
-    parser.add_argument('--inModalities', type=int, default=4)
-    parser.add_argument('--split', default=0.8, type=float, help='Select percentage of training data(default: 0.8)')
-    parser.add_argument('--lr', default=1e-3, type=float,
+    parser.add_argument('--nEpochs', type=int, default=250)
+    parser.add_argument('--classes', type=int, default=4)
+    parser.add_argument('--samples_train', type=int, default=1000)
+    parser.add_argument('--samples_val', type=int, default=100)
+    parser.add_argument('--inChannels', type=int, default=2)
+    parser.add_argument('--inModalities', type=int, default=2)
+    parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
+    parser.add_argument('--lr', default=1e-2, type=float,
                         help='learning rate (default: 1e-3)')
-    parser.add_argument('--cuda', action='store_true', default=False)
+    parser.add_argument('--cuda', action='store_true', default=True)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
-    parser.add_argument('--model', type=str, default='UNET3D',
+    parser.add_argument('--model', type=str, default='DENSENET2',
                         choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))
