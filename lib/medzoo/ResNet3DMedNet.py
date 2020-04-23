@@ -2,7 +2,6 @@ from functools import partial
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 from lib.medzoo.BaseModelClass import BaseModel
 
 """
@@ -24,6 +23,7 @@ o = (i -1)*s - 2*p + k + output_padding
 For conv layers :
 o = [i + 2*p - k - (k-1)*(d-1)]/s + 1
 """
+
 
 def conv3x3x3(in_planes, out_planes, stride=1, dilation=1, padding=1):
     kernel_size = 3
@@ -125,6 +125,7 @@ class Bottleneck(nn.Module):
 
         return out
 
+
 class TranspConvNet(nn.Module):
     """
     (segmentation)we transfer encoder part from Med3D as the feature extraction part and 
@@ -134,6 +135,7 @@ class TranspConvNet(nn.Module):
     (which isused to amplify twice the feature map), and the convolutional layer with(3,3,3)kernel
     size and 128 channels.
     """
+
     def __init__(self, in_channels, classes):
         super().__init__()
         conv_channels = 128
@@ -144,7 +146,6 @@ class TranspConvNet(nn.Module):
         relu_1 = nn.ReLU(inplace=True)
         self.transp_1 = nn.Sequential(transp_conv_1, batch_norm_1, relu_1)
 
-
         transp_conv_2 = nn.ConvTranspose3d(transp_channels, transp_channels, kernel_size=2, stride=2)
         batch_norm_2 = nn.BatchNorm3d(transp_channels)
         relu_2 = nn.ReLU(inplace=True)
@@ -154,14 +155,13 @@ class TranspConvNet(nn.Module):
         batch_norm_3 = nn.BatchNorm3d(transp_channels)
         relu_3 = nn.ReLU(inplace=True)
         self.transp_3 = nn.Sequential(transp_conv_3, batch_norm_3, relu_3)
-        
 
         conv1 = conv3x3x3(transp_channels, conv_channels, stride=1, padding=1)
         batch_norm_2 = nn.BatchNorm3d(conv_channels)
         relu_2 = nn.ReLU(inplace=True)
 
         self.conv_1 = nn.Sequential(conv1, batch_norm_2, relu_2)
-        self.conv_final =  conv1x1x1(conv_channels, classes, stride=1)
+        self.conv_final = conv1x1x1(conv_channels, classes, stride=1)
 
     def forward(self, x):
         x = self.transp_1(x)
@@ -171,14 +171,13 @@ class TranspConvNet(nn.Module):
         y = self.conv_final(x)
         return y
 
-class ResNet(nn.Module):
 
-    def __init__(self,in_channels=3, classes=10,
+class ResNetMed3D(BaseModel):
+
+    def __init__(self, in_channels=3, classes=10,
                  block=BasicBlock,
                  layers=[1, 1, 1, 1],
                  block_inplanes=[64, 128, 256, 512],
-                 conv1_t_size=7,
-                 conv1_t_stride=1,
                  no_max_pool=False,
                  shortcut_type='B',
                  widen_factor=1.0
@@ -189,6 +188,7 @@ class ResNet(nn.Module):
 
         self.in_planes = block_inplanes[0]
         self.no_max_pool = no_max_pool
+        self.in_channels = in_channels
 
         self.conv1 = nn.Conv3d(in_channels,
                                self.in_planes,
@@ -217,9 +217,8 @@ class ResNet(nn.Module):
                                        layers[3],
                                        shortcut_type,
                                        stride=1, dilation=4)
-        
-        self.segm = TranspConvNet(in_channels=512 * block.expansion,classes=classes)
 
+        self.segm = TranspConvNet(in_channels=512 * block.expansion, classes=classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv3d):
@@ -282,8 +281,14 @@ class ResNet(nn.Module):
 
         return x
 
+    def test(self):
+        a = torch.rand(1, self.in_channels, 16, 16, 16)
+        y = self.forward(a)
+        target = torch.rand(1, self.classes, 16, 16, 16)
+        assert a.shape == y.shape
 
-def generate_model(model_depth, **kwargs):
+
+def generate_resnet3d(in_channels=1, classes=2, model_depth=18, **kwargs):
     assert model_depth in [10, 18, 34, 50, 101, 152, 200]
     res_net_dict = {10: [1, 1, 1, 1], 18: [2, 2, 2, 2], 34: [3, 4, 6, 3], 50: [3, 4, 6, 3], 101: [3, 4, 23, 3],
                     152: [3, 8, 36, 3], 200: [3, 24, 36, 3]}
@@ -291,26 +296,31 @@ def generate_model(model_depth, **kwargs):
     in_planes = [64, 128, 256, 512]
 
     if model_depth == 10:
-        model = ResNet(block=BasicBlock, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=BasicBlock,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 18:
-        model = ResNet(block=BasicBlock, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=BasicBlock,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 34:
-        model = ResNet(block=BasicBlock, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=BasicBlock,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 50:
-        model = ResNet(block=Bottleneck, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=Bottleneck,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 101:
-        model = ResNet(block=Bottleneck, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=Bottleneck,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 152:
-        model = ResNet(block=Bottleneck, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=Bottleneck,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
     elif model_depth == 200:
-        model = ResNet(block=Bottleneck, layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
+        model = ResNetMed3D(in_channels=in_channels, classes=classes, block=Bottleneck,
+                            layers=res_net_dict[model_depth], block_inplanes=in_planes, **kwargs)
 
     return model
 
-
-model = generate_model(50)
-a = torch.rand(1, 3, 64, 64, 64)
-y = model(a)
-print(y.shape)
-print('\n\n\n\n\n\n\n\n\n\n\n resnet 50 ok \n\n\n\n\n\n\n\n\n\n\n')
-
+# model = generate_resnet3d(50)
+# a = torch.rand(1, 3, 64, 64, 64)
+# y = model(a)
+# print(y.shape)
+# print('\n\n\n\n\n\n\n\n\n\n\n resnet 50 ok \n\n\n\n\n\n\n\n\n\n\n')

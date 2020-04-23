@@ -8,10 +8,16 @@ from .SkipDenseNet3D import SkipDenseNet3D
 from .COVIDNet import CovidNet
 from .HyperDensenet import HyperDenseNet, HyperDenseNet_2Mod
 from .DenseVoxelNet import DenseVoxelNet
+from .HighResNet3D import HighResNet3D
+from .ResNet3DMedNet import generate_resnet3d
+
+model_list = ['UNET3D', 'DENSENET1', "UNET2D", 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
+              "DENSEVOXELNET", 'VNET', 'VNET2', "RESNET3DVAE", "RESNETMED3D", "COVIDNET", "HIGHRESNET"]
 
 
 def create_model(args):
     model_name = args.model
+    assert model_name in model_list
     optimizer_name = args.opt
     lr = args.lr
     in_channels = args.inChannels
@@ -20,15 +26,15 @@ def create_model(args):
     print("Building Model . . . . . . . ." + model_name)
 
     if model_name == 'VNET2':
-        model = VNetLight(in_channels=in_channels, elu=False, num_classes=num_classes)
+        model = VNetLight(in_channels=in_channels, elu=False, classes=num_classes)
     elif model_name == 'VNET':
-        model = VNet(in_channels=in_channels, elu=False, num_classes=num_classes)
+        model = VNet(in_channels=in_channels, elu=False, classes=num_classes)
     elif model_name == 'UNET3D':
         model = UNet3D(in_channels=in_channels, n_classes=num_classes, base_n_filter=8)
     elif model_name == 'DENSENET1':
         model = SinglePathDenseNet(in_channels=in_channels, classes=num_classes)
     elif model_name == 'DENSENET2':
-        model = DualPathDenseNet(in_channels=in_channels, num_classes=num_classes)
+        model = DualPathDenseNet(in_channels=in_channels, classes=num_classes)
     elif model_name == 'DENSENET3':
         model = DualSingleDenseNet(in_channels=in_channels, drop_rate=0.1, classes=num_classes)
     elif model_name == "UNET2D":
@@ -40,15 +46,21 @@ def create_model(args):
     elif model_name == "COVIDNET":
         model = CovidNet(num_classes)
     elif model_name == "HYPERDENSENET":
-        if args.inChannels == 2:
+        if in_channels == 2:
             model = HyperDenseNet_2Mod(classes=num_classes)
-        elif args.inChannels == 3:
+        elif in_channels == 3:
             model = HyperDenseNet(classes=num_classes)
         else:
             raise NotImplementedError
     elif model_name == "DENSEVOXELNET":
         model = DenseVoxelNet(in_channels=in_channels, classes=num_classes)
-    print(model_name,'Number of params: {}'.format(
+    elif model_name == "HIGHRESNET":
+        model = HighResNet3D(in_channels=in_channels, classes=num_classes)
+    elif model_name == "RESNETMED3D":
+        depth = 18
+        model = generate_resnet3d(in_channels=in_channels, classes=num_classes, model_depth=depth)
+    
+    print(model_name, 'Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 
     if optimizer_name == 'sgd':

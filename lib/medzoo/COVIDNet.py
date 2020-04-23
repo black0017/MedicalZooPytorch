@@ -66,7 +66,8 @@ class CovidNet(BaseModel):
             'pexp4_3': [2048, 2048],
         }
 
-        self.add_module('conv1', nn.Conv2d(in_channels=in_channels, out_channels=64, kernel_size=7, stride=2, padding=3))
+        self.add_module('conv1',
+                        nn.Conv2d(in_channels=in_channels, out_channels=64, kernel_size=7, stride=2, padding=3))
         self.add_module('conv1_1x1', nn.Conv2d(in_channels=64, out_channels=256, kernel_size=1))
         self.add_module('conv2_1x1', nn.Conv2d(in_channels=256, out_channels=512, kernel_size=1))
         self.add_module('conv3_1x1', nn.Conv2d(in_channels=512, out_channels=1024, kernel_size=1))

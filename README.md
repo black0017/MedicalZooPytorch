@@ -12,8 +12,8 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 ## Quick Start
 - If you want to quickly understand the fundamental concepts, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
-
 - Alternatively, you can create a **virtual environment** and install the requirements. Check the installation folder for more instructions.
+- You can also take a quick glance at the [manual](./manual/README.md).
 
 ## Implemented architectures
 
@@ -34,6 +34,8 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 - #### [DenseVoxelNet](https://arxiv.org/abs/1708.00573) Automatic 3D Cardiovascular MR Segmentation with Densely-Connected Volumetric ConvNets
 
 - #### [MED3D](https://arxiv.org/pdf/1904.00625.pdf) Transfer learning for 3D medical image analysis
+
+- #### [HighResNet3D](https://arxiv.org/pdf/1707.01992.pdf) On the Compactness, Efficiency, and Representation of 3D Convolutional Networks: Brain Parcellation as a Pretext Task
 
 - #### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
 
@@ -56,7 +58,7 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 <img src="figures/comparison.png"/>
 
 ### Iseg and Mr-brains 
-| Model | # Params (M) | MACS(G) |   Iseg 2017 DSC (%) | Mr-brains 4 classes DSC (%) |
+| Model | # Params (M) | [MACS](https://en.wikipedia.org/wiki/Multiply%E2%80%93accumulate_operation)(G) |   Iseg 2017 [DSC](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient) (%) | Mr-brains 4 classes DSC (%) |
 |:-----------------:|:------------:|:--------:|:-------------------:|:-------------------:|
 |   Unet3D   |   17 M   |  0.9  |  **93.84**  | **88.61** |
 |   Vnet   |   **45 M**   |  12  |   87.21 | 84.09 |
@@ -85,7 +87,7 @@ python ./tests/train_mrbrains_8_classes.py --args
 ```
 python ./tests/test_miccai_2019.py --args
 ```
--  The arguments that you can modify are extensively listed in the [manual](./manual/README.md)).
+-  The arguments that you can modify are extensively listed in the [manual](./manual/README.md).
 
 ## New released cool features (04/2020)
 

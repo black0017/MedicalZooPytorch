@@ -1,10 +1,10 @@
 """
-Implementation of BaseModel taken and modified from here https://github.com/kwotsin/mimicry/blob/master/torch_mimicry/nets/basemodel/basemodel.py
+Implementation of BaseModel taken and modified from here
+https://github.com/kwotsin/mimicry/blob/master/torch_mimicry/nets/basemodel/basemodel.py
 """
 
 import os
 from abc import ABC, abstractmethod
-
 import torch
 import torch.nn as nn
 
@@ -13,6 +13,7 @@ class BaseModel(nn.Module, ABC):
     r"""
     BaseModel with basic functionalities for checkpointing and restoration.
     """
+
     def __init__(self):
         super().__init__()
         self.best_loss = 1000000
@@ -89,11 +90,11 @@ class BaseModel(nn.Module, ABC):
         # Build checkpoint dict to save.
         ckpt_dict = {
             'model_state_dict':
-            self.state_dict(),
+                self.state_dict(),
             'optimizer_state_dict':
-            optimizer.state_dict() if optimizer is not None else None,
+                optimizer.state_dict() if optimizer is not None else None,
             'epoch':
-            epoch
+                epoch
         }
 
         # Save the file with specific name
@@ -103,12 +104,11 @@ class BaseModel(nn.Module, ABC):
                 'last')
 
         torch.save(ckpt_dict, os.path.join(directory, name))
-        if self.best_loss>loss:
-            self.best_loss=loss
+        if self.best_loss > loss:
+            self.best_loss = loss
             name = "{}_BEST.pth".format(
                 os.path.basename(directory))
             torch.save(ckpt_dict, os.path.join(directory, name))
-
 
     def count_params(self):
         r"""

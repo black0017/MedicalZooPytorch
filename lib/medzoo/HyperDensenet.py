@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from torchsummary import summary
-
 from lib.medzoo.BaseModelClass import BaseModel
 
 """
@@ -275,7 +274,7 @@ class HyperDenseNet_2Mod(BaseModel):
     def __init__(self, in_channels=2, classes=4):
         super(HyperDenseNet_2Mod, self).__init__()
         self.num_classes = classes
-        assert in_channels == 2 , "input channels must be two for this architecture"
+        assert in_channels == 2, "input channels must be two for this architecture"
 
         # Path-Top
         self.conv1_Top = convBlock(1, 25)
@@ -412,7 +411,7 @@ class HyperDenseNet_2Mod(BaseModel):
 
         return self.final(y)
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         input_tensor = torch.rand(1, 2, 22, 22, 22)
         ideal_out = torch.rand(1, self.num_classes, 22, 22, 22)
         out = self.forward(input_tensor)
@@ -425,7 +424,7 @@ class HyperDenseNet_2Mod(BaseModel):
 class HyperDenseNet(BaseModel):
     def __init__(self, in_channels=3, classes=4):
         super(HyperDenseNet, self).__init__()
-        assert in_channels==3 ,"HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod "
+        assert in_channels == 3, "HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod "
         self.num_classes = classes
 
         # Path-Top
@@ -598,16 +597,15 @@ class HyperDenseNet(BaseModel):
 
         return self.final(y)
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         device = torch.device(device)
         input_tensor = torch.rand(1, 3, 20, 20, 20)
         ideal_out = torch.rand(1, self.num_classes, 20, 20, 20)
         out = self.forward(input_tensor)
-        #assert ideal_out.shape == out.shape
+        # assert ideal_out.shape == out.shape
         summary(self, (3, 16, 16, 16))
         # torchsummaryX.summary(self, input_tensor.to(device))
-        print("HyperDenseNet test is complete!!!",out.shape)
+        print("HyperDenseNet test is complete!!!", out.shape)
 
-
-#m = HyperDenseNet(1,4)
-#m.test()
+# m = HyperDenseNet(1,4)
+# m.test()

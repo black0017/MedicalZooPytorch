@@ -2,7 +2,6 @@ import torch.nn as nn
 import torch
 import torch.nn.functional as F
 from torchsummary import summary
-
 from lib.medzoo.BaseModelClass import BaseModel
 
 """
@@ -142,18 +141,18 @@ class SinglePathDenseNet(BaseModel):
 
 
 class DualPathDenseNet(BaseModel):
-    def __init__(self, in_channels, num_classes=4, drop_rate=0,  fusion='concat'):
+    def __init__(self, in_channels, classes=4, drop_rate=0, fusion='concat'):
         """
         2-stream and 3-stream implementation with late fusion
         :param in_channels: 2 or 3 (dual or triple path based on paper specifications).
         Channels are the input modalities i.e T1,T2 etc..
         :param drop_rate:  dropout rate for dense layers
-        :param num_classes: number of classes to segment
+        :param classes: number of classes to segment
         :param fusion: 'concat or 'sum'
         """
         super(DualPathDenseNet, self).__init__()
         self.input_channels = in_channels
-        self.num_classes = num_classes
+        self.num_classes = classes
 
         self.fusion = fusion
         if self.fusion == "concat":
@@ -163,22 +162,22 @@ class DualPathDenseNet(BaseModel):
 
         if self.input_channels == 2:
             # here!!!!
-            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
+            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=classes,
                                                return_logits=False, early_fusion=True)
-            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
+            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=classes,
                                                return_logits=False, early_fusion=True)
 
         if self.input_channels == 3:
-            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
+            self.stream_1 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=classes,
                                                return_logits=False)
-            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
+            self.stream_2 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=classes,
                                                return_logits=False)
-            self.stream_3 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=num_classes,
+            self.stream_3 = SinglePathDenseNet(in_channels=1, drop_rate=drop_rate, classes=classes,
                                                return_logits=False)
 
         self.classifier = nn.Sequential()
         self.classifier.add_module('classifier', nn.Conv3d(in_classifier_channels,
-                                                           num_classes, kernel_size=1, stride=1, padding=0,
+                                                           classes, kernel_size=1, stride=1, padding=0,
                                                            bias=False))
 
     def forward(self, multi_channel_medical_img):

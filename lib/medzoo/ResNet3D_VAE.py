@@ -102,7 +102,7 @@ class ResNetEncoder(nn.Module):
         self.down_channels_1 = 2 * self.start_channels
         self.down_channels_2 = 2 * self.down_channels_1
         self.down_channels_3 = 2 * self.down_channels_2
-        #print("self.down_channels_3", self.down_channels_3)
+        # print("self.down_channels_3", self.down_channels_3)
 
         self.blue_1 = BlueBlock(in_channels=in_channels, out_channels=self.start_channels)
 
@@ -187,7 +187,7 @@ class VAE(nn.Module):
         self.in_dim = in_dim
         self.out_dim = out_dim
         self.modalities = out_dim[0]
-        self.encoder_channels = 16#int(in_channels >> 4)
+        self.encoder_channels = 16  # int(in_channels >> 4)
         self.split_dim = int(self.in_channels / 2)
 
         # self.reshape_dim = (int(self.out_dim[1] / 16), int(self.out_dim[2] / 16), int(self.out_dim[3] / 16))
@@ -259,7 +259,7 @@ class ResNet3dVAE(BaseModel):
 
         self.classes = classes
         self.modalities = in_channels
-        start_channels = 32#int(max_conv_channels >> 3)
+        start_channels = 32  # int(max_conv_channels >> 3)
 
         self.encoder = ResNetEncoder(in_channels=in_channels, start_channels=start_channels)
         self.decoder = Decoder(in_channels=max_conv_channels, classes=classes)
@@ -302,7 +302,6 @@ def testVAE():
     out, mu, logvar = model(input)
     print("Done.\n Final out shape is: ", out.shape)
 
-
-#m = ResNet3dVAE(max_conv_channels=128, dim=(32, 32, 32), modalities=2, classes=4)
-# m.test()
+# m = ResNet3dVAE(in_channels=2, classes=4, max_conv_channels=512, dim=(32, 32, 32))
+# print(m.count_params())
 # testVAE()
