@@ -4,8 +4,8 @@ from .mrbrains2018 import MRIDatasetMRBRAINS2018
 from .miccai_2019_pathology import MICCAI2019_gleason_pathology
 from .ixi_t1_t2 import IXIMRIdataset
 from .brats2018 import MICCAIBraTS2018
-
-
+from .covid_ct_dataset import CovidCTDataset
+from .COVIDxdataset import COVIDxDataset
 def generate_datasets(args, path='.././datasets'):
     params = {'batch_size': args.batchSz,
               'shuffle': True,
@@ -55,9 +55,24 @@ def generate_datasets(args, path='.././datasets'):
         val_loader = MICCAIBraTS2018('val', dataset_path=path, classes=args.classes, crop_dim=args.dim,
                                      split_idx=split_idx,
                                      samples=samples_val, save=True)
-
+    elif args.dataset_name == 'COVID_CT':
+        train_loader = CovidCTDataset('train',root_dir='.././datasets/covid_ct_data/',
+                                      txt_COVID='.././datasets/covid_ct_data/CT_COVID/trainCT_COVID.txt',
+                                      txt_NonCOVID='.././datasets/covid_ct_data/CT_NonCovid/trainCT_NonCOVID.txt')
+        val_loader = CovidCTDataset('val',root_dir='.././datasets/covid_ct_dataset',
+                                    txt_COVID='.././datasets/covid_ct_data/CT_COVID/valCT_COVID.txt',
+                                    txt_NonCOVID='.././datasets/covid_ct_data/CT_NonCovid/valCT_NonCOVID.txt')
+    elif args.dataset_name == 'COVIDx':
+        train_loader = COVIDxDataset(mode='train', n_classes=args.classes, dataset_path=path,
+                                     dim=(224, 224))
+        val_loader = COVIDxDataset(mode='test', n_classes=args.classes, dataset_path=path,
+                                   dim=(224, 224))
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
+
+
+
+
 
     print("DATA SAMPLES HAVE BEEN GENERATED SUCCESSFULLY")
     return training_generator, val_generator, val_loader.full_volume, val_loader.affine

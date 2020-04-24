@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-#from lib.medloaders import img_loader
+
 from lib.medloaders import medical_image_process as img_loader
 
 
@@ -29,6 +29,8 @@ class COVIDxDataset(Dataset):
             self.paths, self.labels = read_filepaths(testfile)
         print("{} examples =  {}".format(mode, len(self.paths)))
         self.mode = mode
+        self.full_volume = None
+        self.affine = None
 
     def __len__(self):
         return len(self.paths)
