@@ -29,8 +29,6 @@ print(epi_img_numpy_header)
 show_mid_slice(epi_img_numpy)
 show_mid_slice(anatomy_img_numpy)
 
-
-
 print(epi_img.shape)
 print(anatomy_img.shape)
 transformed = transform_coordinate_space(epi_img, anatomy_img)
@@ -58,14 +56,6 @@ print(result.shape)
 show_mid_slice(result)
 
 
-"""# 3D medical image rotation"""
-
-show_mid_slice(epi_img_numpy)
-show_mid_slice(random_rotate3D(epi_img_numpy, -60, 60))
-show_mid_slice(random_rotate3D(epi_img_numpy, -60, 60))
-show_mid_slice(random_rotate3D(epi_img_numpy, -60, 60))
-
-
 # clip_range ?????
 # outliers
 epi_img_numpy[10,10,10] = 300
@@ -80,11 +70,6 @@ show_mid_slice(clip_range(epi_img_numpy))
 
 show_mid_slice((anatomy_img_numpy))
 show_mid_slice(clip_range(anatomy_img_numpy))
-
-
-
-"""#  Center crop"""
-
 
 
 

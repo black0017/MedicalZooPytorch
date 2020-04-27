@@ -1,3 +1,9 @@
+<div align="center">
+<img src="figures/med-zoo-logo.png" width=662 height=250/>
+</div>
+
+# Medical ZOO: Contribute
+
 ## How to contribute
 
 We are looking for more contributors in the project to handle more cool medical imaging problems. Send me an email if you are interested at black.adaloglou@gmail.com

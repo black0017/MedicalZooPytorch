@@ -7,13 +7,13 @@
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
 ### Basics
-- All models accept the input the channels(in_channels) and the segmentation classes(classes) as the first two parameters and produce un-normalized outputs
-- All losses accept as input the pred in 5D shape of [batch,classes,dim_1,dim_2,dim_3] and 4D target shape of [batch, dim_1, dim_2, dim_3]. It is converted to one-hot inside the loss function for consistency reasons. Furthermore the normalization of the predictions is handled here. Dice-based losses return the scalar loss for backward(), and the prediction per channels in numpy to track training progress
+- All models accept two parameters: a) the input the channels (in_channels), and b) the segmentation classes (classes) and produce **un-normalized** outputs
+- All losses accept as input the prediction in 5D shape of [batch,classes,dim_1,dim_2,dim_3] and the target in 4D target shape of [batch, dim_1, dim_2, dim_3]. It is converted to one-hot inside the loss function for consistency reasons. Furthermore the normalization of the predictions is handled here. Dice-based losses return the scalar loss for backward(), **and** the prediction per channels in numpy to track training progress
 
   
 ### Arguments and explanation
 
-- Arguments that you can modify
+- Arguments that you can modify can be found below:
 ```
 --batchSz, type=int, default=4, help='The batch size for training and validation'
 
@@ -38,11 +38,11 @@
 --model, type=str, default='UNET3D', choices=("RESNET3DVAE",'UNET3D',  'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
                   "DENSEVOXELNET",'VNET','VNET2')
 
- --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop')
+--opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop')
 ```
 
 
-### Models
+### Models (more to be added...)
 
 | Model | # Params (M) | MACS(G) |
 |:-----------------:|:------------:|:--------:|
@@ -54,26 +54,69 @@
 |  HyperDenseNet  |   10.4 M   |   5.8   |
 
 
-### Supported losses
-- BCEDiceLoss
-- GeneralizedDiceLoss
-- DiceLoss
-- WeightedSmoothL1Loss
-- TagsAngularLoss
-- ContrastiveLoss
-- WeightedCrossEntropyLoss
+### Supported 3D losses
+- BCE Dice Loss
+- Generalized Dice Loss
+- Dice Loss
+- Weighted Smooth L1 Loss
+- Tags Angular Loss
+- Contrastive Loss
+- Weighted Cross Entropy Loss
 
-### Medical Image utilities
+### Medical Image preprocessing utilities
 
 - **rescale_data_volume(img_numpy, out_dim)** : Resize the 3d numpy array to the dim size,:param out_dim is the new 3d tuple
 - **transform_coordinate_space(modality_1, modality_2)** : Accepts nifty objects. Transfers coordinate space from modality_2 to modality_1
 - **normalize_intensity(img_tensor, normalization="mean")**: Accepts an image tensor and normalizes it.:param normalization: choices = "max", "mean" , type=str
-- **random_rotate3D(img_numpy, min_angle, max_angle)**:  Returns a random rotated array in the same shape, :param img_numpy: 3D numpy array,:param min_angle: in degrees, param max_angle: in degrees
-- **resample_to_output(img_nii, voxel_sizes=resample)** : reshamples voxel space
+- **resample_to_output(img_nii, voxel_sizes)** : re-samples voxel space
 
+
+
+## Datasets
+
+### [2018 MICCAI Medical Segmentation Decathlon](http://medicaldecathlon.com/)
+Recent official results can be found [here](https://decathlon-10.grand-challenge.org/evaluation/results/).
+
+|Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
+|---|---|---|---|---|---|
+|1. Brats|Multi-modal MRI data (FLAIR, T1w, T1gd,T2w)| **484** / **266** |-|-| - |
+|2. Heart|Mono-modal MRI |20 / 10 |-|-|-|
+|3. Hippocampus head and body|Mono-modal MRI | **263** / **131** |-|-|-|
+|4. Liver & Tumor|Portal venous phase CT | 131 / 70 |-|-|-|
+|5. Lung|CT |64 / 32|-|-|-|
+|6. Pancreas & Tumor|Portal venous phase CT |**282** / **139** |-|-|-|
+|7. Prostate central gland and peripheral|Multi-modal MRI (T2, ADC) |32 / 16| -           |-|-|
+|8. Hepatic vessel & Tumor| CT |**303** / **140**|-|-|-|
+|9. Spleen|CT |41 / 20|-|-|-|
+|10. Colon|CT |41 / 20|-|-|-|
+
+## Multi modal brain MRI datasets
+
+|Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
+|---|---|---|---|---|---|
+| Iseg 2017| T1, T2 | 10 / 10    |-|4| - |
+| BraTS 2018 |FLAIR, T1w, T1gd,T2w |20 / - |-|9 or 4|-|
+|IXI| T1,T2 **no labels** |  |-|-|-|
+
+## 2D Medical imaging Datasets
+
+|Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
+|---|---|---|---|---|---|
+| |  | -  |-|-| - |
+| - |- |- |-|-|-|
+|-| - |  |-|-|-|
+
+## Supported 3D augmentations
+
+- Random rotate
+- 3D Elastic deformation
+- Random shift/translate
+- Random scaling-zoom in/out
+- Random crop
+- Random axis flip
 
 ## License and citation
-Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the original models and datasets. If you want, you can also cite this work as:
+Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms. If you want, you can also cite this work as:
 
 ```
 @MastersThesis{adaloglou2019MRIsegmentation,
