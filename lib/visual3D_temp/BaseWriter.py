@@ -11,7 +11,8 @@ Under construction ......
 dict_class_names = {"iseg2017": ["air", "csf", "gm", "wm"],
                     "mrbrains4": ["air", "csf", "gm", "wm"],
                     "mrbrains8": ["air", "csf", "gm", "wm", "class5", "class6", "class7", "class8"],
-                    "brats2018": ["c1", "c2", "c3", "c4", "c5"]}
+                    "brats2018": ["c1", "c2", "c3", "c4", "c5"],
+                    "covid_seg":["c1", "c2", "c3"]}
 
 
 # TODO remove tensorboard x dependency make it work just with tensorboard

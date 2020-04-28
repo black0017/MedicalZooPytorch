@@ -25,7 +25,7 @@ class COVIDxDataset(Dataset):
         trainfile = '../datasets/covid_x_dataset/train_split_v2.txt'
         if (mode == 'train'):
             self.paths, self.labels = read_filepaths(trainfile)
-        elif (mode == 'test'):
+        elif (mode == 'val'):
             self.paths, self.labels = read_filepaths(testfile)
         print("{} examples =  {}".format(mode, len(self.paths)))
         self.mode = mode

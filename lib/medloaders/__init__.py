@@ -1,15 +1,19 @@
 from torch.utils.data import DataLoader
-from .iseg2017 import MRIDatasetISEG2017
-from .mrbrains2018 import MRIDatasetMRBRAINS2018
-from .miccai_2019_pathology import MICCAI2019_gleason_pathology
-from .ixi_t1_t2 import IXIMRIdataset
+
+from .COVIDxdataset import COVIDxDataset
+from .Covid_Segmentation_dataset import COVID_Seg_Dataset
 from .brats2018 import MICCAIBraTS2018
 from .covid_ct_dataset import CovidCTDataset
-from .COVIDxdataset import COVIDxDataset
+from .iseg2017 import MRIDatasetISEG2017
+from .ixi_t1_t2 import IXIMRIdataset
+from .miccai_2019_pathology import MICCAI2019_gleason_pathology
+from .mrbrains2018 import MRIDatasetMRBRAINS2018
+
+
 def generate_datasets(args, path='.././datasets'):
     params = {'batch_size': args.batchSz,
               'shuffle': True,
-              'num_workers': 1}
+              'num_workers': 2}
     samples_train = args.samples_train
     samples_val = args.samples_val
 
@@ -56,23 +60,28 @@ def generate_datasets(args, path='.././datasets'):
                                      split_idx=split_idx,
                                      samples=samples_val, save=True)
     elif args.dataset_name == 'COVID_CT':
-        train_loader = CovidCTDataset('train',root_dir='.././datasets/covid_ct_dataset/',
+        train_loader = CovidCTDataset('train', root_dir='.././datasets/covid_ct_dataset/',
                                       txt_COVID='.././datasets/covid_ct_dataset/trainCT_COVID.txt',
                                       txt_NonCOVID='.././datasets/covid_ct_dataset/trainCT_NonCOVID.txt')
-        val_loader = CovidCTDataset('val',root_dir='.././datasets/covid_ct_dataset',
+        val_loader = CovidCTDataset('val', root_dir='.././datasets/covid_ct_dataset',
                                     txt_COVID='.././datasets/covid_ct_dataset/valCT_COVID.txt',
                                     txt_NonCOVID='.././datasets/covid_ct_dataset/valCT_NonCOVID.txt')
     elif args.dataset_name == 'COVIDx':
         train_loader = COVIDxDataset(mode='train', n_classes=args.classes, dataset_path=path,
                                      dim=(224, 224))
-        val_loader = COVIDxDataset(mode='test', n_classes=args.classes, dataset_path=path,
+        val_loader = COVIDxDataset(mode='val', n_classes=args.classes, dataset_path=path,
                                    dim=(224, 224))
+
+
+
+    elif args.dataset_name == 'covid_seg':
+        train_loader = COVID_Seg_Dataset(mode='train', dataset_path=path, crop_dim=args.dim,
+                                         fold=args.fold_id, samples=samples_train, save=True)
+
+        val_loader = COVID_Seg_Dataset(mode='val', dataset_path=path, crop_dim=args.dim,
+                                       fold=args.fold_id, samples=samples_val, save=True)
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
-
-
-
-
 
     print("DATA SAMPLES HAVE BEEN GENERATED SUCCESSFULLY")
     return training_generator, val_generator, val_loader.full_volume, val_loader.affine
