@@ -5,7 +5,7 @@ import glob
 import numpy as np
 from lib.utils.covid_utils  import  read_txt
 from PIL import Image
-from torchvision import transforms
+import torchvision.transforms as transforms
 
 
 class CovidCTDataset(Dataset):

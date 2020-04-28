@@ -1,18 +1,20 @@
 import torch.optim as optim
+
+from .COVIDNet import CovidNet, CNN
+from .DenseVoxelNet import DenseVoxelNet
 from .Densenet3D import DualPathDenseNet, DualSingleDenseNet, SinglePathDenseNet
-from .Unet3D import UNet3D
-from .Vnet import VNet, VNetLight
-from .Unet2D import Unet
+from .HighResNet3D import HighResNet3D
+from .HyperDensenet import HyperDenseNet, HyperDenseNet_2Mod
+from .ResNet3DMedNet import generate_resnet3d
 from .ResNet3D_VAE import ResNet3dVAE
 from .SkipDenseNet3D import SkipDenseNet3D
-from .COVIDNet import CovidNet
-from .HyperDensenet import HyperDenseNet, HyperDenseNet_2Mod
-from .DenseVoxelNet import DenseVoxelNet
-from .HighResNet3D import HighResNet3D
-from .ResNet3DMedNet import generate_resnet3d
+from .Unet2D import Unet
+from .Unet3D import UNet3D
+from .Vnet import VNet, VNetLight
 
 model_list = ['UNET3D', 'DENSENET1', "UNET2D", 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
-              "DENSEVOXELNET", 'VNET', 'VNET2', "RESNET3DVAE", "RESNETMED3D", "COVIDNET", "HIGHRESNET"]
+              "DENSEVOXELNET", 'VNET', 'VNET2', "RESNET3DVAE", "RESNETMED3D", "COVIDNET1", "COVIDNET2", "CNN",
+              "HIGHRESNET"]
 
 
 def create_model(args):
@@ -43,8 +45,12 @@ def create_model(args):
         model = ResNet3dVAE(max_conv_channels=128, dim=args.dim, in_channels=in_channels, classes=num_classes)
     elif model_name == "SKIPDENSENET3D":
         model = SkipDenseNet3D(growth_rate=16, num_init_features=32, drop_rate=0.1, classes=num_classes)
-    elif model_name == "COVIDNET":
-        model = CovidNet(num_classes)
+    elif model_name == "COVIDNET1":
+        model = CovidNet('small', num_classes)
+    elif model_name == "COVIDNET2":
+        model = CovidNet('large', num_classes)
+    elif model_name == "CNN":
+        model = CNN(num_classes, 'resnet18')
     elif model_name == "HYPERDENSENET":
         if in_channels == 2:
             model = HyperDenseNet_2Mod(classes=num_classes)
@@ -59,7 +65,7 @@ def create_model(args):
     elif model_name == "RESNETMED3D":
         depth = 18
         model = generate_resnet3d(in_channels=in_channels, classes=num_classes, model_depth=depth)
-    
+
     print(model_name, 'Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 

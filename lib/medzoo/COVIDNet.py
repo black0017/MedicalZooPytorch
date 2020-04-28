@@ -1,6 +1,7 @@
 import torch.nn as nn
+
 import torch.nn.functional as F
-from lib.medzoo.BaseModelClass import BaseModel
+from torchvision import models
 
 
 class Flatten(nn.Module):
@@ -28,7 +29,7 @@ class PEXP(nn.Module):
 
         • Extension: 1×1 convolutions that finally extend channel dimensionality to a higher dimension to produce
              the final features.
-             
+
         '''
 
         self.network = nn.Sequential(nn.Conv2d(in_channels=n_input, out_channels=n_input // 2, kernel_size=1),
@@ -44,8 +45,8 @@ class PEXP(nn.Module):
         return self.network(x)
 
 
-class CovidNet(BaseModel):
-    def __init__(self, in_channels=3, classes=4):
+class CovidNet(nn.Module):
+    def __init__(self, model='large', n_classes=3):
         super(CovidNet, self).__init__()
         filters = {
             'pexp1_1': [64, 256],
@@ -66,25 +67,34 @@ class CovidNet(BaseModel):
             'pexp4_3': [2048, 2048],
         }
 
-        self.add_module('conv1',
-                        nn.Conv2d(in_channels=in_channels, out_channels=64, kernel_size=7, stride=2, padding=3))
-        self.add_module('conv1_1x1', nn.Conv2d(in_channels=64, out_channels=256, kernel_size=1))
-        self.add_module('conv2_1x1', nn.Conv2d(in_channels=256, out_channels=512, kernel_size=1))
-        self.add_module('conv3_1x1', nn.Conv2d(in_channels=512, out_channels=1024, kernel_size=1))
-        self.add_module('conv4_1x1', nn.Conv2d(in_channels=1024, out_channels=2048, kernel_size=1))
+        self.add_module('conv1', nn.Conv2d(in_channels=3, out_channels=64, kernel_size=7, stride=2, padding=3))
         for key in filters:
 
             if ('pool' in key):
                 self.add_module(key, nn.MaxPool2d(filters[key][0], filters[key][1]))
             else:
                 self.add_module(key, PEXP(filters[key][0], filters[key][1]))
+
+        if (model == 'large'):
+
+            self.add_module('conv1_1x1', nn.Conv2d(in_channels=64, out_channels=256, kernel_size=1))
+            self.add_module('conv2_1x1', nn.Conv2d(in_channels=256, out_channels=512, kernel_size=1))
+            self.add_module('conv3_1x1', nn.Conv2d(in_channels=512, out_channels=1024, kernel_size=1))
+            self.add_module('conv4_1x1', nn.Conv2d(in_channels=1024, out_channels=2048, kernel_size=1))
+
+            self.__forward__ = self.forward_large_net
+        else:
+            self.__forward__ = self.forward_small_net
         self.add_module('flatten', Flatten())
         self.add_module('fc1', nn.Linear(7 * 7 * 2048, 1024))
 
         self.add_module('fc2', nn.Linear(1024, 256))
-        self.add_module('classifier', nn.Linear(256, classes))
+        self.add_module('classifier', nn.Linear(256, n_classes))
 
     def forward(self, x):
+        return self.__forward__(x)
+
+    def forward_large_net(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)), 2)
         out_conv1_1x1 = self.conv1_1x1(x)
 
@@ -108,10 +118,10 @@ class CovidNet(BaseModel):
                                                                                                        2) + F.max_pool2d(
                 out_conv2_1x1, 2))
         pepx32 = self.pexp3_2(pepx31 + out_conv3_1x1)
-        pepx33 = self.pexp3_3(pepx31 + pepx32)
-        pepx34 = self.pexp3_4(pepx31 + pepx32 + pepx33)
-        pepx35 = self.pexp3_5(pepx31 + pepx32 + pepx33 + pepx34)
-        pepx36 = self.pexp3_6(pepx31 + pepx32 + pepx33 + pepx34 + pepx35)
+        pepx33 = self.pexp3_3(pepx31 + pepx32 + out_conv3_1x1)
+        pepx34 = self.pexp3_4(pepx31 + pepx32 + pepx33 + out_conv3_1x1)
+        pepx35 = self.pexp3_5(pepx31 + pepx32 + pepx33 + pepx34 + out_conv3_1x1)
+        pepx36 = self.pexp3_6(pepx31 + pepx32 + pepx33 + pepx34 + pepx35 + out_conv3_1x1)
 
         out_conv4_1x1 = F.max_pool2d(
             self.conv4_1x1(pepx31 + pepx32 + pepx33 + pepx34 + pepx35 + pepx36 + out_conv3_1x1), 2)
@@ -129,13 +139,8 @@ class CovidNet(BaseModel):
         logits = self.classifier(fc2out)
         return logits
 
-
-'''
- FORWARD ONLY WITH SKIP CONNECTIONS
-
-    def forward(self, x):
-        x = self.pool1(self.conv1(x))
-        out_conv1_1x1 = self.conv1_1x1(x)
+    def forward_small_net(self, x):
+        x = F.max_pool2d(F.relu(self.conv1(x)), 2)
 
         pepx11 = self.pexp1_1(x)
         pepx12 = self.pexp1_2(pepx11)
@@ -146,22 +151,42 @@ class CovidNet(BaseModel):
         pepx23 = self.pexp2_3(pepx22 + pepx21)
         pepx24 = self.pexp2_4(pepx23 + pepx21 + pepx22)
 
-        pepx31 = self.pexp3_1(F.max_pool2d(pepx24, 2) + F.max_pool2d(pepx21, 2) + F.max_pool2d(pepx22,2) + F.max_pool2d(pepx23, 2))
+        pepx31 = self.pexp3_1(
+            F.max_pool2d(pepx24, 2) + F.max_pool2d(pepx21, 2) + F.max_pool2d(pepx22, 2) + F.max_pool2d(pepx23, 2))
         pepx32 = self.pexp3_2(pepx31)
         pepx33 = self.pexp3_3(pepx31 + pepx32)
         pepx34 = self.pexp3_4(pepx31 + pepx32 + pepx33)
         pepx35 = self.pexp3_5(pepx31 + pepx32 + pepx33 + pepx34)
         pepx36 = self.pexp3_6(pepx31 + pepx32 + pepx33 + pepx34 + pepx35)
 
-        pepx41 = self.pexp4_1(F.max_pool2d(pepx31, 2) + F.max_pool2d(pepx32, 2) + F.max_pool2d(pepx32, 2) + F.max_pool2d(pepx34, 2)+ F.max_pool2d(pepx35, 2)+ F.max_pool2d(pepx36, 2))
+        pepx41 = self.pexp4_1(
+            F.max_pool2d(pepx31, 2) + F.max_pool2d(pepx32, 2) + F.max_pool2d(pepx32, 2) + F.max_pool2d(pepx34,
+                                                                                                       2) + F.max_pool2d(
+                pepx35, 2) + F.max_pool2d(pepx36, 2))
         pepx42 = self.pexp4_2(pepx41)
         pepx43 = self.pexp4_3(pepx41 + pepx42)
         flattened = self.flatten(pepx41 + pepx42 + pepx43)
 
-        fc1out = self.fc1(flattened)
-        fc2out = self.fc2(fc1out)
+        fc1out = F.relu(self.fc1(flattened))
+        fc2out = F.relu(self.fc2(fc1out))
         logits = self.classifier(fc2out)
-        return x
+        return logits
 
 
-'''
+class CNN(nn.Module):
+    def __init__(self, classes, model='resnet18'):
+        super(CNN, self).__init__()
+        if (model == 'resnet18'):
+            self.cnn = models.resnet18(pretrained=True)
+            self.cnn.fc = nn.Linear(512, classes)
+        elif (model == 'resnext50_32x4d'):
+
+            self.cnn = models.resnext50_32x4d(pretrained=True)
+            self.cnn.classifier = nn.Linear(1280, classes)
+        elif (model == 'mobilenet_v2'):
+
+            self.cnn = models.mobilenet_v2(pretrained=True)
+            self.cnn.classifier = nn.Linear(1280, classes)
+
+    def forward(self, x):
+        return self.cnn(x)

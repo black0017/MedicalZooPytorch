@@ -1,5 +1,6 @@
 import torch
-import pandas as pd
+
+
 def accuracy(output, target):
     with torch.no_grad():
         pred = torch.argmax(output, dim=1)
@@ -9,13 +10,12 @@ def accuracy(output, target):
     return correct, len(target), correct / len(target)
 
 
-
 def print_stats(args, epoch, num_samples, trainloader, metrics):
     if (num_samples % args.log_interval == 1):
         print("Epoch:{:2d}\tSample:{:5d}/{:5d}\tLoss:{:.4f}\tAccuracy:{:.2f}".format(epoch,
                                                                                      num_samples,
                                                                                      len(
-                                                                                         trainloader) * args.batch_size,
+                                                                                         trainloader) * args.batchSz,
                                                                                      metrics.avg('loss')
                                                                                      ,
                                                                                      metrics.avg('accuracy')))
@@ -37,38 +37,63 @@ class MetricTracker:
         self.writer = writer
         self.mode = mode + '/'
         self.keys = keys
-        print(self.keys)
-        self._data = pd.DataFrame(index=keys, columns=['total', 'counts', 'average'])
+
+        self.data = dict.fromkeys(keys, 0)
         self.reset()
 
     def reset(self):
-        for col in self._data.columns:
-            self._data[col].values[:] = 0
+        for key in self.data:
+            self.data[key] = 0
 
     def update(self, key, value, n=1, writer_step=1):
         if self.writer is not None:
-            self.writer.add_scalar(self.mode + key, value, writer_step)
-        self._data.total[key] += value * n
-        self._data.counts[key] += n
-        self._data.average[key] = self._data.total[key] / self._data.counts[key]
+            self.writer.add_scalar(self.mode + '/' + key, value, writer_step)
+        self.data[key] += value * n
 
-    def update_all_metrics(self, values_dict, n=1, writer_step=1):
+    def update_all_metrics(self, iteration, values_dict, n=1, writer_step=1):
+        self.data['count'] = iteration
         for key in values_dict:
             self.update(key, values_dict[key], n, writer_step)
 
-    def avg(self, key):
-        return self._data.average[key]
-
-    def result(self):
-        return dict(self._data.average)
+    def avg_Acc(self, key):
+        return self.data['correct'] / self.data['total']
 
     def print_all_metrics(self):
         s = ''
-        d = dict(self._data.average)
-        for key in dict(self._data.average):
-            s += "{} {:.4f}\t".format(key, d[key])
+
+        for key in self.keys:
+            s += "{} {:.4f}\t".format(key, self.data[key] / self.data['count'])
 
         return s
+
+    def display_terminal(self, iter, epoch, mode='train', summary=False):
+        """
+
+        :param iter: iteration or partial epoch
+        :param epoch: epoch of training
+        :param loss: any loss numpy
+        :param mode: train or val ( for training and validation)
+        :param summary: to print total statistics at the end of epoch
+        """
+        if summary:
+
+            info_print = "\n Epoch {:2d} : {} summary".format(epoch, mode)
+
+            for i in range(len(self.keys)):
+                info_print += " {} : {:.4f}".format(self.keys[i],
+                                                    self.data[self.keys[i]] / self.data['count'])
+
+            print(info_print)
+        else:
+
+            info_print = "partial epoch: {:.3f} ".format(iter)
+
+            for i in range(len(self.keys)):
+                info_print += " {} : {:.4f}".format(self.keys[i],
+                                                    self.data[self.keys[i]] / self.data['count'])
+            print(info_print)
+
+
 
 
 def read_txt(txt_path):

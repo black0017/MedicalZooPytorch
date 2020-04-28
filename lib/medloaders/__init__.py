@@ -56,12 +56,12 @@ def generate_datasets(args, path='.././datasets'):
                                      split_idx=split_idx,
                                      samples=samples_val, save=True)
     elif args.dataset_name == 'COVID_CT':
-        train_loader = CovidCTDataset('train',root_dir='.././datasets/covid_ct_data/',
-                                      txt_COVID='.././datasets/covid_ct_data/CT_COVID/trainCT_COVID.txt',
-                                      txt_NonCOVID='.././datasets/covid_ct_data/CT_NonCovid/trainCT_NonCOVID.txt')
+        train_loader = CovidCTDataset('train',root_dir='.././datasets/covid_ct_dataset/',
+                                      txt_COVID='.././datasets/covid_ct_dataset/trainCT_COVID.txt',
+                                      txt_NonCOVID='.././datasets/covid_ct_dataset/trainCT_NonCOVID.txt')
         val_loader = CovidCTDataset('val',root_dir='.././datasets/covid_ct_dataset',
-                                    txt_COVID='.././datasets/covid_ct_data/CT_COVID/valCT_COVID.txt',
-                                    txt_NonCOVID='.././datasets/covid_ct_data/CT_NonCovid/valCT_NonCOVID.txt')
+                                    txt_COVID='.././datasets/covid_ct_dataset/valCT_COVID.txt',
+                                    txt_NonCOVID='.././datasets/covid_ct_dataset/valCT_NonCOVID.txt')
     elif args.dataset_name == 'COVIDx':
         train_loader = COVIDxDataset(mode='train', n_classes=args.classes, dataset_path=path,
                                      dim=(224, 224))
