@@ -7,7 +7,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/Quickstart_MedicalZoo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/notebooks/Quickstart_MedicalZoo.ipynb)
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
 We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch. We also implemented a bunch of data loaders of the most common medical image datasets. **The first stable release of our repository is almost ready.**  This project started as an MSc Thesis and is currently **under further development.** 
