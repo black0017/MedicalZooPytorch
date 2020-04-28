@@ -58,6 +58,9 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 - #### [COVID-CT dataset](https://arxiv.org/pdf/2003.13865.pdf)
 
 - #### [COVIDx dataset](https://github.com/IliasPap/COVIDNet/blob/master/README.md)
+
+- #### [COVID-19 CT Lung and Infection Segmentation Dataset](https://zenodo.org/record/3757476#.XqgcL3Uzbmt)
+
 ## Preliminary results
 
 ### Visual results on Iseg-2017
