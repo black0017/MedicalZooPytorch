@@ -62,6 +62,8 @@ def get_arguments():
     parser.add_argument('--classes', type=int, default=7)
     parser.add_argument('--inChannels', type=int, default=3)
     parser.add_argument('--inModalities', type=int, default=1)
+    parser.add_argument('--samples_train', type=int, default=100)
+    parser.add_argument('--samples_val', type=int, default=10)
     parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
     parser.add_argument('--lr', default=1e-3, type=float,
                         help='learning rate (default: 1e-3)')
