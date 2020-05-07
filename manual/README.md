@@ -47,7 +47,7 @@
 
 ### Models (more to be added...)
 
-| Model | # Params (M) | MACS(G) |
+| Model | # Params (M) | MACS (G) |
 |:-----------------:|:------------:|:--------:|
 |   Unet3D   |   17 M   |  0.9  |
 |   Vnet   |   **45 M**   |  12  |

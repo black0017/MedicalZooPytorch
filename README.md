@@ -43,19 +43,17 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 ## Implemented medical imaging data-loaders
 
-- #### [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
 
-- #### [Iseg 2019](http://iseg2019.web.unc.edu/ "Official site")
+|Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
+|---|---|---|---|---|---|
+| [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")| T1, T2 | 10 / 10    |144x192x256|4| 0.72 |
+| [Iseg 2019](http://iseg2019.web.unc.edu/ "Official site")| T1, T2 | 10 / 13   |144x192x256|4| 0.75 |
+| [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018") |FLAIR, T1w, T1gd,T2w |285 / - |240x240x155|9 or 4|2.4|
+|  [MICCAI BraTs2019](https://www.med.upenn.edu/cbica/brats2019/data.html  "Brain Tumor Segmentation Challenge 2019") |FLAIR, T1w, T1gd,T2w |335 / 125 |240x240x155|9 or 4|4|
+| [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website") |FLAIR, T1w, T1gd,T2w |8 |240x240x48|9 or 4|0.5|
+|[IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")| T1,T2 **no labels** | 581 |(110~150)x256x256|-|8.7|
+|[MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")| 2D pathology images | ~250 |5K x 5K|-|2.5|
 
-- #### [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
-
-- #### [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
-
-- #### [MICCAI BraTs2019](https://www.med.upenn.edu/cbica/brats2019/data.html  "Brain Tumor Segmentation Challenge 2019")
-
-- #### [IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
-
-- #### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
 
 ## Preliminary results
@@ -78,21 +76,21 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 ## Usage
 
 #### How to train your model 
-- For Iseg-2017 :
+- For **Iseg-2017** :
 ```
-python ./tests/train_iseg.py --args
+python ./examples/train_iseg2017_new.py --args
 ```
-- For MR brains 2018 (4 classes)
+- For **MR brains 2018** (4 classes)
 ```
-python ./tests/train_mrbrains_4_classes.py --args
+python ./examples/train_mrbrains_4_classes.py --args
 ```
-- For MR brains 2018 (8 classes)
+- For **MR brains 2018** (8 classes)
 ```
-python ./tests/train_mrbrains_8_classes.py --args
+python ./examples/train_mrbrains_9_classes.py --args
 ```
 - For MICCAI 2019 Gleason Challenge
 ```
-python ./tests/test_miccai_2019.py --args
+python ./examples/test_miccai_2019.py --args
 ```
 -  The arguments that you can modify are extensively listed in the [manual](./manual/README.md).
 
@@ -114,19 +112,18 @@ We provide some implementations around Covid-19 for humanitarian purposes. In de
 - [COVID-19 CT Lung and Infection Segmentation Dataset](https://zenodo.org/record/3757476#.XqgcL3Uzbmt)
 
 
-## New released cool features (04/2020)
+## New released cool features (05/2020)
 
 - On the fly 3D total volume visualization
 - Tensorboard and PyTorch 1.4+ support to track training progress
 - Code cleanup and packages creation
 - Offline sub-volume generation 
 - Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
-- Fix mrbrains,Brats2018, IXI,MICCAI 2019 gleason challenge dataloaders
+- Fix mrbrains,Brats2018,Brats2019, Iseg2019, IXI,MICCAI 2019 gleason challenge dataloaders
 - Add confusion matrix support for understanding training dynamics
 - Some Visualizations
 
 ## Top priorities
-- [x] Unify/Generalize Train and Test functions
 - [ ] Minimal test prediction example with pre-trained models
 - [ ] Save produced 3d-total-segmentation as nifty files
 
