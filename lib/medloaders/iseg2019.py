@@ -8,7 +8,7 @@ from lib.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
 import lib.utils as utils
 
 
-class MRIDatasetISEG2017(Dataset):
+class MRIDatasetISEG2019(Dataset):
     """
     Code for reading the infant brain MRI dataset of ISEG 2017 challenge
     """
@@ -23,16 +23,15 @@ class MRIDatasetISEG2017(Dataset):
         """
         self.mode = mode
         self.root = str(dataset_path)
-        self.training_path = self.root + '/iseg_2017/iSeg-2017-Training/'
-        self.testing_path = self.root + '/iseg_2017/iSeg-2017-Testing/'
+        self.training_path = self.root + '/iseg_2019/iSeg-2019-Training/'
+        self.testing_path = self.root + '/iseg_2019/iSeg-2019-Validation/'
         self.CLASSES = 4
         self.full_vol_dim = (144, 192, 256)  # slice, width, height
         self.crop_size = crop_dim
         self.list = []
         self.samples = samples
         self.full_volume = None
-        self.save_name = self.root + '/iseg_2017/iSeg-2017-Training/iseg2017-list-' + mode + '-samples-' + str(
-            samples) + '.txt'
+        self.save_name = self.root + '/iseg_2019/iseg2019-list-' + mode + '-samples-' + str(samples) + '.txt'
 
         if load:
             self.list = utils.load_list(self.save_name)
@@ -41,7 +40,7 @@ class MRIDatasetISEG2017(Dataset):
             return
 
         subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
-        self.sub_vol_path = self.root + '/iseg_2017/generated/' + mode + subvol + '/'
+        self.sub_vol_path = self.root + '/iseg_2019/generated/' + mode + subvol + '/'
         utils.make_dirs(self.sub_vol_path)
 
         list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
@@ -53,7 +52,7 @@ class MRIDatasetISEG2017(Dataset):
             list_IDsT1 = list_IDsT1[:split_id]
             list_IDsT2 = list_IDsT2[:split_id]
             labels = labels[:split_id]
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2017",
+            self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019",
                                            mode=mode, samples=samples, full_vol_dim=self.full_vol_dim,
                                            crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, threshold=10)
@@ -73,6 +72,7 @@ class MRIDatasetISEG2017(Dataset):
             self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*T1.img')))
             self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*T2.img')))
             self.labels = None
+            # todo inference here
 
         utils.save_list(self.save_name, self.list)
 

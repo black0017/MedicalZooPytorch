@@ -4,7 +4,7 @@ import glob
 from torch.utils.data import Dataset
 import lib.utils as utils
 
-#from lib.medloaders import img_loader
+# from lib.medloaders import img_loader
 from lib.medloaders import medical_image_process as img_loader
 
 """
@@ -29,9 +29,7 @@ class MICCAI2019_gleason_pathology(Dataset):
         image_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Train Imgs/Train Imgs/*.jpg"))
         label_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Labels/*.png"))
 
-        # TODO problem with random shuffle in val and train
-        # TODo cope with 3d affine and full volume for better generalization
-        image_paths, label_paths = utils.shuffle_lists(image_paths, label_paths)
+        image_paths, label_paths = utils.shuffle_lists(image_paths, label_paths, seed=17)
         self.full_volume = None
         self.affine = None
 
@@ -82,15 +80,15 @@ class MICCAI2019_gleason_pathology(Dataset):
         for j in range(total_imgs):
             input_path = self.list_imgs[j]
             label_path = self.list_labels[j]
-            img_numpy = img_loader.load_2d_image(input_path,type="RGB")
+            img_numpy = img_loader.load_2d_image(input_path, type="RGB")
             label_numpy = img_loader.load_2d_image(label_path, type='LA')
             for i in range(self.per_image_sample):
                 h_crop, w_crop = self.generate_patch(img_numpy)
                 img_cropped = img_numpy[h_crop:(h_crop + self.crop_dim[0]),
-                            w_crop:(w_crop + self.crop_dim[1]), :]
+                              w_crop:(w_crop + self.crop_dim[1]), :]
 
                 label_cropped = label_numpy[h_crop:(h_crop + self.crop_dim[0]),
-                              w_crop:(w_crop + self.crop_dim[1])]
+                                w_crop:(w_crop + self.crop_dim[1])]
 
                 img_tensor = torch.from_numpy(img_cropped).float()
                 label_tensor = torch.from_numpy(label_cropped)
@@ -129,13 +127,6 @@ class MICCAI2019_gleason_pathology(Dataset):
         preprocess_labels(tuple_maps)
 
 
-def read_2d_img(img_path):
-    """
-    Reads a .png image and returns it as a numpy array.
-    """
-    return imageio.imread(img_path)
-
-
 def check_path_in_list(path, list):
     """
     Checks a path if exist in the other list
@@ -144,7 +135,7 @@ def check_path_in_list(path, list):
     for full_path in list:
         path_id = full_path.split('/')[-1]
         if path_id == key:
-            image_numpy = read_2d_img(full_path)
+            image_numpy = img_loader.load_2d_image(full_path, type="LA")
             return image_numpy
         return None
 
@@ -186,7 +177,7 @@ def preprocess_labels(maps_tuple):
 
         image_list = []
         # voter 5
-        image_list.append(read_2d_img(path))
+        image_list.append(img_loader.load_2d_image(path, type="LA"))
 
         # voter 1
         image = check_path_in_list(path, m1)
@@ -215,7 +206,8 @@ def preprocess_labels(maps_tuple):
 
         stacked_labels = np.stack(image_list, axis=0)
         label = vote(stacked_labels)
-        imageio.imwrite('./labels/' + key, label.astype('uint8'))
+        # Todo pillow image save here
+        # imageio.imwrite('./labels/' + key, label.astype('uint8'))
 
 
 def read_labels(root_path):

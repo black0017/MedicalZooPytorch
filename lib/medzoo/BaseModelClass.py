@@ -126,3 +126,11 @@ class BaseModel(nn.Module, ABC):
                                    if p.requires_grad)
 
         return num_total_params, num_trainable_params
+
+    def inference(self, input_tensor):
+        self.eval()
+        with torch.no_grad():
+            output = self.forward(input_tensor)
+            if isinstance(output, tuple):
+                output = output[0]
+            return output.cpu().detach()

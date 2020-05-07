@@ -8,12 +8,12 @@ from lib.medloaders.medical_loader_utils import create_sub_volumes
 import lib.utils as utils
 
 
-class MICCAIBraTS2018(Dataset):
+class MICCAIBraTS2019(Dataset):
     """
     Code for reading the infant brain MICCAIBraTS2018 challenge
     """
 
-    def __init__(self, mode, dataset_path='./datasets', classes=5, crop_dim=(32, 32, 32), split_idx=10, samples=10,
+    def __init__(self, mode, dataset_path='./datasets', classes=5, crop_dim=(200, 200, 150), split_idx=260, samples=10,
                  load=False):
         """
         :param mode: 'train','val','test'
@@ -24,26 +24,25 @@ class MICCAIBraTS2018(Dataset):
         """
         self.mode = mode
         self.root = str(dataset_path)
-        self.training_path = self.root + '/MICCAI_BraTS_2018_Data_Training/'
-        self.testing_path = self.root + ' '
-        self.CLASSES = 4
+        self.training_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Training/'
+        self.testing_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Validation/'
         self.full_vol_dim = (240, 240, 155)  # slice, width, height
         self.crop_size = crop_dim
         self.list = []
         self.samples = samples
         self.full_volume = None
         self.classes = classes
-        self.save_name = self.root + '/MICCAI_BraTS_2018_Data_Training/brats2018-list-' + mode + '-samples-' + str(
-            samples) + '.txt'
+
+        self.save_name = self.root + '/brats2019/brats2019-list-' + mode + '-samples-' + str(samples) + '.txt'
 
         if load:
+            self.list = utils.load_list(self.save_name)
             list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
             self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
-            self.list = utils.load_list(self.save_name)
             return
 
         subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
-        self.sub_vol_path = self.root + '/MICCAI_BraTS_2018_Data_Training/generated/' + mode + subvol + '/'
+        self.sub_vol_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Training/generated/' + mode + subvol + '/'
         utils.make_dirs(self.sub_vol_path)
 
         list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
@@ -51,7 +50,6 @@ class MICCAIBraTS2018(Dataset):
         list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
         list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
         labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
-
         list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels = utils.shuffle_lists(list_IDsT1, list_IDsT1ce,
                                                                                           list_IDsT2,
                                                                                           list_IDsFlair, labels,
@@ -59,15 +57,17 @@ class MICCAIBraTS2018(Dataset):
         self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
 
         if self.mode == 'train':
+            print('Brats2019, Total data:', len(list_IDsT1))
             list_IDsT1 = list_IDsT1[:split_idx]
             list_IDsT1ce = list_IDsT1ce[:split_idx]
             list_IDsT2 = list_IDsT2[:split_idx]
             list_IDsFlair = list_IDsFlair[:split_idx]
             labels = labels[:split_idx]
             self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2018", mode=mode, samples=samples,
+                                           dataset_name="brats2019", mode=mode, samples=samples,
                                            full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path)
+
         elif self.mode == 'val':
             list_IDsT1 = list_IDsT1[split_idx:]
             list_IDsT1ce = list_IDsT1ce[split_idx:]
@@ -75,16 +75,16 @@ class MICCAIBraTS2018(Dataset):
             list_IDsFlair = list_IDsFlair[split_idx:]
             labels = labels[split_idx:]
             self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2018", mode=mode, samples=samples,
+                                           dataset_name="brats2019", mode=mode, samples=samples,
                                            full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path)
-
         elif self.mode == 'test':
             self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1.nii.gz')))
             self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1ce.nii.gz')))
             self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t2.nii.gz')))
             self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
             self.labels = None
+            # Todo inference code here
 
         utils.save_list(self.save_name, self.list)
 

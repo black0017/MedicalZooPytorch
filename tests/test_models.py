@@ -7,16 +7,16 @@ def main():
     args = get_arguments()
     summary_flag = True
 
-    model_list = ['UNET3D',  'DENSENET1',
+    model_list = ["RESNET3DVAE", 'UNET3D', 'DENSENET1',
                   'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
-                  "DENSEVOXELNET",'VNET','VNET2',"RESNET3DVAE"]
+                  "DENSEVOXELNET", 'VNET', 'VNET2']
 
     if summary_flag:
         for key in model_list:
             args.model = key
             model, _ = medzoo.create_model(args)
             print('created...',key)
-            model.test()
+            # model.test()
 
 
 def get_arguments():

@@ -1,8 +1,6 @@
 import os
 import torch
 from torch.utils.data import Dataset
-import glob
-import numpy as np
 from lib.utils.covid_utils  import  read_txt
 from PIL import Image
 import torchvision.transforms as transforms

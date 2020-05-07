@@ -2,84 +2,61 @@
 import argparse
 import os
 
-import torch
-from torch.utils.tensorboard import SummaryWriter
-
+# Lib files
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
 import lib.train as train
-# Lib files
 import lib.utils as utils
 from lib.losses3D import DiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
-torch.manual_seed(seed)
-import torch.backends.cudnn as cudnn
-import numpy as np
 
 
 def main():
     args = get_arguments()
 
-    seed = 1777777
-    torch.manual_seed(seed)
-    if args.cuda:
-        torch.cuda.manual_seed(seed)
-    np.random.seed(seed)
-    cudnn.deterministic = True
-    cudnn.benchmark = True
-
+    utils.reproducibility(args, seed)
     utils.make_dirs(args.save)
-    name_model = args.model + "_" + args.dataset_name + "_" + utils.datestr()
-
-    # TODO visual3D_temp.Basewriter package
-    writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
     model, optimizer = medzoo.create_model(args)
-
     criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:
-
         model = model.cuda()
         print("Model transferred in GPU.....")
 
+    trainer = train.Trainer(args, model, criterion, optimizer, train_data_loader=training_generator,
+                            valid_data_loader=val_generator, lr_scheduler=None)
     print("START TRAINING...")
-    for epoch in range(1, args.nEpochs + 1):
-        train_stats = train.train_dice(args, epoch, model, training_generator, optimizer, criterion)
-
-        val_stats = train.test_dice(args, epoch, model, val_generator, criterion)
-
-        #old
-        utils.write_train_val_score(writer, epoch, train_stats, val_stats)
-
-        model.save_checkpoint(args.save, epoch, val_stats[0], optimizer=optimizer)
+    trainer.training()
 
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=1)
+    parser.add_argument('--batchSz', type=int, default=2)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
-    parser.add_argument('--dim', nargs="+", type=int, default=(32, 32, 32))
-    parser.add_argument('--nEpochs', type=int, default=250)
+    parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
+    parser.add_argument('--nEpochs', type=int, default=200)
     parser.add_argument('--classes', type=int, default=4)
     parser.add_argument('--samples_train', type=int, default=10)
     parser.add_argument('--samples_val', type=int, default=10)
     parser.add_argument('--inChannels', type=int, default=2)
     parser.add_argument('--inModalities', type=int, default=2)
-    parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
+    parser.add_argument('--split', default=0.9, type=float, help='Select percentage of training data(default: 0.8)')
     parser.add_argument('--lr', default=1e-3, type=float,
                         help='learning rate (default: 1e-3)')
-    parser.add_argument('--cuda', action='store_true', default=True)
+    parser.add_argument('--cuda', action='store_true', default=False)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
-    parser.add_argument('--model', type=str, default='VNET',
+    parser.add_argument('--model', type=str, default='UNET3D',
                         choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))
+    parser.add_argument('--log_dir', type=str,
+                        default='../runs/')
 
     args = parser.parse_args()
 

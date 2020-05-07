@@ -28,7 +28,8 @@ def get_arguments():
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))
     parser.add_argument('--log_dir', type=str,
-                        default='/home/papastrat/PycharmProjects/MedicalZooPytorch/runs/lias_test_run')
+                        default='../runs/')
+
     args = parser.parse_args()
 
     args.save = '../saved_models/' + args.model + '_checkpoints/' + args.model + '_{}_{}_'.format(
@@ -50,7 +51,7 @@ def TEST_the_writer():
             test_writer.update_scores(iter=i, loss=np.random.rand(1)[0], channel_score=np.random.rand(4), mode='val',
                                       writer_step=epoch * 100 + i)
         test_writer.display_terminal(i, epoch, mode='val', summary=True)
-        test_writer._write_end_of_epoch(epoch=epoch)
+        test_writer.write_end_of_epoch(epoch=epoch)
 
         # print(test_writer.data)
         test_writer.reset('train')
@@ -58,3 +59,5 @@ def TEST_the_writer():
 
 
 TEST_the_writer()
+
+print("test complete")

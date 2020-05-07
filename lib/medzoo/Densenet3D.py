@@ -84,8 +84,10 @@ class SinglePathDenseNet(BaseModel):
             if in_channels == 52:
                 total_conv_channels = 477
             else:
-                # total_conv_channels = 503
-                total_conv_channels = 426
+                if in_channels == 3:
+                    total_conv_channels = 426
+                else:
+                    total_conv_channels = 503
 
         else:
             block = _HyperDenseBlock(num_input_features=in_channels, drop_rate=drop_rate)

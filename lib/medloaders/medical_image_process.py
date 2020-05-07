@@ -22,6 +22,7 @@ def load_medical_image(path, crop_size=(0, 0, 0), crop=(0, 0, 0), type=None, nor
         img_nii = resample_to_output(img_nii, voxel_sizes=resample)
 
     img_np = np.squeeze(img_nii.get_fdata(dtype=np.float32))
+
     if viz3d:
         return torch.from_numpy(img_np)
 
@@ -29,10 +30,9 @@ def load_medical_image(path, crop_size=(0, 0, 0), crop=(0, 0, 0), type=None, nor
     if rescale is not None:
         rescale_data_volume(img_np, rescale)
 
-    if crop_size[0] != 0:
-        slices_crop, w_crop, h_crop = crop
-        img_np = img_np[slices_crop:slices_crop + crop_size[0], w_crop:w_crop + crop_size[1],
-                 h_crop:h_crop + crop_size[2]]
+    dim1, dim2, dim3 = crop_size
+    if dim1 != 0:
+        img_np = crop_img(img_np, crop_size, crop)
 
     # Tensor proccesing here
     img_tensor = torch.from_numpy(img_np)
@@ -40,6 +40,25 @@ def load_medical_image(path, crop_size=(0, 0, 0), crop=(0, 0, 0), type=None, nor
     if type != "label":
         img_tensor = normalize_intensity(img_tensor, normalization=normalization)
     return img_tensor
+
+
+def crop_img(img_np, crop_size, crop):
+    dim1, dim2, dim3 = crop_size
+    full_dim1, full_dim2, full_dim3 = img_np.shape
+    slices_crop, w_crop, h_crop = crop
+
+    if full_dim1 == dim1:
+        img_np = img_np[:, w_crop:w_crop + dim2,
+                 h_crop:h_crop + dim3]
+    elif full_dim2 == dim2:
+        img_np = img_np[slices_crop:slices_crop + dim1, :,
+                 h_crop:h_crop + dim3]
+    elif full_dim3 == dim3:
+        img_np = img_np[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2, :]
+    else:
+        img_np = img_np[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2,
+                 h_crop:h_crop + dim3]
+    return img_np
 
 
 def load_affine_matrix(path):
