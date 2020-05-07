@@ -7,15 +7,15 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/notebooks/Quickstart_MedicalZoo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/Quickstart_MedicalZoo.ipynb)
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
-We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source medical image segmentation library of state of the art 3D deep neural networks in PyTorch. We also implemented a bunch of data loaders of the most common medical image datasets. **The first stable release of our repository is almost ready.**  This project started as an MSc Thesis and is currently **under further development.** 
+We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source **medical image segmentation library of state of the art 3D deep neural networks in PyTorch**. We also implemented a bunch of data loaders of the most common medical image datasets. **The first stable release of our repository is almost ready.**  This project started as an [MSc Thesis](https://nemertes.lis.upatras.gr/jspui/handle/10889/12754 "MSc thesis link") and is currently **under further development.** 
 
 Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and data-loaders. Stay tuned! **More** updates are coming...
 
 ## Quick Start
-- If you want to quickly understand the fundamental concepts, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. 
+- If you want to quickly understand the fundamental concepts, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"), which provides a high level overview of all the aspects of medical image segmentation and deep learning. For more background in Deep Learning in MRI advice [this](https://nemertes.lis.upatras.gr/jspui/handle/10889/12754 "MSc thesis link"). 
 - Alternatively, you can create a **virtual environment** and install the requirements. Check the installation folder for more instructions.
 - You can also take a quick glance at the [manual](./manual/README.md).
 - If you do not have a capable environment or device to run this projects then you could give Google Colab a try. It allows you to run the project using a GPU device, free of charge. You may try our Colab demo using this notebook:[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/Quickstart_MedicalZoo.ipynb)
@@ -41,25 +41,22 @@ Although this work was initially focused on **3D multi-modal brain MRI segmentat
 
 - #### [HighResNet3D](https://arxiv.org/pdf/1707.01992.pdf) On the Compactness, Efficiency, and Representation of 3D Convolutional Networks: Brain Parcellation as a Pretext Task
 
-- #### [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
-
 ## Implemented medical imaging data-loaders
 
 - #### [Iseg 2017](http://iseg2017.web.unc.edu/ "Official iseg-2017 dataset page")
+
+- #### [Iseg 2019](http://iseg2019.web.unc.edu/ "Official site")
 
 - #### [Mrbrains 2018](https://mrbrains18.isi.uu.nl/ "Mrbrains 2018 official website")
 
 - #### [MICCAI BraTs2018](https://www.med.upenn.edu/sbia/brats2018/data.html "Brain Tumor Segmentation Challenge 2018")
 
+- #### [MICCAI BraTs2019](https://www.med.upenn.edu/cbica/brats2019/data.html  "Brain Tumor Segmentation Challenge 2019")
+
 - #### [IXI brain development Dataset ](https://brain-development.org/ixi-dataset/  "IXI Dataset")
 
 - #### [MICCAI Gleason 2019 Challenge](https://gleason2019.grand-challenge.org/ "MICCAI2019 Gleason challenge")
 
-- #### [COVID-CT dataset](https://arxiv.org/pdf/2003.13865.pdf)
-
-- #### [COVIDx dataset](https://github.com/IliasPap/COVIDNet/blob/master/README.md)
-
-- #### [COVID-19 CT Lung and Infection Segmentation Dataset](https://zenodo.org/record/3757476#.XqgcL3Uzbmt)
 
 ## Preliminary results
 
@@ -99,16 +96,34 @@ python ./tests/test_miccai_2019.py --args
 ```
 -  The arguments that you can modify are extensively listed in the [manual](./manual/README.md).
 
+## Covid-19 segmentation and classification
+We provide some implementations around Covid-19 for humanitarian purposes. In detail:
+
+### Classification model
+
+-  [COVID-Net]( https://arxiv.org/pdf/2003.09871.pdf) A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest Radiography Images
+
+### Datasets 
+
+#### Classification from 2D images:
+-  [COVID-CT dataset](https://arxiv.org/pdf/2003.13865.pdf)
+
+-  [COVIDx dataset](https://github.com/IliasPap/COVIDNet/blob/master/README.md)
+
+#### 3D COVID-19 segmentation dataset
+- [COVID-19 CT Lung and Infection Segmentation Dataset](https://zenodo.org/record/3757476#.XqgcL3Uzbmt)
+
+
 ## New released cool features (04/2020)
 
 - On the fly 3D total volume visualization
-- Tensorboard and PyTorch 1.4 support to track training progress
+- Tensorboard and PyTorch 1.4+ support to track training progress
 - Code cleanup and packages creation
 - Offline sub-volume generation 
 - Add Hyperdensenet, 3DResnet-VAE, DenseVoxelNet
 - Fix mrbrains,Brats2018, IXI,MICCAI 2019 gleason challenge dataloaders
 - Add confusion matrix support for understanding training dynamics
-- Visualizations
+- Some Visualizations
 
 ## Top priorities
 - [x] Unify/Generalize Train and Test functions
@@ -123,12 +138,10 @@ If you find a bug, create a GitHub issue, or even better, submit a pull request.
 
 ## Current team
 
-#### [Ilias Papastatis](https://github.com/IliasPap "Git page" )
+#### [Ilias Papastatis](https://github.com/IliasPap "Git page" ) and  [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
 
-#### [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
-
-## License and citation
-Advice the LICENSE.md file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the original models and datasets. If you want, you can also cite this work as:
+## License , citation and acknowledgements
+Please advice the **LICENSE.md** file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the **original models and datasets**. If you want, you can also **cite** **this work** as:
 
 ```
 @MastersThesis{adaloglou2019MRIsegmentation,
@@ -140,6 +153,23 @@ note="\url{https://github.com/black0017/MedicalZooPytorch}",
 year = {2019},
 organization={Nemertes}}
 ```
+
+####  Acknowledgements
+In general, in the open source community recognizing third party utilities increases the credibility of your software. In deep learning, **academics tend to skip acknowledging third party repos for some reason**. In essence, we used whatever resource we needed to make this project self-complete, that was nicely written. However, **modifications were performed to match the project structure and requirements**. Here is the list of the **top-based works**:
+
+- [HyperDenseNet](https://github.com/josedolz/HyperDenseNet_pytorch) model
+- Most of the segmentation losses from [here](https://github.com/wolny/pytorch-3dunet/blob/master/pytorch3dunet/unet3d/losses.py)
+- 3D-SkipDenseNet model from [here](https://github.com/tbuikr/3D-SkipDenseSeg)
+- 3D-ResNet base model from [here](https://github.com/kenshohara/3D-ResNets-PyTorch)
+- Abstract model class from [MimiCry project](https://github.com/kwotsin/mimicry)
+- Trainer and Writer class from PyTorch [template](https://github.com/victoresque/pytorch-template)
+
+- Covid-19 implementation based on our previous work from [here](https://github.com/IliasPap/COVIDNet)
+- MICCAI 2019 Gleason challenge data-loaders based on our previous work from [here](https://github.com/black0017/MICCAI-2019-Prostate-Cancer-segmentation-challenge)
+- Basic 2D Unet implementation from [here](https://github.com/milesial/Pytorch-UNet)
+- Vnet model from [here](https://github.com/mattmacy/vnet.pytorch)
+
+
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/black0017/MedicalZooPytorch.svg?style=flat-square

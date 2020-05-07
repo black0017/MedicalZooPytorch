@@ -16,6 +16,7 @@
 - Arguments that you can modify can be found below:
 ```
 --batchSz, type=int, default=4, help='The batch size for training and validation'
+--dataset_name, type=str, default="iseg2017", choices=('iseg2017','brats2018','brats2019','iseg2019','mrbrains4','mrbrains9','miccai2019')
 
 --dim,  default=(64, 64, 64),  help='The sub-image or sub-volume that you want to crop for 2D specify as dim=(64, 64)' 
 
@@ -29,7 +30,7 @@
 
 --samples_val, type=int, default=10
 
---fold_id, default='1', type=str, help='Select subject for fold validation'
+'--split', default=0.9, type=float, help='Select percentage of training data(default: 0.9)')
 
 --lr, default=1e-3, type=float, help='learning rate (default: 1e-3)'
 
@@ -37,6 +38,8 @@
 
 --model, type=str, default='UNET3D', choices=("RESNET3DVAE",'UNET3D',  'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
                   "DENSEVOXELNET",'VNET','VNET2')
+                  
+--log_dir', type=str,     default='../runs/'
 
 --opt', type=str, default='sgd', choices=('sgd', 'adam', 'rmsprop')
 ```
@@ -74,7 +77,10 @@
 
 ## Datasets
 
+In the **next version** we will provide datasets that will be directly downloaded from google drive for the medical decathlon challenge. Stay tuned.
+
 ### [2018 MICCAI Medical Segmentation Decathlon](http://medicaldecathlon.com/)
+
 Recent official results can be found [here](https://decathlon-10.grand-challenge.org/evaluation/results/).
 
 |Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
@@ -95,7 +101,10 @@ Recent official results can be found [here](https://decathlon-10.grand-challenge
 |Task|Data Info/ Modalities| Train/Test | Volume size | Classes | Dataset size (GB)|
 |---|---|---|---|---|---|
 | Iseg 2017| T1, T2 | 10 / 10    |-|4| - |
+| Iseg 2019| T1, T2 | 10 / 30    |-|4| - |
 | BraTS 2018 |FLAIR, T1w, T1gd,T2w |20 / - |-|9 or 4|-|
+| BraTS 2019 |FLAIR, T1w, T1gd,T2w |20 / - |-|9 or 4|-|
+| MrBrains |FLAIR, T1w, T1gd,T2w |20 / - |-|9 or 4|-|
 |IXI| T1,T2 **no labels** |  |-|-|-|
 
 ## 2D Medical imaging Datasets
