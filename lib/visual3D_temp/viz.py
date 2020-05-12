@@ -33,27 +33,34 @@ def test_padding():
 
 
 def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
-    # print('original ',x.shape)
 
-    modalities = x.shape[0]
+
+    modalities,D,H,W = x.shape
     kc, kh, kw = kernel_dim
     dc, dh, dw = kernel_dim  # stride
     # Pad to multiples of kernel_dim
     a = (x.size(3) % kw // 2, x.size(3) % kw // 2,
          x.size(2) % kh // 2, x.size(2) % kh // 2,
          x.size(1) % kc // 2, x.size(1) % kc // 2)
-
+    print(a)
     x = F.pad(x, a)
-    # print('after padding , ',x.shape)
+
     patches = x.unfold(1, kc, dc).unfold(2, kh, dh).unfold(3, kw, dw)
     unfold_shape = list(patches.size())
-    # print(unfold_shape)
-    patches = patches.contiguous().view(-1, modalities, kc, kh, kw)
-    # print('input ',patches.shape)
-    with torch.no_grad():
-        output = model(patches)
-    # print('output ,',output.shape)
 
+    patches = patches.contiguous().view(-1, modalities, kc, kh, kw)
+
+    ## TODO torch stack
+    # with torch.no_grad():
+    #     output = model.inference(patches)
+    number_of_volumes = patches.shape[0]
+    predictions = []
+
+    for i in range(number_of_volumes):
+        input_tensor = patches[i, ...].unsqueeze(0)
+        predictions.append(model.inference(input_tensor))
+    output = torch.stack(predictions,dim=0).squeeze(1)
+    #print(output.shape)
     N, Classes, _, _, _ = output.shape
     # Reshape backlist
     output_unfold_shape = unfold_shape[1:]
@@ -66,9 +73,12 @@ def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
     output_w = output_unfold_shape[3] * output_unfold_shape[6]
     output = output.permute(0, 1, 4, 2, 5, 3, 6).contiguous()
     output = output.view(-1, output_c, output_h, output_w)
-    # print(output.shape)
 
-    return output
+
+    y = output[:,a[4]:output_c-a[5],a[2]:output_h-a[3],a[0]:output_w-a[1]]
+
+    _, indices = y.max(dim=0)
+    return y
 
 
 
@@ -101,6 +111,7 @@ def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):
         predictions.append(model.inference(input_tensor))
 
     predictions = torch.stack(predictions)
+
     # project back to full volume
     full_vol_predictions = predictions.view(classes, slices, height, width)
     print("Inference complete", full_vol_predictions.shape)

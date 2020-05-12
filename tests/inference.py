@@ -9,7 +9,7 @@ import lib.utils as utils
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
 from lib.visual3D_temp import non_overlap_padding,test_padding
-
+from lib.losses3D import DiceLoss
 #
 
 def main():
@@ -28,7 +28,7 @@ def main():
     criterion = DiceLoss(classes=args.classes)
     #
     # ## TODO LOAD PRETRAINED MODEL
-
+    print(affine.shape)
     # #model.restore_checkpoint(args.pretrained)
     if args.cuda:
         model = model.cuda()
@@ -36,7 +36,9 @@ def main():
         print("Model transferred in GPU.....")
 
     output = non_overlap_padding(args,full_volume,model)
-
+    ## TODO TARGET FOR LOSS
+    loss_dice, per_ch_score = criterion(output.unsqueeze(0), torch.randn(1,4,144,192,256).cuda())
+    print(loss_dice)
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
