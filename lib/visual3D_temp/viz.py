@@ -1,11 +1,76 @@
-import matplotlib.pyplot as plt
 import nibabel as nib
-import numpy as np
 import torch
-import os
+import torch.nn.functional as F
 
-from lib.utils.general import prepare_input
 from .viz_2d import *
+
+
+def test_padding():
+    x = torch.randn(1, 144, 192, 256)
+    kc, kh, kw = 32, 32, 32  # kernel size
+    dc, dh, dw = 32, 32, 32  # stride
+    # Pad to multiples of 32
+    x = F.pad(x, (x.size(3) % kw // 2, x.size(3) % kw // 2,
+                  x.size(2) % kh // 2, x.size(2) % kh // 2,
+                  x.size(1) % kc // 2, x.size(1) % kc // 2))
+    print(x.shape)
+    patches = x.unfold(1, kc, dc).unfold(2, kh, dh).unfold(3, kw, dw)
+    unfold_shape = patches.size()
+    print(unfold_shape)
+    patches = patches.contiguous().view(-1, kc, kh, kw)
+    print(patches.shape)
+
+    # Reshape back
+    patches_orig = patches.view(unfold_shape)
+    output_c = unfold_shape[1] * unfold_shape[4]
+    output_h = unfold_shape[2] * unfold_shape[5]
+    output_w = unfold_shape[3] * unfold_shape[6]
+    patches_orig = patches_orig.permute(0, 1, 4, 2, 5, 3, 6).contiguous()
+    patches_orig = patches_orig.view(1, output_c, output_h, output_w)
+
+    # Check for equality
+    print((patches_orig == x[:, :output_c, :output_h, :output_w]).all())
+
+
+def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
+    # print('original ',x.shape)
+
+    modalities = x.shape[0]
+    kc, kh, kw = kernel_dim
+    dc, dh, dw = kernel_dim  # stride
+    # Pad to multiples of kernel_dim
+    a = (x.size(3) % kw // 2, x.size(3) % kw // 2,
+         x.size(2) % kh // 2, x.size(2) % kh // 2,
+         x.size(1) % kc // 2, x.size(1) % kc // 2)
+
+    x = F.pad(x, a)
+    # print('after padding , ',x.shape)
+    patches = x.unfold(1, kc, dc).unfold(2, kh, dh).unfold(3, kw, dw)
+    unfold_shape = list(patches.size())
+    # print(unfold_shape)
+    patches = patches.contiguous().view(-1, modalities, kc, kh, kw)
+    # print('input ',patches.shape)
+    with torch.no_grad():
+        output = model(patches)
+    # print('output ,',output.shape)
+
+    N, Classes, _, _, _ = output.shape
+    # Reshape backlist
+    output_unfold_shape = unfold_shape[1:]
+    output_unfold_shape.insert(0, Classes)
+    # print(output_unfold_shape)
+    output = output.view(output_unfold_shape)
+
+    output_c = output_unfold_shape[1] * output_unfold_shape[4]
+    output_h = output_unfold_shape[2] * output_unfold_shape[5]
+    output_w = output_unfold_shape[3] * output_unfold_shape[6]
+    output = output.permute(0, 1, 4, 2, 5, 3, 6).contiguous()
+    output = output.view(-1, output_c, output_h, output_w)
+    # print(output.shape)
+
+    return output
+
+
 
 
 def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):

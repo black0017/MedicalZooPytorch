@@ -105,10 +105,10 @@ def generate_datasets(args, path='.././datasets'):
 
     elif args.dataset_name == 'covid_seg':
         train_loader = COVID_Seg_Dataset(mode='train', dataset_path=path, crop_dim=args.dim,
-                                         fold=0, samples=samples_train, save=True)
+                                         fold=0, samples=samples_train)
 
         val_loader = COVID_Seg_Dataset(mode='val', dataset_path=path, crop_dim=args.dim,
-                                       fold=0, samples=samples_val, save=True)
+                                       fold=0, samples=samples_val)
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
 

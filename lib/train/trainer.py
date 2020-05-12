@@ -53,6 +53,8 @@ class Trainer:
         self.model.train()
 
         for batch_idx, input_tuple in enumerate(self.train_data_loader):
+            a,x = input_tuple
+            print(a.shape,x.shape)
             self.optimizer.zero_grad()
 
             input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
@@ -76,6 +78,8 @@ class Trainer:
 
         for batch_idx, input_tuple in enumerate(self.valid_data_loader):
             with torch.no_grad():
+                a, x = input_tuple
+                print(a.shape, x.shape)
                 input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
                 input_tensor.requires_grad = False
 

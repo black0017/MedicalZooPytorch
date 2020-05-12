@@ -19,8 +19,8 @@ class TensorboardWriter():
 
     def __init__(self, args):
 
-        name_model = args.log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
-        self.writer = SummaryWriter(log_dir=args.log_dir + name_model, comment=name_model)
+        name_model = args.tb_log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
+        self.writer = SummaryWriter(log_dir=args.tb_log_dir + name_model, comment=name_model)
 
         utils.make_dirs(args.save)
         self.csv_train, self.csv_val = self.create_stats_files(args.save)

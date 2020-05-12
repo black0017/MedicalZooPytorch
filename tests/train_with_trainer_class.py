@@ -39,11 +39,13 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="covid_seg")
-    parser.add_argument('--dim', nargs="+", type=int, default=(32, 32, 32))
+    parser.add_argument('--dim', nargs="+", type=int, default=(64,64,64))
     parser.add_argument('--nEpochs', type=int, default=250)
+
     parser.add_argument('--classes', type=int, default=3)
-    parser.add_argument('--samples_train', type=int, default=10)
-    parser.add_argument('--samples_val', type=int, default=10)
+    parser.add_argument('--samples_train', type=int, default=1000)
+    parser.add_argument('--samples_val', type=int, default=100)
+    parser.add_argument('--split', type=float, default=0.8)
     parser.add_argument('--inChannels', type=int, default=1)
     parser.add_argument('--inModalities', type=int, default=1)
     parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
@@ -61,7 +63,7 @@ def get_arguments():
 
     args.save = '../saved_models/' + args.model + '_checkpoints/' + args.model + '_{}_{}_'.format(
         utils.datestr(), args.dataset_name)
-    args.tb_log_dir = '../runs/_' + args.model + '_' + args.dataset_name
+    args.tb_log_dir = '../runs/'
     return args
 
 
