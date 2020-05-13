@@ -14,7 +14,7 @@ from lib.losses3D import DiceLoss
 
 def main():
     args = get_arguments()
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## FOR REPRODUCIBILITY OF RESULTS
     seed = 1777777
     utils.reproducibility(args, seed)
@@ -34,23 +34,23 @@ def main():
         model = model.cuda()
         full_volume = full_volume.cuda()
         print("Model transferred in GPU.....")
-
-    output = non_overlap_padding(args,full_volume,model)
+    x = torch.randn(3,156,240,240).cuda()
+    output = non_overlap_padding(args,x,model,criterion,kernel_dim=(32,32,32))
     ## TODO TARGET FOR LOSS
-    loss_dice, per_ch_score = criterion(output.unsqueeze(0), torch.randn(1,4,144,192,256).cuda())
-    print(loss_dice)
+
+    #print(loss_dice)
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
-    parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
+    parser.add_argument('--dim', nargs="+", type=int, default=(32,32,32))
     parser.add_argument('--nEpochs', type=int, default=250)
 
     parser.add_argument('--classes', type=int, default=4)
     parser.add_argument('--samples_train', type=int, default=1)
     parser.add_argument('--samples_val', type=int, default=1)
     parser.add_argument('--split', type=float, default=0.8)
-    parser.add_argument('--inChannels', type=int, default=3)
+    parser.add_argument('--inChannels', type=int, default=2)
     parser.add_argument('--inModalities', type=int, default=2)
     parser.add_argument('--fold_id', default='1', type=str, help='Select subject for fold validation')
     parser.add_argument('--lr', default=1e-2, type=float,

@@ -1,3 +1,5 @@
+import math
+
 import nibabel as nib
 import torch
 import torch.nn.functional as F
@@ -32,19 +34,28 @@ def test_padding():
     print((patches_orig == x[:, :output_c, :output_h, :output_w]).all())
 
 
-def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
+def roundup(x, base=32):
+    return int(math.ceil(x / base)) * base
 
 
-    modalities,D,H,W = x.shape
+def non_overlap_padding(args, full_volume, model,criterion, kernel_dim=(32, 32, 32)):
+
+    x = full_volume[1:,...].detach()
+    target = full_volume[0,...].unsqueeze(0).detach()
+    print('Origina shape', x.shape,target.shape)
+    modalities, D, H, W = x.shape
     kc, kh, kw = kernel_dim
     dc, dh, dw = kernel_dim  # stride
     # Pad to multiples of kernel_dim
-    a = (x.size(3) % kw // 2, x.size(3) % kw // 2,
-         x.size(2) % kh // 2, x.size(2) % kh // 2,
-         x.size(1) % kc // 2, x.size(1) % kc // 2)
-    print(a)
+    a = ((roundup(W, kw) - W) // 2 + W % 2, (roundup(W, kw) - W) // 2,
+         (roundup(H, kh) - H) // 2 + H % 2, (roundup(H, kh) - H) // 2,
+         (roundup(D, kc) - D) // 2 + D % 2, (roundup(D, kc) - D) // 2)
+    print('padding ', a)
     x = F.pad(x, a)
-
+    print('padded shape ', x.shape)
+    assert x.size(3) % kw == 0
+    assert x.size(2) % kh == 0
+    assert x.size(1) % kc == 0
     patches = x.unfold(1, kc, dc).unfold(2, kh, dh).unfold(3, kw, dw)
     unfold_shape = list(patches.size())
 
@@ -59,8 +70,8 @@ def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
     for i in range(number_of_volumes):
         input_tensor = patches[i, ...].unsqueeze(0)
         predictions.append(model.inference(input_tensor))
-    output = torch.stack(predictions,dim=0).squeeze(1)
-    #print(output.shape)
+    output = torch.stack(predictions, dim=0).squeeze(1).detach()
+    # print(output.shape)
     N, Classes, _, _, _ = output.shape
     # Reshape backlist
     output_unfold_shape = unfold_shape[1:]
@@ -74,13 +85,17 @@ def non_overlap_padding(args, x, model, kernel_dim=(32, 32, 32)):
     output = output.permute(0, 1, 4, 2, 5, 3, 6).contiguous()
     output = output.view(-1, output_c, output_h, output_w)
 
-
-    y = output[:,a[4]:output_c-a[5],a[2]:output_h-a[3],a[0]:output_w-a[1]]
-
+    print('output shape ', output.shape)
+    y = output[:, a[4]:output_c - a[5], a[2]:output_h - a[3], a[0]:output_w - a[1]]
+    print('remove padding predictions ', y.shape,target.shape)
+    print(target.dtype,torch.randn(1,4,156,240,240).dtype)
+    yy = torch.randint(0,3,(1,4,156,240,240)).float()
     _, indices = y.max(dim=0)
+    # loss_dice, per_ch_score = criterion(y.unsqueeze(0).cpu(),target.cpu())
+
+    #loss_dice, per_ch_score = criterion(y.unsqueeze(0).cuda(),target.cuda())
+    #print(loss_dice)
     return y
-
-
 
 
 def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):
