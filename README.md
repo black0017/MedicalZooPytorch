@@ -91,6 +91,12 @@ python ./examples/train_mrbrains_9_classes.py --args
 python ./examples/test_miccai_2019.py --args
 ```
 -  The arguments that you can modify are extensively listed in the [manual](./manual/README.md).
+## Inference 
+
+#### How to test your trained model in a medical image
+```
+python ./tests/inference.py --args
+```
 
 ## Covid-19 segmentation and classification
 We provide some implementations around Covid-19 for humanitarian purposes. In detail:
