@@ -4,16 +4,22 @@ from lib.medloaders import medical_image_process as img_loader
 from lib.visual3D_temp import *
 
 
-def get_viz_set(*ls, test_subject=0, save=False, sub_vol_path=None):
+def get_viz_set(*ls,dataset_name, test_subject=0, save=False, sub_vol_path=None):
     """
     Returns total 3d input volumes (t1 and t2 or more) and segmentation maps
     3d total vol shape : torch.Size([1, 144, 192, 256])
     """
     modalities = len(ls)
     total_volumes = []
+
     for i in range(modalities):
         path_img = ls[i][test_subject]
+
         img_tensor = img_loader.load_medical_image(path_img, viz3d=True)
+        if i == modalities-1:
+
+            img_tensor = fix_seg_map(img_tensor,dataset=dataset_name)
+
         total_volumes.append(img_tensor)
 
     if save:

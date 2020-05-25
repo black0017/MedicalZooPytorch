@@ -66,7 +66,7 @@ class MRIDatasetISEG2019(Dataset):
                                            crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, threshold=10)
 
-            self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels)
+            self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels,dataset_name="iseg2019")
 
         elif self.mode == 'test':
             self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*T1.img')))

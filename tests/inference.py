@@ -35,7 +35,8 @@ def main():
         full_volume = full_volume.cuda()
         print("Model transferred in GPU.....")
     x = torch.randn(3,156,240,240).cuda()
-    output = non_overlap_padding(args,x,model,criterion,kernel_dim=(32,32,32))
+    print(full_volume.shape)
+    output = non_overlap_padding(args,full_volume,model,criterion,kernel_dim=(32,32,32))
     ## TODO TARGET FOR LOSS
 
     #print(loss_dice)

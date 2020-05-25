@@ -55,6 +55,7 @@ class _AbstractDiceLoss(nn.Module):
 
         # compute per channel Dice coefficient
         per_channel_dice = self.dice(input, target, weight=self.weight)
+
         loss = (1. - torch.mean(per_channel_dice))
         per_channel_dice = per_channel_dice.detach().cpu().numpy()
 

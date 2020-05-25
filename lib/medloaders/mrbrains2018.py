@@ -53,7 +53,7 @@ class MRIDatasetMRBRAINS2018(Dataset):
             list_reg_t1 = [list_reg_t1[split_id]]
             list_reg_ir = [list_reg_ir[split_id]]
             list_flair = [list_flair[split_id]]
-            self.full_volume = get_viz_set(list_reg_t1, list_reg_ir, list_flair, labels)
+            self.full_volume = get_viz_set(list_reg_t1, list_reg_ir, list_flair, labels,dataset_name=dataset_name)
         else:
             labels.pop(split_id)
             list_reg_t1.pop(split_id)

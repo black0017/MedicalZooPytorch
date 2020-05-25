@@ -53,8 +53,7 @@ class Trainer:
         self.model.train()
 
         for batch_idx, input_tuple in enumerate(self.train_data_loader):
-            a,x = input_tuple
-            print(a.shape,x.shape)
+
             self.optimizer.zero_grad()
 
             input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
