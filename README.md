@@ -139,7 +139,7 @@ If you find a bug, create a GitHub issue, or even better, submit a pull request.
 
 ## Current team
 
-#### [Ilias Papastatis](https://github.com/IliasPap "Git page" ) and  [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
+#### [Ilias Papastatis](https://github.com/iliasprc "Git page" ) and  [Nikolas Adaloglou](https://www.linkedin.com/in/adaloglou17/ "LinkedIn page")
 
 ## License , citation and acknowledgements
 Please advice the **LICENSE.md** file. For usage of third party libraries and repositories please advise the respective distributed terms. It would be nice to cite the **original models and datasets**. If you want, you can also **cite** **this work** as:
