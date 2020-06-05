@@ -117,11 +117,11 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
         for j in range(modalities - 1):
             f_t1 = filename + str(j) + '.npy'
             list_saved_paths.append(f_t1)
-            print(f_t1)
+
             np.save(f_t1, tensor_images[j])
 
         f_seg = filename + 'seg.npy'
-        print(f_seg)
+
         np.save(f_seg, segmentation_map)
         list_saved_paths.append(f_seg)
         list.append(tuple(list_saved_paths))

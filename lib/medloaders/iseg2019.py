@@ -72,7 +72,7 @@ class MRIDatasetISEG2019(Dataset):
             list_IDsT1 = list_IDsT1[split_id:]
             list_IDsT2 = list_IDsT2[:split_id:]
             labels = labels[split_id:]
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2017",
+            self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019",
                                            mode=mode, samples=samples, full_vol_dim=self.full_vol_dim,
                                            crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
@@ -94,7 +94,6 @@ class MRIDatasetISEG2019(Dataset):
         t1_path, t2_path, seg_path = self.list[index]
         t1, t2, s = np.load(t1_path), np.load(t2_path), np.load(seg_path)
         if self.mode == 'train' and self.augmentation:
-            print('augmentation reee')
             [augmented_t1, augmented_t2], augmented_s = self.transform([t1, t2], s)
 
             return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(
