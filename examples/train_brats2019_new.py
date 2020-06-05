@@ -1,11 +1,12 @@
 # Python libraries
-import argparse, os
+import argparse
+import os
 
-# Lib files
-import lib.utils as utils
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
 import lib.train as train
+# Lib files
+import lib.utils as utils
 from lib.losses3D import DiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -41,9 +42,16 @@ def get_arguments():
     parser.add_argument('--samples_val', type=int, default=100)
     parser.add_argument('--inChannels', type=int, default=4)
     parser.add_argument('--inModalities', type=int, default=4)
+    parser.add_argument('--terminal_show_freq', default=50)
+    parser.add_argument('--threshold', default=0.1, type=float)
+    parser.add_argument('--augmentation', action='store_true', default=True)
+    parser.add_argument('--normalization', default='full_volume_mean', type=str,
+                        help='Tensor normalization: options ,max_min,',
+                        choices=('max_min', 'full_volume_mean', 'brats', 'max', 'mean'))
     parser.add_argument('--split', default=0.8, type=float, help='Select percentage of training data(default: 0.8)')
-    parser.add_argument('--lr', default=1e-3, type=float,
+    parser.add_argument('--lr', default=1e-2, type=float,
                         help='learning rate (default: 1e-3)')
+    parser.add_argument('--loadData', default=False)
     parser.add_argument('--cuda', action='store_true', default=True)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')

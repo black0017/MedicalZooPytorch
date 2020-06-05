@@ -26,4 +26,10 @@ def random_crop_to_labels(img_numpy, label):
     Y_max = int(np.min([img_h, Y_max]))
     X_max = int(np.min([img_w, X_max]))
 
-    return img_numpy[Z_min: Z_max, Y_min: Y_max, X_min: X_max]
+    return img_numpy[Z_min: Z_max, Y_min: Y_max, X_min: X_max], label
+
+
+class RandomCropToLabels(object):
+
+    def __call__(self, img_numpy, label):
+        return random_crop_to_labels(img_numpy, label)

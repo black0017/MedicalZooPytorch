@@ -4,7 +4,6 @@ import glob
 from torch.utils.data import Dataset
 import lib.utils as utils
 
-# from lib.medloaders import img_loader
 from lib.medloaders import medical_image_process as img_loader
 
 """
@@ -17,7 +16,8 @@ class MICCAI2019_gleason_pathology(Dataset):
     Code for reading Gleason 2019 MICCAI Challenge
     """
 
-    def __init__(self, mode, dataset_path='.././datasets', split_idx=150, crop_dim=(512, 512), samples=100, classes=7,
+    def __init__(self, args, mode, dataset_path='.././datasets', split_idx=150, crop_dim=(512, 512), samples=100,
+                 classes=7,
                  save=True):
         """
         :param mode: 'train','val'

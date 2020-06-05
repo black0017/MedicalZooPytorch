@@ -1,5 +1,5 @@
-import scipy.ndimage as ndimage
 import numpy as np
+import scipy.ndimage as ndimage
 
 
 def random_rotate3D(img_numpy, min_angle, max_angle):
@@ -18,3 +18,24 @@ def random_rotate3D(img_numpy, min_angle, max_angle):
     axes_random_id = np.random.randint(low=0, high=len(all_axes))
     axes = all_axes[axes_random_id]
     return ndimage.rotate(img_numpy, angle, axes=axes)
+
+
+class RandomRotation(object):
+    def __init__(self, min_angle=-10, max_angle=10):
+        self.min_angle = min_angle
+        self.max_angle = max_angle
+
+    def __call__(self, img_numpy, label=None):
+        """
+        Args:
+            img_numpy (numpy): Image to be rotated.
+            label (numpy): Label segmentation map to be rotated
+
+        Returns:
+            img_numpy (numpy): rotated img.
+            label (numpy): rotated Label segmentation map.
+        """
+        img_numpy = random_rotate3D(img_numpy, self.min_angle, self.max_angle)
+        if label.any() != None:
+            label = random_rotate3D(label, self.min_angle, self.max_angle)
+        return img_numpy, label

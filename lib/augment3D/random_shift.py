@@ -14,3 +14,14 @@ def random_shift(img_numpy, max_percentage=0.2):
     d2 = np.random.randint(-m2, m2)
     d3 = np.random.randint(-m3, m3)
     return transform_matrix_offset_center_3d(img_numpy, d1, d2, d3)
+
+
+class RandomShift(object):
+    def __init__(self, max_percentage=0.2):
+        self.max_percentage = max_percentage
+
+    def __call__(self, img_numpy, label=None):
+        img_numpy = random_shift(img_numpy, self.max_percentage)
+        if label.any() != None:
+            label = random_shift(label, self.max_percentage)
+        return img_numpy, label

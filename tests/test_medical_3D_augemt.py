@@ -67,5 +67,4 @@ show_mid_slice(elastic_transform_3d(epi_img_numpy))
 show_mid_slice(elastic_transform_3d(epi_img_numpy))
 
 
-print("Augmentation test complete")
-
+print("RandomChoice test complete")

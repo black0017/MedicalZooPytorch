@@ -1,17 +1,17 @@
-import os
-from torch.utils.data import Dataset
 import glob
-import numpy as np
+import os
 
-from lib.medloaders.medical_loader_utils import get_viz_set
-from lib.medloaders import medical_image_process as img_loader
-from lib.medloaders.medical_loader_utils import create_sub_volumes
+import numpy as np
+from torch.utils.data import Dataset
 
 import lib.utils as utils
+from lib.medloaders import medical_image_process as img_loader
+from lib.medloaders.medical_loader_utils import create_sub_volumes
+from lib.medloaders.medical_loader_utils import get_viz_set
 
 
 class MRIDatasetMRBRAINS2018(Dataset):
-    def __init__(self, mode, dataset_path='../datasets', classes=4, dim=(32, 32, 32), split_id=0, samples=1000,
+    def __init__(self, args, mode, dataset_path='../datasets', classes=4, dim=(32, 32, 32), split_id=0, samples=1000,
                  load=False):
         self.mode = mode
         self.root = dataset_path
@@ -22,6 +22,7 @@ class MRIDatasetMRBRAINS2018(Dataset):
         self.samples = samples
         self.list = []
         self.full_vol_size = (240, 240, 48)
+        self.threshold = 0.1
         self.crop_dim = dim
         self.list_flair = []
         self.list_ir = []
@@ -34,6 +35,7 @@ class MRIDatasetMRBRAINS2018(Dataset):
             samples) + '.txt'
 
         if load:
+            ## load pre-generated data
             self.list = utils.load_list(self.save_name)
             return
 
@@ -53,7 +55,7 @@ class MRIDatasetMRBRAINS2018(Dataset):
             list_reg_t1 = [list_reg_t1[split_id]]
             list_reg_ir = [list_reg_ir[split_id]]
             list_flair = [list_flair[split_id]]
-            self.full_volume = get_viz_set(list_reg_t1, list_reg_ir, list_flair, labels,dataset_name=dataset_name)
+            self.full_volume = get_viz_set(list_reg_t1, list_reg_ir, list_flair, labels, dataset_name=dataset_name)
         else:
             labels.pop(split_id)
             list_reg_t1.pop(split_id)
@@ -63,7 +65,8 @@ class MRIDatasetMRBRAINS2018(Dataset):
         self.list = create_sub_volumes(list_reg_t1, list_reg_ir, list_flair, labels,
                                        dataset_name=dataset_name, mode=mode,
                                        samples=samples, full_vol_dim=self.full_vol_size,
-                                       crop_size=self.crop_dim, sub_vol_path=self.sub_vol_path)
+                                       crop_size=self.crop_dim, sub_vol_path=self.sub_vol_path,
+                                       th_percent=self.threshold)
 
         utils.save_list(self.save_name, self.list)
 
