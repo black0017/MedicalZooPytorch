@@ -11,7 +11,7 @@ from lib.medloaders import medical_image_process as img_loader
 from lib.medloaders.medical_loader_utils import create_sub_volumes
 
 
-class MICCAIBraTS2019(Dataset):
+class MICCAIBraTS2020(Dataset):
     """
     Code for reading the infant brain MICCAIBraTS2018 challenge
     """
@@ -28,8 +28,8 @@ class MICCAIBraTS2019(Dataset):
         """
         self.mode = mode
         self.root = str(dataset_path)
-        self.training_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Training/'
-        self.testing_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Validation/'
+        self.training_path = self.root + '/brats2020/MICCAI_BraTS_2020_Data_Training/'
+        self.testing_path = self.root + '/brats2020/MICCAI_BraTS_2020_Data_Validation/'
         self.full_vol_dim = (240, 240, 155)  # slice, width, height
         self.crop_size = crop_dim
         self.threshold = args.threshold
@@ -43,7 +43,7 @@ class MICCAIBraTS2019(Dataset):
             self.transform = augment3D.RandomChoice(
                 transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
                             augment3D.ElasticTransform()], p=0.5)
-        self.save_name = self.root + '/brats2019/brats2019-list-' + mode + '-samples-' + str(samples) + '.txt'
+        self.save_name = self.root + '/brats2020/brats2020-list-' + mode + '-samples-' + str(samples) + '.txt'
 
         if load:
             ## load pre-generated data
@@ -53,29 +53,31 @@ class MICCAIBraTS2019(Dataset):
             return
 
         subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
-        self.sub_vol_path = self.root + '/brats2019/MICCAI_BraTS_2019_Data_Training/generated/' + mode + subvol + '/'
+        self.sub_vol_path = self.root + '/brats2020/generated/' + mode + subvol + '/'
         utils.make_dirs(self.sub_vol_path)
 
-        list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
-        list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1ce.nii.gz')))
-        list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
-        list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
-        labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
+        list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*/*t1.nii.gz')))
+        list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*/*t1ce.nii.gz')))
+        list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*/*t2.nii.gz')))
+        list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*/*_flair.nii.gz')))
+        labels = sorted(glob.glob(os.path.join(self.training_path, '*/*_seg.nii.gz')))
+
         list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels = utils.shuffle_lists(list_IDsT1, list_IDsT1ce,
                                                                                           list_IDsT2,
                                                                                           list_IDsFlair, labels,
                                                                                           seed=17)
+        assert len(list_IDsT1) == len(list_IDsT2) == len(list_IDsT1ce) == len(list_IDsFlair)
         self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
 
         if self.mode == 'train':
-            print('Brats2019, Total data:', len(list_IDsT1))
+            print('Brats2020, Total data:', len(list_IDsT1))
             list_IDsT1 = list_IDsT1[:split_idx]
             list_IDsT1ce = list_IDsT1ce[:split_idx]
             list_IDsT2 = list_IDsT2[:split_idx]
             list_IDsFlair = list_IDsFlair[:split_idx]
             labels = labels[:split_idx]
             self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2019", mode=mode, samples=samples,
+                                           dataset_name="brats2020", mode=mode, samples=samples,
                                            full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
 
@@ -86,7 +88,7 @@ class MICCAIBraTS2019(Dataset):
             list_IDsFlair = list_IDsFlair[split_idx:]
             labels = labels[split_idx:]
             self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2019", mode=mode, samples=samples,
+                                           dataset_name="brats2020", mode=mode, samples=samples,
                                            full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
         elif self.mode == 'test':

@@ -30,9 +30,9 @@ def elastic_transform_3d(img_numpy, labels=None, alpha=1, sigma=20, c_val=0.0, m
     :param method: interpolation method. supported methods : ("linear", "nearest")
     :return: deformed image and/or label
     """
-    assert img_numpy.ndim == 3 , 'Wrong img shape, provide 3D img'
+    assert img_numpy.ndim == 3, 'Wrong img shape, provide 3D img'
     if labels is not None:
-        assert img_numpy.shape == labels.shape , "Shapes of img and label do not much!"
+        assert img_numpy.shape == labels.shape, "Shapes of img and label do not much!"
     shape = img_numpy.shape
 
     # Define 3D coordinate system
@@ -72,3 +72,14 @@ def elastic_transform_3d(img_numpy, labels=None, alpha=1, sigma=20, c_val=0.0, m
         return img_numpy, labels
 
     return img_numpy
+
+
+class ElasticTransform(object):
+    def __init__(self, alpha=1, sigma=20, c_val=0.0, method="linear"):
+        self.alpha = alpha
+        self.sigma = sigma
+        self.c_val = c_val
+        self.method = method
+
+    def __call__(self, img_numpy, label=None):
+        return elastic_transform_3d(img_numpy, label, self.alpha, self.sigma, self.c_val, self.method)

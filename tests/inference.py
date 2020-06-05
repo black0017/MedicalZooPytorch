@@ -22,14 +22,14 @@ def main():
 
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                                path='.././datasets')
+                                                                                               path='./datasets')
     model, optimizer = medzoo.create_model(args)
     #
     criterion = DiceLoss(classes=args.classes)
     #
     # ## TODO LOAD PRETRAINED MODEL
     print(affine.shape)
-    # #model.restore_checkpoint(args.pretrained)
+    model.restore_checkpoint(args.pretrained)
     if args.cuda:
         model = model.cuda()
         full_volume = full_volume.cuda()
@@ -42,9 +42,9 @@ def main():
     #print(loss_dice)
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=4)
+    parser.add_argument('--batchSz', type=int, default=1)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
-    parser.add_argument('--dim', nargs="+", type=int, default=(32,32,32))
+    parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
     parser.add_argument('--nEpochs', type=int, default=250)
 
     parser.add_argument('--classes', type=int, default=4)
@@ -64,7 +64,7 @@ def get_arguments():
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))
     parser.add_argument('--pretrained',
-                        default='../saved_models/UNET3D_checkpoints/UNET3D_24_04___14_27_iseg2017_/UNET3D_24_04___14_27_iseg2017__last_epoch.pth',
+                        default='../saved_models/UNET3D_checkpoints/UNET3D_25_05___15_15_iseg2017_/UNET3D_25_05___15_15_iseg2017__last_epoch.pth',
                         type=str, metavar='PATH',
                         help='path to pretrained model')
 

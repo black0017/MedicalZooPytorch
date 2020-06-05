@@ -53,7 +53,6 @@ class BaseModel(nn.Module, ABC):
             ckpt_dict = torch.load(ckpt_file)
         except RuntimeError:
             ckpt_dict = torch.load(ckpt_file, map_location=lambda storage, loc: storage)
-
         # Restore model weights
         self.load_state_dict(ckpt_dict['model_state_dict'])
 

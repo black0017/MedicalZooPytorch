@@ -1,14 +1,14 @@
 # Python libraries
-import argparse, os
-import torch
-from torch.utils.tensorboard import SummaryWriter
+import argparse
+import os
 
-# Lib files
-import lib.utils as utils
+import torch
+
 import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
-
 import lib.train as train
+# Lib files
+import lib.utils as utils
 from lib.losses3D.dice import DiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -48,7 +48,11 @@ def get_arguments():
     parser.add_argument('--inModalities', type=int, default=3)
     parser.add_argument('--samples_train', type=int, default=10)
     parser.add_argument('--samples_val', type=int, default=10)
-
+    parser.add_argument('--threshold', default=0.1, type=float)
+    parser.add_argument('--augmentation', default='no', type=str,
+                        help='Tensor normalization: options max, mean, global')
+    parser.add_argument('--normalization', default='global_mean', type=str,
+                        help='Tensor normalization: options max, mean, global')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
 

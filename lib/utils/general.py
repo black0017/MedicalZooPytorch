@@ -48,7 +48,6 @@ def prepare_input(input_tuple, inModalities=-1, inChannels=-1, cuda=False, args=
         modalities = inModalities
         channels = inChannels
         in_cuda = cuda
-
     if modalities == 4:
         if channels == 4:
             img_1, img_2, img_3, img_4, target = input_tuple
@@ -76,7 +75,9 @@ def prepare_input(input_tuple, inModalities=-1, inChannels=-1, cuda=False, args=
     elif modalities == 2:
         if channels == 2:
             img_t1, img_t2, target = input_tuple
+
             input_tensor = torch.cat((img_t1, img_t2), dim=1)
+
         elif channels == 1:
             input_tensor, _, target = input_tuple
     elif modalities == 1:

@@ -8,8 +8,9 @@ dict_class_names = {"iseg2017": ["Air", "CSF", "GM", "WM"],
                     "mrbrains4": ["Air", "CSF", "GM", "WM"],
                     "mrbrains9": ["Background", "Cort.GM", "BS", "WM", "WML", "CSF",
                                   "Ventr.", "Cerebellum", "stem"],
-                    "brats2018": ["Background", "NCR", "ED", "NET", "ET"],
+                    "brats2018": ["Background", "NCR/NET", "ED", "ET"],
                     "brats2019": ["Background", "NCR", "ED", "NET", "ET"],
+                    "brats2020": ["Background", "NCR/NET", "ED", "ET"],
                     "covid_seg": ["c1", "c2", "c3"],
                     "miccai2019": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"]
                     }
@@ -19,8 +20,8 @@ class TensorboardWriter():
 
     def __init__(self, args):
 
-        name_model = args.tb_log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
-        self.writer = SummaryWriter(log_dir=args.tb_log_dir + name_model, comment=name_model)
+        name_model = args.log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
+        self.writer = SummaryWriter(log_dir=args.log_dir + name_model, comment=name_model)
 
         utils.make_dirs(args.save)
         self.csv_train, self.csv_val = self.create_stats_files(args.save)
@@ -51,17 +52,17 @@ class TensorboardWriter():
         :param summary: to print total statistics at the end of epoch
         """
         if summary:
-            info_print = "\n\n\nSummary {} Epoch {:2d}:  Loss:{:.4f} \t DSC:{:.4f}  ".format(mode, epoch,
-                                                                                             self.data[mode]['loss'] /
-                                                                                             self.data[mode]['count'],
-                                                                                             self.data[mode]['dsc'] /
-                                                                                             self.data[mode]['count'])
+            info_print = "\nSummary {} Epoch {:2d}:  Loss:{:.4f} \t DSC:{:.4f}  ".format(mode, epoch,
+                                                                                         self.data[mode]['loss'] /
+                                                                                         self.data[mode]['count'],
+                                                                                         self.data[mode]['dsc'] /
+                                                                                         self.data[mode]['count'])
 
             for i in range(len(self.label_names)):
                 info_print += "\t{} : {:.4f}".format(self.label_names[i],
                                                      self.data[mode][self.label_names[i]] / self.data[mode]['count'])
 
-            print(info_print + '\n\n')
+            print(info_print)
         else:
 
             info_print = "\nEpoch: {:.2f} Loss:{:.4f} \t DSC:{:.4f}".format(iter, self.data[mode]['loss'] /

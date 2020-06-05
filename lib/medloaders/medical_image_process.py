@@ -10,11 +10,11 @@ concentrate all pre-processing here here
 """
 
 
-def load_medical_image(path, crop_size=(0, 0, 0), crop=(0, 0, 0), type=None, normalization="mean", resample=None,
-                       viz3d=False, to_canonical=False, rescale=None):
+def load_medical_image(path, type=None, resample=None,
+                       viz3d=False, to_canonical=False, rescale=None, normalization='full_volume_mean',
+                       clip_intenisty=True, crop_size=(0, 0, 0), crop=(0, 0, 0), ):
     img_nii = nib.load(path)
 
-    # Medical img proccesing pipiline functions here
     if to_canonical:
         img_nii = nib.as_closest_canonical(img_nii)
 
@@ -26,39 +26,72 @@ def load_medical_image(path, crop_size=(0, 0, 0), crop=(0, 0, 0), type=None, nor
     if viz3d:
         return torch.from_numpy(img_np)
 
-    # Numpy-based transformations/augmentations here
+    # 1. Intensity outlier clipping
+    if clip_intenisty and type != "label":
+        img_np = percentile_clip(img_np)
+
+    # 2. Rescale to specified output shape
     if rescale is not None:
         rescale_data_volume(img_np, rescale)
 
-    dim1, dim2, dim3 = crop_size
-    if dim1 != 0:
-        img_np = crop_img(img_np, crop_size, crop)
-
-    # Tensor proccesing here
+    # 3. intensity normalization
     img_tensor = torch.from_numpy(img_np)
 
+    MEAN, STD, MAX, MIN = 0., 1., 1., 0.
+    if type != 'label':
+        MEAN, STD = img_tensor.mean(), img_tensor.std()
+        MAX, MIN = img_tensor.max(), img_tensor.min()
     if type != "label":
-        img_tensor = normalize_intensity(img_tensor, normalization=normalization)
+        img_tensor = normalize_intensity(img_tensor, normalization=normalization, norm_values=(MEAN, STD, MAX, MIN))
+    img_tensor = crop_img(img_tensor, crop_size, crop)
     return img_tensor
 
 
-def crop_img(img_np, crop_size, crop):
-    dim1, dim2, dim3 = crop_size
-    full_dim1, full_dim2, full_dim3 = img_np.shape
+def medical_image_transform(img_tensor, type=None,
+                            normalization="full_volume_mean",
+                            norm_values=(0., 1., 1., 0.)):
+    MEAN, STD, MAX, MIN = norm_values
+    # Numpy-based transformations/augmentations here
+
+    if type != 'label':
+        MEAN, STD = img_tensor.mean(), img_tensor.std()
+        MAX, MIN = img_tensor.max(), img_tensor.min()
+
+    if type != "label":
+        img_tensor = normalize_intensity(img_tensor, normalization=normalization, norm_values=(MEAN, STD, MAX, MIN))
+
+    return img_tensor
+
+
+def crop_img(img_tensor, crop_size, crop):
+    if crop_size[0] == 0:
+        return img_tensor
     slices_crop, w_crop, h_crop = crop
+    dim1, dim2, dim3 = crop_size
+    inp_img_dim = img_tensor.dim()
+    assert inp_img_dim >= 3
+    if img_tensor.dim() == 3:
+        full_dim1, full_dim2, full_dim3 = img_tensor.shape
+    elif img_tensor.dim() == 4:
+        _, full_dim1, full_dim2, full_dim3 = img_tensor.shape
+        img_tensor = img_tensor[0, ...]
 
     if full_dim1 == dim1:
-        img_np = img_np[:, w_crop:w_crop + dim2,
-                 h_crop:h_crop + dim3]
+        img_tensor = img_tensor[:, w_crop:w_crop + dim2,
+                     h_crop:h_crop + dim3]
     elif full_dim2 == dim2:
-        img_np = img_np[slices_crop:slices_crop + dim1, :,
-                 h_crop:h_crop + dim3]
+        img_tensor = img_tensor[slices_crop:slices_crop + dim1, :,
+                     h_crop:h_crop + dim3]
     elif full_dim3 == dim3:
-        img_np = img_np[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2, :]
+        img_tensor = img_tensor[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2, :]
     else:
-        img_np = img_np[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2,
-                 h_crop:h_crop + dim3]
-    return img_np
+        img_tensor = img_tensor[slices_crop:slices_crop + dim1, w_crop:w_crop + dim2,
+                     h_crop:h_crop + dim3]
+
+    if inp_img_dim == 4:
+        return img_tensor.unsqueeze(0)
+
+    return img_tensor
 
 
 def load_affine_matrix(path):
@@ -107,7 +140,7 @@ def transform_coordinate_space(modality_1, modality_2):
     return transformed
 
 
-def normalize_intensity(img_tensor, normalization="mean"):
+def normalize_intensity(img_tensor, normalization="full_volume_mean", norm_values=(0, 1, 1, 0)):
     """
     Accepts an image tensor and normalizes it
     :param normalization: choices = "max", "mean" , type=str
@@ -120,7 +153,23 @@ def normalize_intensity(img_tensor, normalization="mean"):
     elif normalization == "max":
         max_val, _ = torch.max(img_tensor)
         img_tensor = img_tensor / max_val
-    return img_tensor.unsqueeze(0)
+    elif normalization == 'brats':
+        # print(norm_values)
+        normalized_tensor = (img_tensor.clone() - norm_values[0]) / norm_values[1]
+        final_tensor = torch.where(img_tensor == 0., img_tensor, normalized_tensor)
+        final_tensor = 100.0 * ((final_tensor.clone() - norm_values[3]) / (norm_values[2] - norm_values[3])) + 10.0
+        x = torch.where(img_tensor == 0., img_tensor, final_tensor)
+        return x
+
+    elif normalization == 'full_volume_mean':
+        img_tensor = (img_tensor.clone() - norm_values[0]) / norm_values[1]
+
+    elif normalization == 'max_min':
+        img_tensor = (img_tensor - norm_values[3]) / ((norm_values[2] - norm_values[3]))
+
+    elif normalization == None:
+        img_tensor = img_tensor
+    return img_tensor
 
 
 ## todo percentiles
@@ -138,3 +187,19 @@ def clip_range(img_numpy):
     [min_z, min_h, min_w] = np.min(np.array(non_zeros_idx), axis=1)
     y = img_numpy[min_z:max_z, min_h:max_h, min_w:max_w]
     return y
+
+
+def percentile_clip(img_numpy, min_val=0.1, max_val=99.8):
+    """
+    Intensity normalization based on percentile
+    Clips the range based on the quarile values.
+    :param min_val: should be in the range [0,100]
+    :param max_val: should be in the range [0,100]
+    :return: intesity normalized image
+    """
+    low = np.percentile(img_numpy, min_val)
+    high = np.percentile(img_numpy, max_val)
+
+    img_numpy[img_numpy < low] = low
+    img_numpy[img_numpy > high] = high
+    return img_numpy

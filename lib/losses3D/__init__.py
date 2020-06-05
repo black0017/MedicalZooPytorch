@@ -21,7 +21,7 @@ SUPPORTED_LOSSES = ['BCEWithLogitsLoss', 'BCEDiceLoss', 'CrossEntropyLoss', 'Wei
                     'SmoothL1Loss', 'L1Loss', 'WeightedSmoothL1Loss']
 
 
-def create_loss(name, weight, ignore_index=None, pos_weight=None):
+def create_loss(name, weight=None, ignore_index=None, pos_weight=None):
     if name == 'BCEWithLogitsLoss':
         return nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     elif name == 'BCEDiceLoss':

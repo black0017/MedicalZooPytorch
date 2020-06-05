@@ -27,7 +27,7 @@ class Trainer:
         self.writer = TensorboardWriter(args)
 
         self.save_frequency = 10
-        self.terminal_show_freq = 10
+        self.terminal_show_freq = self.args.terminal_show_freq
         self.start_epoch = 1
 
     def training(self):
@@ -77,8 +77,6 @@ class Trainer:
 
         for batch_idx, input_tuple in enumerate(self.valid_data_loader):
             with torch.no_grad():
-                a, x = input_tuple
-                print(a.shape, x.shape)
                 input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
                 input_tensor.requires_grad = False
 
