@@ -2,11 +2,14 @@
 import argparse
 import os
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Lib files
 import lib.medloaders as medical_loaders
+import lib.medzoo as medzoo
+import lib.train as train
 import lib.utils as utils
+from lib.losses3D import DiceLoss
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
 
 
@@ -18,17 +21,17 @@ def main():
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
-    # model, optimizer = medzoo.create_model(args)
-    # criterion = DiceLoss(classes=args.classes)
-    #
-    # if args.cuda:
-    #     model = model.cuda()
-    #     print("Model transferred in GPU.....")
-    #
-    # trainer = train.Trainer(args, model, criterion, optimizer, train_data_loader=training_generator,
-    #                   valid_data_loader=val_generator, lr_scheduler=None)
-    # print("START TRAINING...")
-    # trainer.training()
+    model, optimizer = medzoo.create_model(args)
+    criterion = DiceLoss(classes=args.classes)
+
+    if args.cuda:
+        model = model.cuda()
+        print("Model transferred in GPU.....")
+
+    trainer = train.Trainer(args, model, criterion, optimizer, train_data_loader=training_generator,
+                            valid_data_loader=val_generator, lr_scheduler=None)
+    print("START TRAINING...")
+    trainer.training()
 
 
 def get_arguments():
@@ -42,7 +45,7 @@ def get_arguments():
     parser.add_argument('--samples_val', type=int, default=10)
     parser.add_argument('--inChannels', type=int, default=2)
     parser.add_argument('--inModalities', type=int, default=2)
-    parser.add_argument('--threshold', default=0.1, type=float)
+    parser.add_argument('--threshold', default=0.0001, type=float)
     parser.add_argument('--terminal_show_freq', default=50)
     parser.add_argument('--augmentation', action='store_true', default=True)
     parser.add_argument('--normalization', default='full_volume_mean', type=str,
@@ -53,7 +56,7 @@ def get_arguments():
                         help='learning rate (default: 1e-3)')
     parser.add_argument('--split', default=0.8, type=float, help='Select percentage of training data(default: 0.8)')
     parser.add_argument('--cuda', action='store_true', default=True)
-    parser.add_argument('--loadData', default=False)
+    parser.add_argument('--loadData', default=True)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
     parser.add_argument('--model', type=str, default='UNET3D',
