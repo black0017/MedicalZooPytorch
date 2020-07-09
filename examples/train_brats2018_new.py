@@ -21,7 +21,7 @@ def main():
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='.././datasets')
     model, optimizer = medzoo.create_model(args)
-    criterion = DiceLoss(classes=args.classes)  # ,skip_index_after=2,weight=torch.tensor([0.00001,1,1,1]).cuda())
+    criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:
         model = model.cuda()
@@ -35,13 +35,13 @@ def main():
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=4)
+    parser.add_argument('--batchSz', type=int, default=2)
     parser.add_argument('--dataset_name', type=str, default="brats2018")
     parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
     parser.add_argument('--nEpochs', type=int, default=100)
     parser.add_argument('--classes', type=int, default=4)
-    parser.add_argument('--samples_train', type=int, default=1024)
-    parser.add_argument('--samples_val', type=int, default=128)
+    parser.add_argument('--samples_train', type=int, default=16)
+    parser.add_argument('--samples_val', type=int, default=16)
     parser.add_argument('--inChannels', type=int, default=4)
     parser.add_argument('--inModalities', type=int, default=4)
     parser.add_argument('--threshold', default=0.00000000001, type=float)

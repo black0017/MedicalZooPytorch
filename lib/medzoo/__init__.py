@@ -63,14 +63,14 @@ def create_model(args):
     elif model_name == "HIGHRESNET":
         model = HighResNet3D(in_channels=in_channels, classes=num_classes)
     elif model_name == "RESNETMED3D":
-        depth = 18
+        depth = 10
         model = generate_resnet3d(in_channels=in_channels, classes=num_classes, model_depth=depth)
 
     print(model_name, 'Number of params: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
 
     if optimizer_name == 'sgd':
-        optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.5, weight_decay=weight_decay)
+        optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=weight_decay)
     elif optimizer_name == 'adam':
         optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     elif optimizer_name == 'rmsprop':

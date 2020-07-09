@@ -142,6 +142,7 @@ class SkipDenseNet3D(BaseModel):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
+
         first_three_features = self.features(x)
         first_three_features_bn = self.features_bn(first_three_features)
         out = self.conv_pool_first(first_three_features_bn)

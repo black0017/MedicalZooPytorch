@@ -50,7 +50,7 @@ def compute_per_channel_dice(input, target, epsilon=1e-6, weight=None):
 
     # input and target shapes must match
     assert input.size() == target.size(), "'input' and 'target' must have the same shape"
-
+    # print(input.size(),target.size())
     input = flatten(input)
     target = flatten(target)
     target = target.float()

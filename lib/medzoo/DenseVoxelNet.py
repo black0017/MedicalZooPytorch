@@ -146,6 +146,3 @@ class DenseVoxelNet(BaseModel):
         assert ideal_out.shape == b.shape
         assert ideal_out.shape == c.shape
         print("Test DenseVoxelNet is complete")
-
-# model = DenseVoxelNet(in_channels=1, classes=3)
-# model.test()

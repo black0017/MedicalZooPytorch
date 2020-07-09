@@ -20,7 +20,7 @@ def generate_datasets(args, path='.././datasets'):
     samples_train = args.samples_train
     samples_val = args.samples_val
     split_percent = args.split
-
+    test_loader = None
     if args.dataset_name == "iseg2017":
         total_data = 10
         split_idx = int(split_percent * total_data)
@@ -38,6 +38,8 @@ def generate_datasets(args, path='.././datasets'):
 
         val_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path, crop_dim=args.dim, split_id=split_idx,
                                         samples=samples_val, load=args.loadData)
+        # test_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path, crop_dim=args.dim, split_id=split_idx,
+        #                                 samples=samples_val, load=args.loadData)
     elif args.dataset_name == "mrbrains4":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path, classes=args.classes, dim=args.dim,
                                               split_id=0, samples=samples_train, load=args.loadData)
@@ -45,6 +47,9 @@ def generate_datasets(args, path='.././datasets'):
         val_loader = MRIDatasetMRBRAINS2018(args, 'val', dataset_path=path, classes=args.classes, dim=args.dim,
                                             split_id=0,
                                             samples=samples_val, load=args.loadData)
+        test_loader = MRIDatasetMRBRAINS2018(args, 'test', dataset_path=path, classes=args.classes, dim=args.dim,
+                                             split_id=0,
+                                             samples=1, load=args.loadData)
     elif args.dataset_name == "mrbrains9":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path, classes=args.classes, dim=args.dim,
                                               split_id=0, samples=samples_train, load=args.loadData)
@@ -125,9 +130,12 @@ def generate_datasets(args, path='.././datasets'):
                                        fold=0, samples=samples_val)
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
-
+    if test_loader == None:
+        print('sdsdsdsdsdsdsds return')
+        return training_generator, val_generator, train_loader.full_volume, val_loader.affine
+    test_generator = DataLoader(test_loader, **params)
     print("DATA SAMPLES HAVE BEEN GENERATED SUCCESSFULLY")
-    return training_generator, val_generator, val_loader.full_volume, val_loader.affine
+    return training_generator, val_generator, test_generator, val_loader.full_volume, test_loader.full_volume, val_loader.affine
 
 
 def select_full_volume_for_infer(args, path='.././datasets'):

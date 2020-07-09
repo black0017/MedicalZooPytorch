@@ -38,7 +38,8 @@ class MRIDatasetISEG2019(Dataset):
         self.list = []
         self.samples = samples
         self.full_volume = None
-        self.save_name = self.root + '/iseg_2019/iseg2019-list-' + mode + '-samples-' + str(samples) + '.txt'
+        self.save_name = self.root + '/iseg_2019/iseg2019-list-' + mode + '-samples-' + str(samples) + '_size_' + str(
+            crop_dim[0]) + '.txt'
         if self.augmentation:
             self.transform = augment3D.RandomChoice(
                 transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
@@ -48,6 +49,10 @@ class MRIDatasetISEG2019(Dataset):
             self.list = utils.load_list(self.save_name)
             list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
             self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
+            list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
+            list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*T2.img')))
+            labels = sorted(glob.glob(os.path.join(self.training_path, '*label.img')))
+            self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019")
             return
 
         subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
@@ -63,14 +68,16 @@ class MRIDatasetISEG2019(Dataset):
             list_IDsT1 = list_IDsT1[:split_id]
             list_IDsT2 = list_IDsT2[:split_id]
             labels = labels[:split_id]
+            print('train ', list_IDsT1)
             self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019",
                                            mode=mode, samples=samples, full_vol_dim=self.full_vol_dim,
                                            crop_size=self.crop_size,
                                            sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
+            self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019")
 
         elif self.mode == 'val':
             list_IDsT1 = list_IDsT1[split_id:]
-            list_IDsT2 = list_IDsT2[:split_id:]
+            list_IDsT2 = list_IDsT2[split_id:]
             labels = labels[split_id:]
             self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019",
                                            mode=mode, samples=samples, full_vol_dim=self.full_vol_dim,
@@ -96,7 +103,7 @@ class MRIDatasetISEG2019(Dataset):
         if self.mode == 'train' and self.augmentation:
             [augmented_t1, augmented_t2], augmented_s = self.transform([t1, t2], s)
 
-            return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(
-                augmented_t2.copy()).unsqueeze(0), torch.FloatTensor(augmented_s.copy())
+            return torch.tensor(augmented_t1.copy()).unsqueeze(0), torch.tensor(
+                augmented_t2.copy()).unsqueeze(0), torch.tensor(augmented_s.copy())
 
-        return torch.FloatTensor(t1).unsqueeze(0), torch.FloatTensor(t2).unsqueeze(0), torch.FloatTensor(s)
+        return torch.tensor(t1).unsqueeze(0), torch.tensor(t2).unsqueeze(0), torch.tensor(s)

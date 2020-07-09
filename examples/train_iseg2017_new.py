@@ -23,6 +23,8 @@ def main():
                                                                                                path='.././datasets')
     model, optimizer = medzoo.create_model(args)
     criterion = DiceLoss(classes=args.classes)
+    # if args.resume:
+    #     model.restore_checkpoint(args.resume)
 
     if args.cuda:
         model = model.cuda()
@@ -36,7 +38,7 @@ def main():
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=4)
+    parser.add_argument('--batchSz', type=int, default=1)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
     parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
     parser.add_argument('--nEpochs', type=int, default=200)
@@ -47,18 +49,20 @@ def get_arguments():
     parser.add_argument('--inModalities', type=int, default=2)
     parser.add_argument('--threshold', default=0.1, type=float)
     parser.add_argument('--terminal_show_freq', default=50)
-    parser.add_argument('--augmentation', action='store_true', default=False)
+    parser.add_argument('--augmentation', action='store_true', default=True)
     parser.add_argument('--normalization', default='full_volume_mean', type=str,
                         help='Tensor normalization: options ,max_min,',
                         choices=('max_min', 'full_volume_mean', 'brats', 'max', 'mean'))
     parser.add_argument('--split', default=0.8, type=float, help='Select percentage of training data(default: 0.8)')
     parser.add_argument('--lr', default=1e-2, type=float,
                         help='learning rate (default: 1e-3)')
-    parser.add_argument('--cuda', action='store_true', default=True)
+    parser.add_argument('--cuda', action='store_true', default=False)
     parser.add_argument('--loadData', default=True)
-    parser.add_argument('--resume', default='', type=str, metavar='PATH',
+    parser.add_argument('--resume',
+                        default='/media/papastrat/60E8EA1EE8E9F268/MedicalZooPytorch/saved_models/VNET_checkpoints/VNET_05_06___08_34_iseg2017_/VNET_05_06___08_34_iseg2017__last_epoch.pth',
+                        type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
-    parser.add_argument('--model', type=str, default='VNET',
+    parser.add_argument('--model', type=str, default='HYPERDENSENET',
                         choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))

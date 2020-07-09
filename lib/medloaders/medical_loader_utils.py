@@ -7,22 +7,27 @@ def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None
     Returns total 3d input volumes (t1 and t2 or more) and segmentation maps
     3d total vol shape : torch.Size([1, 144, 192, 256])
     """
+
     modalities = len(ls)
     total_volumes = []
+    print('viz set  ls {} modalities {}'.format(ls, modalities))
 
     for i in range(modalities):
         path_img = ls[i][test_subject]
+        print(path_img)
 
-        img_tensor = img_loader.load_medical_image(path_img, viz3d=True)
         if i == modalities - 1:
+            img_tensor = img_loader.load_medical_image(path_img, viz3d=True, type='label')
             img_tensor = fix_seg_map(img_tensor, dataset=dataset_name)
+        else:
+            img_tensor = img_loader.load_medical_image(path_img, viz3d=False)
 
         total_volumes.append(img_tensor)
 
     if save:
         total_subvolumes = total_volumes[0].shape[0]
         for i in range(total_subvolumes):
-            filename = sub_vol_path + 'id_' + str(test_subject) + '_VIZ_' + str(i) + '_modality_'
+            filename = sub_vol_path + '000000_id_' + str(test_subject) + '_VIZ_' + str(i) + '_modality_'
             for j in range(modalities):
                 filename = filename + str(j) + '.npy'
                 np.save(filename, total_volumes[j][i])
@@ -51,12 +56,15 @@ def fix_seg_map(segmentation_map, dataset="iseg2017"):
         GM = 1
         WM = 2
         CSF = 3
+        # print(segmentation_map.max())
         segmentation_map[segmentation_map == 1] = GM
         segmentation_map[segmentation_map == 2] = GM
         segmentation_map[segmentation_map == 3] = WM
         segmentation_map[segmentation_map == 4] = WM
         segmentation_map[segmentation_map == 5] = CSF
         segmentation_map[segmentation_map == 6] = CSF
+        # segmentation_map[segmentation_map > 6] = 0
+
     return segmentation_map
 
 
@@ -99,7 +107,7 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
                                                                   crop=crop)
 
             full_segmentation_map = fix_seg_map(full_segmentation_map, dataset_name)
-            # print(full_segmentation_map.shape)
+
             if find_non_zero_labels_mask(full_segmentation_map, th_percent, crop_size, crop):
                 segmentation_map = img_loader.load_medical_image(label_path, type='label', crop_size=crop_size,
                                                                  crop=crop)
@@ -121,7 +129,7 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
             np.save(f_t1, tensor_images[j])
 
         f_seg = filename + 'seg.npy'
-
+        #print(f_seg)
         np.save(f_seg, segmentation_map)
         list_saved_paths.append(f_seg)
         list.append(tuple(list_saved_paths))
@@ -154,27 +162,30 @@ def get_all_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_siz
         segmentation_map = img_loader.medical_image_transform(
             img_loader.load_medical_image(ls[modalities - 1][vol_id], viz3d=True, type='label'))
         segmentation_map = generate_padded_subvolumes(segmentation_map, kernel_dim=crop_size)
-
+        full_segmentation_map = fix_seg_map(segmentation_map, dataset_name)
         filename = sub_vol_path + 'id_' + str(vol_id) + '_s_' + str(modality_id) + '_modality_'
 
         list_saved_paths = []
         # print(len(tensor_images[0]))
-        for k in range(len(tensor_images[0])):
-            for j in range(modalities - 1):
-                f_t1 = filename + str(j) + '_sample_{}'.format(str(k).zfill(8)) + '.npy'
-                list_saved_paths.append(f_t1)
-                # print(f_t1,tensor_images[j][k].shape)
-                np.save(f_t1, tensor_images[j])
-
-            f_seg = filename + 'seg_sample_{}'.format(str(k).zfill(8)) + '.npy'
-            # print(f_seg)
-            np.save(f_seg, segmentation_map)
-            list_saved_paths.append(f_seg)
-            list.append(tuple(list_saved_paths))
+        # for k in range(len(tensor_images[0])):
+        #     for j in range(modalities - 1):
+        #         f_t1 = filename + str(j) + '_sample_{}'.format(str(k).zfill(8)) + '.npy'
+        #         list_saved_paths.append(f_t1)
+        #         # print(f_t1,tensor_images[j][k].shape)
+        #         #np.save(f_t1, tensor_images[j])
+        #
+        #     f_seg = filename + 'seg_sample_{}'.format(str(k).zfill(8)) + '.npy'
+        #     # print(f_seg)
+        #     #np.save(f_seg, segmentation_map)
+        #     list_saved_paths.append(f_seg)
+        #     list.append(tuple(list_saved_paths))
 
     # print(list)
     return list
 
+
+def roundup(x, base=32):
+    return int(math.ceil(x / base)) * base
 
 def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
     x = full_volume.detach()
@@ -188,7 +199,7 @@ def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
          (roundup(D, kc) - D) // 2 + D % 2, (roundup(D, kc) - D) // 2)
     # print('padding ', a)
     x = F.pad(x, a)
-    # print('padded shape ', x.shape)
+    print('padded shape ', x.shape)
     assert x.size(3) % kw == 0
     assert x.size(2) % kh == 0
     assert x.size(1) % kc == 0
@@ -201,6 +212,7 @@ def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
 
 
 def find_random_crop_dim(full_vol_dim, crop_size):
+
     assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
     assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
     assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
@@ -234,6 +246,7 @@ def find3Dlabel_boundaries(segmentation_map):
 
 def find_non_zero_labels_mask(segmentation_map, th_percent, crop_size, crop):
     d1, d2, d3 = segmentation_map.shape
+    #print(segmentation_map.shape)
     segmentation_map[segmentation_map > 0] = 1
     total_voxel_labels = segmentation_map.sum()
 
@@ -241,7 +254,7 @@ def find_non_zero_labels_mask(segmentation_map, th_percent, crop_size, crop):
     crop_voxel_labels = cropped_segm_map.sum()
 
     label_percentage = crop_voxel_labels / total_voxel_labels
-    # print(label_percentage,total_voxel_labels,crop_voxel_labels)
+    #print(label_percentage,total_voxel_labels,crop_voxel_labels)
     if label_percentage >= th_percent:
         return True
     else:

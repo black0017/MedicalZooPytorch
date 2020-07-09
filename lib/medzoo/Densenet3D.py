@@ -9,6 +9,17 @@ Implementations based on the HyperDenseNet paper: https://arxiv.org/pdf/1804.029
 """
 
 
+def croppCenter(tensorToCrop, finalShape):
+    org_shape = tensorToCrop.shape
+    diff = org_shape[2] - finalShape[2]
+    croppBorders = int(diff / 2)
+    return tensorToCrop[:,
+           :,
+           croppBorders:org_shape[2] - croppBorders,
+           croppBorders:org_shape[3] - croppBorders,
+           croppBorders:org_shape[4] - croppBorders]
+
+
 class _HyperDenseLayer(nn.Sequential):
     def __init__(self, num_input_features, num_output_channels, drop_rate):
         super(_HyperDenseLayer, self).__init__()

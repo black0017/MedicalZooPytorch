@@ -41,7 +41,7 @@ def get_arguments():
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
     parser.add_argument('--dim', nargs="+", type=int, default=(64, 64, 64))
     parser.add_argument('--nEpochs', type=int, default=250)
-
+    parser.add_argument('--loadData', action='store_true', default=False)
     parser.add_argument('--classes', type=int, default=4)
     parser.add_argument('--samples_train', type=int, default=100)
     parser.add_argument('--samples_val', type=int, default=10)

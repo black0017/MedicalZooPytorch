@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torchsummary import summary
+
 from lib.medzoo.BaseModelClass import BaseModel
 
 """
@@ -303,11 +304,14 @@ class HyperDenseNet_2Mod(BaseModel):
         self.fully_3 = nn.Conv3d(200, 150, kernel_size=1)
         self.final = nn.Conv3d(150, classes, kernel_size=1)
 
+        self.upsample_covn = nn.ConvTranspose3d(in_channels=classes, out_channels=classes, kernel_size=3, stride=3,
+                                                padding=0)
+
     def forward(self, input):
         # ----- First layer ------ #
         # get 2 of the channels as 5D tensors
         # pdb.set_trace()
-        print("input shape ", input.shape)
+
         y1t = self.conv1_Top(input[:, 0:1, :, :, :])
         y1b = self.conv1_Bottom(input[:, 1:2, :, :, :])
 
@@ -408,8 +412,12 @@ class HyperDenseNet_2Mod(BaseModel):
         y = self.fully_1(inputFully)
         y = self.fully_2(y)
         y = self.fully_3(y)
+        y = self.final(y)
 
-        return self.final(y)
+        ups = self.upsample_covn(y)
+        # print(y.shape,ups.shape)
+
+        return ups
 
     def test(self, device='cpu'):
         input_tensor = torch.rand(1, 2, 22, 22, 22)
@@ -464,6 +472,9 @@ class HyperDenseNet(BaseModel):
         self.fully_2 = nn.Conv3d(400, 200, kernel_size=1)
         self.fully_3 = nn.Conv3d(200, 150, kernel_size=1)
         self.final = nn.Conv3d(150, classes, kernel_size=1)
+
+        self.upsample_covn = nn.ConvTranspose3d(in_channels=classes, out_channels=classes, kernel_size=3, stride=3,
+                                                padding=0)
 
     def forward(self, input):
         # ----- First layer ------ #
@@ -594,8 +605,9 @@ class HyperDenseNet(BaseModel):
         y = self.fully_1(inputFully)
         y = self.fully_2(y)
         y = self.fully_3(y)
+        out = self.final(y)
 
-        return self.final(y)
+        return out
 
     def test(self, device='cpu'):
         device = torch.device(device)

@@ -39,7 +39,7 @@ class MRIDatasetISEG2017(Dataset):
         self.samples = samples
         self.full_volume = None
         self.save_name = self.root + '/iseg_2017/iSeg-2017-Training/iseg2017-list-' + mode + '-samples-' + str(
-            samples) + '.txt'
+            samples) + '_size_' + str(crop_dim[0]) + '.txt'
         if self.augmentation:
             self.transform = augment3D.RandomChoice(
                 transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
@@ -58,6 +58,9 @@ class MRIDatasetISEG2017(Dataset):
         list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
         list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*T2.img')))
         labels = sorted(glob.glob(os.path.join(self.training_path, '*label.img')))
+
+        assert len(list_IDsT1) == len(list_IDsT2) == len(labels)
+
         self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
 
         if self.mode == 'train':
@@ -93,7 +96,7 @@ class MRIDatasetISEG2017(Dataset):
             self.labels = None
         elif self.mode == 'viz':
             list_IDsT1 = list_IDsT1[split_id:]
-            list_IDsT2 = list_IDsT2[:split_id:]
+            list_IDsT2 = list_IDsT2[split_id:]
             labels = labels[split_id:]
             self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2017")
             self.list = []
@@ -107,10 +110,10 @@ class MRIDatasetISEG2017(Dataset):
         t1, t2, s = np.load(t1_path), np.load(t2_path), np.load(seg_path)
 
         if self.mode == 'train' and self.augmentation:
-            print('augmentation reee')
+            # print('augmentation reee')
             [augmented_t1, augmented_t2], augmented_s = self.transform([t1, t2], s)
 
-            return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(
-                augmented_t2.copy()).unsqueeze(0), torch.FloatTensor(augmented_s.copy())
+            return torch.tensor(augmented_t1.copy()).unsqueeze(0), torch.tensor(
+                augmented_t2.copy()).unsqueeze(0), torch.tensor(augmented_s.copy())
 
-        return torch.FloatTensor(t1).unsqueeze(0), torch.FloatTensor(t2).unsqueeze(0), torch.FloatTensor(s)
+        return torch.tensor(t1).unsqueeze(0), torch.tensor(t2).unsqueeze(0), torch.tensor(s)

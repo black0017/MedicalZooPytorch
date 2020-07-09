@@ -43,7 +43,8 @@ class MICCAIBraTS2020(Dataset):
             self.transform = augment3D.RandomChoice(
                 transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
                             augment3D.ElasticTransform()], p=0.5)
-        self.save_name = self.root + '/brats2020/brats2020-list-' + mode + '-samples-' + str(samples) + '.txt'
+        self.save_name = self.root + '/brats2020/brats2020-list-' + mode + '-samples-' + str(samples) + '_size_' + str(
+            crop_dim[0]) + '.txt'
 
         if load:
             ## load pre-generated data
@@ -112,8 +113,8 @@ class MICCAIBraTS2020(Dataset):
             [img_t1, img_t1ce, img_t2, img_flair], img_seg = self.transform([img_t1, img_t1ce, img_t2, img_flair],
                                                                             img_seg)
 
-            return torch.FloatTensor(img_t1.copy()).unsqueeze(0), torch.FloatTensor(img_t1ce.copy()).unsqueeze(
-                0), torch.FloatTensor(img_t2.copy()).unsqueeze(0), torch.FloatTensor(img_flair.copy()).unsqueeze(
-                0), torch.FloatTensor(img_seg.copy())
+            return torch.tensor(img_t1.copy()).unsqueeze(0), torch.tensor(img_t1ce.copy()).unsqueeze(
+                0), torch.tensor(img_t2.copy()).unsqueeze(0), torch.tensor(img_flair.copy()).unsqueeze(
+                0), torch.tensor(img_seg.copy())
 
         return img_t1, img_t1ce, img_t2, img_flair, img_seg

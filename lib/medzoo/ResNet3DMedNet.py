@@ -275,7 +275,6 @@ class ResNetMed3D(BaseModel):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
-        print(x.shape)
 
         x = self.segm(x)
 

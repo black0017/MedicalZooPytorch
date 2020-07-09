@@ -4,6 +4,8 @@ import torch
 from PIL import Image
 from nibabel.processing import resample_to_output
 from scipy import ndimage
+import math
+import torch.nn.functional as F
 
 """
 concentrate all pre-processing here here
@@ -12,7 +14,7 @@ concentrate all pre-processing here here
 
 def load_medical_image(path, type=None, resample=None,
                        viz3d=False, to_canonical=False, rescale=None, normalization='full_volume_mean',
-                       clip_intenisty=True, crop_size=(0, 0, 0), crop=(0, 0, 0), ):
+                       clip_intenisty=True, crop_size=(0, 0, 0), crop=(0, 0, 0), padding=False):
     img_nii = nib.load(path)
 
     if to_canonical:
@@ -24,6 +26,7 @@ def load_medical_image(path, type=None, resample=None,
     img_np = np.squeeze(img_nii.get_fdata(dtype=np.float32))
 
     if viz3d:
+
         return torch.from_numpy(img_np)
 
     # 1. Intensity outlier clipping
@@ -41,10 +44,34 @@ def load_medical_image(path, type=None, resample=None,
     if type != 'label':
         MEAN, STD = img_tensor.mean(), img_tensor.std()
         MAX, MIN = img_tensor.max(), img_tensor.min()
+
+    if padding:
+        img_tensor = pad_medical_image(img_tensor, kernel_dim=crop_size)
+
     if type != "label":
         img_tensor = normalize_intensity(img_tensor, normalization=normalization, norm_values=(MEAN, STD, MAX, MIN))
+
     img_tensor = crop_img(img_tensor, crop_size, crop)
     return img_tensor
+
+
+def roundup(x, base=32):
+    return int(math.ceil(x / base)) * base
+
+
+def pad_medical_image(img_tensor, kernel_dim=(32, 32, 32)):
+    _, D, H, W = img_tensor.shape
+    kc, kh, kw = kernel_dim
+    dc, dh, dw = 4, 4, 4
+
+    # stride
+    # Pad to multiples of kernel_dim
+    a = ((roundup(W, kw) - W) // 2 + W % 2, (roundup(W, kw) - W) // 2,
+         (roundup(H, kh) - H) // 2 + H % 2, (roundup(H, kh) - H) // 2,
+         (roundup(D, kc) - D) // 2 + D % 2, (roundup(D, kc) - D) // 2)
+    x = F.pad(img_tensor, a, value=img_tensor[0, 0, 0, 0])
+
+    return x, a
 
 
 def medical_image_transform(img_tensor, type=None,

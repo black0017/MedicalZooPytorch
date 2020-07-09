@@ -5,7 +5,7 @@ from torch.utils.tensorboard import SummaryWriter
 import lib.utils as utils
 
 dict_class_names = {"iseg2017": ["Air", "CSF", "GM", "WM"],
-                    "iseg2019": ["Air", "CSF", "GM", "WM"],
+                    "iseg2019": ["CSF", "GM", "WM"],
                     "mrbrains4": ["Air", "CSF", "GM", "WM"],
                     "mrbrains9": ["Background", "Cort.GM", "BS", "WM", "WML", "CSF",
                                   "Ventr.", "Cerebellum", "stem"],
@@ -22,6 +22,7 @@ class TensorboardWriter():
     def __init__(self, args):
 
         name_model = args.log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
+        print("Tensorboard log_dir = {}".format(name_model))
         self.writer = SummaryWriter(log_dir=args.log_dir + name_model, comment=name_model)
 
         utils.make_dirs(args.save)

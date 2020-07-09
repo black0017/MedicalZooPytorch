@@ -3,7 +3,7 @@ import torch
 
 from lib.utils.general import prepare_input
 from lib.visual3D_temp.BaseWriter import TensorboardWriter
-
+from lib.visual3D_temp import non_overlap_padding_v1, non_overlap_padding2
 
 class Trainer:
     """
@@ -11,7 +11,7 @@ class Trainer:
     """
 
     def __init__(self, args, model, criterion, optimizer, train_data_loader,
-                 valid_data_loader=None, lr_scheduler=None):
+                 valid_data_loader=None, lr_scheduler=None, val_volume=None, test_volume=None):
 
         self.args = args
         self.model = model
@@ -29,9 +29,13 @@ class Trainer:
         self.save_frequency = 10
         self.terminal_show_freq = self.args.terminal_show_freq
         self.start_epoch = 1
+        self.val_volume = val_volume
+
+        self.test_volume = test_volume
 
     def training(self):
         for epoch in range(self.start_epoch, self.args.nEpochs):
+
             self.train_epoch(epoch)
 
             if self.do_validation:
@@ -58,7 +62,9 @@ class Trainer:
 
             input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
             input_tensor.requires_grad = True
+            print(input_tensor.shape)
             output = self.model(input_tensor)
+
             loss_dice, per_ch_score = self.criterion(output, target)
             loss_dice.backward()
             self.optimizer.step()
@@ -79,7 +85,7 @@ class Trainer:
             with torch.no_grad():
                 input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
                 input_tensor.requires_grad = False
-
+                print(input_tensor.shape)
                 output = self.model(input_tensor)
                 loss, per_ch_score = self.criterion(output, target)
 
