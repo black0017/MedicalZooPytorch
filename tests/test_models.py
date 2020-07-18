@@ -1,6 +1,6 @@
 # Python libraries
 import argparse
-import lib.medzoo as medzoo
+import medzoo.models as medzoo
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     if summary_flag:
         for key in model_list:
             args.model = key
-            model, _ = medzoo.create_model(args)
+            model, _ = models.create_model(args)
             print('created...',key)
             # model.test()
 

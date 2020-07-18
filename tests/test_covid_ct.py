@@ -4,10 +4,10 @@ import os
 
 from torch.utils.tensorboard import SummaryWriter
 
-import lib.medloaders as medical_loaders
-import lib.medzoo as medzoo
-import lib.utils as utils
-from lib.train.train_covid import train, validation
+import medzoo.medloaders as medical_loaders
+import medzoo.models as medzoo
+import medzoo.utils as utils
+from medzoo.train.train_covid import train, validation
 
 
 def main():
@@ -24,8 +24,8 @@ def main():
     writer = SummaryWriter(log_dir='../runs/' + name_model, comment=name_model)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='.././datasets')
-    model, optimizer = medzoo.create_model(args)
+                                                                                               path='../medzoo/datasets')
+    model, optimizer = models.create_model(args)
 
     if args.cuda:
         model = model.cuda()

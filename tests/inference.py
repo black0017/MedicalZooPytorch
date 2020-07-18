@@ -1,15 +1,13 @@
 import argparse
-import os
 
 import torch
-import torch.nn.functional as F
 
 # Lib files
-import lib.utils as utils
-import lib.medloaders as medical_loaders
-import lib.medzoo as medzoo
-from lib.visual3D_temp import non_overlap_padding,test_padding
-from lib.losses3D import DiceLoss
+import medzoo.utils as utils
+import medzoo.medloaders as medical_loaders
+import medzoo.models as medzoo
+from medzoo.common.visual3D_temp import non_overlap_padding
+from medzoo.common.losses3D import DiceLoss
 #
 
 def main():
@@ -23,7 +21,7 @@ def main():
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='./datasets')
-    model, optimizer = medzoo.create_model(args)
+    model, optimizer = models.create_model(args)
     #
     criterion = DiceLoss(classes=args.classes)
     #

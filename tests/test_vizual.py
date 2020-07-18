@@ -1,14 +1,13 @@
 # Python libraries
 import argparse
-import os
 
 # Lib files
-import lib.medloaders as medical_loaders
-import lib.medzoo as medzoo
-import lib.train as train
-import lib.utils as utils
-from lib.losses3D import DiceLoss
-from lib.visual3D_temp import *
+import medzoo.medloaders as medical_loaders
+import medzoo.models as medzoo
+import medzoo.train as train
+import medzoo.utils as utils
+from medzoo.common.losses3D import DiceLoss
+from medzoo.common.visual3D_temp import *
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
@@ -21,8 +20,8 @@ def main():
     utils.make_dirs(args.save)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='.././datasets')
-    model, optimizer = medzoo.create_model(args)
+                                                                                               path='../medzoo/datasets')
+    model, optimizer = models.create_model(args)
     criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:

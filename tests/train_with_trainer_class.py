@@ -1,12 +1,12 @@
 import argparse
 import os
 
-import lib.medloaders as medical_loaders
-import lib.medzoo as medzoo
+import medzoo.medloaders as medical_loaders
+import medzoo.models as medzoo
 # Lib files
-import lib.utils as utils
-from lib.losses3D import DiceLoss, create_loss
-from lib.train.trainer import Trainer
+import medzoo.utils as utils
+from medzoo.common.losses3D import DiceLoss, create_loss
+from medzoo.train.trainer import Trainer
 
 import torch
 def main():
@@ -20,8 +20,8 @@ def main():
     utils.save_arguments(args, args.save)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='.././datasets')
-    model, optimizer = medzoo.create_model(args)
+                                                                                               path='../medzoo/datasets')
+    model, optimizer = models.create_model(args)
     criterion = create_loss('CrossEntropyLoss')
     criterion = DiceLoss(classes=args.classes, weight=torch.tensor([0.1, 1, 1, 1]).cuda())
 

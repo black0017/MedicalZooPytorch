@@ -2,8 +2,8 @@
 import argparse
 
 # Lib files
-import lib.utils as utils
-import lib.medloaders as medical_loaders
+import medzoo.utils as utils
+import medzoo.medloaders as medical_loaders
 
 
 class TestDataLoaders:
@@ -17,13 +17,13 @@ class TestDataLoaders:
     def MRBRAINS_4_class(self):
         self.args.dataset_name = "mrbrains"
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
-                                                                                                   path='.././datasets')
+                                                                                                   path='../medzoo/datasets')
         print("mrbrains 4 OK!", len(training_generator), len(val_generator))
 
     def MRBRAINS_9_class(self):
         self.args.classes = 9
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
-                                                                                                   path='.././datasets')
+                                                                                                   path='../medzoo/datasets')
         print("mrbrains 8 OK!", len(training_generator), len(val_generator))
 
     def ISEG2017(self):
@@ -31,7 +31,7 @@ class TestDataLoaders:
         self.args.inModalities = 2
         self.args.dataset_name = "iseg2017"
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
-                                                                                                   path='.././datasets')
+                                                                                                   path='../medzoo/datasets')
 
         print("iseg  OK! ", len(training_generator), len(val_generator))
 
@@ -41,7 +41,7 @@ class TestDataLoaders:
         self.args.classes = 5
         self.args.dataset_name = "brats2018"
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
-                                                                                                   path='.././datasets')
+                                                                                                   path='../medzoo/datasets')
         print("brats2018  OK!", len(training_generator), len(val_generator))
 
     def miccai2019(self):
@@ -51,7 +51,7 @@ class TestDataLoaders:
         self.args.classes = 7
         self.args.dataset_name = "miccai2019"
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
-                                                                                                   path='.././datasets')
+                                                                                                   path='../medzoo/datasets')
         print("miccai2019  OK!", len(training_generator), len(val_generator))
 
     def ixi(self):
@@ -59,7 +59,7 @@ class TestDataLoaders:
         self.args.inModalities = 2
         self.args.dim = (1, 1, 1)
         self.args.dataset_name = "ixi"
-        generator, affine = medical_loaders.generate_datasets(self.args, path='.././datasets')
+        generator, affine = medical_loaders.generate_datasets(self.args, path='../medzoo/datasets')
         print("ixi  OK!", len(generator))
 
     def get_arguments(self):

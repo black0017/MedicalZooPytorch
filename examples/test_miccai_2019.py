@@ -7,14 +7,12 @@ Data can be downloaded from here: https://gleason2019.grand-challenge.org/
 import argparse
 import torch, os
 
-from torch.utils.tensorboard import SummaryWriter
-
 # Lib files
-import lib.utils as utils
-import lib.medloaders as medical_loaders
-import lib.medzoo as medzoo
-import lib.train as train
-from lib.losses3D.Dice2D import DiceLoss2D
+import medzoo.utils as utils
+import medzoo.medloaders as medical_loaders
+import medzoo.models as medzoo
+import medzoo.train as train
+from medzoo.common.losses3D import DiceLoss2D
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 seed = 1777777
@@ -26,9 +24,9 @@ def main():
     utils.reproducibility(args, seed)
     utils.make_dirs(args.save)
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='.././datasets')
+                                                                                               path='../medzoo/datasets')
 
-    model, optimizer = medzoo.create_model(args)
+    model, optimizer = models.create_model(args)
     criterion = DiceLoss2D(classes=args.classes)
 
     if args.cuda:
