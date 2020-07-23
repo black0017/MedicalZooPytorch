@@ -62,6 +62,7 @@ class MICCAIBraTS2018(Dataset):
         list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
         list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
         labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
+        # print(len(list_IDsT1),len(list_IDsT2),len(list_IDsFlair),len(labels))
 
         assert len(list_IDsT1) == len(list_IDsT2) == len(list_IDsT1ce) == len(list_IDsFlair)
         list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels = utils.shuffle_lists(list_IDsT1, list_IDsT1ce,
@@ -114,6 +115,8 @@ class MICCAIBraTS2018(Dataset):
             [img_t1, img_t1ce, img_t2, img_flair], img_seg = self.transform([img_t1, img_t1ce, img_t2, img_flair],
                                                                             img_seg)
 
-        return torch.FloatTensor(img_t1.copy()).unsqueeze(0), torch.FloatTensor(img_t1ce.copy()).unsqueeze(
-            0), torch.FloatTensor(img_t2.copy()).unsqueeze(0), torch.FloatTensor(img_flair.copy()).unsqueeze(
-            0), torch.FloatTensor(img_seg.copy())
+            return torch.FloatTensor(img_t1.copy()).unsqueeze(0), torch.FloatTensor(img_t1ce.copy()).unsqueeze(
+                0), torch.FloatTensor(img_t2.copy()).unsqueeze(0), torch.FloatTensor(img_flair.copy()).unsqueeze(
+                0), torch.FloatTensor(img_seg.copy())
+
+        return img_t1, img_t1ce, img_t2, img_flair, img_seg

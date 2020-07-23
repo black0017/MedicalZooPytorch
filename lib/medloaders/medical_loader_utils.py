@@ -107,7 +107,6 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
                                                                   crop=crop)
 
             full_segmentation_map = fix_seg_map(full_segmentation_map, dataset_name)
-
             if find_non_zero_labels_mask(full_segmentation_map, th_percent, crop_size, crop):
                 segmentation_map = img_loader.load_medical_image(label_path, type='label', crop_size=crop_size,
                                                                  crop=crop)
