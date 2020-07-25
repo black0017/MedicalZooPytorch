@@ -1,0 +1,22 @@
+training:
+  batchSize: 2
+  dim: (64,64,64)
+  nEpochs: 200
+  classes: 4
+  samplesTrain: 1024
+  samplesValue: 120
+  inChannels: 2
+  inModalities: 2
+  threshold: 0.1
+  terminalShowFrequency: 50
+  augmentation: False
+  normalization: 'full_volume_mean' #('max_min', 'full_volume_mean', 'brats', 'max', 'mean')
+  split: 0.8
+  learning_rate: 1e-2
+  cuda: True
+  loadData: True
+  resume: ''
+  optimizer: sgd #('sgd', 'adam', 'rmsprop')
+  log_dir: '../runs/'
+
+
