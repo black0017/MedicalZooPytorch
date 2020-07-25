@@ -14,7 +14,7 @@ def main():
     if summary_flag:
         for key in model_list:
             args.model = key
-            model, _ = models.create_model(args)
+            model, _ = medzoo.create_model(args)
             print('created...',key)
             # model.test()
 

@@ -3,7 +3,7 @@ import argparse
 
 # Lib files
 import medzoo.utils as utils
-import medzoo.medloaders as medical_loaders
+import medzoo.common.medloaders as medical_loaders
 
 
 class TestDataLoaders:

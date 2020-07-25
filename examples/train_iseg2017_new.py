@@ -3,7 +3,7 @@ import argparse
 import os
 
 # Lib files
-import medzoo.medloaders as medical_loaders
+import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
 import medzoo.train as train
 import medzoo.utils as utils
@@ -21,7 +21,7 @@ def main():
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='../medzoo/datasets')
-    model, optimizer = models.create_model(args)
+    model, optimizer = medzoo.create_model(args)
     criterion = DiceLoss(classes=args.classes)
 
     if args.cuda:

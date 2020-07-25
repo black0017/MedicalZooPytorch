@@ -1,4 +1,4 @@
-from medzoo.common.losses3D import _AbstractDiceLoss
+from medzoo.common.losses3D.BaseClass import _AbstractDiceLoss
 from medzoo.common.losses3D.basic import *
 
 
