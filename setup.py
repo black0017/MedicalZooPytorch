@@ -1,8 +1,9 @@
+import codecs
+import os
 import pathlib
 import platform
-import os
 import re
-import codecs
+
 from setuptools import setup, find_packages
 
 
@@ -56,13 +57,15 @@ DESCRIPTION = "medzoo: A 3D multi-modal medical image segmentation library in Py
 
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESCRIPTION_CONTENT_TYPE = "text/markdown"
-URL ="https://github.com/black0017/MedicalZooPytorch"
+URL = "https://github.com/black0017/MedicalZooPytorch"
 AUTHOR = ""
 AUTHOR_EMAIL = ""
 LICENSE = "MIT"
 DEPENDENCY_LINKS = []
 REQUIREMENTS = (fetch_requirements())
-EXCLUDES = ("contribute", "docker", "datasets", "examples", "figures", "installation", "manual", "notebooks", "results", "runs", "tests")
+EXCLUDES = (
+"contribute", "docker", "datasets", "examples", "figures", "installation", "manual", "notebooks", "results", "runs",
+"tests")
 EXT_MODULES = []
 
 if __name__ == "__main__":

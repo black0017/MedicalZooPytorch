@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+
 from medzoo.models.BaseModelClass import BaseModel
 
 """
@@ -225,5 +226,5 @@ def test_all_modules():
 
 # test_all_modules()
 
-#model = HighResNet3D(in_channels=1, classes=4)
-#model.test()
+# model = HighResNet3D(in_channels=1, classes=4)
+# model.test()

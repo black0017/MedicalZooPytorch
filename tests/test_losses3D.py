@@ -3,15 +3,14 @@ import torch
 
 # these losses work with target 4D shape [batch, dim_1, dim_2, dim_3 ]
 from medzoo.common.losses3D import BCEDiceLoss
-from medzoo.common.losses3D import GeneralizedDiceLoss
-from medzoo.common.losses3D import DiceLoss
-from medzoo.common.losses3D import WeightedSmoothL1Loss
-from medzoo.common.losses3D.tags_angular_loss import TagsAngularLoss
 from medzoo.common.losses3D import ContrastiveLoss
+from medzoo.common.losses3D import DiceLoss
+from medzoo.common.losses3D import GeneralizedDiceLoss
 from medzoo.common.losses3D import WeightedCrossEntropyLoss
-
+from medzoo.common.losses3D import WeightedSmoothL1Loss
 # not working yet - todo
 from medzoo.common.losses3D.pixel_wise_cross_entropy import PixelWiseCrossEntropyLoss
+from medzoo.common.losses3D.tags_angular_loss import TagsAngularLoss
 
 
 class TestCriterion:

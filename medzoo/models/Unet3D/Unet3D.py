@@ -1,7 +1,7 @@
-import torch.nn as nn
 import torch
+import torch.nn as nn
 from torchsummary import summary
-import torchsummaryX
+
 from medzoo.models.BaseModelClass import BaseModel
 
 
@@ -205,13 +205,12 @@ class UNet3D(BaseModel):
         seg_layer = out
         return seg_layer
 
-    def test(self,device='cpu'):
-
+    def test(self, device='cpu'):
         input_tensor = torch.rand(1, 2, 32, 32, 32)
         ideal_out = torch.rand(1, self.n_classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (2, 32, 32, 32),device='cpu')
+        summary(self.to(torch.device(device)), (2, 32, 32, 32), device='cpu')
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))
         print("Unet3D test is complete")

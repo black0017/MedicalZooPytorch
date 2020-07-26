@@ -1,5 +1,6 @@
 # Python libraries
 import argparse
+
 import medzoo.models as medzoo
 
 
@@ -15,7 +16,7 @@ def main():
         for key in model_list:
             args.model = key
             model, _ = medzoo.create_model(args)
-            print('created...',key)
+            print('created...', key)
             # model.test()
 
 

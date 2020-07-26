@@ -2,7 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
+
 from medzoo.models.BaseModelClass import BaseModel
+
 
 # 2D-Unet Model taken from https://github.com/milesial/Pytorch-UNet/blob/master/unet/unet_model.py
 class DoubleConv(nn.Module):
@@ -84,7 +86,7 @@ class Unet(BaseModel):
     def __init__(self, in_channels, classes):
         super(Unet, self).__init__()
         self.n_channels = in_channels
-        self.n_classes =  classes
+        self.n_classes = classes
 
         self.inc = InConv(in_channels, 64)
         self.down1 = Down(64, 128)
@@ -110,14 +112,13 @@ class Unet(BaseModel):
         x = self.outc(x)
         return x
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         device = torch.device(device)
         input_tensor = torch.rand(1, self.n_channels, 32, 32)
         ideal_out = torch.rand(1, self.n_classes, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(device), (self.n_channels, 32, 32, 32),device=device)
+        summary(self.to(device), (self.n_channels, 32, 32, 32), device=device)
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))
         print("Unet 2D test is complete")
-

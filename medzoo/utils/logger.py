@@ -7,7 +7,6 @@ import logging
 import os
 import sys
 
-
 from medzoo.utils import make_dirs
 from medzoo.utils.timer import Timer
 
@@ -57,8 +56,7 @@ class Logger:
         return self.logger
 
 
-
-log= Logger()
+log = Logger()
 log = log.get_logger()
 print(log)
 log.info('sfdsg')

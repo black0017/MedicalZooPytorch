@@ -5,6 +5,7 @@ https://github.com/kwotsin/mimicry/blob/master/torch_mimicry/nets/basemodel/base
 
 import os
 from abc import ABC, abstractmethod
+
 import torch
 import torch.nn as nn
 

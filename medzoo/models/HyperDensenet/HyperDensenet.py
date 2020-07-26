@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torchsummary import summary
+
 from medzoo.models.BaseModelClass import BaseModel
 
 """

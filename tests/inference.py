@@ -2,22 +2,22 @@ import argparse
 
 import torch
 
-# Lib files
-import medzoo.utils as utils
 import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
-from medzoo.common.visual3D_temp import non_overlap_padding
+# Lib files
+import medzoo.utils as utils
 from medzoo.common.losses3D import DiceLoss
+from medzoo.common.visual3D_temp import non_overlap_padding
+
+
 #
 
 def main():
     args = get_arguments()
-    #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## FOR REPRODUCIBILITY OF RESULTS
     seed = 1777777
     utils.reproducibility(args, seed)
-
-
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
                                                                                                path='./datasets')
@@ -32,12 +32,14 @@ def main():
         model = model.cuda()
         full_volume = full_volume.cuda()
         print("Model transferred in GPU.....")
-    x = torch.randn(3,156,240,240).cuda()
+    x = torch.randn(3, 156, 240, 240).cuda()
     print(full_volume.shape)
-    output = non_overlap_padding(args,full_volume,model,criterion,kernel_dim=(32,32,32))
+    output = non_overlap_padding(args, full_volume, model, criterion, kernel_dim=(32, 32, 32))
     ## TODO TARGET FOR LOSS
 
-    #print(loss_dice)
+    # print(loss_dice)
+
+
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=1)
@@ -76,16 +78,6 @@ def get_arguments():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
 
 '''
 

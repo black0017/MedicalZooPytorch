@@ -1,5 +1,6 @@
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -126,20 +127,20 @@ def overlap_2d_image():
     kernel_size = 128
     stride = 64
     patches = x.unfold(3, kernel_size, stride).unfold(2, kernel_size, stride)
-    #print('patches shape ', patches.shape)  # [B, C, nb_patches_h, nb_patches_w, kernel_size, kernel_size]
+    # print('patches shape ', patches.shape)  # [B, C, nb_patches_h, nb_patches_w, kernel_size, kernel_size]
 
     # perform the operations on each patch
     # ...
 
     # reshape output to match F.fold input
     patches = patches.contiguous().view(B, C, -1, kernel_size * kernel_size)
-    #print(patches.shape)  # [B, C, nb_patches_all, kernel_size*kernel_size]
+    # print(patches.shape)  # [B, C, nb_patches_all, kernel_size*kernel_size]
     patches = patches.permute(0, 1, 3, 2)
-    #print(patches.shape)  # [B, C, kernel_size*kernel_size, nb_patches_all]
+    # print(patches.shape)  # [B, C, kernel_size*kernel_size, nb_patches_all]
     patches = patches.contiguous().view(B, C * kernel_size * kernel_size, -1)
-    #print(patches.shape)  # [B, C*prod(kernel_size), L] as expected by Fold
+    # print(patches.shape)  # [B, C*prod(kernel_size), L] as expected by Fold
     # https://pytorch.org/docs/stable/nn.html#torch.nn.Fold
 
     output = F.fold(
         patches, output_size=(H, W), kernel_size=kernel_size, stride=stride)
-    #print(output.shape)  # [B, C, H, W]
+    # print(output.shape)  # [B, C, H, W]

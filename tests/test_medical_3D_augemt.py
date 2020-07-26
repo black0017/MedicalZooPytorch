@@ -1,6 +1,6 @@
 import urllib.request
+
 import nibabel as nib
-import numpy as np
 
 from medzoo.common.augment3D import *
 from medzoo.common.visual3D_temp import show_mid_slice
@@ -26,44 +26,36 @@ print(anat_header_file)
 print("\n\n\n\n\n\n")
 print(epi_img_numpy_header)
 
-
-
 show_mid_slice(epi_img_numpy)
-show_mid_slice(random_rotate3D(epi_img_numpy,-60,60))
-show_mid_slice(random_rotate3D(epi_img_numpy,-60,60))
-
+show_mid_slice(random_rotate3D(epi_img_numpy, -60, 60))
+show_mid_slice(random_rotate3D(epi_img_numpy, -60, 60))
 
 random_labels = np.zeros_like(epi_img_numpy)
-ones = np.ones((10,10,10))
-twos = np.ones((10,10,10))*2
-random_labels[10:20,10:20,10:20] = ones
+ones = np.ones((10, 10, 10))
+twos = np.ones((10, 10, 10)) * 2
+random_labels[10:20, 10:20, 10:20] = ones
 print("ok")
-random_labels[22:32,22:32,22:32] = twos
+random_labels[22:32, 22:32, 22:32] = twos
 
 show_mid_slice((epi_img_numpy))
 show_mid_slice(random_crop_to_labels(epi_img_numpy, random_labels))
 show_mid_slice(random_crop_to_labels(epi_img_numpy, random_labels))
 
-
 show_mid_slice((epi_img_numpy))
 show_mid_slice(random_flip(epi_img_numpy))
 show_mid_slice(random_flip(epi_img_numpy))
-
 
 show_mid_slice((epi_img_numpy))
 show_mid_slice(random_shift(epi_img_numpy))
 show_mid_slice(random_shift(epi_img_numpy))
 
-
 show_mid_slice((epi_img_numpy))
 show_mid_slice(random_zoom(epi_img_numpy))
 show_mid_slice(random_zoom(epi_img_numpy))
-
 
 show_mid_slice((epi_img_numpy))
 show_mid_slice(elastic_transform_3d(epi_img_numpy))
 show_mid_slice(elastic_transform_3d(epi_img_numpy))
 show_mid_slice(elastic_transform_3d(epi_img_numpy))
-
 
 print("RandomChoice test complete")

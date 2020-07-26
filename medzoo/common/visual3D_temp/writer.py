@@ -46,12 +46,13 @@ def write_train_val_score(writer, epoch, train_stats, val_stats):
                               }, epoch)
     return
 
+
 def write_train_val_score(writer, epoch, train_channel_score, val_channel_score):
     assert len(train_channel_score) == len(val_channel_score)
     channels = len(train_channel_score)
     for i in range(channels):
         writer.add_scalars('Loss', {'train': train_channel_score[0],
-                                'val': val_channel_score[0],
-                                }, epoch)
+                                    'val': val_channel_score[0],
+                                    }, epoch)
 
     return

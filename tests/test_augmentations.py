@@ -1,5 +1,6 @@
-import torch
 import matplotlib.pyplot as plt
+import torch
+
 import medzoo.common.augment3D as augment
 
 size = 32

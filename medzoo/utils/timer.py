@@ -49,4 +49,3 @@ class Timer:
             time_str = "0ms"
 
         return time_str.strip()
-

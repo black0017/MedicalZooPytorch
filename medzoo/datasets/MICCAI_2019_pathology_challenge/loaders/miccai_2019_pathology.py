@@ -1,9 +1,10 @@
-import torch
-import numpy as np
 import glob
-from torch.utils.data import Dataset
-import medzoo.utils as utils
 
+import numpy as np
+import torch
+from torch.utils.data import Dataset
+
+import medzoo.utils as utils
 from medzoo.common.medloaders import medical_image_process as img_loader
 
 """

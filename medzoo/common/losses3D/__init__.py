@@ -2,19 +2,17 @@ import torch
 import torch.nn as nn
 from torch.nn import MSELoss, SmoothL1Loss, L1Loss
 
-# Code was adapted and mofified from https://github.com/wolny/pytorch-3dunet/blob/master/pytorch3dunet/unet3d/losses.py
-
 from .BCE_dice import BCEDiceLoss
-from .weight_cross_entropy import WeightedCrossEntropyLoss
-from .pixel_wise_cross_entropy import PixelWiseCrossEntropyLoss
-from .generalized_dice import GeneralizedDiceLoss
-from .dice import DiceLoss
-from .tags_angular_loss import TagsAngularLoss
-from .weight_smooth_l1 import WeightedSmoothL1Loss
 from .ContrastiveLoss import ContrastiveLoss
-
 from .Dice2D import DiceLoss2D
+from .dice import DiceLoss
+from .generalized_dice import GeneralizedDiceLoss
+from .pixel_wise_cross_entropy import PixelWiseCrossEntropyLoss
+from .tags_angular_loss import TagsAngularLoss
+from .weight_cross_entropy import WeightedCrossEntropyLoss
+from .weight_smooth_l1 import WeightedSmoothL1Loss
 
+# Code was adapted and mofified from https://github.com/wolny/pytorch-3dunet/blob/master/pytorch3dunet/unet3d/losses.py
 
 SUPPORTED_LOSSES = ['BCEWithLogitsLoss', 'BCEDiceLoss', 'CrossEntropyLoss', 'WeightedCrossEntropyLoss',
                     'PixelWiseCrossEntropyLoss', 'GeneralizedDiceLoss', 'DiceLoss', 'TagsAngularLoss', 'MSELoss',

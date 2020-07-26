@@ -3,12 +3,12 @@ import random
 import numpy as np
 
 from .elastic_deform import ElasticTransform
+from .gaussian_noise import GaussianNoise
 from .random_crop import RandomCropToLabels
 from .random_flip import RandomFlip
 from .random_rescale import RandomZoom
 from .random_rotate import RandomRotation
 from .random_shift import RandomShift
-from .gaussian_noise import GaussianNoise
 
 functions = ['elastic_deform', 'random_crop', 'random_flip', 'random_rescale', 'random_rotate', 'random_shift']
 

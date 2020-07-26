@@ -2,7 +2,6 @@
 import argparse
 
 # Lib files
-import medzoo.utils as utils
 import medzoo.common.medloaders as medical_loaders
 
 

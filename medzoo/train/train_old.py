@@ -1,4 +1,5 @@
 import torch
+
 import medzoo.utils as utils
 
 """
@@ -98,4 +99,3 @@ def display_status_4_classes(epoch, train_loss, dice_avg_coeff, avg_air, avg_csf
         print(
             '\n\nEpoch Summary: {:.2f} \t Dice Loss: {:.4f}\t AVG Dice Coeff: {:.4f} \t  AIR:{:.4f}\tCSF:{:.4f}\tGM:{:.4f}\tWM:{:.4f}\n\n'.format(
                 epoch, train_loss, dice_avg_coeff, avg_air, avg_csf, avg_gm, avg_wm))
-

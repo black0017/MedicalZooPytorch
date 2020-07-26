@@ -1,6 +1,7 @@
-import torch.nn as nn
 import torch
+import torch.nn as nn
 from torchsummary import summary
+
 from medzoo.models.BaseModelClass import BaseModel
 
 """
@@ -159,12 +160,12 @@ class VNet(BaseModel):
         out = self.out_tr(out)
         return out
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         input_tensor = torch.rand(1, self.in_channels, 32, 32, 32)
         ideal_out = torch.rand(1, self.classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32),device=device)
+        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32), device=device)
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))
         print("Vnet test is complete")
@@ -200,17 +201,16 @@ class VNetLight(BaseModel):
         out = self.out_tr(out)
         return out
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         input_tensor = torch.rand(1, self.in_channels, 32, 32, 32)
         ideal_out = torch.rand(1, self.classes, 32, 32, 32)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32),device=device)
+        summary(self.to(torch.device(device)), (self.in_channels, 32, 32, 32), device=device)
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))
 
         print("Vnet light test is complete")
 
-
-#m = VNet(in_channels=1,num_classes=2)
-#m.test()
+# m = VNet(in_channels=1,num_classes=2)
+# m.test()

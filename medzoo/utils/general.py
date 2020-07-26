@@ -1,9 +1,9 @@
 import json
 import os
+import pickle
 import random
 import shutil
 import time
-import pickle
 
 import numpy as np
 import torch

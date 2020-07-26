@@ -1,7 +1,8 @@
-import torch.nn as nn
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
+
 from medzoo.models.BaseModelClass import BaseModel
 
 """
@@ -130,13 +131,13 @@ class SinglePathDenseNet(BaseModel):
         else:
             return features
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
 
         input_tensor = torch.rand(1, self.input_channels, 12, 12, 12)
         ideal_out = torch.rand(1, self.num_classes, 12, 12, 12)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12),device=device)
+        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12), device=device)
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))
         print("DenseNet3D-1 test is complete")
@@ -218,12 +219,12 @@ class DualPathDenseNet(BaseModel):
                     features = output_features_t1 + output_features_t2 + output_features_t3
                     return self.classifier(features)
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
         input_tensor = torch.rand(1, self.input_channels, 12, 12, 12)
         ideal_out = torch.rand(1, self.num_classes, 12, 12, 12)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12),device=device)
+        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12), device=device)
         import torchsummaryX
         torchsummaryX.summary(self, input_tensor.to(device))
         print("DenseNet3D-2 test is complete!!!!\n\n\n\n\n")
@@ -235,7 +236,7 @@ class DualSingleDenseNet(BaseModel):
     dual-single-densenet OR Disentangled modalities with early fusion in the paper
     """
 
-    def __init__(self, in_channels, classes=4, drop_rate=0.5,):
+    def __init__(self, in_channels, classes=4, drop_rate=0.5, ):
         """
 
         :param input_channels: 2 or 3 (dual or triple path based on paper specifications).
@@ -296,13 +297,13 @@ class DualSingleDenseNet(BaseModel):
                 logits = self.stream_1(in_stream)
                 return logits
 
-    def test(self,device='cpu'):
+    def test(self, device='cpu'):
 
         input_tensor = torch.rand(1, self.input_channels, 12, 12, 12)
         ideal_out = torch.rand(1, self.num_classes, 12, 12, 12)
         out = self.forward(input_tensor)
         assert ideal_out.shape == out.shape
-        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12),device=device)
+        summary(self.to(torch.device(device)), (self.input_channels, 12, 12, 12), device=device)
 
         # import torchsummaryX
         # torchsummaryX.summary(self, input_tensor.to(device))

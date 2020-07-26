@@ -38,12 +38,11 @@ def roundup(x, base=32):
     return int(math.ceil(x / base)) * base
 
 
-def non_overlap_padding(args, full_volume, model,criterion, kernel_dim=(32, 32, 32)):
-
-    x = full_volume[:-1,...].detach()
-    target = full_volume[-1,...].unsqueeze(0).detach()
-    #print(target.max())
-    #print('full volume {} = input {} + target{}'.format(full_volume.shape, x.shape,target.shape))
+def non_overlap_padding(args, full_volume, model, criterion, kernel_dim=(32, 32, 32)):
+    x = full_volume[:-1, ...].detach()
+    target = full_volume[-1, ...].unsqueeze(0).detach()
+    # print(target.max())
+    # print('full volume {} = input {} + target{}'.format(full_volume.shape, x.shape,target.shape))
 
     modalities, D, H, W = x.shape
     kc, kh, kw = kernel_dim
@@ -52,9 +51,9 @@ def non_overlap_padding(args, full_volume, model,criterion, kernel_dim=(32, 32, 
     a = ((roundup(W, kw) - W) // 2 + W % 2, (roundup(W, kw) - W) // 2,
          (roundup(H, kh) - H) // 2 + H % 2, (roundup(H, kh) - H) // 2,
          (roundup(D, kc) - D) // 2 + D % 2, (roundup(D, kc) - D) // 2)
-    #print('padding ', a)
+    # print('padding ', a)
     x = F.pad(x, a)
-    #print('padded shape ', x.shape)
+    # print('padded shape ', x.shape)
     assert x.size(3) % kw == 0
     assert x.size(2) % kh == 0
     assert x.size(1) % kc == 0
@@ -87,13 +86,11 @@ def non_overlap_padding(args, full_volume, model,criterion, kernel_dim=(32, 32, 
     output = output.permute(0, 1, 4, 2, 5, 3, 6).contiguous()
     output = output.view(-1, output_c, output_h, output_w)
 
-
     y = output[:, a[4]:output_c - a[5], a[2]:output_h - a[3], a[0]:output_w - a[1]]
 
-    print(target.dtype,torch.randn(1,4,156,240,240).dtype)
+    print(target.dtype, torch.randn(1, 4, 156, 240, 240).dtype)
 
-
-    loss_dice, per_ch_score = criterion(y.unsqueeze(0).cuda(),target.cuda())
+    loss_dice, per_ch_score = criterion(y.unsqueeze(0).cuda(), target.cuda())
     print("INFERENCE DICE LOSS {} ".format(loss_dice.item()))
     return loss_dice
 

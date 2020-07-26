@@ -1,6 +1,8 @@
 import argparse
 import os
 
+import torch
+
 import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
 # Lib files
@@ -8,7 +10,7 @@ import medzoo.utils as utils
 from medzoo.common.losses3D import DiceLoss, create_loss
 from medzoo.train.trainer import Trainer
 
-import torch
+
 def main():
     args = get_arguments()
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"

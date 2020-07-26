@@ -7,6 +7,8 @@ import torch
 Not used anymore. Will be removed soon.
 They now exist in the base class of the models.
 """
+
+
 def save_checkpoint(state, is_best, path, prefix, filename='checkpoint.pth.tar'):
     prefix_save = os.path.join(path, prefix)
     name = prefix_save + '_' + filename
@@ -23,7 +25,7 @@ def save_model(model, args, dice_loss, epoch, best_pred_loss):
         save_checkpoint({'epoch': epoch,
                          'state_dict': model.state_dict(),
                          'best_prec1': best_pred_loss},
-                        is_best, args.save, args.model + "_best_"+ str(epoch))
+                        is_best, args.save, args.model + "_best_" + str(epoch))
     elif epoch % 5 == 0:
         save_checkpoint({'epoch': epoch,
                          'state_dict': model.state_dict(),

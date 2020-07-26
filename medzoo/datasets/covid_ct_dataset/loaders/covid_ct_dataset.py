@@ -1,13 +1,15 @@
 import os
+
 import torch
-from torch.utils.data import Dataset
-from medzoo.utils.covid_utils  import  read_txt
-from PIL import Image
 import torchvision.transforms as transforms
+from PIL import Image
+from torch.utils.data import Dataset
+
+from medzoo.utils.covid_utils import read_txt
 
 
 class CovidCTDataset(Dataset):
-    def __init__(self,mode, root_dir, txt_COVID, txt_NonCOVID, transform=None):
+    def __init__(self, mode, root_dir, txt_COVID, txt_NonCOVID, transform=None):
         """
         Args:
             txt_path (string): Path to the txt file with annotations.
@@ -51,17 +53,13 @@ class CovidCTDataset(Dataset):
             transforms.ToTensor(),
             normalize
         ])
-        if(mode == 'train'):
+        if (mode == 'train'):
 
             self.transform = train_transformer
 
         else:
             self.transform = val_transformer
         print('samples = ', len(self.img_list))
-
-
-
-
 
     def __len__(self):
         return len(self.img_list)

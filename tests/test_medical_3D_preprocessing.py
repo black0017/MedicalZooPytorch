@@ -1,4 +1,5 @@
 import urllib.request
+
 from medzoo.common.medloaders.medical_image_process import *
 from medzoo.common.visual3D_temp import show_mid_slice
 
@@ -8,13 +9,11 @@ url_2 = "https://nipy.org/nibabel/_downloads/f76cc5a46e5368e2c779868abc49e497/so
 urllib.request.urlretrieve(url_1, './someones_epi.nii.gz')
 urllib.request.urlretrieve(url_2, './someones_anatomy.nii.gz')
 
-
 epi_img = nib.load('someones_epi.nii.gz')
 anatomy_img = nib.load('someones_anatomy.nii.gz')
 # convert to numpy
 epi_img_numpy = epi_img.get_fdata()
 anatomy_img_numpy = anatomy_img.get_fdata()
-
 
 """## 3D shapes and medical-header files"""
 print(epi_img_numpy.shape)
@@ -48,28 +47,21 @@ print(voxels_out)
 show_mid_slice(epi_img_numpy)
 print(epi_img_numpy.shape)
 
-
-
 print(epi_img_numpy.ndim)
 result = rescale_data_volume(epi_img_numpy, (32, 32, 32))
 print(result.shape)
 show_mid_slice(result)
 
-
 # clip_range ?????
 # outliers
-epi_img_numpy[10,10,10] = 300
-epi_img_numpy[10,10,11] = -300
+epi_img_numpy[10, 10, 10] = 300
+epi_img_numpy[10, 10, 11] = -300
 
-
-anatomy_img_numpy[10,10,10] = 300
-anatomy_img_numpy[10,10,11] = -300
+anatomy_img_numpy[10, 10, 10] = 300
+anatomy_img_numpy[10, 10, 11] = -300
 
 show_mid_slice((epi_img_numpy))
 show_mid_slice(clip_range(epi_img_numpy))
 
 show_mid_slice((anatomy_img_numpy))
 show_mid_slice(clip_range(anatomy_img_numpy))
-
-
-

@@ -1,12 +1,14 @@
 # Python libraries
-import argparse, os
+import argparse
+import os
+
 import torch
 
-# Lib files
-import medzoo.utils as utils
 import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
 import medzoo.train as train
+# Lib files
+import medzoo.utils as utils
 from medzoo.common.losses3D import DiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"

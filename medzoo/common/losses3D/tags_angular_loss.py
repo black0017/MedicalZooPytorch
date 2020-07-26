@@ -1,4 +1,5 @@
 import torch
+
 from medzoo.common.losses3D.basic import expand_as_one_hot
 
 
@@ -10,7 +11,7 @@ class TagsAngularLoss(torch.nn.Module):
         super(TagsAngularLoss, self).__init__()
         self.tags_coefficients = tags_coefficients
         self.classes = classes
-    
+
     def forward(self, inputs, targets, weight=None):
         assert isinstance(inputs, list)
         # if there is just one output head the 'inputs' is going to be a singleton list [tensor]
@@ -24,7 +25,7 @@ class TagsAngularLoss(torch.nn.Module):
             """
             New code here: add expand for consistency
             """
-            target = expand_as_one_hot(target,self.classes)
+            target = expand_as_one_hot(target, self.classes)
             assert input.size() == target.size(), "'input' and 'target' must have the same shape"
 
             loss += alpha * square_angular_loss(input, target, weight)

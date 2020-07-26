@@ -5,13 +5,15 @@ Data can be downloaded from here: https://gleason2019.grand-challenge.org/
 
 """
 import argparse
-import torch, os
 
-# Lib files
-import medzoo.utils as utils
+import os
+import torch
+
 import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
 import medzoo.train as train
+# Lib files
+import medzoo.utils as utils
 from medzoo.common.losses3D import DiceLoss2D
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
