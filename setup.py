@@ -14,7 +14,6 @@ def clean_html(raw_html):
 
 # Single sourcing code from here:
 # https://packaging.python.org/guides/single-sourcing-package-version/
-# not used yet
 def find_version(*file_paths):
     here = os.path.abspath(os.path.dirname(__file__))
 
@@ -73,10 +72,10 @@ if __name__ == "__main__":
         url=URL,
         license=LICENSE,
         include_package_data=True,
+        version=find_version("medzoo", "version.py"),
         packages=find_packages(exclude=EXCLUDES),
         python_requires=">=3.6",
         ext_modules=EXT_MODULES,
-        version="1.0.0",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         long_description_content_type=LONG_DESCRIPTION_CONTENT_TYPE,
