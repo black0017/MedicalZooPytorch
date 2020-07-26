@@ -13,7 +13,7 @@ from medzoo.utils.timer import Timer
 
 
 class Logger:
-    def __init__(self, config, name=None):
+    def __init__(self, log_lovel=None, name=None):
         self.logger = None
         self.timer = Timer()
 
@@ -33,7 +33,10 @@ class Logger:
         self.logger = logging.getLogger(name)
 
         # Set level
-        level = config.training.logger_level
+        if log_lovel is None:
+            level = 'INFO'
+        else:
+            level = log_lovel
         self.logger.setLevel(getattr(logging, level.upper()))
 
         formatter = logging.Formatter(
@@ -53,3 +56,9 @@ class Logger:
     def get_logger(self):
         return self.logger
 
+
+
+log= Logger()
+log = log.get_logger()
+print(log)
+log.info('sfdsg')
