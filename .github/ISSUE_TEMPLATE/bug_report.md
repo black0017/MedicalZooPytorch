@@ -1,38 +1,52 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+name: "Bug Report"
+about: Submit a bug report to help us improve Medzoo
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## 🐛Bug
 
-**To Reproduce**
+<!-- A clear and concise description of what the bug is. -->
+
+## Command
+
+## To Reproduce
+
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- If you were running a command, post the exact command that you were running -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+1.
+2.
+3.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+<!-- If you have a code sample, error messages, stack traces, please provide it here as well -->
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## Expected behavior
 
-**Additional context**
-Add any other context about the problem here.
+<!-- A clear and concise description of what you expected to happen. -->
+
+## Environment
+
+Please copy and paste the output from the
+environment collection script from PyTorch
+(or fill out the checklist below manually).
+
+You can run the script with:
+```
+# For security purposes, please check the contents of collect_env.py before running it.
+python -m torch.utils.collect_env
+```
+
+ - PyTorch Version (e.g., 1.0):
+ - OS (e.g., Linux):
+ - How you installed PyTorch (`conda`, `pip`, source):
+ - Build command you used (if compiling from source):
+ - Python version:
+ - CUDA/cuDNN version:
+ - GPU models and configuration:
+ - Any other relevant information:
+
+## Additional context
+
+<!-- Add any other context about the problem here. -->
