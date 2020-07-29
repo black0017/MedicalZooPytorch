@@ -1,5 +1,6 @@
 import torch
 
+# TODO merge common utils with the rest of the project
 
 def accuracy(output, target):
     with torch.no_grad():

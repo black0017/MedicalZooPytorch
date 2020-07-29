@@ -2,7 +2,7 @@ omegaconf>=2.0.0
 setuptools>=49.2.0
 scipy>=1.4.1
 numpy>=1.18.2
-torch==1.4.0
+torch>=1.4.0
 nibabel>=3.0.2
 tensorboard>=2.2.0
 torchsummary>=1.5.1

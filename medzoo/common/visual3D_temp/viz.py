@@ -197,11 +197,7 @@ def find_crop_dims(full_size, mini_dim, adjust_dimension=2):
                 break
             else:
                 step += 1
-        return (d, e, slice_dim)
-
-    full_slice = full_size[adjust_dimension]
-
-    return tuple(desired_dim)
+        return d, e, slice_dim
 
 
 # Todo  test!
