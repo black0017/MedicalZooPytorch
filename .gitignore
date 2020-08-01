@@ -8,3 +8,7 @@ data/.DS_Store
 .vscode/*
 medzoo/datasets/**/*.hdr    
 medzoo/datasets/**/*.img
+medzoo/datasets/**/*.txt
+**/generated/*
+runs/*
+saved_models/*

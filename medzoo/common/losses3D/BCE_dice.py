@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from medzoo.common.losses3D import DiceLoss
+from medzoo.common.losses3D.dice import DiceLoss
 from medzoo.common.losses3D.basic import expand_as_one_hot
 
 
