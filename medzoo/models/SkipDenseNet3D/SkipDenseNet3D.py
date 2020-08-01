@@ -28,6 +28,14 @@ class _DenseLayer(nn.Sequential):
             self.drop_layer = nn.Dropout(p=self.drop_rate)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         new_features = super(_DenseLayer, self).forward(x)
         if self.drop_rate > 0:
             new_features = self.drop_layer(new_features)
@@ -143,6 +151,14 @@ class SkipDenseNet3D(BaseModel):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         first_three_features = self.features(x)
         first_three_features_bn = self.features_bn(first_three_features)
         out = self.conv_pool_first(first_three_features_bn)

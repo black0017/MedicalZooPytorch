@@ -28,6 +28,13 @@ class _AbstractDiceLoss(nn.Module):
             self.normalization = nn.Softmax(dim=1)
 
     def dice(self, input, target, weight):
+        """
+
+        Args:
+            input:
+            target:
+            weight:
+        """
         # actual Dice score computation; to be implemented by the subclass
         raise NotImplementedError
 

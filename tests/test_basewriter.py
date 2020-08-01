@@ -7,6 +7,11 @@ from medzoo.utils import datestr
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=1)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")
@@ -38,6 +43,9 @@ def get_arguments():
 
 
 def TEST_the_writer():
+    """
+
+    """
     args = get_arguments()
     test_writer = TensorboardWriter(args)
     for epoch in range(10):

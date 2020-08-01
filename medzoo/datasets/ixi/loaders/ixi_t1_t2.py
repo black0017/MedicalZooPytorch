@@ -68,6 +68,9 @@ class IXIMRIdataset(Dataset):
             return self.list[index]
 
     def create_input_data(self):
+        """
+
+        """
         total = len(self.list_IDsT1)
         print('Dataset samples: ', total)
         for i in range(total):

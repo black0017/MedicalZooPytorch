@@ -35,10 +35,31 @@ def test_padding():
 
 
 def roundup(x, base=32):
+    """
+
+    Args:
+        x:
+        base:
+
+    Returns:
+
+    """
     return int(math.ceil(x / base)) * base
 
 
 def non_overlap_padding(args, full_volume, model, criterion, kernel_dim=(32, 32, 32)):
+    """
+
+    Args:
+        args:
+        full_volume:
+        model:
+        criterion:
+        kernel_dim:
+
+    Returns:
+
+    """
     x = full_volume[:-1, ...].detach()
     target = full_volume[-1, ...].unsqueeze(0).detach()
     # print(target.max())
@@ -144,6 +165,15 @@ def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):
 
 # TODO TEST
 def create_3d_subvol(full_volume, dim):
+    """
+
+    Args:
+        full_volume:
+        dim:
+
+    Returns:
+
+    """
     list_modalities = []
 
     modalities, slices, height, width = full_volume.shape
@@ -166,10 +196,29 @@ def create_3d_subvol(full_volume, dim):
 
 
 def grid_sampler_sub_volume_reshape(tensor, dim):
+    """
+
+    Args:
+        tensor:
+        dim:
+
+    Returns:
+
+    """
     return tensor.view(-1, dim[0], dim[1], dim[2])
 
 
 def find_crop_dims(full_size, mini_dim, adjust_dimension=2):
+    """
+
+    Args:
+        full_size:
+        mini_dim:
+        adjust_dimension:
+
+    Returns:
+
+    """
     a, b, c = full_size
     d, e, f = mini_dim
 
@@ -202,6 +251,13 @@ def find_crop_dims(full_size, mini_dim, adjust_dimension=2):
 
 # Todo  test!
 def save_3d_vol(predictions, affine, save_path):
+    """
+
+    Args:
+        predictions:
+        affine:
+        save_path:
+    """
     pred_nifti_img = nib.Nifti1Image(predictions, affine)
     pred_nifti_img.header["qform_code"] = 1
     pred_nifti_img.header['sform_code'] = 0

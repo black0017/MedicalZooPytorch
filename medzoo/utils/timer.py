@@ -2,6 +2,9 @@ import time
 
 
 class Timer:
+    """
+
+    """
     DEFAULT_TIME_FORMAT_DATE_TIME = "%Y-%m-%d-%H:%M:%S"
     DEFAULT_TIME_FORMAT = ["%03dms", "%02ds", "%02dm", "%02dh"]
 
@@ -9,16 +12,41 @@ class Timer:
         self.start = time.time() * 1000
 
     def get_current(self):
+        """
+
+        Returns:
+
+        """
         return self.get_time(self.start)
 
     def reset(self):
+        """
+
+        """
         self.start = time.time() * 1000
 
     def get_time_since_start(self, time_format=None):
+        """
+
+        Args:
+            time_format:
+
+        Returns:
+
+        """
         return self.get_time(self.start, time_format)
 
     def get_time(self, start=None, end=None, time_format=None):
+        """
 
+        Args:
+            start:
+            end:
+            time_format:
+
+        Returns:
+
+        """
         if start is None:
             if time_format is None:
                 time_format = self.DEFAULT_TIME_FORMAT_DATE_TIME

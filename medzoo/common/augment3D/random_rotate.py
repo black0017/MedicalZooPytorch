@@ -21,6 +21,9 @@ def random_rotate3D(img_numpy, min_angle, max_angle):
 
 
 class RandomRotation(object):
+    """
+
+    """
     def __init__(self, min_angle=-10, max_angle=10):
         self.min_angle = min_angle
         self.max_angle = max_angle

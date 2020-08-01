@@ -18,6 +18,9 @@ seed = 1777777
 LOG = Logger(name='example_test_config').get_logger()
 
 def main():
+    """
+
+    """
     args = get_arguments()
 
     config = ConfigReader.read_config(args.config)
@@ -46,6 +49,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_name', type=str, default="iseg2019")
     parser.add_argument('--model', type=str, default='UNET3D',

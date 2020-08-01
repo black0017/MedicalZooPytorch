@@ -4,6 +4,16 @@ import numpy as np
 # TODO test
 
 def random_flip(img_numpy, label=None, axis_for_flip=0):
+    """
+
+    Args:
+        img_numpy:
+        label:
+        axis_for_flip:
+
+    Returns:
+
+    """
     axes = [0, 1, 2]
 
     img_numpy = flip_axis(img_numpy, axes[axis_for_flip])
@@ -18,6 +28,15 @@ def random_flip(img_numpy, label=None, axis_for_flip=0):
 
 
 def flip_axis(img_numpy, axis):
+    """
+
+    Args:
+        img_numpy:
+        axis:
+
+    Returns:
+
+    """
     img_numpy = np.asarray(img_numpy).swapaxes(axis, 0)
     img_numpy = img_numpy[::-1, ...]
     img_numpy = img_numpy.swapaxes(0, axis)
@@ -25,6 +44,9 @@ def flip_axis(img_numpy, axis):
 
 
 class RandomFlip(object):
+    """
+
+    """
     def __init__(self):
         self.axis_for_flip = np.random.randint(0, 3)
 

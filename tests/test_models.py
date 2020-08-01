@@ -5,6 +5,9 @@ import medzoo.models as medzoo
 
 
 def main():
+    """
+
+    """
     args = get_arguments()
     summary_flag = True
 
@@ -21,6 +24,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=1)
     parser.add_argument('--dataset_name', type=str, default="iseg")

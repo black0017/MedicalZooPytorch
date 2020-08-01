@@ -12,6 +12,9 @@ from medzoo.train.trainer import Trainer
 
 
 def main():
+    """
+
+    """
     args = get_arguments()
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## FOR REPRODUCIBILITY OF RESULTS
@@ -38,6 +41,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")

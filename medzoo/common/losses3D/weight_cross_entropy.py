@@ -14,6 +14,15 @@ class WeightedCrossEntropyLoss(torch.nn.Module):
         self.ignore_index = ignore_index
 
     def forward(self, input, target):
+        """
+
+        Args:
+            input:
+            target:
+
+        Returns:
+
+        """
         weight = self._class_weights(input)
         return torch.nn.functional.cross_entropy(input, target, weight=weight, ignore_index=self.ignore_index)
 

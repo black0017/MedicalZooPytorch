@@ -11,6 +11,9 @@ from medzoo.common.medloaders.medical_loader_utils import get_viz_set
 
 
 class MRIDatasetMRBRAINS2018(Dataset):
+    """
+
+    """
     def __init__(self, args, mode, dataset_path='../datasets', classes=4, dim=(32, 32, 32), split_id=0, samples=1000,
                  load=False):
         self.mode = mode

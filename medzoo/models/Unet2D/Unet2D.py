@@ -21,21 +21,43 @@ class DoubleConv(nn.Module):
             nn.ReLU(inplace=True))
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.conv(x)
         return x
 
 
 class InConv(nn.Module):
+    """
+
+    """
     def __init__(self, in_ch, out_ch):
         super(InConv, self).__init__()
         self.conv = DoubleConv(in_ch, out_ch)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.conv(x)
         return x
 
 
 class Down(nn.Module):
+    """
+
+    """
     def __init__(self, in_ch, out_ch):
         super(Down, self).__init__()
         self.mpconv = nn.Sequential(
@@ -44,11 +66,22 @@ class Down(nn.Module):
         )
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.mpconv(x)
         return x
 
 
 class Up(nn.Module):
+    """
+
+    """
     def __init__(self, in_ch, out_ch, bilinear=True):
         super(Up, self).__init__()
 
@@ -60,6 +93,15 @@ class Up(nn.Module):
         self.conv = DoubleConv(in_ch, out_ch)
 
     def forward(self, x1, x2):
+        """
+
+        Args:
+            x1:
+            x2:
+
+        Returns:
+
+        """
         x1 = self.up(x1)
 
         diffY = x2.size()[2] - x1.size()[2]
@@ -73,16 +115,30 @@ class Up(nn.Module):
 
 
 class OutConv(nn.Module):
+    """
+
+    """
     def __init__(self, in_ch, out_ch):
         super(OutConv, self).__init__()
         self.conv = nn.Conv2d(in_ch, out_ch, 1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.conv(x)
         return x
 
 
 class Unet(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels, classes):
         super(Unet, self).__init__()
         self.n_channels = in_channels
@@ -100,6 +156,14 @@ class Unet(BaseModel):
         self.outc = OutConv(64, classes)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)

@@ -75,6 +75,9 @@ class MICCAI2019_gleason_pathology(Dataset):
             return img_tensor, segmentation_map
 
     def generate_samples(self):
+        """
+
+        """
         total_imgs = len(self.list_imgs)
         print('Total ' + self.mode + ' data to generate samples:', total_imgs)
         print('Mode: ' + self.mode + ' 2d sub grids samples to generate: ', self.samples, ' Input images: ', total_imgs)
@@ -108,6 +111,14 @@ class MICCAI2019_gleason_pathology(Dataset):
                     self.sample_list.append(tuple((img_tensor, label_tensor)))
 
     def generate_patch(self, img):
+        """
+
+        Args:
+            img:
+
+        Returns:
+
+        """
         h, w, c = img.shape
         if h < self.crop_dim[0] or w < self.crop_dim[1]:
             print('dim error')
@@ -117,6 +128,14 @@ class MICCAI2019_gleason_pathology(Dataset):
         return h_crop, w_crop
 
     def norm_img(self, img_tensor):
+        """
+
+        Args:
+            img_tensor:
+
+        Returns:
+
+        """
         mask = img_tensor.ne(0.0)
         desired = img_tensor[mask]
         mean_val, std_val = desired.mean(), desired.std()
@@ -124,6 +143,9 @@ class MICCAI2019_gleason_pathology(Dataset):
         return img_tensor
 
     def generate_train_labels(self):
+        """
+
+        """
         tuple_maps = read_labels(self.dataset_path)
         preprocess_labels(tuple_maps)
 

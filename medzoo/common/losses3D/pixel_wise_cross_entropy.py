@@ -7,6 +7,9 @@ from medzoo.common.losses3D.basic import *
 
 
 class PixelWiseCrossEntropyLoss(nn.Module):
+    """
+
+    """
     def __init__(self, class_weights=None, ignore_index=None):
         super(PixelWiseCrossEntropyLoss, self).__init__()
         self.register_buffer('class_weights', class_weights)
@@ -14,6 +17,16 @@ class PixelWiseCrossEntropyLoss(nn.Module):
         self.log_softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, input, target, weights):
+        """
+
+        Args:
+            input:
+            target:
+            weights:
+
+        Returns:
+
+        """
         assert target.size() == weights.size()
         # normalize the input
         log_probabilities = self.log_softmax(input)

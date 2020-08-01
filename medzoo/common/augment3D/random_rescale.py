@@ -18,6 +18,9 @@ def random_zoom(img_numpy, min_percentage=0.8, max_percentage=1.1):
 
 
 class RandomZoom(object):
+    """
+
+    """
     def __init__(self, min_percentage=0.8, max_percentage=1.1):
         self.min_percentage = min_percentage
         self.max_percentage = max_percentage

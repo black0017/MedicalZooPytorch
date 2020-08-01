@@ -23,7 +23,9 @@ dict_class_names = {"iseg2017": ["Air", "CSF", "GM", "WM"],
 
 
 class TensorboardWriter():
+    """
 
+    """
     def __init__(self, args):
 
         name_model = args.log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
@@ -38,6 +40,11 @@ class TensorboardWriter():
         self.data = self.create_data_structure()
 
     def create_data_structure(self, ):
+        """
+
+        Returns:
+
+        """
         data = {"train": dict((label, 0.0) for label in self.label_names),
                 "val": dict((label, 0.0) for label in self.label_names)}
         data['train']['loss'] = 0.0
@@ -82,11 +89,24 @@ class TensorboardWriter():
             LOG.info(info_print)
 
     def create_stats_files(self, path):
+        """
+
+        Args:
+            path:
+
+        Returns:
+
+        """
         train_f = open(os.path.join(path, 'train.csv'), 'w')
         val_f = open(os.path.join(path, 'val.csv'), 'w')
         return train_f, val_f
 
     def reset(self, mode):
+        """
+
+        Args:
+            mode:
+        """
         self.data[mode]['dsc'] = 0.0
         self.data[mode]['loss'] = 0.0
         self.data[mode]['count'] = 1
@@ -116,7 +136,11 @@ class TensorboardWriter():
                 self.writer.add_scalar(mode + '/' + self.label_names[i], channel_score[i], global_step=writer_step)
 
     def write_end_of_epoch(self, epoch):
+        """
 
+        Args:
+            epoch:
+        """
         self.writer.add_scalars('DSC/', {'train': self.data['train']['dsc'] / self.data['train']['count'],
                                          'val': self.data['val']['dsc'] / self.data['val']['count'],
                                          }, epoch)

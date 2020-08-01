@@ -16,6 +16,15 @@ from ...utils.logger import Logger
 LOG = Logger(name='medloader').get_logger()
 
 def generate_datasets(args, path='.././datasets'):
+    """
+
+    Args:
+        args:
+        path:
+
+    Returns:
+
+    """
     params = {'batch_size': args.batchSz,
               'shuffle': True,
               'num_workers': 2}
@@ -133,6 +142,15 @@ def generate_datasets(args, path='.././datasets'):
 
 
 def select_full_volume_for_infer(args, path='.././datasets'):
+    """
+
+    Args:
+        args:
+        path:
+
+    Returns:
+
+    """
     params = {'batch_size': args.batchSz,
               'shuffle': True,
               'num_workers': 2}

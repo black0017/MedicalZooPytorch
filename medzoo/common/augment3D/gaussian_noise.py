@@ -2,12 +2,25 @@ import numpy as np
 
 
 def random_noise(img_numpy, mean=0, std=0.001):
+    """
+
+    Args:
+        img_numpy:
+        mean:
+        std:
+
+    Returns:
+
+    """
     noise = np.random.normal(mean, std, img_numpy.shape)
 
     return img_numpy + noise
 
 
 class GaussianNoise(object):
+    """
+
+    """
     def __init__(self, mean=0, std=0.001):
         self.mean = mean
         self.std = std

@@ -3,6 +3,15 @@ import torch
 # TODO merge common utils with the rest of the project
 
 def accuracy(output, target):
+    """
+
+    Args:
+        output:
+        target:
+
+    Returns:
+
+    """
     with torch.no_grad():
         pred = torch.argmax(output, dim=1)
         assert pred.shape[0] == len(target)
@@ -12,6 +21,15 @@ def accuracy(output, target):
 
 
 def print_stats(args, epoch, num_samples, trainloader, metrics):
+    """
+
+    Args:
+        args:
+        epoch:
+        num_samples:
+        trainloader:
+        metrics:
+    """
     if (num_samples % args.log_interval == 1):
         print("Epoch:{:2d}\tSample:{:5d}/{:5d}\tLoss:{:.4f}\tAccuracy:{:.2f}".format(epoch,
                                                                                      num_samples,
@@ -23,6 +41,15 @@ def print_stats(args, epoch, num_samples, trainloader, metrics):
 
 
 def print_summary(args, epoch, num_samples, metrics, mode=''):
+    """
+
+    Args:
+        args:
+        epoch:
+        num_samples:
+        metrics:
+        mode:
+    """
     print(mode + "\n SUMMARY EPOCH:{:2d}\tSample:{:5d}/{:5d}\tLoss:{:.4f}\tAccuracy:{:.2f}\n".format(epoch,
                                                                                                      num_samples,
                                                                                                      num_samples,
@@ -33,6 +60,9 @@ def print_summary(args, epoch, num_samples, metrics, mode=''):
 
 
 class MetricTracker:
+    """
+
+    """
     def __init__(self, *keys, writer=None, mode='/'):
 
         self.writer = writer
@@ -43,23 +73,55 @@ class MetricTracker:
         self.reset()
 
     def reset(self):
+        """
+
+        """
         for key in self.data:
             self.data[key] = 0
 
     def update(self, key, value, n=1, writer_step=1):
+        """
+
+        Args:
+            key:
+            value:
+            n:
+            writer_step:
+        """
         if self.writer is not None:
             self.writer.add_scalar(self.mode + '/' + key, value, writer_step)
         self.data[key] += value * n
 
     def update_all_metrics(self, iteration, values_dict, n=1, writer_step=1):
+        """
+
+        Args:
+            iteration:
+            values_dict:
+            n:
+            writer_step:
+        """
         self.data['count'] = iteration
         for key in values_dict:
             self.update(key, values_dict[key], n, writer_step)
 
     def avg_Acc(self, key):
+        """
+
+        Args:
+            key:
+
+        Returns:
+
+        """
         return self.data['correct'] / self.data['total']
 
     def print_all_metrics(self):
+        """
+
+        Returns:
+
+        """
         s = ''
 
         for key in self.keys:
@@ -96,6 +158,14 @@ class MetricTracker:
 
 
 def read_txt(txt_path):
+    """
+
+    Args:
+        txt_path:
+
+    Returns:
+
+    """
     with open(txt_path) as f:
         lines = f.readlines()
     txt_data = [line.strip() for line in lines]

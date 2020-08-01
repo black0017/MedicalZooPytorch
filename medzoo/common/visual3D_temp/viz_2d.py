@@ -83,6 +83,14 @@ def create_2d_views(predictions, segment_map, path_to_save):
 
 
 def seg_map_vizualization_iseg(segmentation_map):
+    """
+
+    Args:
+        segmentation_map:
+
+    Returns:
+
+    """
     # visual labels of ISEG-2017
     label_values = [0, 10, 150, 250]
     for c, j in enumerate(label_values):
@@ -122,6 +130,9 @@ def plot_segm(segm, ground_truth, plots_dir='.'):
 
 # TODO dead code?
 def overlap_2d_image():
+    """
+
+    """
     B, C, W, H = 2, 3, 1024, 1024
     x = torch.randn(B, C, H, W)
 

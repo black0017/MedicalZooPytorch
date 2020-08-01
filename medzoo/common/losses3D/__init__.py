@@ -20,6 +20,17 @@ SUPPORTED_LOSSES = ['BCEWithLogitsLoss', 'BCEDiceLoss', 'CrossEntropyLoss', 'Wei
 
 
 def create_loss(name, weight=None, ignore_index=None, pos_weight=None):
+    """
+
+    Args:
+        name:
+        weight:
+        ignore_index:
+        pos_weight:
+
+    Returns:
+
+    """
     if name == 'BCEWithLogitsLoss':
         return nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     elif name == 'BCEDiceLoss':
@@ -64,6 +75,15 @@ class SkipLastTargetChannelWrapper(nn.Module):
         self.squeeze_channel = squeeze_channel
 
     def forward(self, input, target):
+        """
+
+        Args:
+            input:
+            target:
+
+        Returns:
+
+        """
         assert target.size(1) > 1, 'Target tensor has a singleton channel dimension, cannot remove channel'
 
         # skips last target channel if needed
@@ -87,6 +107,15 @@ class _MaskingLossWrapper(nn.Module):
         self.ignore_index = ignore_index
 
     def forward(self, input, target):
+        """
+
+        Args:
+            input:
+            target:
+
+        Returns:
+
+        """
         mask = target.clone().ne_(self.ignore_index)
         mask.requires_grad = False
 

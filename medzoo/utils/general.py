@@ -24,12 +24,23 @@ def reproducibility(args, seed):
 
 
 def save_arguments(args, path):
+    """
+
+    Args:
+        args:
+        path:
+    """
     with open(path + '/training_arguments.txt', 'w') as f:
         json.dump(args.__dict__, f, indent=2)
     f.close()
 
 
 def datestr():
+    """
+
+    Returns:
+
+    """
     now = time.gmtime()
     return '{:02}_{:02}___{:02}_{:02}'.format(now.tm_mday, now.tm_mon, now.tm_hour, now.tm_min)
 

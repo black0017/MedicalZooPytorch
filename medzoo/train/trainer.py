@@ -31,6 +31,9 @@ class Trainer:
         self.start_epoch = 1
 
     def training(self):
+        """
+
+        """
         for epoch in range(self.start_epoch, self.args.nEpochs):
             self.train_epoch(epoch)
 
@@ -50,6 +53,11 @@ class Trainer:
             self.writer.reset('val')
 
     def train_epoch(self, epoch):
+        """
+
+        Args:
+            epoch:
+        """
         self.model.train()
 
         for batch_idx, input_tuple in enumerate(self.train_data_loader):
@@ -73,6 +81,11 @@ class Trainer:
         self.writer.display_terminal(self.len_epoch, epoch, mode='train', summary=True)
 
     def validate_epoch(self, epoch):
+        """
+
+        Args:
+            epoch:
+        """
         self.model.eval()
 
         for batch_idx, input_tuple in enumerate(self.valid_data_loader):

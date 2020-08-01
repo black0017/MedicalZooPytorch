@@ -82,23 +82,59 @@ class UNet3D(BaseModel):
         self.sigmoid = nn.Sigmoid()
 
     def conv_norm_lrelu(self, feat_in, feat_out):
+        """
+
+        Args:
+            feat_in:
+            feat_out:
+
+        Returns:
+
+        """
         return nn.Sequential(
             nn.Conv3d(feat_in, feat_out, kernel_size=3, stride=1, padding=1, bias=False),
             nn.InstanceNorm3d(feat_out),
             nn.LeakyReLU())
 
     def norm_lrelu_conv(self, feat_in, feat_out):
+        """
+
+        Args:
+            feat_in:
+            feat_out:
+
+        Returns:
+
+        """
         return nn.Sequential(
             nn.InstanceNorm3d(feat_in),
             nn.LeakyReLU(),
             nn.Conv3d(feat_in, feat_out, kernel_size=3, stride=1, padding=1, bias=False))
 
     def lrelu_conv(self, feat_in, feat_out):
+        """
+
+        Args:
+            feat_in:
+            feat_out:
+
+        Returns:
+
+        """
         return nn.Sequential(
             nn.LeakyReLU(),
             nn.Conv3d(feat_in, feat_out, kernel_size=3, stride=1, padding=1, bias=False))
 
     def norm_lrelu_upscale_conv_norm_lrelu(self, feat_in, feat_out):
+        """
+
+        Args:
+            feat_in:
+            feat_out:
+
+        Returns:
+
+        """
         return nn.Sequential(
             nn.InstanceNorm3d(feat_in),
             nn.LeakyReLU(),
@@ -109,6 +145,14 @@ class UNet3D(BaseModel):
             nn.LeakyReLU())
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         #  Level 1 context pathway
         out = self.conv3d_c1_1(x)
         residual_1 = out

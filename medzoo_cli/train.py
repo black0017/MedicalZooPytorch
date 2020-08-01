@@ -14,6 +14,9 @@ seed = 1777777
 
 
 def train():
+    """
+
+    """
     args = get_arguments()
 
     config = ConfigReader.read_config(args.config)
@@ -40,6 +43,11 @@ def train():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_name', type=str, default="iseg2019")
     parser.add_argument('--model', type=str, default='UNET3D',

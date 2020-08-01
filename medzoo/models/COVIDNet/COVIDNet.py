@@ -6,10 +6,21 @@ from torchvision import models
 
 class Flatten(nn.Module):
     def forward(self, input):
+        """
+
+        Args:
+            input:
+
+        Returns:
+
+        """
         return input.view(input.size(0), -1)
 
 
 class PEXP(nn.Module):
+    """
+
+    """
     def __init__(self, n_input, n_out):
         super(PEXP, self).__init__()
 
@@ -42,10 +53,21 @@ class PEXP(nn.Module):
                                      nn.Conv2d(in_channels=n_input // 2, out_channels=n_out, kernel_size=1))
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.network(x)
 
 
 class CovidNet(nn.Module):
+    """
+
+    """
     def __init__(self, model='large', n_classes=3):
         super(CovidNet, self).__init__()
         filters = {
@@ -92,9 +114,25 @@ class CovidNet(nn.Module):
         self.add_module('classifier', nn.Linear(256, n_classes))
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.__forward__(x)
 
     def forward_large_net(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = F.max_pool2d(F.relu(self.conv1(x)), 2)
         out_conv1_1x1 = self.conv1_1x1(x)
 
@@ -140,6 +178,14 @@ class CovidNet(nn.Module):
         return logits
 
     def forward_small_net(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = F.max_pool2d(F.relu(self.conv1(x)), 2)
 
         pepx11 = self.pexp1_1(x)
@@ -174,6 +220,9 @@ class CovidNet(nn.Module):
 
 
 class CNN(nn.Module):
+    """
+
+    """
     def __init__(self, classes, model='resnet18'):
         super(CNN, self).__init__()
         if (model == 'resnet18'):
@@ -189,4 +238,12 @@ class CNN(nn.Module):
             self.cnn.classifier = nn.Linear(1280, classes)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.cnn(x)

@@ -28,6 +28,18 @@ o = [i + 2*p - k - (k-1)*(d-1)]/s + 1
 
 
 def conv3x3x3(in_planes, out_planes, stride=1, dilation=1, padding=1):
+    """
+
+    Args:
+        in_planes:
+        out_planes:
+        stride:
+        dilation:
+        padding:
+
+    Returns:
+
+    """
     kernel_size = 3
     if dilation > 1:
         padding = find_padding(dilation, kernel_size)
@@ -41,6 +53,16 @@ def conv3x3x3(in_planes, out_planes, stride=1, dilation=1, padding=1):
 
 
 def conv1x1x1(in_planes, out_planes, stride=1):
+    """
+
+    Args:
+        in_planes:
+        out_planes:
+        stride:
+
+    Returns:
+
+    """
     return nn.Conv3d(in_planes,
                      out_planes,
                      kernel_size=1,
@@ -58,6 +80,9 @@ def find_padding(dilation, kernel):
 
 
 class BasicBlock(nn.Module):
+    """
+
+    """
     expansion = 1
 
     def __init__(self, in_planes, planes, stride=1, dilation=1, downsample=None):
@@ -72,6 +97,14 @@ class BasicBlock(nn.Module):
         self.stride = stride
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         residual = x
 
         out = self.conv1(x)
@@ -90,6 +123,9 @@ class BasicBlock(nn.Module):
 
 
 class Bottleneck(nn.Module):
+    """
+
+    """
     expansion = 4
 
     def __init__(self, in_planes, planes, stride=1, dilation=1, downsample=None):
@@ -106,6 +142,14 @@ class Bottleneck(nn.Module):
         self.stride = stride
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         residual = x
 
         out = self.conv1(x)
@@ -166,6 +210,14 @@ class TranspConvNet(nn.Module):
         self.conv_final = conv1x1x1(conv_channels, classes, stride=1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.transp_1(x)
         x = self.transp_2(x)
         x = self.transp_3(x)
@@ -175,7 +227,9 @@ class TranspConvNet(nn.Module):
 
 
 class ResNetMed3D(BaseModel):
+    """
 
+    """
     def __init__(self, in_channels=3, classes=10,
                  block=BasicBlock,
                  layers=[1, 1, 1, 1],
@@ -267,6 +321,14 @@ class ResNetMed3D(BaseModel):
         return nn.Sequential(*layers)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
@@ -291,6 +353,17 @@ class ResNetMed3D(BaseModel):
 
 
 def generate_resnet3d(in_channels=1, classes=2, model_depth=18, **kwargs):
+    """
+
+    Args:
+        in_channels:
+        classes:
+        model_depth:
+        **kwargs:
+
+    Returns:
+
+    """
     assert model_depth in [10, 18, 34, 50, 101, 152, 200]
     res_net_dict = {10: [1, 1, 1, 1], 18: [2, 2, 2, 2], 34: [3, 4, 6, 3], 50: [3, 4, 6, 3], 101: [3, 4, 23, 3],
                     152: [3, 8, 36, 3], 200: [3, 24, 36, 3]}

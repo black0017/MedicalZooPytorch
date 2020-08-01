@@ -10,6 +10,9 @@ https://arxiv.org/pdf/1707.01992.pdf
 
 
 class ConvInit(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels):
         super(ConvInit, self).__init__()
         self.num_features = 16
@@ -22,6 +25,14 @@ class ConvInit(nn.Module):
         self.norm = nn.Sequential(bn1, relu1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         y1 = self.conv1(x)
         y2 = self.norm(y1)
 
@@ -29,6 +40,9 @@ class ConvInit(nn.Module):
 
 
 class ConvRed(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels):
         super(ConvRed, self).__init__()
         self.num_features = 16
@@ -40,10 +54,21 @@ class ConvRed(nn.Module):
         self.conv_red = nn.Sequential(bn1, relu1, conv1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv_red(x)
 
 
 class DilatedConv2(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels):
         super(DilatedConv2, self).__init__()
         self.num_features = 32
@@ -55,10 +80,21 @@ class DilatedConv2(nn.Module):
         self.conv_dil = nn.Sequential(bn1, relu1, conv1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv_dil(x)
 
 
 class DilatedConv4(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels):
         super(DilatedConv4, self).__init__()
         self.num_features = 64
@@ -71,10 +107,21 @@ class DilatedConv4(nn.Module):
         self.conv_dil = nn.Sequential(bn1, relu1, conv1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv_dil(x)
 
 
 class Conv1x1x1(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels, classes):
         super(Conv1x1x1, self).__init__()
         self.num_features = classes
@@ -87,10 +134,21 @@ class Conv1x1x1(nn.Module):
         self.conv_dil = nn.Sequential(bn1, relu1, conv1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv_dil(x)
 
 
 class HighResNet3D(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels=1, classes=4, shortcut_type="A", dropout_layer=True):
         super(HighResNet3D, self).__init__()
         self.in_channels = in_channels
@@ -129,6 +187,15 @@ class HighResNet3D(BaseModel):
             self.conv_out = Conv1x1x1(self.dil4_channels, self.classes)
 
     def shortcut_pad(self, x, desired_channels):
+        """
+
+        Args:
+            x:
+            desired_channels:
+
+        Returns:
+
+        """
         if self.shortcut_type == 'A':
             batch_size, channels, dim0, dim1, dim2 = x.shape
             extra_channels = desired_channels - channels
@@ -143,21 +210,53 @@ class HighResNet3D(BaseModel):
         return y
 
     def create_red(self, in_channels):
+        """
+
+        Args:
+            in_channels:
+
+        Returns:
+
+        """
         conv_red_1 = ConvRed(in_channels)
         conv_red_2 = ConvRed(self.red_channels)
         return nn.Sequential(conv_red_1, conv_red_2)
 
     def create_dil2(self, in_channels):
+        """
+
+        Args:
+            in_channels:
+
+        Returns:
+
+        """
         conv_dil2_1 = DilatedConv2(in_channels)
         conv_dil2_2 = DilatedConv2(self.dil2_channels)
         return nn.Sequential(conv_dil2_1, conv_dil2_2)
 
     def create_dil4(self, in_channels):
+        """
+
+        Args:
+            in_channels:
+
+        Returns:
+
+        """
         conv_dil4_1 = DilatedConv4(in_channels)
         conv_dil4_2 = DilatedConv4(self.dil4_channels)
         return nn.Sequential(conv_dil4_1, conv_dil4_2)
 
     def red_forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x, x_res = self.conv_init(x)
         x_red_1 = self.red_blocks1(x)
         x_red_2 = self.red_blocks2(x_red_1 + x_res)
@@ -165,6 +264,15 @@ class HighResNet3D(BaseModel):
         return x_red_3, x_red_2
 
     def dilation2(self, x_red_3, x_red_2):
+        """
+
+        Args:
+            x_red_3:
+            x_red_2:
+
+        Returns:
+
+        """
         x_dil2_1 = self.dil2block1(x_red_3 + x_red_2)
         # print(x_dil2_1.shape ,x_red_3.shape )
 
@@ -175,6 +283,15 @@ class HighResNet3D(BaseModel):
         return x_dil2_3, x_dil2_2
 
     def dilation4(self, x_dil2_3, x_dil2_2):
+        """
+
+        Args:
+            x_dil2_3:
+            x_dil2_2:
+
+        Returns:
+
+        """
         x_dil4_1 = self.dil4block1(x_dil2_3 + x_dil2_2)
         x_dil2_padded = self.shortcut_pad(x_dil2_3, self.dil4_channels)
         x_dil4_2 = self.dil4block2(x_dil4_1 + x_dil2_padded)
@@ -182,6 +299,14 @@ class HighResNet3D(BaseModel):
         return x_dil4_3 + x_dil4_2
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x_red_3, x_red_2 = self.red_forward(x)
         x_dil2_3, x_dil2_2 = self.dilation2(x_red_3, x_red_2)
         x_dil4 = self.dilation4(x_dil2_3, x_dil2_2)

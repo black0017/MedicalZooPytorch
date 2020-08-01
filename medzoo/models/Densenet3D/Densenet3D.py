@@ -21,6 +21,14 @@ class _HyperDenseLayer(nn.Sequential):
         self.drop_rate = drop_rate
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         new_features = super(_HyperDenseLayer, self).forward(x)
 
         if self.drop_rate > 0:
@@ -73,6 +81,9 @@ class _HyperDenseBlockEarlyFusion(nn.Sequential):
 
 
 class SinglePathDenseNet(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels, classes=4, drop_rate=0.1, return_logits=True, early_fusion=False):
         super(SinglePathDenseNet, self).__init__()
         self.return_logits = return_logits
@@ -123,6 +134,14 @@ class SinglePathDenseNet(BaseModel):
                                                            bias=False))
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         features = self.features(x)
         if self.return_logits:
             out = self.classifier(features)
@@ -144,6 +163,9 @@ class SinglePathDenseNet(BaseModel):
 
 
 class DualPathDenseNet(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels, classes=4, drop_rate=0, fusion='concat'):
         """
         2-stream and 3-stream implementation with late fusion

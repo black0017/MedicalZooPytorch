@@ -12,6 +12,9 @@ from medzoo.utils.timer import Timer
 
 
 class Logger:
+    """
+
+    """
     def __init__(self, log_lovel=None, name=None):
         self.logger = None
         self.timer = Timer()
@@ -54,5 +57,10 @@ class Logger:
         self.logger.addHandler(cons_hdl)
 
     def get_logger(self):
+        """
+
+        Returns:
+
+        """
         return self.logger
 

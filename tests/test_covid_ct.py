@@ -11,6 +11,9 @@ from medzoo.train.train_covid import train, validation
 
 
 def main():
+    """
+
+    """
     args = get_arguments()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -43,6 +46,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="COVIDx")

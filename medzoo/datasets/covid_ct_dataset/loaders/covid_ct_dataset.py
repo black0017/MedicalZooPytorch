@@ -9,6 +9,9 @@ from medzoo.utils.covid_utils import read_txt
 
 
 class CovidCTDataset(Dataset):
+    """
+
+    """
     def __init__(self, mode, root_dir, txt_COVID, txt_NonCOVID, transform=None):
         """
         Args:

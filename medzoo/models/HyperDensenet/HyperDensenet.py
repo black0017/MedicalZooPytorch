@@ -11,6 +11,24 @@ Code was borrowed and modified from this repo: https://github.com/josedolz/Hyper
 
 def conv(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Conv2d,
          BN=False, ws=False, activ=nn.LeakyReLU(0.2), gainWS=2):
+    """
+
+    Args:
+        nin:
+        nout:
+        kernel_size:
+        stride:
+        padding:
+        bias:
+        layer:
+        BN:
+        ws:
+        activ:
+        gainWS:
+
+    Returns:
+
+    """
     convlayer = layer(nin, nout, kernel_size, stride=stride, padding=padding, bias=bias)
     layers = []
     # if ws:
@@ -29,6 +47,9 @@ def conv(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Con
 
 
 class ResidualConv(nn.Module):
+    """
+
+    """
     def __init__(self, nin, nout, bias=False, BN=False, ws=False, activ=nn.LeakyReLU(0.2)):
         super(ResidualConv, self).__init__()
 
@@ -52,11 +73,33 @@ class ResidualConv(nn.Module):
         self.activation = nn.Sequential(*activation)
 
     def forward(self, input):
+        """
+
+        Args:
+            input:
+
+        Returns:
+
+        """
         out = self.convs(input)
         return self.activation(out + self.res(input))
 
 
 def upSampleConv_Res(nin, nout, upscale=2, bias=False, BN=False, ws=False, activ=nn.LeakyReLU(0.2)):
+    """
+
+    Args:
+        nin:
+        nout:
+        upscale:
+        bias:
+        BN:
+        ws:
+        activ:
+
+    Returns:
+
+    """
     return nn.Sequential(
         nn.Upsample(scale_factor=upscale),
         ResidualConv(nin, nout, bias=bias, BN=BN, ws=ws, activ=activ)
@@ -64,6 +107,20 @@ def upSampleConv_Res(nin, nout, upscale=2, bias=False, BN=False, ws=False, activ
 
 
 def conv_block(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dilation=1):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        act_fn:
+        kernel_size:
+        stride:
+        padding:
+        dilation:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation),
         nn.BatchNorm2d(out_dim),
@@ -73,6 +130,15 @@ def conv_block(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dila
 
 
 def conv_block_1(in_dim, out_dim):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=1),
         nn.BatchNorm2d(out_dim),
@@ -82,6 +148,16 @@ def conv_block_1(in_dim, out_dim):
 
 
 def conv_block_Asym(in_dim, out_dim, kernelSize):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        kernelSize:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=[kernelSize, 1], padding=tuple([2, 0])),
         nn.Conv2d(out_dim, out_dim, kernel_size=[1, kernelSize], padding=tuple([0, 2])),
@@ -92,6 +168,18 @@ def conv_block_Asym(in_dim, out_dim, kernelSize):
 
 
 def conv_block_Asym_Inception(in_dim, out_dim, kernel_size, padding, dilation=1):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        kernel_size:
+        padding:
+        dilation:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=[kernel_size, 1], padding=tuple([padding * dilation, 0]),
                   dilation=(dilation, 1)),
@@ -106,6 +194,19 @@ def conv_block_Asym_Inception(in_dim, out_dim, kernel_size, padding, dilation=1)
 
 
 def conv_block_Asym_Inception_WithIncreasedFeatMaps(in_dim, mid_dim, out_dim, kernel_size, padding, dilation=1):
+    """
+
+    Args:
+        in_dim:
+        mid_dim:
+        out_dim:
+        kernel_size:
+        padding:
+        dilation:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, mid_dim, kernel_size=[kernel_size, 1], padding=tuple([padding * dilation, 0]),
                   dilation=(dilation, 1)),
@@ -120,6 +221,19 @@ def conv_block_Asym_Inception_WithIncreasedFeatMaps(in_dim, mid_dim, out_dim, ke
 
 
 def conv_block_Asym_ERFNet(in_dim, out_dim, kernelSize, padding, drop, dilation):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        kernelSize:
+        padding:
+        drop:
+        dilation:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=[kernelSize, 1], padding=tuple([padding, 0]), bias=True),
         nn.ReLU(),
@@ -138,6 +252,15 @@ def conv_block_Asym_ERFNet(in_dim, out_dim, kernelSize, padding, drop, dilation)
 
 
 def conv_block_3_3(in_dim, out_dim):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=3, padding=1),
         nn.BatchNorm2d(out_dim),
@@ -148,6 +271,16 @@ def conv_block_3_3(in_dim, out_dim):
 
 # TODO: Change order of block: BN + Activation + Conv
 def conv_decod_block(in_dim, out_dim, act_fn):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        act_fn:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.ConvTranspose2d(in_dim, out_dim, kernel_size=3, stride=2, padding=1, output_padding=1),
         nn.BatchNorm2d(out_dim),
@@ -157,6 +290,18 @@ def conv_decod_block(in_dim, out_dim, act_fn):
 
 
 def dilation_conv_block(in_dim, out_dim, act_fn, stride_val, dil_val):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        act_fn:
+        stride_val:
+        dil_val:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=3, stride=stride_val, padding=1, dilation=dil_val),
         nn.BatchNorm2d(out_dim),
@@ -166,50 +311,103 @@ def dilation_conv_block(in_dim, out_dim, act_fn, stride_val, dil_val):
 
 
 def maxpool():
+    """
+
+    Returns:
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
     return pool
 
 
 def avrgpool05():
+    """
+
+    Returns:
+
+    """
     pool = nn.AvgPool2d(kernel_size=2, stride=2, padding=0)
     return pool
 
 
 def avrgpool025():
+    """
+
+    Returns:
+
+    """
     pool = nn.AvgPool2d(kernel_size=2, stride=4, padding=0)
     return pool
 
 
 def avrgpool0125():
+    """
+
+    Returns:
+
+    """
     pool = nn.AvgPool2d(kernel_size=2, stride=8, padding=0)
     return pool
 
 
 def maxpool():
+    """
+
+    Returns:
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
     return pool
 
 
 def maxpool_1_4():
+    """
+
+    Returns:
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=4, padding=0)
     return pool
 
 
 def maxpool_1_8():
+    """
+
+    Returns:
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=8, padding=0)
     return pool
 
 
 def maxpool_1_16():
+    """
+
+    Returns:
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=16, padding=0)
     return pool
 
 
 def maxpool_1_32():
+    """
+
+    """
     pool = nn.MaxPool2d(kernel_size=2, stride=32, padding=0)
 
 
 def conv_block_3(in_dim, out_dim, act_fn):
+    """
+
+    Args:
+        in_dim:
+        out_dim:
+        act_fn:
+
+    Returns:
+
+    """
     model = nn.Sequential(
         conv_block(in_dim, out_dim, act_fn),
         conv_block(out_dim, out_dim, act_fn),
@@ -220,6 +418,14 @@ def conv_block_3(in_dim, out_dim, act_fn):
 
 
 def classificationNet(D_in):
+    """
+
+    Args:
+        D_in:
+
+    Returns:
+
+    """
     H = 400
     D_out = 1
     model = torch.nn.Sequential(
@@ -236,6 +442,15 @@ def classificationNet(D_in):
 # from layers import *
 
 def croppCenter(tensorToCrop, finalShape):
+    """
+
+    Args:
+        tensorToCrop:
+        finalShape:
+
+    Returns:
+
+    """
     org_shape = tensorToCrop.shape
     diff = org_shape[2] - finalShape[2]
     croppBorders = int(diff / 2)
@@ -247,6 +462,21 @@ def croppCenter(tensorToCrop, finalShape):
 
 
 def convBlock(nin, nout, kernel_size=3, batchNorm=False, layer=nn.Conv3d, bias=True, dropout_rate=0.0, dilation=1):
+    """
+
+    Args:
+        nin:
+        nout:
+        kernel_size:
+        batchNorm:
+        layer:
+        bias:
+        dropout_rate:
+        dilation:
+
+    Returns:
+
+    """
     if batchNorm == False:
         return nn.Sequential(
             nn.PReLU(),
@@ -263,6 +493,21 @@ def convBlock(nin, nout, kernel_size=3, batchNorm=False, layer=nn.Conv3d, bias=T
 
 
 def convBatch(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Conv2d, dilation=1):
+    """
+
+    Args:
+        nin:
+        nout:
+        kernel_size:
+        stride:
+        padding:
+        bias:
+        layer:
+        dilation:
+
+    Returns:
+
+    """
     return nn.Sequential(
         layer(nin, nout, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias, dilation=dilation),
         nn.BatchNorm2d(nout),
@@ -272,6 +517,9 @@ def convBatch(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=n
 
 
 class HyperDenseNet_2Mod(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels=2, classes=4):
         super(HyperDenseNet_2Mod, self).__init__()
         self.num_classes = classes
@@ -305,6 +553,14 @@ class HyperDenseNet_2Mod(BaseModel):
         self.final = nn.Conv3d(150, classes, kernel_size=1)
 
     def forward(self, input):
+        """
+
+        Args:
+            input:
+
+        Returns:
+
+        """
         # ----- First layer ------ #
         # get 2 of the channels as 5D tensors
         # pdb.set_trace()
@@ -423,6 +679,9 @@ class HyperDenseNet_2Mod(BaseModel):
 
 
 class HyperDenseNet(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels=3, classes=4):
         super(HyperDenseNet, self).__init__()
         assert in_channels == 3, "HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod "
@@ -467,6 +726,14 @@ class HyperDenseNet(BaseModel):
         self.final = nn.Conv3d(150, classes, kernel_size=1)
 
     def forward(self, input):
+        """
+
+        Args:
+            input:
+
+        Returns:
+
+        """
         # ----- First layer ------ #
         # get the 3 channels as 5D tensors
         y1t = self.conv1_Top(input[:, 0:1, :, :, :])

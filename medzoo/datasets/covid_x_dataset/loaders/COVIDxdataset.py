@@ -42,6 +42,15 @@ class COVIDxDataset(Dataset):
         return image_tensor, label_tensor
 
     def load_image(self, img_path, resize_dim):
+        """
+
+        Args:
+            img_path:
+            resize_dim:
+
+        Returns:
+
+        """
         if not os.path.exists(img_path):
             print("IMAGE DOES NOT EXIST {}".format(img_path))
         image = img_loader.load_2d_image(img_path, resize_dim)
@@ -52,6 +61,14 @@ class COVIDxDataset(Dataset):
 
 
 def read_filepaths(file):
+    """
+
+    Args:
+        file:
+
+    Returns:
+
+    """
     paths, labels = [], []
     with open(file, 'r') as f:
         lines = f.read().splitlines()

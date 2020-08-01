@@ -33,6 +33,15 @@ def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None
 
 
 def fix_seg_map(segmentation_map, dataset="iseg2017"):
+    """
+
+    Args:
+        segmentation_map:
+        dataset:
+
+    Returns:
+
+    """
     if dataset == "iseg2017" or dataset == "iseg2019":
         label_values = [0, 10, 150, 250]
         for c, j in enumerate(label_values):
@@ -133,6 +142,21 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
 
 def get_all_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size, sub_vol_path,
                         normalization='max_min'):
+    """
+
+    Args:
+        *ls:
+        dataset_name:
+        mode:
+        samples:
+        full_vol_dim:
+        crop_size:
+        sub_vol_path:
+        normalization:
+
+    Returns:
+
+    """
     # TODO
     # 1.) gia ola tas subject fortwnwn image kai target
     # 2.) call generate_non_overlapping_volumes gia na kanw to image kai target sub_volumnes patches
@@ -179,6 +203,15 @@ def get_all_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_siz
 
 
 def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
+    """
+
+    Args:
+        full_volume:
+        kernel_dim:
+
+    Returns:
+
+    """
     x = full_volume.detach()
 
     modalities, D, H, W = x.shape
@@ -203,6 +236,15 @@ def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
 
 
 def find_random_crop_dim(full_vol_dim, crop_size):
+    """
+
+    Args:
+        full_vol_dim:
+        crop_size:
+
+    Returns:
+
+    """
     assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
     assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
     assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
@@ -226,6 +268,14 @@ def find_random_crop_dim(full_vol_dim, crop_size):
 
 
 def find3Dlabel_boundaries(segmentation_map):
+    """
+
+    Args:
+        segmentation_map:
+
+    Returns:
+
+    """
     target_indexs = np.where(segmentation_map > 0)
     maxs = np.max(np.array(target_indexs), axis=1)
     mins = np.min(np.array(target_indexs), axis=1)
@@ -235,6 +285,17 @@ def find3Dlabel_boundaries(segmentation_map):
 
 
 def find_non_zero_labels_mask(segmentation_map, th_percent, crop_size, crop):
+    """
+
+    Args:
+        segmentation_map:
+        th_percent:
+        crop_size:
+        crop:
+
+    Returns:
+
+    """
     d1, d2, d3 = segmentation_map.shape
     segmentation_map[segmentation_map > 0] = 1
     total_voxel_labels = segmentation_map.sum()

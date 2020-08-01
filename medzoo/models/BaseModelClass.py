@@ -21,6 +21,11 @@ class BaseModel(nn.Module, ABC):
 
     @abstractmethod
     def forward(self, x):
+        """
+
+        Args:
+            x:
+        """
         pass
 
     @abstractmethod
@@ -34,6 +39,11 @@ class BaseModel(nn.Module, ABC):
 
     @property
     def device(self):
+        """
+
+        Returns:
+
+        """
         return next(self.parameters()).device
 
     def restore_checkpoint(self, ckpt_file, optimizer=None):
@@ -128,6 +138,14 @@ class BaseModel(nn.Module, ABC):
         return num_total_params, num_trainable_params
 
     def inference(self, input_tensor):
+        """
+
+        Args:
+            input_tensor:
+
+        Returns:
+
+        """
         self.eval()
         with torch.no_grad():
             output = self.forward(input_tensor)

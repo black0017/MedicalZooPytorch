@@ -14,6 +14,9 @@ seed = 1777777
 
 
 def main():
+    """
+
+    """
     args = get_arguments()
 
     utils.reproducibility(args, seed)
@@ -35,6 +38,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=4)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")

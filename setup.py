@@ -8,6 +8,14 @@ from setuptools import setup, find_packages
 
 
 def clean_html(raw_html):
+    """
+
+    Args:
+        raw_html:
+
+    Returns:
+
+    """
     cleanr = re.compile("<.*?>")
     cleantext = re.sub(cleanr, "", raw_html).strip()
     return cleantext
@@ -16,9 +24,25 @@ def clean_html(raw_html):
 # Single sourcing code from here:
 # https://packaging.python.org/guides/single-sourcing-package-version/
 def find_version(*file_paths):
+    """
+
+    Args:
+        *file_paths:
+
+    Returns:
+
+    """
     here = os.path.abspath(os.path.dirname(__file__))
 
     def read(*parts):
+        """
+
+        Args:
+            *parts:
+
+        Returns:
+
+        """
         with codecs.open(os.path.join(here, *parts), "r") as fp:
             return fp.read()
 
@@ -30,6 +54,11 @@ def find_version(*file_paths):
 
 
 def fetch_long_description():
+    """
+
+    Returns:
+
+    """
     with open("README.md", encoding="utf8") as f:
         readme = f.read()
         # https://stackoverflow.com/a/12982689
@@ -38,6 +67,11 @@ def fetch_long_description():
 
 
 def fetch_requirements():
+    """
+
+    Returns:
+
+    """
     requirements_file = "requirements.txt"
 
     if platform.system() == "Windows":

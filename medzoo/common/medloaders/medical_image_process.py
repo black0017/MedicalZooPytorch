@@ -13,6 +13,23 @@ concentrate all pre-processing here here
 def load_medical_image(path, type=None, resample=None,
                        viz3d=False, to_canonical=False, rescale=None, normalization='full_volume_mean',
                        clip_intenisty=True, crop_size=(0, 0, 0), crop=(0, 0, 0), ):
+    """
+
+    Args:
+        path:
+        type:
+        resample:
+        viz3d:
+        to_canonical:
+        rescale:
+        normalization:
+        clip_intenisty:
+        crop_size:
+        crop:
+
+    Returns:
+
+    """
     img_nii = nib.load(path)
 
     if to_canonical:
@@ -50,6 +67,17 @@ def load_medical_image(path, type=None, resample=None,
 def medical_image_transform(img_tensor, type=None,
                             normalization="full_volume_mean",
                             norm_values=(0., 1., 1., 0.)):
+    """
+
+    Args:
+        img_tensor:
+        type:
+        normalization:
+        norm_values:
+
+    Returns:
+
+    """
     MEAN, STD, MAX, MIN = norm_values
     # Numpy-based transformations/augmentations here
 
@@ -64,6 +92,16 @@ def medical_image_transform(img_tensor, type=None,
 
 
 def crop_img(img_tensor, crop_size, crop):
+    """
+
+    Args:
+        img_tensor:
+        crop_size:
+        crop:
+
+    Returns:
+
+    """
     if crop_size[0] == 0:
         return img_tensor
     slices_crop, w_crop, h_crop = crop
@@ -103,6 +141,16 @@ def load_affine_matrix(path):
 
 
 def load_2d_image(img_path, resize_dim=0, type='RGB'):
+    """
+
+    Args:
+        img_path:
+        resize_dim:
+        type:
+
+    Returns:
+
+    """
     image = Image.open(img_path)
     if type == 'RGB':
         image = image.convert(type)

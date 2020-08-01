@@ -13,6 +13,15 @@ def plot_confusion_matrix(cm, target_names,
                           title='Confusion matrix',
                           cmap=None,
                           normalize=False):
+    """
+
+    Args:
+        cm:
+        target_names:
+        title:
+        cmap:
+        normalize:
+    """
     accuracy = np.trace(cm) / float(np.sum(cm))
     misclass = 1 - accuracy
 
@@ -53,6 +62,16 @@ def plot_confusion_matrix(cm, target_names,
 
 
 def add_conf_matrix(target, pred, conf_matrix):
+    """
+
+    Args:
+        target:
+        pred:
+        conf_matrix:
+
+    Returns:
+
+    """
     batch_size = pred.shape[0]
     classes = pred.shape[1]
     target = target.detach().cpu().long()
@@ -74,6 +93,15 @@ def add_conf_matrix(target, pred, conf_matrix):
 
 
 def expand_as_one_hot(target, classes):
+    """
+
+    Args:
+        target:
+        classes:
+
+    Returns:
+
+    """
     shape = target.size()
     shape = list(shape)
     shape.insert(1, classes)

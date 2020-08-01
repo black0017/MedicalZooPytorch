@@ -17,6 +17,9 @@ torch.manual_seed(seed)
 
 
 def main():
+    """
+
+    """
     args = get_arguments()
 
     utils.reproducibility(args, seed)
@@ -38,6 +41,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=8)
     parser.add_argument('--dataset_name', type=str, default="mrbrains9")

@@ -13,6 +13,9 @@ from medzoo.common.visual3D_temp import non_overlap_padding
 #
 
 def main():
+    """
+
+    """
     args = get_arguments()
     # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## FOR REPRODUCIBILITY OF RESULTS
@@ -41,6 +44,11 @@ def main():
 
 
 def get_arguments():
+    """
+
+    Returns:
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--batchSz', type=int, default=1)
     parser.add_argument('--dataset_name', type=str, default="iseg2017")

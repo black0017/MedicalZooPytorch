@@ -37,6 +37,14 @@ class _DenseLayer(nn.Sequential):
             self.drop_layer = nn.Dropout(p=self.drop_rate)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         new_features = super(_DenseLayer, self).forward(x)
         if self.drop_rate > 0:
             new_features = self.drop_layer(new_features)
@@ -67,6 +75,14 @@ class _Transition(nn.Module):
         self.max_pool = nn.MaxPool3d(kernel_size=2, stride=2)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         k = self.conv(x)
         y = self.max_pool(k)
         return y, k
@@ -124,6 +140,14 @@ class DenseVoxelNet(BaseModel):
                                             stride=2)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         # Main network path
         x = self.conv_init(x)
         x = self.dense_1(x)

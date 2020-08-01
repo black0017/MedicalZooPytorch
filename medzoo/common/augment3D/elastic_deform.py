@@ -75,6 +75,9 @@ def elastic_transform_3d(img_numpy, labels=None, alpha=1, sigma=20, c_val=0.0, m
 
 
 class ElasticTransform(object):
+    """
+
+    """
     def __init__(self, alpha=1, sigma=20, c_val=0.0, method="linear"):
         self.alpha = alpha
         self.sigma = sigma

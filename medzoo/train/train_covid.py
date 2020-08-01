@@ -8,6 +8,19 @@ from medzoo.utils.covid_utils import MetricTracker, accuracy
 
 
 def train(args, model, trainloader, optimizer, epoch, writer):
+    """
+
+    Args:
+        args:
+        model:
+        trainloader:
+        optimizer:
+        epoch:
+        writer:
+
+    Returns:
+
+    """
     model.train()
     criterion = nn.CrossEntropyLoss(reduction='mean')
 
@@ -40,6 +53,18 @@ def train(args, model, trainloader, optimizer, epoch, writer):
 
 
 def validation(args, model, testloader, epoch, writer):
+    """
+
+    Args:
+        args:
+        model:
+        testloader:
+        epoch:
+        writer:
+
+    Returns:
+
+    """
     model.eval()
     criterion = nn.CrossEntropyLoss(reduction='mean')
 

@@ -7,12 +7,25 @@ from medzoo.common.losses3D.basic import expand_as_one_hot
 
 
 class TagsAngularLoss(torch.nn.Module):
+    """
+
+    """
     def __init__(self, tags_coefficients=[1.0, 0.8, 0.5], classes=4):
         super(TagsAngularLoss, self).__init__()
         self.tags_coefficients = tags_coefficients
         self.classes = classes
 
     def forward(self, inputs, targets, weight=None):
+        """
+
+        Args:
+            inputs:
+            targets:
+            weight:
+
+        Returns:
+
+        """
         assert isinstance(inputs, list)
         # if there is just one output head the 'inputs' is going to be a singleton list [tensor]
         # and 'targets' is just going to be a tensor (that's how the HDF5Dataloader works)

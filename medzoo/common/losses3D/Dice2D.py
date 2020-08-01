@@ -4,6 +4,9 @@ import torch.nn as nn
 
 # TODO TEST
 class DiceLoss2D(nn.Module):
+    """
+
+    """
     def __init__(self, classes, epsilon=1e-5, sigmoid_normalization=True):
         super(DiceLoss2D, self).__init__()
         self.epsilon = epsilon
@@ -15,6 +18,14 @@ class DiceLoss2D(nn.Module):
             self.normalization = nn.Softmax(dim=1)  # TODO test ?
 
     def flatten(self, tensor):
+        """
+
+        Args:
+            tensor:
+
+        Returns:
+
+        """
         return tensor.view(self.classes, -1)
 
     def expand_as_one_hot(self, target):
@@ -33,6 +44,15 @@ class DiceLoss2D(nn.Module):
         return torch.zeros(shape).to(target.device).scatter_(1, src, 1).squeeze(0)
 
     def compute_per_channel_dice(self, input, target):
+        """
+
+        Args:
+            input:
+            target:
+
+        Returns:
+
+        """
         epsilon = 1e-5
         target = self.expand_as_one_hot(target.long())
         assert input.size() == target.size(), "input' and 'target' must have the same shape" + str(
@@ -47,6 +67,15 @@ class DiceLoss2D(nn.Module):
         return 2. * intersect / denominator.clamp(min=epsilon)
 
     def forward(self, input, target):
+        """
+
+        Args:
+            input:
+            target:
+
+        Returns:
+
+        """
         input = self.normalization(input)
         per_channel_dice = self.compute_per_channel_dice(input, target)
         DSC = per_channel_dice.clone().cpu().detach().numpy()

@@ -13,10 +13,28 @@ https://github.com/Dawn90/V-Net.pytorch
 
 
 def passthrough(x, **kwargs):
+    """
+
+    Args:
+        x:
+        **kwargs:
+
+    Returns:
+
+    """
     return x
 
 
 def ELUCons(elu, nchan):
+    """
+
+    Args:
+        elu:
+        nchan:
+
+    Returns:
+
+    """
     if elu:
         return nn.ELU(inplace=True)
     else:
@@ -24,6 +42,9 @@ def ELUCons(elu, nchan):
 
 
 class LUConv(nn.Module):
+    """
+
+    """
     def __init__(self, nchan, elu):
         super(LUConv, self).__init__()
         self.relu1 = ELUCons(elu, nchan)
@@ -32,6 +53,14 @@ class LUConv(nn.Module):
         self.bn1 = torch.nn.BatchNorm3d(nchan)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         out = self.relu1(self.bn1(self.conv1(x)))
         return out
 
@@ -44,6 +73,9 @@ def _make_nConv(nchan, depth, elu):
 
 
 class InputTransition(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels, elu):
         super(InputTransition, self).__init__()
         self.num_features = 16
@@ -56,6 +88,14 @@ class InputTransition(nn.Module):
         self.relu1 = ELUCons(elu, self.num_features)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         out = self.conv1(x)
         repeat_rate = int(self.num_features / self.in_channels)
         out = self.bn1(out)
@@ -64,6 +104,9 @@ class InputTransition(nn.Module):
 
 
 class DownTransition(nn.Module):
+    """
+
+    """
     def __init__(self, inChans, nConvs, elu, dropout=False):
         super(DownTransition, self).__init__()
         outChans = 2 * inChans
@@ -78,6 +121,14 @@ class DownTransition(nn.Module):
         self.ops = _make_nConv(outChans, nConvs, elu)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         down = self.relu1(self.bn1(self.down_conv(x)))
         out = self.do1(down)
         out = self.ops(out)
@@ -86,6 +137,9 @@ class DownTransition(nn.Module):
 
 
 class UpTransition(nn.Module):
+    """
+
+    """
     def __init__(self, inChans, outChans, nConvs, elu, dropout=False):
         super(UpTransition, self).__init__()
         self.up_conv = nn.ConvTranspose3d(inChans, outChans // 2, kernel_size=2, stride=2)
@@ -100,6 +154,15 @@ class UpTransition(nn.Module):
         self.ops = _make_nConv(outChans, nConvs, elu)
 
     def forward(self, x, skipx):
+        """
+
+        Args:
+            x:
+            skipx:
+
+        Returns:
+
+        """
         out = self.do1(x)
         skipxdo = self.do2(skipx)
         out = self.relu1(self.bn1(self.up_conv(out)))
@@ -110,6 +173,9 @@ class UpTransition(nn.Module):
 
 
 class OutputTransition(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels, classes, elu):
         super(OutputTransition, self).__init__()
         self.classes = classes
@@ -120,6 +186,14 @@ class OutputTransition(nn.Module):
         self.relu1 = ELUCons(elu, classes)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         # convolve 32 down to channels as the desired classes
         out = self.relu1(self.bn1(self.conv1(x)))
         out = self.conv2(out)
@@ -148,6 +222,14 @@ class VNet(BaseModel):
         self.out_tr = OutputTransition(32, classes, elu)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         out16 = self.in_tr(x)
         out32 = self.down_tr32(out16)
         out64 = self.down_tr64(out32)
@@ -191,6 +273,14 @@ class VNetLight(BaseModel):
         self.out_tr = OutputTransition(32, classes, elu)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         out16 = self.in_tr(x)
         out32 = self.down_tr32(out16)
         out64 = self.down_tr64(out32)

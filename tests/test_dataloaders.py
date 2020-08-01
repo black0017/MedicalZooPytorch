@@ -6,6 +6,9 @@ import medzoo.common.medloaders as medical_loaders
 
 
 class TestDataLoaders:
+    """
+
+    """
     def __init__(self, batch=1, dim=64, classes=10):
         self.batch = batch
         self.dim = dim
@@ -14,18 +17,27 @@ class TestDataLoaders:
         self.args = self.get_arguments()
 
     def MRBRAINS_4_class(self):
+        """
+
+        """
         self.args.dataset_name = "mrbrains"
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
                                                                                                    path='../medzoo/datasets')
         print("mrbrains 4 OK!", len(training_generator), len(val_generator))
 
     def MRBRAINS_9_class(self):
+        """
+
+        """
         self.args.classes = 9
         training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(self.args,
                                                                                                    path='../medzoo/datasets')
         print("mrbrains 8 OK!", len(training_generator), len(val_generator))
 
     def ISEG2017(self):
+        """
+
+        """
         self.args.inChannels = 2
         self.args.inModalities = 2
         self.args.dataset_name = "iseg2017"
@@ -35,6 +47,9 @@ class TestDataLoaders:
         print("iseg  OK! ", len(training_generator), len(val_generator))
 
     def brats2018(self):
+        """
+
+        """
         self.args.inChannels = 4
         self.args.inModalities = 4
         self.args.classes = 5
@@ -44,6 +59,9 @@ class TestDataLoaders:
         print("brats2018  OK!", len(training_generator), len(val_generator))
 
     def miccai2019(self):
+        """
+
+        """
         self.args.dim = (64, 64)
         self.args.inChannels = 3
         self.args.inModalities = 1
@@ -54,6 +72,9 @@ class TestDataLoaders:
         print("miccai2019  OK!", len(training_generator), len(val_generator))
 
     def ixi(self):
+        """
+
+        """
         self.args.inChannels = 2
         self.args.inModalities = 2
         self.args.dim = (1, 1, 1)
@@ -62,6 +83,11 @@ class TestDataLoaders:
         print("ixi  OK!", len(generator))
 
     def get_arguments(self):
+        """
+
+        Returns:
+
+        """
         parser = argparse.ArgumentParser()
         parser.add_argument('--batchSz', type=int, default=1)
         parser.add_argument('--dataset_name', type=str, default="mrbrains")

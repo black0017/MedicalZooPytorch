@@ -17,6 +17,16 @@ class GeneralizedDiceLoss(_AbstractDiceLoss):
             self.skip_index_after = skip_index_after
 
     def dice(self, input, target, weight):
+        """
+
+        Args:
+            input:
+            target:
+            weight:
+
+        Returns:
+
+        """
         assert input.size() == target.size()
         input = flatten(input)
         target = flatten(target)

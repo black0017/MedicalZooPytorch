@@ -9,7 +9,9 @@ Implementation based on the original paper https://arxiv.org/pdf/1810.11654.pdf
 
 
 class GreenBlock(nn.Module):
+    """
 
+    """
     def __init__(self, in_channels, out_channels=32, norm="group"):
         super(GreenBlock, self).__init__()
         if norm == "batch":
@@ -32,6 +34,14 @@ class GreenBlock(nn.Module):
                                 stride=1, padding=1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.layer_1(x)
         x = self.layer_2(x)
         y = self.conv_3(x)
@@ -40,24 +50,44 @@ class GreenBlock(nn.Module):
 
 
 class DownBlock(nn.Module):
+    """
 
+    """
     def __init__(self, in_channels, out_channels):
         super(DownBlock, self).__init__()
         self.conv = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(3, 3, 3),
                               stride=2, padding=1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv(x)
 
 
 class BlueBlock(nn.Module):
+    """
 
+    """
     def __init__(self, in_channels, out_channels=32):
         super(BlueBlock, self).__init__()
         self.conv = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(3, 3, 3),
                               stride=1, padding=1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.conv(x)
 
 
@@ -72,11 +102,21 @@ class UpBlock1(nn.Module):
                                               stride=2, padding=1)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.transp_conv(x)
 
 
 class UpBlock2(nn.Module):
+    """
 
+    """
     def __init__(self, in_channels, out_channels):
         super(UpBlock2, self).__init__()
         self.conv_1 = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1, 1),
@@ -85,16 +125,36 @@ class UpBlock2(nn.Module):
         self.up_sample_1 = nn.Upsample(scale_factor=2, mode="nearest")
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         return self.up_sample_1(self.conv_1(x))
 
 
 def reparametrize(mu, logvar):
+    """
+
+    Args:
+        mu:
+        logvar:
+
+    Returns:
+
+    """
     std = torch.exp(0.5 * logvar)
     eps = torch.randn_like(std)
     return eps.mul(std).add_(mu)
 
 
 class ResNetEncoder(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels, start_channels=32):
         super(ResNetEncoder, self).__init__()
 
@@ -128,6 +188,14 @@ class ResNetEncoder(nn.Module):
         self.green_4_4 = GreenBlock(in_channels=self.down_channels_3)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.blue_1(x)
         x = self.drop(x)
         x1 = self.green_1(x)
@@ -149,6 +217,9 @@ class ResNetEncoder(nn.Module):
 
 
 class Decoder(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels=256, classes=4):
         super(Decoder, self).__init__()
         out_up_1_channels = int(in_channels / 2)
@@ -170,6 +241,17 @@ class Decoder(nn.Module):
         self.blue = BlueBlock(in_channels=out_up_3_channels, out_channels=classes)
 
     def forward(self, x1, x2, x3, x4):
+        """
+
+        Args:
+            x1:
+            x2:
+            x3:
+            x4:
+
+        Returns:
+
+        """
         x = self.up_1(x4)
         x = self.green_1(x + x3)
         x = self.up_2(x)
@@ -181,6 +263,9 @@ class Decoder(nn.Module):
 
 
 class VAE(nn.Module):
+    """
+
+    """
     def __init__(self, in_channels=256, in_dim=(10, 10, 10), out_dim=(2, 64, 64, 64)):
         super(VAE, self).__init__()
         self.in_channels = in_channels
@@ -231,6 +316,14 @@ class VAE(nn.Module):
         self.Vend = BlueBlock(channels_vup0, self.modalities)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x = self.VD(x)
         x = x.view(-1, self.linear_in_dim)
         x = self.linear_1(x)
@@ -251,6 +344,9 @@ class VAE(nn.Module):
 
 
 class ResNet3dVAE(BaseModel):
+    """
+
+    """
     def __init__(self, in_channels=2, classes=4, max_conv_channels=256, dim=(64, 64, 64)):
         super(ResNet3dVAE, self).__init__()
         self.dim = dim
@@ -266,6 +362,14 @@ class ResNet3dVAE(BaseModel):
         self.vae = VAE(in_channels=max_conv_channels, in_dim=vae_in_dim, out_dim=vae_out_dim)
 
     def forward(self, x):
+        """
+
+        Args:
+            x:
+
+        Returns:
+
+        """
         x1, x2, x3, x4 = self.encoder(x)
         y = self.decoder(x1, x2, x3, x4)
         vae_out, mu, logvar = self.vae(x4)

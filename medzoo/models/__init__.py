@@ -20,6 +20,14 @@ model_list = ['UNET3D', 'DENSENET1', "UNET2D", 'DENSENET2', 'DENSENET3', 'HYPERD
 LOG = Logger(name='model_builder').get_logger()
 
 def create_model(args):
+    """
+
+    Args:
+        args:
+
+    Returns:
+
+    """
     model_name = args.model
     assert model_name in model_list
     optimizer_name = args.opt
