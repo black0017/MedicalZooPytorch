@@ -11,13 +11,15 @@ import torch.backends.cudnn as cudnn
 
 
 def reproducibility(args, seed):
+    """
+    enchances reproducibility among experiments
+    """
     torch.manual_seed(seed)
     if args.cuda:
         torch.cuda.manual_seed(seed)
     np.random.seed(seed)
     cudnn.deterministic = True
-    # FOR FASTER GPU TRAINING WHEN INPUT SIZE DOESN'T VARY
-    # LET'S TEST IT
+    # FOR FASTER GPU TRAINING WHEN INPUT SIZE DOESN'T VARY.LET'S TEST IT
     cudnn.benchmark = True
 
 
@@ -33,6 +35,9 @@ def datestr():
 
 
 def shuffle_lists(*ls, seed=777):
+    """
+    zipped shuffling of any number of input lists
+    """
     l = list(zip(*ls))
     random.seed(seed)
     random.shuffle(l)
@@ -40,6 +45,12 @@ def shuffle_lists(*ls, seed=777):
 
 
 def prepare_input(input_tuple, inModalities=-1, inChannels=-1, cuda=False, args=None):
+    """
+    Args:
+        input_tuple: contains all the input modalities. the segmentation map is always the last position
+
+
+    """
     if args is not None:
         modalities = args.inModalities
         channels = args.inChannels
@@ -89,22 +100,29 @@ def prepare_input(input_tuple, inModalities=-1, inChannels=-1, cuda=False, args=
     return input_tensor, target
 
 
-def adjust_opt(optAlg, optimizer, epoch):
-    if optAlg == 'sgd':
-        if epoch < 150:
-            lr = 1e-1
-        elif epoch == 150:
-            lr = 1e-2
-        elif epoch == 225:
-            lr = 1e-3
-        else:
-            return
+def adjust_opt(optimizer, epoch):
+    """
+    for custom learning rate scheduling
 
-        for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
+    """
+    # TODO use input dicionary for epochs and learning rates
+    if epoch < 150:
+        lr = 1e-1
+    elif epoch == 150:
+        lr = 1e-2
+    elif epoch == 225:
+        lr = 1e-3
+    else:
+        return
+
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
 
 
 def make_dirs(path):
+    """
+    creates new directory
+    """
     if os.path.exists(path):
         shutil.rmtree(path)
         os.mkdir(path)
@@ -113,11 +131,17 @@ def make_dirs(path):
 
 
 def save_list(name, list):
+    """
+    functionality to save the lists of subvolume names
+    """
     with open(name, "wb") as fp:
         pickle.dump(list, fp)
 
 
 def load_list(name):
+    """
+    functionality to load the lists of subvolume names
+    """
     with open(name, "rb") as fp:
         list_file = pickle.load(fp)
     return list_file

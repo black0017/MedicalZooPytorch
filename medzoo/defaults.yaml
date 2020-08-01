@@ -3,20 +3,22 @@ training:
   dim: (64,64,64)
   nEpochs: 200
   classes: 4
-  samplesTrain: 1024
+  samplesTrain: 100
   samplesValue: 120
   inChannels: 2
   inModalities: 2
-  threshold: 0.1
-  terminalShowFrequency: 50
-  augmentation: False
+  threshold: 0.1  # threshhold for non-empty sub volume sampling
+  terminalShowFrequency: 50 # iterations for terminal display
+  augmentation: False # whether to use 3D data augmentations
   normalization: 'full_volume_mean' #('max_min', 'full_volume_mean', 'brats', 'max', 'mean')
-  split: 0.8
+  split: 0.8 # how to split train and val data
   learning_rate: 1e-2
   cuda: True
   loadData: True
-  resume: ''
+  resume: '' # define your checkpoint here
   optimizer: sgd #('sgd', 'adam', 'rmsprop')
   log_dir: '../runs/'
+  # TODO
+  pretrained: False # search for pretrained models with the same input modalities
 
 

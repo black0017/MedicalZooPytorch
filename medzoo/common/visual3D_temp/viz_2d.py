@@ -1,7 +1,8 @@
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+import torch
+import torch.functional as F
 
 
 def show_mid_slice(img_numpy, return_views=False):
@@ -20,16 +21,16 @@ def show_mid_slice(img_numpy, return_views=False):
     center_k1 = int((n_k - 1) / 2)
 
     if return_views == False:
-        show_slices([img_numpy[center_i1, :, :],
-                     img_numpy[:, center_j1, :],
-                     img_numpy[:, :, center_k1]])
+        _show_slices([img_numpy[center_i1, :, :],
+                      img_numpy[:, center_j1, :],
+                      img_numpy[:, :, center_k1]])
     else:
         return (img_numpy[center_i1, :, :],
                 img_numpy[:, center_j1, :],
                 img_numpy[:, :, center_k1])
 
 
-def show_slices(slices):
+def _show_slices(slices):
     """
     Function to display a row of image slices
     Input is a list of numpy 2D image slices
@@ -119,7 +120,7 @@ def plot_segm(segm, ground_truth, plots_dir='.'):
         file_name = f'segm_{str(uuid.uuid4())[:8]}.png'
         plt.savefig(os.path.join(plots_dir, file_name))
 
-
+# TODO dead code?
 def overlap_2d_image():
     B, C, W, H = 2, 3, 1024, 1024
     x = torch.randn(B, C, H, W)

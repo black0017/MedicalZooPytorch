@@ -4,6 +4,9 @@ import torch.nn as nn
 from medzoo.utils.covid_utils import MetricTracker, accuracy
 
 
+# TODO merge as much as possible with the rest of the project
+
+
 def train(args, model, trainloader, optimizer, epoch, writer):
     model.train()
     criterion = nn.CrossEntropyLoss(reduction='mean')

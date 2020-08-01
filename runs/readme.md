@@ -1,4 +1,4 @@
-## you can use this tensorboard file as an illustration by:
-'''
-tensorboard --logdir ./
-'''
+### To open tensorboard in your browser use the following command:
+```
+$ tensorboard --logdir ./
+```
