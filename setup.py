@@ -65,7 +65,7 @@ DEPENDENCY_LINKS = []
 REQUIREMENTS = (fetch_requirements())
 EXCLUDES = (
 "contribute", "docker", "datasets", "examples", "figures", "installation", "manual", "notebooks", "results", "runs",
-"tests")
+"tests", "logs")
 EXT_MODULES = []
 
 if __name__ == "__main__":
