@@ -2,7 +2,7 @@ import time
 
 
 class Timer:
-    DEFAULT_TIME_FORMAT_DATE_TIME = "%Y/%m/%d-%H:%M:%S"
+    DEFAULT_TIME_FORMAT_DATE_TIME = "%Y-%m-%d-%H:%M:%S"
     DEFAULT_TIME_FORMAT = ["%03dms", "%02ds", "%02dm", "%02dh"]
 
     def __init__(self):

@@ -11,11 +11,13 @@ from medzoo.models.SkipDenseNet3D.SkipDenseNet3D import SkipDenseNet3D
 from medzoo.models.Unet2D.Unet2D import Unet
 from medzoo.models.Unet3D.Unet3D import UNet3D
 from medzoo.models.Vnet.Vnet import VNet, VNetLight
+from medzoo.utils.logger import Logger
 
 model_list = ['UNET3D', 'DENSENET1', "UNET2D", 'DENSENET2', 'DENSENET3', 'HYPERDENSENET', "SKIPDENSENET3D",
               "DENSEVOXELNET", 'VNET', 'VNET2', "RESNET3DVAE", "RESNETMED3D", "COVIDNET1", "COVIDNET2", "CNN",
               "HIGHRESNET"]
 
+LOG = Logger(name='model_builder').get_logger()
 
 def create_model(args):
     model_name = args.model
@@ -25,7 +27,7 @@ def create_model(args):
     in_channels = args.inChannels
     num_classes = args.classes
     weight_decay = 0.0000000001
-    print("Building Model . . . . . . . ." + model_name)
+    LOG.info(f'Building Model . . . . . . . . {model_name}')
 
     if model_name == 'VNET2':
         model = VNetLight(in_channels=in_channels, elu=False, classes=num_classes)
@@ -66,8 +68,7 @@ def create_model(args):
         depth = 18
         model = generate_resnet3d(in_channels=in_channels, classes=num_classes, model_depth=depth)
 
-    print(model_name, 'Number of params: {}'.format(
-        sum([p.data.nelement() for p in model.parameters()])))
+    LOG.info(f'{model_name} Number of params: {sum([p.data.nelement() for p in model.parameters()])}')
 
     if optimizer_name == 'sgd':
         optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.5, weight_decay=weight_decay)

@@ -12,3 +12,4 @@ medzoo/datasets/**/*.txt
 **/generated/*
 runs/*
 saved_models/*
+logs/*

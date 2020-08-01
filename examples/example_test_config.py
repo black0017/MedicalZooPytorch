@@ -3,6 +3,7 @@ import argparse
 import os
 
 from medzoo.utils.config_reader import ConfigReader
+from medzoo.utils.logger import Logger
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Lib files
@@ -14,6 +15,7 @@ from medzoo.common.losses3D import DiceLoss
 
 seed = 1777777
 
+LOG = Logger(name='example_test_config').get_logger()
 
 def main():
     args = get_arguments()
@@ -35,11 +37,11 @@ def main():
 
     if config.cuda:
         model = model.cuda()
-        print("Model transferred in GPU.....")
+        LOG.info("Model transferred in GPU.....")
 
     trainer = train.Trainer(config, model, criterion, optimizer, train_data_loader=training_generator,
                             valid_data_loader=val_generator, lr_scheduler=None)
-    print("START TRAINING...")
+    LOG.info("START TRAINING...")
     trainer.training()
 
 

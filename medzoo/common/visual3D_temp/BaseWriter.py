@@ -4,6 +4,10 @@ import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
 import medzoo.utils as utils
+from medzoo.utils.logger import Logger
+
+LOG = Logger(name='trainer').get_logger()
+
 
 dict_class_names = {"iseg2017": ["Air", "CSF", "GM", "WM"],
                     "iseg2019": ["Air", "CSF", "GM", "WM"],
@@ -64,7 +68,7 @@ class TensorboardWriter():
                 info_print += "\t{} : {:.4f}".format(self.label_names[i],
                                                      self.data[mode][self.label_names[i]] / self.data[mode]['count'])
 
-            print(info_print)
+            LOG.info(info_print)
         else:
 
             info_print = "\nEpoch: {:.2f} Loss:{:.4f} \t DSC:{:.4f}".format(iter, self.data[mode]['loss'] /
@@ -75,7 +79,7 @@ class TensorboardWriter():
             for i in range(len(self.label_names)):
                 info_print += "\t{}:{:.4f}".format(self.label_names[i],
                                                    self.data[mode][self.label_names[i]] / self.data[mode]['count'])
-            print(info_print)
+            LOG.info(info_print)
 
     def create_stats_files(self, path):
         train_f = open(os.path.join(path, 'train.csv'), 'w')

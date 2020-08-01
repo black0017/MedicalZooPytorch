@@ -7,7 +7,7 @@ import logging
 import os
 import sys
 
-from medzoo.utils import make_dirs
+from medzoo.utils import make_dirs_if_not_present
 from medzoo.utils.timer import Timer
 
 
@@ -20,7 +20,8 @@ class Logger:
         self.log_filename += self.timer.get_time()
         self.log_filename += ".log"
 
-        self.log_folder = make_dirs('../logs')
+        self.log_folder = '../logs/'
+        make_dirs_if_not_present(self.log_folder)
 
         self.log_filename = os.path.join(self.log_folder, self.log_filename)
 
@@ -39,12 +40,12 @@ class Logger:
         self.logger.setLevel(getattr(logging, level.upper()))
 
         formatter = logging.Formatter(
-            "%(asctime)s | %(levelname)s | %(name)s : %(message)s",
+            "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
             datefmt="%Y-%m-%d-%H:%M:%S",
         )
 
         # Add handlers
-        file_hdl = logging.FileHandler(self.log_folder)
+        file_hdl = logging.FileHandler(self.log_filename)
         file_hdl.setFormatter(formatter)
         self.logger.addHandler(file_hdl)
         # logging.getLogger('py.warnings').addHandler(file_hdl)
@@ -55,8 +56,3 @@ class Logger:
     def get_logger(self):
         return self.logger
 
-
-log = Logger()
-log = log.get_logger()
-print(log)
-log.info('sfdsg')

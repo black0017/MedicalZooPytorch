@@ -11,7 +11,9 @@ from ...datasets.iseg_2017.loaders.iseg2017 import MRIDatasetISEG2017
 from ...datasets.iseg_2019.loaders.iseg2019 import MRIDatasetISEG2019
 from ...datasets.ixi.loaders.ixi_t1_t2 import IXIMRIdataset
 from ...datasets.mrbrains_2018.loaders.mrbrains2018 import MRIDatasetMRBRAINS2018
+from ...utils.logger import Logger
 
+LOG = Logger(name='medloader').get_logger()
 
 def generate_datasets(args, path='.././datasets'):
     params = {'batch_size': args.batchSz,
@@ -62,7 +64,7 @@ def generate_datasets(args, path='.././datasets'):
                                                   classes=args.classes, samples=samples_val,
                                                   save=True)
 
-        print('Generating train set...')
+        LOG.info('Generating train set...')
         train_loader = MICCAI2019_gleason_pathology(args, 'train', dataset_path=path, split_idx=split_idx,
                                                     crop_dim=args.dim,
                                                     classes=args.classes, samples=samples_train,
@@ -126,7 +128,7 @@ def generate_datasets(args, path='.././datasets'):
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
 
-    print("DATA SAMPLES HAVE BEEN GENERATED SUCCESSFULLY")
+    LOG.info("DATA SAMPLES HAVE BEEN GENERATED SUCCESSFULLY")
     return training_generator, val_generator, val_loader.full_volume, val_loader.affine
 
 

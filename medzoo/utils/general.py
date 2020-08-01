@@ -129,6 +129,14 @@ def make_dirs(path):
     else:
         os.makedirs(path)
 
+def make_dirs_if_not_present(path):
+    """
+    creates new directory if not present
+    """
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+
 
 def save_list(name, list):
     """

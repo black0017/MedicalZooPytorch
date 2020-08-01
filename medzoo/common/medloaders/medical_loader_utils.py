@@ -1,6 +1,8 @@
 from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.visual3D_temp import *
+from medzoo.utils.logger import Logger
 
+LOG = Logger(name='medloader').get_logger()
 
 def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None):
     """
@@ -82,7 +84,7 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
     # print(modalities)
     # print(ls[2])
 
-    print('Mode: ' + mode + ' Subvolume samples to generate: ', samples, ' Volumes: ', total)
+    LOG.info(f'Mode: {mode} Subvolume samples to generate: {samples} Volumes: {total}')
     for i in range(samples):
         # print(i)
         random_index = np.random.randint(total)
