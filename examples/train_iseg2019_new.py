@@ -2,7 +2,7 @@
 import argparse
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Lib files
 import medzoo.common.medloaders as medical_loaders
 import medzoo.models as medzoo
@@ -20,7 +20,7 @@ def main():
     utils.make_dirs(args.save)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='../medzoo/datasets')
+                                                                                               path='..medzoo/datasets')
     model, optimizer = medzoo.create_model(args)
     criterion = DiceLoss(classes=args.classes)
 
@@ -55,7 +55,7 @@ def get_arguments():
     parser.add_argument('--lr', default=1e-3, type=float,
                         help='learning rate (default: 1e-3)')
     parser.add_argument('--split', default=0.8, type=float, help='Select percentage of training data(default: 0.8)')
-    parser.add_argument('--cuda', action='store_true', default=True)
+    parser.add_argument('--cuda', action='store_true', default=False)
     parser.add_argument('--loadData', default=True)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')

@@ -1,16 +1,16 @@
 from torch.utils.data import DataLoader
 
-from .COVIDxdataset import COVIDxDataset
-from .Covid_Segmentation_dataset import COVID_Seg_Dataset
-from .brats2018 import MICCAIBraTS2018
-from .brats2019 import MICCAIBraTS2019
-from .brats2020 import MICCAIBraTS2020
-from .covid_ct_dataset import CovidCTDataset
-from .iseg2017 import MRIDatasetISEG2017
-from .iseg2019 import MRIDatasetISEG2019
-from .ixi_t1_t2 import IXIMRIdataset
-from .miccai_2019_pathology import MICCAI2019_gleason_pathology
-from .mrbrains2018 import MRIDatasetMRBRAINS2018
+from ...datasets.MICCAI_2019_pathology_challenge.loaders.miccai_2019_pathology import MICCAI2019_gleason_pathology
+from ...datasets.MICCAI_BraTS_2018_Data_Training.loaders.brats2018 import MICCAIBraTS2018
+from ...datasets.MICCAI_BraTS_2018_Data_Training.loaders.brats2019 import MICCAIBraTS2019
+from ...datasets.MICCAI_BraTS_2018_Data_Training.loaders.brats2020 import MICCAIBraTS2020
+from ...datasets.covid_ct_dataset.loaders.covid_ct_dataset import CovidCTDataset
+from ...datasets.covid_x_dataset.loaders.COVIDxdataset import COVIDxDataset
+from ...datasets.covid_x_dataset.loaders.Covid_Segmentation_dataset import COVID_Seg_Dataset
+from ...datasets.iseg_2017.loaders.iseg2017 import MRIDatasetISEG2017
+from ...datasets.iseg_2019.loaders.iseg2019 import MRIDatasetISEG2019
+from ...datasets.ixi.loaders.ixi_t1_t2 import IXIMRIdataset
+from ...datasets.mrbrains_2018.loaders.mrbrains2018 import MRIDatasetMRBRAINS2018
 
 
 def generate_datasets(args, path='.././datasets'):
@@ -143,7 +143,6 @@ def select_full_volume_for_infer(args, path='.././datasets'):
         split_idx = int(split_percent * total_data)
         loader = MRIDatasetISEG2017('viz', dataset_path=path, crop_dim=args.dim,
                                     split_id=split_idx, samples=samples_train)
-
 
     elif args.dataset_name == "iseg2019":
         total_data = 10
