@@ -131,12 +131,12 @@ class MetricTracker:
 
     def display_terminal(self, iter, epoch, mode='train', summary=False):
         """
-
-        :param iter: iteration or partial epoch
-        :param epoch: epoch of training
-        :param loss: any loss numpy
-        :param mode: train or val ( for training and validation)
-        :param summary: to print total statistics at the end of epoch
+        Args:
+            iter: iteration or partial epoch
+            epoch: epoch of training
+            loss: any loss numpy
+            mode: train or val ( for training and validation)
+            summary: to print total statistics at the end of epoch
         """
         if summary:
 

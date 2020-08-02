@@ -161,9 +161,10 @@ def load_2d_image(img_path, resize_dim=0, type='RGB'):
 
 
 def rescale_data_volume(img_numpy, out_dim):
-    """
-    Resize the 3d numpy array to the dim size
-    :param out_dim is the new 3d tuple
+    """Resize the 3d numpy array to the dim size
+    
+    Args:
+        out_dim is the new 3d tuple
     """
     depth, height, width = img_numpy.shape
     scale = [out_dim[0] * 1.0 / depth, out_dim[1] * 1.0 / height, out_dim[2] * 1.0 / width]
@@ -189,9 +190,10 @@ def transform_coordinate_space(modality_1, modality_2):
 
 
 def normalize_intensity(img_tensor, normalization="full_volume_mean", norm_values=(0, 1, 1, 0)):
-    """
-    Accepts an image tensor and normalizes it
-    :param normalization: choices = "max", "mean" , type=str
+    """Accepts an image tensor and normalizes it
+    
+    Args:
+        normalization: choices = "max", "mean" , type=str
     """
     if normalization == "mean":
         mask = img_tensor.ne(0.0)
@@ -238,12 +240,15 @@ def clip_range(img_numpy):
 
 
 def percentile_clip(img_numpy, min_val=0.1, max_val=99.8):
-    """
-    Intensity normalization based on percentile
+    """Intensity normalization based on percentile
     Clips the range based on the quarile values.
-    :param min_val: should be in the range [0,100]
-    :param max_val: should be in the range [0,100]
-    :return: intesity normalized image
+    
+    Args:
+    min_val: should be in the range [0,100]
+    max_val: should be in the range [0,100]
+    
+    Returns:
+        intesity normalized image
     """
     low = np.percentile(img_numpy, min_val)
     high = np.percentile(img_numpy, max_val)

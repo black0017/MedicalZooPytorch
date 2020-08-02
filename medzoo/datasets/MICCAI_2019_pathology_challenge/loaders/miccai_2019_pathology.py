@@ -21,11 +21,12 @@ class MICCAI2019_gleason_pathology(Dataset):
                  classes=7,
                  save=True):
         """
-        :param mode: 'train','val'
-        :param image_paths: image dataset paths
-        :param label_paths: label dataset paths
-        :param crop_dim: 2 element tuple to decide crop values
-        :param samples: number of sub-grids to create(patches of the input img)
+        Args:
+            mode: 'train','val'
+            image_paths: image dataset paths
+            label_paths: label dataset paths
+            crop_dim: 2 element tuple to decide crop values
+            samples: number of sub-grids to create(patches of the input img)
         """
         image_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Train Imgs/Train Imgs/*.jpg"))
         label_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Labels/*.png"))

@@ -14,11 +14,14 @@ functions = ['elastic_deform', 'random_crop', 'random_flip', 'random_rescale', '
 
 
 class RandomChoice(object):
-    """
-    choose a random tranform from list an apply
-    transforms: tranforms to apply
-    p: probability
-    """
+    """Choose a random tranform from list and apply
+
+    Args:
+        transforms: tranforms to apply
+        p: probability
+
+    """    
+    
 
     def __init__(self, transforms=[],
                  p=0.5):

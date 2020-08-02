@@ -167,13 +167,14 @@ class DualPathDenseNet(BaseModel):
 
     """
     def __init__(self, in_channels, classes=4, drop_rate=0, fusion='concat'):
-        """
-        2-stream and 3-stream implementation with late fusion
-        :param in_channels: 2 or 3 (dual or triple path based on paper specifications).
-        Channels are the input modalities i.e T1,T2 etc..
-        :param drop_rate:  dropout rate for dense layers
-        :param classes: number of classes to segment
-        :param fusion: 'concat or 'sum'
+        """2-stream and 3-stream implementation with late fusion
+        
+        Args
+            in_channels: 2 or 3 (dual or triple path based on paper specifications).
+               Channels are the input modalities i.e T1,T2 etc..
+            drop_rate:  dropout rate for dense layers
+            classes: number of classes to segment
+            fusion: 'concat or 'sum'
         """
         super(DualPathDenseNet, self).__init__()
         self.input_channels = in_channels
@@ -207,8 +208,12 @@ class DualPathDenseNet(BaseModel):
 
     def forward(self, multi_channel_medical_img):
         """
-        :param multi_channel_medical_img: shape of [batch, input_channels, height, width, depth]
-        :return: late fusion classification predictions
+
+        Args:
+            multi_channel_medical_img: shape of [batch, input_channels, height, width, depth]
+        
+        Returns:
+            late fusion classification predictions
         """
         channels = multi_channel_medical_img.shape[1]
         if channels != self.input_channels:
@@ -260,12 +265,12 @@ class DualSingleDenseNet(BaseModel):
 
     def __init__(self, in_channels, classes=4, drop_rate=0.5, ):
         """
-
-        :param input_channels: 2 or 3 (dual or triple path based on paper specifications).
-        Channels are the input modalities i.e T1,T2 etc..
-        :param drop_rate:  dropout rate for dense layers
-        :param classes: number of classes to segment
-        :param fusion: 'concat or 'sum'
+        Args:
+            input_channels: 2 or 3 (dual or triple path based on paper specifications).
+                Channels are the input modalities i.e T1,T2 etc..
+            drop_rate:  dropout rate for dense layers
+            classes: number of classes to segment
+            fusion: 'concat or 'sum'
         """
         super(DualSingleDenseNet, self).__init__()
         self.input_channels = in_channels
@@ -289,8 +294,11 @@ class DualSingleDenseNet(BaseModel):
 
     def forward(self, multi_channel_medical_img):
         """
-        :param multi_channel_medical_img: shape of [batch, input_channels, height, width, depth]
-        :return: late fusion classification predictions
+        Args:
+            multi_channel_medical_img: shape of [batch, input_channels, height, width, depth]
+        
+        Returns:
+            late fusion classification predictions
         """
         channels = multi_channel_medical_img.shape[1]
         if channels != self.input_channels:

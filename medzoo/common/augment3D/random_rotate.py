@@ -3,13 +3,17 @@ import scipy.ndimage as ndimage
 
 
 def random_rotate3D(img_numpy, min_angle, max_angle):
-    """
-    Returns a random rotated array in the same shape
-    :param img_numpy: 3D numpy array
-    :param min_angle: in degrees
-    :param max_angle: in degrees
-    :return: 3D rotated img
-    """
+    """ Returns a random rotated array in the same shape
+
+    Args:
+        img_numpy: 3D numpy array
+        min_angle:  in degrees
+        max_angle: in degrees
+
+    Returns:
+         3D rotated img
+    """    
+   
     assert img_numpy.ndim == 3, "provide a 3d numpy array"
     assert min_angle < max_angle, "min should be less than max val"
     assert min_angle > -360 or max_angle < 360

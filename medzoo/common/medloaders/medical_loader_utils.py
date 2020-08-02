@@ -73,19 +73,23 @@ def fix_seg_map(segmentation_map, dataset="iseg2017"):
 
 def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size, sub_vol_path, normalization='max_min',
                        th_percent=0.1):
-    """
+    """[summary]
 
-    :param ls: list of modality paths, where the last path is the segmentation map
-    :param dataset_name: which dataset is used
-    :param mode: train/val
-    :param samples: train/val samples to generate
-    :param full_vol_dim: full image size
-    :param crop_size: train volume size
-    :param sub_vol_path: path for the particular patient
-    :param th_percent: the % of the croped dim that corresponds to non-zero labels
-    :param crop_type:
-    :return:
-    """
+    Args:
+        ls: list of modality paths, where the last path is the segmentation map
+        dataset_name: which dataset is used
+        mode: train/val
+        samples: train/val samples to generate
+        full_vol_dim: full image size
+        crop_size: train volume size
+        sub_vol_path: path for the particular patient
+        th_percent: the % of the croped dim that corresponds to non-zero labels
+        crop_type:
+
+    Returns:
+        [type]: [description]
+    """                       
+   
     total = len(ls[0])
     assert total != 0, "Problem reading data. Check the data paths."
     modalities = len(ls)

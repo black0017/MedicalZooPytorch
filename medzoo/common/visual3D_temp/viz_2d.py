@@ -8,7 +8,9 @@ import torch.functional as F
 def show_mid_slice(img_numpy, return_views=False):
     """
     Accepts an 3D numpy array and shows median slices in all three planes
-    :param img_numpy:
+    
+    Args:
+        img_numpy:
     """
     assert img_numpy.ndim == 3, "please provide a 3d numpy image"
     n_i, n_j, n_k = img_numpy.shape
@@ -42,16 +44,17 @@ def _show_slices(slices):
 
 # TODO test and add medical writer
 def create_2d_views(predictions, segment_map, path_to_save):
-    """
-    Comparative 2d vizualization of median slices:
+    """ Comparative 2d vizualization of median slices:
     axial, saggital and transpose. Save to png file and to tensorboard
-    :param predictions:
-    :param segment_map:
-    :param epoch:
-    :param writer:
-    :param path_to_save:
-    :return:
-    """
+
+    Args:
+        predictions:
+        segment_map:
+        epoch:
+        writer:
+        path_to_save:
+    """    
+   
     # todo scale to range [0,255 for tensor borad] ??????
     segment_pred = seg_map_vizualization_iseg(predictions)
 
@@ -100,12 +103,15 @@ def seg_map_vizualization_iseg(segmentation_map):
 
 # not used right now ???
 def plot_segm(segm, ground_truth, plots_dir='.'):
-    """
-    Saves predicted and ground truth segmentation into a PNG files (one per channel).
-    :param segm: 4D ndarray (CDHW)
-    :param ground_truth: 4D ndarray (CDHW)
-    :param plots_dir: directory where to save the plots
-    """
+    """Saves predicted and ground truth segmentation into a PNG files (one per channel).
+
+
+    Args:
+        segm: 4D ndarray (CDHW)
+        ground_truth: 4D ndarray (CDHW)
+        plots_dir: directory where to save the plots
+    """    
+   
     import uuid
     assert segm.ndim == 4
     if ground_truth.ndim == 3:

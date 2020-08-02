@@ -20,11 +20,12 @@ class MICCAIBraTS2018(Dataset):
                  samples=10,
                  load=False):
         """
-        :param mode: 'train','val','test'
-        :param dataset_path: root dataset folder
-        :param crop_dim: subvolume tuple
-        :param split_idx: 1 to 10 values
-        :param samples: number of sub-volumes that you want to create
+        Args:
+            mode: 'train','val','test'
+            dataset_path: root dataset folder
+            crop_dim: subvolume tuple
+            split_idx: 1 to 10 values
+            samples: number of sub-volumes that you want to create
         """
         self.mode = mode
         self.root = str(dataset_path)

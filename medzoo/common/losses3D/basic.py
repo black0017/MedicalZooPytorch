@@ -5,13 +5,17 @@ import torch
 
 
 def expand_as_one_hot(input, C, ignore_index=None):
-    """
-    Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted to its corresponding one-hot vector
-    :param input: 4D input image (NxDxHxW)
-    :param C: number of channels/labels
-    :param ignore_index: ignore index to be kept during the expansion
-    :return: 5D output image (NxCxDxHxW)
-    """
+    """ Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted to its corresponding one-hot vector
+
+    Args:
+        input: 4D input image (NxDxHxW)
+        C: number of channels/labels
+        ignore_index: ignore index to be kept during the expansion
+
+    Returns:
+       5D output image (NxCxDxHxW)
+    """    
+   
     if input.dim() == 5:
         return input
     assert input.dim() == 4

@@ -29,12 +29,15 @@ class DiceLoss2D(nn.Module):
         return tensor.view(self.classes, -1)
 
     def expand_as_one_hot(self, target):
-        """
-        Converts label image to CxHxW, where each label gets converted to
-        its corresponding one-hot vector
-        :param target is of shape  (1xHxW)
-        :return: 3D output tensor (CxHxW) where C is the classes
-        """
+        """ Converts label image to CxHxW, where each label gets converted to
+
+        Args:
+            target: target is of shape  (1xHxW)
+
+        Returns:
+            3D output tensor (CxHxW) where C is the classes
+        """        
+       
         shape = target.size()
         shape = list(shape)
         shape.insert(1, self.classes)

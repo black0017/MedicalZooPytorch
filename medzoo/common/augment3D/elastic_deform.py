@@ -22,14 +22,19 @@ from scipy.ndimage.filters import gaussian_filter
 
 def elastic_transform_3d(img_numpy, labels=None, alpha=1, sigma=20, c_val=0.0, method="linear"):
     """
-    :param img_numpy: 3D medical image modality
-    :param labels: 3D medical image labels
-    :param alpha: scaling factor of gaussian filter
-    :param sigma: standard deviation of random gaussian filter
-    :param c_val: fill value
-    :param method: interpolation method. supported methods : ("linear", "nearest")
-    :return: deformed image and/or label
-    """
+
+    Args:
+        img_numpy: 3D medical image modality
+        labels: 3D medical image labels
+        alpha: scaling factor of gaussian filter
+        sigma: standard deviation of random gaussian filter
+        c_val: fill value
+        method: interpolation method. supported methods : ("linear", "nearest")
+
+    Returns:
+       deformed image and/or label
+    """    
+    
     assert img_numpy.ndim == 3, 'Wrong img shape, provide 3D img'
     if labels is not None:
         assert img_numpy.shape == labels.shape, "Shapes of img and label do not much!"

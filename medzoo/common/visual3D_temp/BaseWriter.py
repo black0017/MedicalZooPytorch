@@ -56,14 +56,16 @@ class TensorboardWriter():
         return data
 
     def display_terminal(self, iter, epoch, mode='train', summary=False):
-        """
+        """[summary]
 
-        :param iter: iteration or partial epoch
-        :param epoch: epoch of training
-        :param loss: any loss numpy
-        :param mode: train or val ( for training and validation)
-        :param summary: to print total statistics at the end of epoch
-        """
+        Args:
+            iter: iteration or partial epoch
+            epoch: epoch of training
+            loss: any loss numpy
+            mode: train or val ( for training and validation)
+            summary: to print total statistics at the end of epoch
+        """        
+       
         if summary:
             info_print = "\nSummary {} Epoch {:2d}:  Loss:{:.4f} \t DSC:{:.4f}  ".format(mode, epoch,
                                                                                          self.data[mode]['loss'] /
@@ -114,13 +116,16 @@ class TensorboardWriter():
             self.data[mode][self.label_names[i]] = 0.0
 
     def update_scores(self, iter, loss, channel_score, mode, writer_step):
-        """
-        :param iter: iteration or partial epoch
-        :param loss: any loss torch.tensor.item()
-        :param channel_score: per channel score or dice coef
-        :param mode: train or val ( for training and validation)
-        :param writer_step: tensorboard writer step
-        """
+        """[summary]
+
+        Args:
+            iter: iteration or partial epoch
+            loss: any loss torch.tensor.item()
+            channel_score: per channel score or dice coef
+            mode: train or val ( for training and validation)
+            writer_step: tensorboard writer step
+        """        
+       
         # WARNING ASSUMING THAT CHANNELS IN SAME ORDER AS DICTIONARY
 
         dice_coeff = np.mean(channel_score) * 100

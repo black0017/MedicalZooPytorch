@@ -117,14 +117,18 @@ def non_overlap_padding(args, full_volume, model, criterion, kernel_dim=(32, 32,
 
 
 def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):
-    """
-    this function will produce NON-overlaping  sub-volumes prediction
+    """  this function will produce NON-overlaping  sub-volumes prediction
     that produces full 3d medical image
     compare some slices with ground truth
-    :param full_volume: t1, t2, segment
-    :param dim: (d1,d2,d3))
-    :return: 3d reconstructed volume
-    """
+
+    Args:
+        full_volume: t1, t2, segment
+        dim: (d1,d2,d3))
+    
+    Returns:
+        3d reconstructed volume
+    """    
+    
     classes = args.classes
     modalities, slices, height, width = full_volume.shape
     full_volume_dim = (slices, height, width)

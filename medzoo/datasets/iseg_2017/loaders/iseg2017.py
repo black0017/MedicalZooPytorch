@@ -19,11 +19,13 @@ class MRIDatasetISEG2017(Dataset):
     def __init__(self, args, mode, dataset_path='./datasets', crop_dim=(32, 32, 32), split_id=1, samples=1000,
                  load=False):
         """
-        :param mode: 'train','val','test'
-        :param dataset_path: root dataset folder
-        :param crop_dim: subvolume tuple
-        :param fold_id: 1 to 10 values
-        :param samples: number of sub-volumes that you want to create
+
+        Args:
+            mode: 'train','val','test'
+            dataset_path: root dataset folder
+            crop_dim: subvolume tuple
+            fold_id: 1 to 10 values
+            samples: number of sub-volumes that you want to create
         """
         self.mode = mode
         self.root = str(dataset_path)

@@ -19,13 +19,15 @@ class IXIMRIdataset(Dataset):
     def __init__(self, args, dataset_path='./data', voxels_space=(2, 2, 2), modalities=2, to_canonical=False,
                  save=True):
         """
-        :param dataset_path: the extracted path that contains the desired images
-        :param voxels_space: for reshampling the voxel space
-        :param modalities: 1 for T1 only, 2 for T1 and T2
-        :param to_canonical: If you want to convert the coordinates to RAS
-        for more info on this advice here https://www.slicer.org/wiki/Coordinate_systems
-        :param save: to save the generated data offline for faster reading
-        and not load RAM
+
+        Args:
+            dataset_path: the extracted path that contains the desired images
+            voxels_space: for reshampling the voxel space
+            modalities: 1 for T1 only, 2 for T1 and T2
+            to_canonical: If you want to convert the coordinates to RAS
+                for more info on this advice here https://www.slicer.org/wiki/Coordinate_systems
+            save: to save the generated data offline for faster reading
+                and not load RAM
         """
         self.root = str(dataset_path)
         self.modalities = modalities
