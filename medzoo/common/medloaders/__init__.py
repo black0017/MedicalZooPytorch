@@ -9,6 +9,7 @@ from ...datasets.covid_x_dataset.loaders.COVIDxdataset import COVIDxDataset
 from ...datasets.covid_x_dataset.loaders.Covid_Segmentation_dataset import COVID_Seg_Dataset
 from ...datasets.iseg_2017.loaders.iseg2017 import MRIDatasetISEG2017
 from ...datasets.iseg_2019.loaders.iseg2019 import MRIDatasetISEG2019
+from ...datasets.iseg_2019.loaders.iseg2019_example import MRIDatasetISEG2019Example
 from ...datasets.ixi.loaders.ixi_t1_t2 import IXIMRIdataset
 from ...datasets.mrbrains_2018.loaders.mrbrains2018 import MRIDatasetMRBRAINS2018
 from ...utils.logger import Logger
@@ -44,11 +45,17 @@ def generate_datasets(args, path='.././datasets'):
     elif args.dataset_name == "iseg2019":
         total_data = 10
         split_idx = int(split_percent * total_data)
-        train_loader = MRIDatasetISEG2019(args, 'train', dataset_path=path, crop_dim=args.dim,
-                                          split_id=split_idx, samples=samples_train, load=args.loadData)
+        # train_loader = MRIDatasetISEG2019(args, 'train', dataset_path=path, crop_dim=args.dim,
+        #                                   split_id=split_idx, samples=samples_train, load=args.loadData)
+        #
+        # val_loader1 = MRIDatasetISEG2019(args, 'val', dataset_path=path, crop_dim=args.dim, split_id=split_idx,
+        #                                 samples=samples_val, load=args.loadData)
 
-        val_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path, crop_dim=args.dim, split_id=split_idx,
-                                        samples=samples_val, load=args.loadData)
+        train_loader = MRIDatasetISEG2019Example(args, 'train', dataset_path=path)
+
+        val_loader = MRIDatasetISEG2019Example(args, 'val', dataset_path=path)
+
+
     elif args.dataset_name == "mrbrains4":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path, classes=args.classes, dim=args.dim,
                                               split_id=0, samples=samples_train, load=args.loadData)
