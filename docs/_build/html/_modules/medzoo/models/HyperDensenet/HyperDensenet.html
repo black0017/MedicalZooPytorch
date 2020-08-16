@@ -2,5 +2,1265 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.HyperDensenet.HyperDensenet | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="../../../../_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/_modules/medzoo/models/HyperDensenet/HyperDensenet.html"/>
+  
+  <meta property="og:title" content="medzoo.models.HyperDensenet.HyperDensenet | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../models.html">medzoo.models</a> &gt;</li>
+        
+      <li>medzoo.models.HyperDensenet.HyperDensenet</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for medzoo.models.HyperDensenet.HyperDensenet</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torchsummary</span> <span class="kn">import</span> <span class="n">summary</span>
+
+<span class="kn">from</span> <span class="nn">medzoo.models.BaseModelClass</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Code was borrowed and modified from this repo: https://github.com/josedolz/HyperDenseNet_pytorch </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="conv"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv">[docs]</a><span class="k">def</span> <span class="nf">conv</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">,</span>
+         <span class="n">BN</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">gainWS</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nin:</span>
+<span class="sd">        nout:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        stride:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        bias:</span>
+<span class="sd">        layer:</span>
+<span class="sd">        BN:</span>
+<span class="sd">        ws:</span>
+<span class="sd">        activ:</span>
+<span class="sd">        gainWS:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">convlayer</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># if ws:</span>
+    <span class="c1">#     layers.append(WScaleLayer(convlayer, gain=gainWS))</span>
+    <span class="k">if</span> <span class="n">BN</span><span class="p">:</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">nout</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">activ</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">activ</span> <span class="o">==</span> <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">:</span>
+            <span class="c1"># to avoid sharing the same parameter, activ must be set to nn.PReLU (without &#39;()&#39;)</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activ</span><span class="p">(</span><span class="n">num_parameters</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># if activ == nn.PReLU(), the parameter will be shared for the whole network !</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activ</span><span class="p">)</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">convlayer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ResidualConv"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.ResidualConv">[docs]</a><span class="k">class</span> <span class="nc">ResidualConv</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ResidualConv</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="n">convs</span> <span class="o">=</span> <span class="p">[</span><span class="n">conv</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="n">BN</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="n">activ</span><span class="p">),</span>
+                 <span class="n">conv</span><span class="p">(</span><span class="n">nout</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="n">BN</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="kc">None</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convs</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">convs</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">nin</span> <span class="o">!=</span> <span class="n">nout</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="n">BN</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">res</span><span class="p">)</span>
+
+        <span class="n">activation</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">activ</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">activ</span> <span class="o">==</span> <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">:</span>
+                <span class="c1"># to avoid sharing the same parameter, activ must be set to nn.PReLU (without &#39;()&#39;)</span>
+                <span class="n">activation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activ</span><span class="p">(</span><span class="n">num_parameters</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># if activ == nn.PReLU(), the parameter will be shared for the whole network !</span>
+                <span class="n">activation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activ</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">activation</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResidualConv.forward"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.ResidualConv.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convs</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="n">out</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">res</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="upSampleConv_Res"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.upSampleConv_Res">[docs]</a><span class="k">def</span> <span class="nf">upSampleConv_Res</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">upscale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nin:</span>
+<span class="sd">        nout:</span>
+<span class="sd">        upscale:</span>
+<span class="sd">        bias:</span>
+<span class="sd">        BN:</span>
+<span class="sd">        ws:</span>
+<span class="sd">        activ:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Upsample</span><span class="p">(</span><span class="n">scale_factor</span><span class="o">=</span><span class="n">upscale</span><span class="p">),</span>
+        <span class="n">ResidualConv</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">BN</span><span class="o">=</span><span class="n">BN</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">activ</span><span class="o">=</span><span class="n">activ</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="conv_block"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block">[docs]</a><span class="k">def</span> <span class="nf">conv_block</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        act_fn:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        stride:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">act_fn</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_1"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_1">[docs]</a><span class="k">def</span> <span class="nf">conv_block_1</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_Asym"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym">[docs]</a><span class="k">def</span> <span class="nf">conv_block_Asym</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernelSize</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        kernelSize:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="n">kernelSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernelSize</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_Asym_Inception"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception">[docs]</a><span class="k">def</span> <span class="nf">conv_block_Asym_Inception</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="n">kernel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">]),</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_Asym_Inception_WithIncreasedFeatMaps"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception_WithIncreasedFeatMaps">[docs]</a><span class="k">def</span> <span class="nf">conv_block_Asym_Inception_WithIncreasedFeatMaps</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">mid_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        mid_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">mid_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="n">kernel_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">mid_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">mid_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">]),</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_Asym_ERFNet"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_ERFNet">[docs]</a><span class="k">def</span> <span class="nf">conv_block_Asym_ERFNet</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernelSize</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">drop</span><span class="p">,</span> <span class="n">dilation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        kernelSize:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        drop:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="n">kernelSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="n">padding</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernelSize</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span><span class="p">]),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="n">kernelSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernelSize</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span> <span class="o">*</span> <span class="n">dilation</span><span class="p">]),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Dropout2d</span><span class="p">(</span><span class="n">drop</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="conv_block_3_3"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_3_3">[docs]</a><span class="k">def</span> <span class="nf">conv_block_3_3</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<span class="c1"># TODO: Change order of block: BN + Activation + Conv</span>
+<div class="viewcode-block" id="conv_decod_block"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_decod_block">[docs]</a><span class="k">def</span> <span class="nf">conv_decod_block</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        act_fn:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">act_fn</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="dilation_conv_block"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.dilation_conv_block">[docs]</a><span class="k">def</span> <span class="nf">dilation_conv_block</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">,</span> <span class="n">stride_val</span><span class="p">,</span> <span class="n">dil_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        act_fn:</span>
+<span class="sd">        stride_val:</span>
+<span class="sd">        dil_val:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride_val</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dil_val</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+        <span class="n">act_fn</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<span class="k">def</span> <span class="nf">maxpool</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span>
+
+
+<div class="viewcode-block" id="avrgpool05"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.avrgpool05">[docs]</a><span class="k">def</span> <span class="nf">avrgpool05</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="avrgpool025"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.avrgpool025">[docs]</a><span class="k">def</span> <span class="nf">avrgpool025</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="avrgpool0125"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.avrgpool0125">[docs]</a><span class="k">def</span> <span class="nf">avrgpool0125</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="maxpool"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.maxpool">[docs]</a><span class="k">def</span> <span class="nf">maxpool</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="maxpool_1_4"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_4">[docs]</a><span class="k">def</span> <span class="nf">maxpool_1_4</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="maxpool_1_8"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_8">[docs]</a><span class="k">def</span> <span class="nf">maxpool_1_8</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="maxpool_1_16"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_16">[docs]</a><span class="k">def</span> <span class="nf">maxpool_1_16</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pool</span></div>
+
+
+<div class="viewcode-block" id="maxpool_1_32"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_32">[docs]</a><span class="k">def</span> <span class="nf">maxpool_1_32</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="conv_block_3"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.conv_block_3">[docs]</a><span class="k">def</span> <span class="nf">conv_block_3</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_dim:</span>
+<span class="sd">        out_dim:</span>
+<span class="sd">        act_fn:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">conv_block</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">),</span>
+        <span class="n">conv_block</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">act_fn</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="classificationNet"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.classificationNet">[docs]</a><span class="k">def</span> <span class="nf">classificationNet</span><span class="p">(</span><span class="n">D_in</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        D_in:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="n">D_out</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">D_in</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">H</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">H</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">D_out</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<span class="c1"># from layers import *</span>
+
+<div class="viewcode-block" id="croppCenter"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.croppCenter">[docs]</a><span class="k">def</span> <span class="nf">croppCenter</span><span class="p">(</span><span class="n">tensorToCrop</span><span class="p">,</span> <span class="n">finalShape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensorToCrop:</span>
+<span class="sd">        finalShape:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">org_shape</span> <span class="o">=</span> <span class="n">tensorToCrop</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">org_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">finalShape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">croppBorders</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diff</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tensorToCrop</span><span class="p">[:,</span>
+           <span class="p">:,</span>
+           <span class="n">croppBorders</span><span class="p">:</span><span class="n">org_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">croppBorders</span><span class="p">,</span>
+           <span class="n">croppBorders</span><span class="p">:</span><span class="n">org_shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">croppBorders</span><span class="p">,</span>
+           <span class="n">croppBorders</span><span class="p">:</span><span class="n">org_shape</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">croppBorders</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="convBlock"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.convBlock">[docs]</a><span class="k">def</span> <span class="nf">convBlock</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nin:</span>
+<span class="sd">        nout:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        batchNorm:</span>
+<span class="sd">        layer:</span>
+<span class="sd">        bias:</span>
+<span class="sd">        dropout_rate:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">batchNorm</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">),</span>
+            <span class="n">layer</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="n">nin</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">),</span>
+            <span class="n">layer</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="convBatch"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.convBatch">[docs]</a><span class="k">def</span> <span class="nf">convBatch</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nin:</span>
+<span class="sd">        nout:</span>
+<span class="sd">        kernel_size:</span>
+<span class="sd">        stride:</span>
+<span class="sd">        padding:</span>
+<span class="sd">        bias:</span>
+<span class="sd">        layer:</span>
+<span class="sd">        dilation:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">layer</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">nout</span><span class="p">),</span>
+        <span class="c1"># nn.LeakyReLU(0.2)</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">PReLU</span><span class="p">()</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HyperDenseNet_2Mod"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod">[docs]</a><span class="k">class</span> <span class="nc">HyperDenseNet_2Mod</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HyperDenseNet_2Mod</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">classes</span>
+        <span class="k">assert</span> <span class="n">in_channels</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;input channels must be two for this architecture&quot;</span>
+
+        <span class="c1"># Path-Top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">750</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Path-Bottom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">750</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">1800</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HyperDenseNet_2Mod.forward"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ----- First layer ------ #</span>
+        <span class="c1"># get 2 of the channels as 5D tensors</span>
+        <span class="c1"># pdb.set_trace()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;input shape &quot;</span><span class="p">,</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y1t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Top</span><span class="p">(</span><span class="nb">input</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:])</span>
+        <span class="n">y1b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Bottom</span><span class="p">(</span><span class="nb">input</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:])</span>
+
+        <span class="c1"># ----- Second layer ------ #</span>
+        <span class="c1"># concatenate</span>
+        <span class="n">y2t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y1t</span><span class="p">,</span> <span class="n">y1b</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y2b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y1b</span><span class="p">,</span> <span class="n">y1t</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y2t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Top</span><span class="p">(</span><span class="n">y2t_i</span><span class="p">)</span>
+        <span class="n">y2b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Bottom</span><span class="p">(</span><span class="n">y2b_i</span><span class="p">)</span>
+
+        <span class="c1"># ----- Third layer ------ #</span>
+        <span class="n">y2t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y2t_i</span><span class="p">,</span> <span class="n">y2t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y2b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y2b_i</span><span class="p">,</span> <span class="n">y2t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y3t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y2t_i_cropped</span><span class="p">,</span> <span class="n">y2t_o</span><span class="p">,</span> <span class="n">y2b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y3b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y2b_i_cropped</span><span class="p">,</span> <span class="n">y2b_o</span><span class="p">,</span> <span class="n">y2t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y3t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Top</span><span class="p">(</span><span class="n">y3t_i</span><span class="p">)</span>
+        <span class="n">y3b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Bottom</span><span class="p">(</span><span class="n">y3b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Fourth layer ----- #</span>
+        <span class="n">y3t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y3t_i</span><span class="p">,</span> <span class="n">y3t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y3b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y3b_i</span><span class="p">,</span> <span class="n">y3t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y4t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y3t_i_cropped</span><span class="p">,</span> <span class="n">y3t_o</span><span class="p">,</span> <span class="n">y3b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y4b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y3b_i_cropped</span><span class="p">,</span> <span class="n">y3b_o</span><span class="p">,</span> <span class="n">y3t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y4t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Top</span><span class="p">(</span><span class="n">y4t_i</span><span class="p">)</span>
+        <span class="n">y4b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Bottom</span><span class="p">(</span><span class="n">y4b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Fifth layer ----- #</span>
+        <span class="n">y4t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y4t_i</span><span class="p">,</span> <span class="n">y4t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y4b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y4b_i</span><span class="p">,</span> <span class="n">y4t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y5t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y4t_i_cropped</span><span class="p">,</span> <span class="n">y4t_o</span><span class="p">,</span> <span class="n">y4b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y5b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y4b_i_cropped</span><span class="p">,</span> <span class="n">y4b_o</span><span class="p">,</span> <span class="n">y4t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y5t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Top</span><span class="p">(</span><span class="n">y5t_i</span><span class="p">)</span>
+        <span class="n">y5b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Bottom</span><span class="p">(</span><span class="n">y5b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Sixth layer ----- #</span>
+        <span class="n">y5t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y5t_i</span><span class="p">,</span> <span class="n">y5t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y5b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y5b_i</span><span class="p">,</span> <span class="n">y5t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y6t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y5t_i_cropped</span><span class="p">,</span> <span class="n">y5t_o</span><span class="p">,</span> <span class="n">y5b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y6b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y5b_i_cropped</span><span class="p">,</span> <span class="n">y5b_o</span><span class="p">,</span> <span class="n">y5t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y6t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Top</span><span class="p">(</span><span class="n">y6t_i</span><span class="p">)</span>
+        <span class="n">y6b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Bottom</span><span class="p">(</span><span class="n">y6b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Seventh layer ----- #</span>
+        <span class="n">y6t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y6t_i</span><span class="p">,</span> <span class="n">y6t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y6b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y6b_i</span><span class="p">,</span> <span class="n">y6t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y7t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y6t_i_cropped</span><span class="p">,</span> <span class="n">y6t_o</span><span class="p">,</span> <span class="n">y6b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y7b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y6b_i_cropped</span><span class="p">,</span> <span class="n">y6b_o</span><span class="p">,</span> <span class="n">y6t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y7t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Top</span><span class="p">(</span><span class="n">y7t_i</span><span class="p">)</span>
+        <span class="n">y7b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Bottom</span><span class="p">(</span><span class="n">y7b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Eight layer ----- #</span>
+        <span class="n">y7t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y7t_i</span><span class="p">,</span> <span class="n">y7t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y7b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y7b_i</span><span class="p">,</span> <span class="n">y7t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y8t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y7t_i_cropped</span><span class="p">,</span> <span class="n">y7t_o</span><span class="p">,</span> <span class="n">y7b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y8b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y7b_i_cropped</span><span class="p">,</span> <span class="n">y7b_o</span><span class="p">,</span> <span class="n">y7t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y8t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Top</span><span class="p">(</span><span class="n">y8t_i</span><span class="p">)</span>
+        <span class="n">y8b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Bottom</span><span class="p">(</span><span class="n">y8b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Ninth layer ----- #</span>
+        <span class="n">y8t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y8t_i</span><span class="p">,</span> <span class="n">y8t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y8b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y8b_i</span><span class="p">,</span> <span class="n">y8t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y9t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y8t_i_cropped</span><span class="p">,</span> <span class="n">y8t_o</span><span class="p">,</span> <span class="n">y8b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y9b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y8b_i_cropped</span><span class="p">,</span> <span class="n">y8b_o</span><span class="p">,</span> <span class="n">y8t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y9t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Top</span><span class="p">(</span><span class="n">y9t_i</span><span class="p">)</span>
+        <span class="n">y9b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Bottom</span><span class="p">(</span><span class="n">y9b_i</span><span class="p">)</span>
+
+        <span class="c1">##### Fully connected layers</span>
+        <span class="n">y9t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y9t_i</span><span class="p">,</span> <span class="n">y9t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y9b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y9b_i</span><span class="p">,</span> <span class="n">y9t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">outputPath_top</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y9t_i_cropped</span><span class="p">,</span> <span class="n">y9t_o</span><span class="p">,</span> <span class="n">y9b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">outputPath_bottom</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y9b_i_cropped</span><span class="p">,</span> <span class="n">y9b_o</span><span class="p">,</span> <span class="n">y9t_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">inputFully</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">outputPath_top</span><span class="p">,</span> <span class="n">outputPath_bottom</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_1</span><span class="p">(</span><span class="n">inputFully</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">final</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HyperDenseNet_2Mod.test"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+        <span class="n">ideal_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+        <span class="c1"># assert ideal_out.shape == out.shape</span>
+        <span class="c1"># summary(self.to(torch.device(device)), (2, 22, 22, 22),device=device)</span>
+        <span class="c1"># torchsummaryX.summary(self,input_tensor.to(device))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HyperDenseNet test is complete&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="HyperDenseNet"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet">[docs]</a><span class="k">class</span> <span class="nc">HyperDenseNet</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HyperDenseNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">in_channels</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod &quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">classes</span>
+
+        <span class="c1"># Path-Top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">225</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">375</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">525</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">675</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Top</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1125</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Path-Middle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">225</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">375</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">525</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">675</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Middle</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1125</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Path-Bottom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">225</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">375</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">525</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">675</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Bottom</span> <span class="o">=</span> <span class="n">convBlock</span><span class="p">(</span><span class="mi">1125</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">batchNorm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">4050</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fully_3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HyperDenseNet.forward"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ----- First layer ------ #</span>
+        <span class="c1"># get the 3 channels as 5D tensors</span>
+        <span class="n">y1t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Top</span><span class="p">(</span><span class="nb">input</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:])</span>
+        <span class="n">y1m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Middle</span><span class="p">(</span><span class="nb">input</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:])</span>
+        <span class="n">y1b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_Bottom</span><span class="p">(</span><span class="nb">input</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:])</span>
+
+        <span class="c1"># ----- Second layer ------ #</span>
+        <span class="c1"># concatenate</span>
+        <span class="n">y2t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y1t</span><span class="p">,</span> <span class="n">y1m</span><span class="p">,</span> <span class="n">y1b</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y2m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y1m</span><span class="p">,</span> <span class="n">y1t</span><span class="p">,</span> <span class="n">y1b</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y2b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y1b</span><span class="p">,</span> <span class="n">y1t</span><span class="p">,</span> <span class="n">y1m</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y2t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Top</span><span class="p">(</span><span class="n">y2t_i</span><span class="p">)</span>
+        <span class="n">y2m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Middle</span><span class="p">(</span><span class="n">y2m_i</span><span class="p">)</span>
+        <span class="n">y2b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2_Bottom</span><span class="p">(</span><span class="n">y2b_i</span><span class="p">)</span>
+
+        <span class="c1"># ----- Third layer ------ #</span>
+        <span class="n">y2t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y2t_i</span><span class="p">,</span> <span class="n">y2t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y2m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y2m_i</span><span class="p">,</span> <span class="n">y2t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y2b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y2b_i</span><span class="p">,</span> <span class="n">y2t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y3t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y2t_i_cropped</span><span class="p">,</span> <span class="n">y2t_o</span><span class="p">,</span> <span class="n">y2m_o</span><span class="p">,</span> <span class="n">y2b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y3m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y2m_i_cropped</span><span class="p">,</span> <span class="n">y2m_o</span><span class="p">,</span> <span class="n">y2t_o</span><span class="p">,</span> <span class="n">y2b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y3b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y2b_i_cropped</span><span class="p">,</span> <span class="n">y2b_o</span><span class="p">,</span> <span class="n">y2t_o</span><span class="p">,</span> <span class="n">y2m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y3t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Top</span><span class="p">(</span><span class="n">y3t_i</span><span class="p">)</span>
+        <span class="n">y3m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Middle</span><span class="p">(</span><span class="n">y3m_i</span><span class="p">)</span>
+        <span class="n">y3b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3_Bottom</span><span class="p">(</span><span class="n">y3b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Fourth layer ----- #</span>
+        <span class="n">y3t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y3t_i</span><span class="p">,</span> <span class="n">y3t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y3m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y3m_i</span><span class="p">,</span> <span class="n">y3t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y3b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y3b_i</span><span class="p">,</span> <span class="n">y3t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y4t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y3t_i_cropped</span><span class="p">,</span> <span class="n">y3t_o</span><span class="p">,</span> <span class="n">y3m_o</span><span class="p">,</span> <span class="n">y3b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y4m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y3m_i_cropped</span><span class="p">,</span> <span class="n">y3m_o</span><span class="p">,</span> <span class="n">y3t_o</span><span class="p">,</span> <span class="n">y3b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y4b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y3b_i_cropped</span><span class="p">,</span> <span class="n">y3b_o</span><span class="p">,</span> <span class="n">y3t_o</span><span class="p">,</span> <span class="n">y3m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y4t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Top</span><span class="p">(</span><span class="n">y4t_i</span><span class="p">)</span>
+        <span class="n">y4m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Middle</span><span class="p">(</span><span class="n">y4m_i</span><span class="p">)</span>
+        <span class="n">y4b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4_Bottom</span><span class="p">(</span><span class="n">y4b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Fifth layer ----- #</span>
+        <span class="n">y4t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y4t_i</span><span class="p">,</span> <span class="n">y4t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y4m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y4m_i</span><span class="p">,</span> <span class="n">y4t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y4b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y4b_i</span><span class="p">,</span> <span class="n">y4t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y5t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y4t_i_cropped</span><span class="p">,</span> <span class="n">y4t_o</span><span class="p">,</span> <span class="n">y4m_o</span><span class="p">,</span> <span class="n">y4b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y5m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y4m_i_cropped</span><span class="p">,</span> <span class="n">y4m_o</span><span class="p">,</span> <span class="n">y4t_o</span><span class="p">,</span> <span class="n">y4b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y5b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y4b_i_cropped</span><span class="p">,</span> <span class="n">y4b_o</span><span class="p">,</span> <span class="n">y4t_o</span><span class="p">,</span> <span class="n">y4m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y5t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Top</span><span class="p">(</span><span class="n">y5t_i</span><span class="p">)</span>
+        <span class="n">y5m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Middle</span><span class="p">(</span><span class="n">y5m_i</span><span class="p">)</span>
+        <span class="n">y5b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5_Bottom</span><span class="p">(</span><span class="n">y5b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Sixth layer ----- #</span>
+        <span class="n">y5t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y5t_i</span><span class="p">,</span> <span class="n">y5t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y5m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y5m_i</span><span class="p">,</span> <span class="n">y5t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y5b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y5b_i</span><span class="p">,</span> <span class="n">y5t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y6t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y5t_i_cropped</span><span class="p">,</span> <span class="n">y5t_o</span><span class="p">,</span> <span class="n">y5m_o</span><span class="p">,</span> <span class="n">y5b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y6m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y5m_i_cropped</span><span class="p">,</span> <span class="n">y5m_o</span><span class="p">,</span> <span class="n">y5t_o</span><span class="p">,</span> <span class="n">y5b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y6b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y5b_i_cropped</span><span class="p">,</span> <span class="n">y5b_o</span><span class="p">,</span> <span class="n">y5t_o</span><span class="p">,</span> <span class="n">y5m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y6t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Top</span><span class="p">(</span><span class="n">y6t_i</span><span class="p">)</span>
+        <span class="n">y6m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Middle</span><span class="p">(</span><span class="n">y6m_i</span><span class="p">)</span>
+        <span class="n">y6b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6_Bottom</span><span class="p">(</span><span class="n">y6b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Seventh layer ----- #</span>
+        <span class="n">y6t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y6t_i</span><span class="p">,</span> <span class="n">y6t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y6m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y6m_i</span><span class="p">,</span> <span class="n">y6t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y6b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y6b_i</span><span class="p">,</span> <span class="n">y6t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y7t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y6t_i_cropped</span><span class="p">,</span> <span class="n">y6t_o</span><span class="p">,</span> <span class="n">y6m_o</span><span class="p">,</span> <span class="n">y6b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y7m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y6m_i_cropped</span><span class="p">,</span> <span class="n">y6m_o</span><span class="p">,</span> <span class="n">y6t_o</span><span class="p">,</span> <span class="n">y6b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y7b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y6b_i_cropped</span><span class="p">,</span> <span class="n">y6b_o</span><span class="p">,</span> <span class="n">y6t_o</span><span class="p">,</span> <span class="n">y6m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y7t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Top</span><span class="p">(</span><span class="n">y7t_i</span><span class="p">)</span>
+        <span class="n">y7m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Middle</span><span class="p">(</span><span class="n">y7m_i</span><span class="p">)</span>
+        <span class="n">y7b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7_Bottom</span><span class="p">(</span><span class="n">y7b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Eight layer ----- #</span>
+        <span class="n">y7t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y7t_i</span><span class="p">,</span> <span class="n">y7t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y7m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y7m_i</span><span class="p">,</span> <span class="n">y7t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y7b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y7b_i</span><span class="p">,</span> <span class="n">y7t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y8t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y7t_i_cropped</span><span class="p">,</span> <span class="n">y7t_o</span><span class="p">,</span> <span class="n">y7m_o</span><span class="p">,</span> <span class="n">y7b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y8m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y7m_i_cropped</span><span class="p">,</span> <span class="n">y7m_o</span><span class="p">,</span> <span class="n">y7t_o</span><span class="p">,</span> <span class="n">y7b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y8b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y7b_i_cropped</span><span class="p">,</span> <span class="n">y7b_o</span><span class="p">,</span> <span class="n">y7t_o</span><span class="p">,</span> <span class="n">y7m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y8t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Top</span><span class="p">(</span><span class="n">y8t_i</span><span class="p">)</span>
+        <span class="n">y8m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Middle</span><span class="p">(</span><span class="n">y8m_i</span><span class="p">)</span>
+        <span class="n">y8b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8_Bottom</span><span class="p">(</span><span class="n">y8b_i</span><span class="p">)</span>
+
+        <span class="c1"># ------ Ninth layer ----- #</span>
+        <span class="n">y8t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y8t_i</span><span class="p">,</span> <span class="n">y8t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y8m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y8m_i</span><span class="p">,</span> <span class="n">y8t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y8b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y8b_i</span><span class="p">,</span> <span class="n">y8t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># concatenate</span>
+        <span class="n">y9t_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y8t_i_cropped</span><span class="p">,</span> <span class="n">y8t_o</span><span class="p">,</span> <span class="n">y8m_o</span><span class="p">,</span> <span class="n">y8b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y9m_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y8m_i_cropped</span><span class="p">,</span> <span class="n">y8m_o</span><span class="p">,</span> <span class="n">y8t_o</span><span class="p">,</span> <span class="n">y8b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y9b_i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y8b_i_cropped</span><span class="p">,</span> <span class="n">y8b_o</span><span class="p">,</span> <span class="n">y8t_o</span><span class="p">,</span> <span class="n">y8m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y9t_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Top</span><span class="p">(</span><span class="n">y9t_i</span><span class="p">)</span>
+        <span class="n">y9m_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Middle</span><span class="p">(</span><span class="n">y9m_i</span><span class="p">)</span>
+        <span class="n">y9b_o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9_Bottom</span><span class="p">(</span><span class="n">y9b_i</span><span class="p">)</span>
+
+        <span class="c1">##### Fully connected layers</span>
+        <span class="n">y9t_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y9t_i</span><span class="p">,</span> <span class="n">y9t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y9m_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y9m_i</span><span class="p">,</span> <span class="n">y9t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">y9b_i_cropped</span> <span class="o">=</span> <span class="n">croppCenter</span><span class="p">(</span><span class="n">y9b_i</span><span class="p">,</span> <span class="n">y9t_o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">outputPath_top</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y9t_i_cropped</span><span class="p">,</span> <span class="n">y9t_o</span><span class="p">,</span> <span class="n">y9m_o</span><span class="p">,</span> <span class="n">y9b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">outputPath_middle</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y9m_i_cropped</span><span class="p">,</span> <span class="n">y9m_o</span><span class="p">,</span> <span class="n">y9t_o</span><span class="p">,</span> <span class="n">y9b_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">outputPath_bottom</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">y9b_i_cropped</span><span class="p">,</span> <span class="n">y9b_o</span><span class="p">,</span> <span class="n">y9t_o</span><span class="p">,</span> <span class="n">y9m_o</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">inputFully</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">outputPath_top</span><span class="p">,</span> <span class="n">outputPath_middle</span><span class="p">,</span> <span class="n">outputPath_bottom</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_1</span><span class="p">(</span><span class="n">inputFully</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_2</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fully_3</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">final</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HyperDenseNet.test"><a class="viewcode-back" href="../../../../medzoo.models.HyperDensenet.html#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">ideal_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+        <span class="c1"># assert ideal_out.shape == out.shape</span>
+        <span class="n">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+        <span class="c1"># torchsummaryX.summary(self, input_tensor.to(device))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HyperDenseNet test is complete!!!&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div></div>
+
+<span class="c1"># m = HyperDenseNet(1,4)</span>
+<span class="c1"># m.test()</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

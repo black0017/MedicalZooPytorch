@@ -2,5 +2,548 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.common.visual3D_temp.viz_2d | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="../../../../_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/_modules/medzoo/common/visual3D_temp/viz_2d.html"/>
+  
+  <meta property="og:title" content="medzoo.common.visual3D_temp.viz_2d | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+      <li>medzoo.common.visual3D_temp.viz_2d</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for medzoo.common.visual3D_temp.viz_2d</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+
+<div class="viewcode-block" id="show_mid_slice"><a class="viewcode-back" href="../../../../medzoo.common.visual3D_temp.html#medzoo.common.visual3D_temp.viz_2d.show_mid_slice">[docs]</a><span class="k">def</span> <span class="nf">show_mid_slice</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">return_views</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accepts an 3D numpy array and shows median slices in all three planes</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        img_numpy:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">img_numpy</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;please provide a 3d numpy image&quot;</span>
+    <span class="n">n_i</span><span class="p">,</span> <span class="n">n_j</span><span class="p">,</span> <span class="n">n_k</span> <span class="o">=</span> <span class="n">img_numpy</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># saggital</span>
+    <span class="n">center_i1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">n_i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># transversecreate_2d_views</span>
+    <span class="n">center_j1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">n_j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># axial slice</span>
+    <span class="n">center_k1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">n_k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_views</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">_show_slices</span><span class="p">([</span><span class="n">img_numpy</span><span class="p">[</span><span class="n">center_i1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span>
+                      <span class="n">img_numpy</span><span class="p">[:,</span> <span class="n">center_j1</span><span class="p">,</span> <span class="p">:],</span>
+                      <span class="n">img_numpy</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">center_k1</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">img_numpy</span><span class="p">[</span><span class="n">center_i1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span>
+                <span class="n">img_numpy</span><span class="p">[:,</span> <span class="n">center_j1</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">img_numpy</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">center_k1</span><span class="p">])</span></div>
+
+
+<span class="k">def</span> <span class="nf">_show_slices</span><span class="p">(</span><span class="n">slices</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to display a row of image slices</span>
+<span class="sd">    Input is a list of numpy 2D image slices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">slice</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slices</span><span class="p">):</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">slice</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># TODO test and add medical writer</span>
+<div class="viewcode-block" id="create_2d_views"><a class="viewcode-back" href="../../../../medzoo.common.visual3D_temp.html#medzoo.common.visual3D_temp.viz_2d.create_2d_views">[docs]</a><span class="k">def</span> <span class="nf">create_2d_views</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">segment_map</span><span class="p">,</span> <span class="n">path_to_save</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Comparative 2d vizualization of median slices:</span>
+<span class="sd">    axial, saggital and transpose. Save to png file and to tensorboard</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        predictions:</span>
+<span class="sd">        segment_map:</span>
+<span class="sd">        epoch:</span>
+<span class="sd">        writer:</span>
+<span class="sd">        path_to_save:</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+   
+    <span class="c1"># todo scale to range [0,255 for tensor borad] ??????</span>
+    <span class="n">segment_pred</span> <span class="o">=</span> <span class="n">seg_map_vizualization_iseg</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+
+    <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span> <span class="o">=</span> <span class="n">show_mid_slice</span><span class="p">(</span><span class="n">segment_pred</span><span class="p">,</span> <span class="n">return_views</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">show_mid_slice</span><span class="p">(</span><span class="n">segment_map</span><span class="p">,</span> <span class="n">return_views</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">s1</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">p1</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">s2</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">p2</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">s3</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">p3</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="n">list_vol</span> <span class="o">=</span> <span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="n">p3</span><span class="p">]</span>
+    <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_vol</span><span class="p">)):</span>
+        <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># plt.imshow(list_vol[i], cmap=&#39;gray&#39;)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">list_vol</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path_to_save</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DONEEEEEEEEEEEEEEEE 2D views production....&quot;</span><span class="p">)</span></div>
+    <span class="c1"># TODO test in base class writer</span>
+    <span class="c1"># writer.add_figure(&#39;Images/all_2d_views&#39;, figure, epoch)</span>
+    <span class="c1"># writer.add_image(&#39;Images/pred_view_1&#39;, s1, epoch, dataformats=&#39;HW&#39;)</span>
+    <span class="c1"># writer.add_image(&#39;Images/pred_view_2&#39;, s2, epoch, dataformats=&#39;HW&#39;)</span>
+    <span class="c1"># writer.add_image(&#39;Images/pred_view_3&#39;, s3, epoch, dataformats=&#39;HW&#39;)</span>
+    <span class="c1"># TODO save image pairs</span>
+    <span class="c1"># a1 = torch.stack((s1, p1)).long()</span>
+    <span class="c1"># writer.add_images(&#39;view_1&#39;, a1, epoch, dataformats=&#39;NHWC&#39; )</span>
+
+
+<div class="viewcode-block" id="seg_map_vizualization_iseg"><a class="viewcode-back" href="../../../../medzoo.common.visual3D_temp.html#medzoo.common.visual3D_temp.viz_2d.seg_map_vizualization_iseg">[docs]</a><span class="k">def</span> <span class="nf">seg_map_vizualization_iseg</span><span class="p">(</span><span class="n">segmentation_map</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        segmentation_map:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># visual labels of ISEG-2017</span>
+    <span class="n">label_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">label_values</span><span class="p">):</span>
+        <span class="n">segmentation_map</span><span class="p">[</span><span class="n">segmentation_map</span> <span class="o">==</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
+    <span class="k">return</span> <span class="n">segmentation_map</span></div>
+
+
+<span class="c1"># not used right now ???</span>
+<div class="viewcode-block" id="plot_segm"><a class="viewcode-back" href="../../../../medzoo.common.visual3D_temp.html#medzoo.common.visual3D_temp.viz_2d.plot_segm">[docs]</a><span class="k">def</span> <span class="nf">plot_segm</span><span class="p">(</span><span class="n">segm</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">plots_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Saves predicted and ground truth segmentation into a PNG files (one per channel).</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        segm: 4D ndarray (CDHW)</span>
+<span class="sd">        ground_truth: 4D ndarray (CDHW)</span>
+<span class="sd">        plots_dir: directory where to save the plots</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+   
+    <span class="kn">import</span> <span class="nn">uuid</span>
+    <span class="k">assert</span> <span class="n">segm</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">ground_truth</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">stacked</span> <span class="o">=</span> <span class="p">[</span><span class="n">ground_truth</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">segm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">stacked</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">ground_truth</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span>
+
+    <span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">seg</span><span class="p">,</span> <span class="n">gt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">segm</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+        <span class="n">mid_z</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">seg</span><span class="p">[</span><span class="n">mid_z</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;prism&#39;</span><span class="p">)</span>
+        <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Predicted segmentation&#39;</span><span class="p">)</span>
+
+        <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gt</span><span class="p">[</span><span class="n">mid_z</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;prism&#39;</span><span class="p">)</span>
+        <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Ground truth segmentation&#39;</span><span class="p">)</span>
+
+        <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;segm_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s1">.png&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plots_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">))</span></div>
+
+<span class="c1"># TODO dead code?</span>
+<div class="viewcode-block" id="overlap_2d_image"><a class="viewcode-back" href="../../../../medzoo.common.visual3D_temp.html#medzoo.common.visual3D_temp.viz_2d.overlap_2d_image">[docs]</a><span class="k">def</span> <span class="nf">overlap_2d_image</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+    <span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">128</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="mi">64</span>
+    <span class="n">patches</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unfold</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">)</span><span class="o">.</span><span class="n">unfold</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">)</span>
+    <span class="c1"># print(&#39;patches shape &#39;, patches.shape)  # [B, C, nb_patches_h, nb_patches_w, kernel_size, kernel_size]</span>
+
+    <span class="c1"># perform the operations on each patch</span>
+    <span class="c1"># ...</span>
+
+    <span class="c1"># reshape output to match F.fold input</span>
+    <span class="n">patches</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">*</span> <span class="n">kernel_size</span><span class="p">)</span>
+    <span class="c1"># print(patches.shape)  # [B, C, nb_patches_all, kernel_size*kernel_size]</span>
+    <span class="n">patches</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># print(patches.shape)  # [B, C, kernel_size*kernel_size, nb_patches_all]</span>
+    <span class="n">patches</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span> <span class="n">kernel_size</span> <span class="o">*</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># print(patches.shape)  # [B, C*prod(kernel_size), L] as expected by Fold</span>
+    <span class="c1"># https://pytorch.org/docs/stable/nn.html#torch.nn.Fold</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span>
+        <span class="n">patches</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span></div>
+    <span class="c1"># print(output.shape)  # [B, C, H, W]</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

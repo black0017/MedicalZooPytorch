@@ -58,26 +58,21 @@ pygments_style = "sphinx"
 #
 html_theme = "pytorch_sphinx_theme"
 html_theme_path = [pytorch_sphinx_theme.get_html_theme_path()]
+templates_path = ['_templates']
+
 
 html_theme_options = {
     "includehidden": False,
-    "canonical_url": "",
+    "canonical_url": "http://localhost:63342/",
     "pytorch_project": "docs",
 }
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-# This is required for the alabaster theme
-# refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-html_sidebars = {
-    "**": [
-        "relations.html",  # needs 'show_related': True theme option to display
-        "searchbox.html",
-    ]
-}
 
 html_baseurl = "/"
 # -- Options for HTMLHelp output ------------------------------------------
@@ -86,4 +81,4 @@ html_baseurl = "/"
 htmlhelp_basename = "medzoodoc"
 
 master_doc = "index"
-man_pages = [(master_doc, "mmf", "MMF Documentation", [author], 1)]
+man_pages = [(master_doc, "Medical Zoo", "Medical Zoo Documentation", [author], 1)]

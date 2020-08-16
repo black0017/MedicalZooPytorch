@@ -2,5 +2,868 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.common.losses3D package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.common.losses3D.html"/>
+  
+  <meta property="og:title" content="medzoo.common.losses3D package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="medzoo.common.augment3D package" href="medzoo.common.augment3D.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.common.losses3D package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.common.losses3D.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-common-losses3d-package">
+<h1>medzoo.common.losses3D package<a class="headerlink" href="#medzoo-common-losses3d-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.common.losses3D.BCE_dice">
+<span id="medzoo-common-losses3d-bce-dice-module"></span><h2>medzoo.common.losses3D.BCE_dice module<a class="headerlink" href="#module-medzoo.common.losses3D.BCE_dice" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.BCE_dice.BCEDiceLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.BCE_dice.</code><code class="sig-name descname">BCEDiceLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/BCE_dice.html#BCEDiceLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.BCE_dice.BCEDiceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Linear combination of BCE and Dice losses3D</p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.BCE_dice.BCEDiceLoss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/BCE_dice.html#BCEDiceLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.BCE_dice.BCEDiceLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.BCE_dice.BCEDiceLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.BCE_dice.BCEDiceLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.BaseClass">
+<span id="medzoo-common-losses3d-baseclass-module"></span><h2>medzoo.common.losses3D.BaseClass module<a class="headerlink" href="#module-medzoo.common.losses3D.BaseClass" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.common.losses3D.ContrastiveLoss">
+<span id="medzoo-common-losses3d-contrastiveloss-module"></span><h2>medzoo.common.losses3D.ContrastiveLoss module<a class="headerlink" href="#module-medzoo.common.losses3D.ContrastiveLoss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.ContrastiveLoss.</code><code class="sig-name descname">ContrastiveLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta_var</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">delta_dist</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">norm</span><span class="o">=</span><span class="default_value">'fro'</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">gamma</span><span class="o">=</span><span class="default_value">0.001</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/ContrastiveLoss.html#ContrastiveLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Implementation of contrastive loss defined in <a class="reference external" href="https://arxiv.org/pdf/1708.02551.pdf">https://arxiv.org/pdf/1708.02551.pdf</a>
+‘Semantic Instance Segmentation with a Discriminative Loss Function’</p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/ContrastiveLoss.html#ContrastiveLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> (<em>torch.tensor</em>) – embeddings predicted by the network (NxExDxHxW) (E - embedding dims)</p></li>
+<li><p><strong>target</strong> (<em>torch.tensor</em>) – ground truth instance segmentation (NxDxHxW)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>alpha * variance_term + beta * distance_term + gamma * regularization_term</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Combined loss defined as</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.ContrastiveLoss.ContrastiveLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.Dice2D">
+<span id="medzoo-common-losses3d-dice2d-module"></span><h2>medzoo.common.losses3D.Dice2D module<a class="headerlink" href="#module-medzoo.common.losses3D.Dice2D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.Dice2D.</code><code class="sig-name descname">DiceLoss2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classes</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-05</span></em>, <em class="sig-param"><span class="n">sigmoid_normalization</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/Dice2D.html#DiceLoss2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D.compute_per_channel_dice">
+<code class="sig-name descname">compute_per_channel_dice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/Dice2D.html#DiceLoss2D.compute_per_channel_dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D.compute_per_channel_dice" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D.expand_as_one_hot">
+<code class="sig-name descname">expand_as_one_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/Dice2D.html#DiceLoss2D.expand_as_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D.expand_as_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts label image to CxHxW, where each label gets converted to</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> – target is of shape  (1xHxW)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>3D output tensor (CxHxW) where C is the classes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D.flatten">
+<code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/Dice2D.html#DiceLoss2D.flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensor</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/Dice2D.html#DiceLoss2D.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.Dice2D.DiceLoss2D.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.Dice2D.DiceLoss2D.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.VAEloss">
+<span id="medzoo-common-losses3d-vaeloss-module"></span><h2>medzoo.common.losses3D.VAEloss module<a class="headerlink" href="#module-medzoo.common.losses3D.VAEloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.common.losses3D.VAEloss.loss_vae">
+<code class="sig-prename descclassname">medzoo.common.losses3D.VAEloss.</code><code class="sig-name descname">loss_vae</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recon_x</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">mu</span></em>, <em class="sig-param"><span class="n">logvar</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'BCE'</span></em>, <em class="sig-param"><span class="n">h1</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">h2</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/VAEloss.html#loss_vae"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.VAEloss.loss_vae" title="Permalink to this definition">¶</a></dt>
+<dd><p>see Appendix B from VAE paper:
+Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
+# <a class="reference external" href="https://arxiv.org/abs/1312.6114">https://arxiv.org/abs/1312.6114</a>
+# 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recon_x</strong> – </p></li>
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>mu</strong> – VAE parameters</p></li>
+<li><p><strong>logvar</strong> – VAE parameters</p></li>
+<li><p><strong>type</strong> – choices BCE,L1,L2</p></li>
+<li><p><strong>h1</strong> – reconsrtruction hyperparam</p></li>
+<li><p><strong>h2</strong> – KL div hyperparam</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>total loss of VAE</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.basic">
+<span id="medzoo-common-losses3d-basic-module"></span><h2>medzoo.common.losses3D.basic module<a class="headerlink" href="#module-medzoo.common.losses3D.basic" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.common.losses3D.basic.compute_per_channel_dice">
+<code class="sig-prename descclassname">medzoo.common.losses3D.basic.</code><code class="sig-name descname">compute_per_channel_dice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/basic.html#compute_per_channel_dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.basic.compute_per_channel_dice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes DiceCoefficient as defined in <a class="reference external" href="https://arxiv.org/abs/1606.04797">https://arxiv.org/abs/1606.04797</a> given  a multi channel input and target.
+Assumes the input is a normalized probability, e.g. a result of Sigmoid or Softmax function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> (<em>torch.Tensor</em>) – NxCxSpatial input tensor</p></li>
+<li><p><strong>target</strong> (<em>torch.Tensor</em>) – NxCxSpatial target tensor</p></li>
+<li><p><strong>epsilon</strong> (<em>float</em>) – prevents division by zero</p></li>
+<li><p><strong>weight</strong> (<em>torch.Tensor</em>) – Cx1 tensor of weight per channel/class</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.losses3D.basic.expand_as_one_hot">
+<code class="sig-prename descclassname">medzoo.common.losses3D.basic.</code><code class="sig-name descname">expand_as_one_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">C</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/basic.html#expand_as_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.basic.expand_as_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted to its corresponding one-hot vector</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – 4D input image (NxDxHxW)</p></li>
+<li><p><strong>C</strong> – number of channels/labels</p></li>
+<li><p><strong>ignore_index</strong> – ignore index to be kept during the expansion</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>5D output image (NxCxDxHxW)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.losses3D.basic.flatten">
+<code class="sig-prename descclassname">medzoo.common.losses3D.basic.</code><code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/basic.html#flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.basic.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens a given tensor such that the channel axis is first.
+The shapes are transformed as follows:</p>
+<blockquote>
+<div><p>(N, C, D, H, W) -&gt; (C, N * D * H * W)</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.dice">
+<span id="medzoo-common-losses3d-dice-module"></span><h2>medzoo.common.losses3D.dice module<a class="headerlink" href="#module-medzoo.common.losses3D.dice" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.dice.DiceLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.dice.</code><code class="sig-name descname">DiceLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">skip_index_after</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sigmoid_normalization</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/dice.html#DiceLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.dice.DiceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.common.losses3D.BaseClass._AbstractDiceLoss</span></code></p>
+<p>Computes Dice Loss according to <a class="reference external" href="https://arxiv.org/abs/1606.04797">https://arxiv.org/abs/1606.04797</a>.
+For multi-class segmentation <cite>weight</cite> parameter can be used to assign different weights per class.</p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.dice.DiceLoss.dice">
+<code class="sig-name descname">dice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">weight</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/dice.html#DiceLoss.dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.dice.DiceLoss.dice" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+<li><p><strong>weight</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.dice.DiceLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.dice.DiceLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.generalized_dice">
+<span id="medzoo-common-losses3d-generalized-dice-module"></span><h2>medzoo.common.losses3D.generalized_dice module<a class="headerlink" href="#module-medzoo.common.losses3D.generalized_dice" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.generalized_dice.</code><code class="sig-name descname">GeneralizedDiceLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">sigmoid_normalization</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">skip_index_after</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/generalized_dice.html#GeneralizedDiceLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.common.losses3D.BaseClass._AbstractDiceLoss</span></code></p>
+<p>Computes Generalized Dice Loss (GDL) as described in <a class="reference external" href="https://arxiv.org/pdf/1707.03237.pdf">https://arxiv.org/pdf/1707.03237.pdf</a>.</p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss.dice">
+<code class="sig-name descname">dice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">weight</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/generalized_dice.html#GeneralizedDiceLoss.dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss.dice" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+<li><p><strong>weight</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.generalized_dice.GeneralizedDiceLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.pixel_wise_cross_entropy">
+<span id="medzoo-common-losses3d-pixel-wise-cross-entropy-module"></span><h2>medzoo.common.losses3D.pixel_wise_cross_entropy module<a class="headerlink" href="#module-medzoo.common.losses3D.pixel_wise_cross_entropy" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.pixel_wise_cross_entropy.</code><code class="sig-name descname">PixelWiseCrossEntropyLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/pixel_wise_cross_entropy.html#PixelWiseCrossEntropyLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">weights</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/pixel_wise_cross_entropy.html#PixelWiseCrossEntropyLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+<li><p><strong>weights</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.pixel_wise_cross_entropy.PixelWiseCrossEntropyLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.tags_angular_loss">
+<span id="medzoo-common-losses3d-tags-angular-loss-module"></span><h2>medzoo.common.losses3D.tags_angular_loss module<a class="headerlink" href="#module-medzoo.common.losses3D.tags_angular_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.tags_angular_loss.</code><code class="sig-name descname">TagsAngularLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tags_coefficients</span><span class="o">=</span><span class="default_value">[1.0, 0.8, 0.5]</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/tags_angular_loss.html#TagsAngularLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">targets</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/tags_angular_loss.html#TagsAngularLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – </p></li>
+<li><p><strong>targets</strong> – </p></li>
+<li><p><strong>weight</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.tags_angular_loss.TagsAngularLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.losses3D.tags_angular_loss.square_angular_loss">
+<code class="sig-prename descclassname">medzoo.common.losses3D.tags_angular_loss.</code><code class="sig-name descname">square_angular_loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/tags_angular_loss.html#square_angular_loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.tags_angular_loss.square_angular_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes square angular loss between input and target directions.
+Makes sure that the input and target directions are normalized so that torch.acos would not produce NaNs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – 5D input tensor (NCDHW)</p></li>
+<li><p><strong>target</strong> – 5D target tensor (NCDHW)</p></li>
+<li><p><strong>weights</strong> – 3D weight tensor in order to balance different instance sizes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>per pixel weighted sum of squared angular losses3D</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.weight_cross_entropy">
+<span id="medzoo-common-losses3d-weight-cross-entropy-module"></span><h2>medzoo.common.losses3D.weight_cross_entropy module<a class="headerlink" href="#module-medzoo.common.losses3D.weight_cross_entropy" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.weight_cross_entropy.</code><code class="sig-name descname">WeightedCrossEntropyLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ignore_index</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/weight_cross_entropy.html#WeightedCrossEntropyLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>WeightedCrossEntropyLoss (WCE) as described in <a class="reference external" href="https://arxiv.org/pdf/1707.03237.pdf">https://arxiv.org/pdf/1707.03237.pdf</a></p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/weight_cross_entropy.html#WeightedCrossEntropyLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.weight_cross_entropy.WeightedCrossEntropyLoss.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D.weight_smooth_l1">
+<span id="medzoo-common-losses3d-weight-smooth-l1-module"></span><h2>medzoo.common.losses3D.weight_smooth_l1 module<a class="headerlink" href="#module-medzoo.common.losses3D.weight_smooth_l1" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.weight_smooth_l1.</code><code class="sig-name descname">WeightedSmoothL1Loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">initial_weight</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">apply_below_threshold</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/weight_smooth_l1.html#WeightedSmoothL1Loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.loss.SmoothL1Loss</span></code></p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D/weight_smooth_l1.html#WeightedSmoothL1Loss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss.reduction">
+<code class="sig-name descname">reduction</code><em class="property">: str</em><a class="headerlink" href="#medzoo.common.losses3D.weight_smooth_l1.WeightedSmoothL1Loss.reduction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.losses3D">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.common.losses3D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.losses3D.SkipLastTargetChannelWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.losses3D.</code><code class="sig-name descname">SkipLastTargetChannelWrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss</span></em>, <em class="sig-param"><span class="n">squeeze_channel</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D.html#SkipLastTargetChannelWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.SkipLastTargetChannelWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Loss wrapper which removes additional target channel</p>
+<dl class="py method">
+<dt id="medzoo.common.losses3D.SkipLastTargetChannelWrapper.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D.html#SkipLastTargetChannelWrapper.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.SkipLastTargetChannelWrapper.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.common.losses3D.SkipLastTargetChannelWrapper.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.common.losses3D.SkipLastTargetChannelWrapper.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.losses3D.create_loss">
+<code class="sig-prename descclassname">medzoo.common.losses3D.</code><code class="sig-name descname">create_loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pos_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/losses3D.html#create_loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.losses3D.create_loss" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>weight</strong> – </p></li>
+<li><p><strong>ignore_index</strong> – </p></li>
+<li><p><strong>pos_weight</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="medzoo.common.augment3D.html" class="btn btn-neutral" title="medzoo.common.augment3D package" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.common.losses3D package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.BCE_dice">medzoo.common.losses3D.BCE_dice module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.BaseClass">medzoo.common.losses3D.BaseClass module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.ContrastiveLoss">medzoo.common.losses3D.ContrastiveLoss module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.Dice2D">medzoo.common.losses3D.Dice2D module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.VAEloss">medzoo.common.losses3D.VAEloss module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.basic">medzoo.common.losses3D.basic module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.dice">medzoo.common.losses3D.dice module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.generalized_dice">medzoo.common.losses3D.generalized_dice module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.pixel_wise_cross_entropy">medzoo.common.losses3D.pixel_wise_cross_entropy module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.tags_angular_loss">medzoo.common.losses3D.tags_angular_loss module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.weight_cross_entropy">medzoo.common.losses3D.weight_cross_entropy module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D.weight_smooth_l1">medzoo.common.losses3D.weight_smooth_l1 module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.losses3D">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

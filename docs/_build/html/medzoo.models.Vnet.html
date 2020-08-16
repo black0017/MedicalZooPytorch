@@ -2,5 +2,608 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.Vnet package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.models.Vnet.html"/>
+  
+  <meta property="og:title" content="medzoo.models.Vnet package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.models.Vnet package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.models.Vnet.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-models-vnet-package">
+<h1>medzoo.models.Vnet package<a class="headerlink" href="#medzoo-models-vnet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.models.Vnet.Vnet">
+<span id="medzoo-models-vnet-vnet-module"></span><h2>medzoo.models.Vnet.Vnet module<a class="headerlink" href="#module-medzoo.models.Vnet.Vnet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.DownTransition">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">DownTransition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inChans</span></em>, <em class="sig-param"><span class="n">nConvs</span></em>, <em class="sig-param"><span class="n">elu</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#DownTransition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.DownTransition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.DownTransition.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#DownTransition.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.DownTransition.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.DownTransition.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.DownTransition.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.Vnet.Vnet.ELUCons">
+<code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">ELUCons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elu</span></em>, <em class="sig-param"><span class="n">nchan</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#ELUCons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.ELUCons" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elu</strong> – </p></li>
+<li><p><strong>nchan</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.InputTransition">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">InputTransition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">elu</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#InputTransition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.InputTransition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.InputTransition.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#InputTransition.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.InputTransition.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.InputTransition.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.InputTransition.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.LUConv">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">LUConv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nchan</span></em>, <em class="sig-param"><span class="n">elu</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#LUConv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.LUConv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.LUConv.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#LUConv.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.LUConv.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.LUConv.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.LUConv.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.OutputTransition">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">OutputTransition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">classes</span></em>, <em class="sig-param"><span class="n">elu</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#OutputTransition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.OutputTransition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.OutputTransition.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#OutputTransition.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.OutputTransition.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.OutputTransition.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.OutputTransition.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.UpTransition">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">UpTransition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inChans</span></em>, <em class="sig-param"><span class="n">outChans</span></em>, <em class="sig-param"><span class="n">nConvs</span></em>, <em class="sig-param"><span class="n">elu</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#UpTransition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.UpTransition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.UpTransition.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">skipx</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#UpTransition.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.UpTransition.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>skipx</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.UpTransition.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.UpTransition.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.VNet">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">VNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elu</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">in_channels</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<p>Implementations based on the Vnet paper: <a class="reference external" href="https://arxiv.org/abs/1606.04797">https://arxiv.org/abs/1606.04797</a></p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.VNet.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.VNet.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNet.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNet.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.VNet.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Vnet.Vnet.VNetLight">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">VNetLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elu</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">in_channels</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNetLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNetLight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<p>A lighter version of Vnet that skips down_tr256 and up_tr256 in oreder to reduce time and space complexity</p>
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.VNetLight.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNetLight.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNetLight.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.Vnet.Vnet.VNetLight.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#VNetLight.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNetLight.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Vnet.Vnet.VNetLight.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Vnet.Vnet.VNetLight.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.Vnet.Vnet.passthrough">
+<code class="sig-prename descclassname">medzoo.models.Vnet.Vnet.</code><code class="sig-name descname">passthrough</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Vnet/Vnet.html#passthrough"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Vnet.Vnet.passthrough" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.models.Vnet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.models.Vnet" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.models.Vnet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.Vnet.Vnet">medzoo.models.Vnet.Vnet module</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.Vnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

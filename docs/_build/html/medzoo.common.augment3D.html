@@ -2,5 +2,642 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.common.augment3D package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.common.augment3D.html"/>
+  
+  <meta property="og:title" content="medzoo.common.augment3D package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="medzoo.common.losses3D package" href="medzoo.common.losses3D.html" />
+    <link rel="prev" title="Welcome to MedicalZoo’s documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.common.augment3D package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.common.augment3D.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-common-augment3d-package">
+<h1>medzoo.common.augment3D package<a class="headerlink" href="#medzoo-common-augment3d-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.common.augment3D.elastic_deform">
+<span id="medzoo-common-augment3d-elastic-deform-module"></span><h2>medzoo.common.augment3D.elastic_deform module<a class="headerlink" href="#module-medzoo.common.augment3D.elastic_deform" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.elastic_deform.ElasticTransform">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.elastic_deform.</code><code class="sig-name descname">ElasticTransform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">c_val</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'linear'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/elastic_deform.html#ElasticTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.elastic_deform.ElasticTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.elastic_deform.elastic_transform_3d">
+<code class="sig-prename descclassname">medzoo.common.augment3D.elastic_deform.</code><code class="sig-name descname">elastic_transform_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">c_val</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'linear'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/elastic_deform.html#elastic_transform_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.elastic_deform.elastic_transform_3d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – 3D medical image modality</p></li>
+<li><p><strong>labels</strong> – 3D medical image labels</p></li>
+<li><p><strong>alpha</strong> – scaling factor of gaussian filter</p></li>
+<li><p><strong>sigma</strong> – standard deviation of random gaussian filter</p></li>
+<li><p><strong>c_val</strong> – fill value</p></li>
+<li><p><strong>method</strong> – interpolation method. supported methods : (“linear”, “nearest”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>deformed image and/or label</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.gaussian_noise">
+<span id="medzoo-common-augment3d-gaussian-noise-module"></span><h2>medzoo.common.augment3D.gaussian_noise module<a class="headerlink" href="#module-medzoo.common.augment3D.gaussian_noise" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.gaussian_noise.GaussianNoise">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.gaussian_noise.</code><code class="sig-name descname">GaussianNoise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">std</span><span class="o">=</span><span class="default_value">0.001</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/gaussian_noise.html#GaussianNoise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.gaussian_noise.GaussianNoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.gaussian_noise.random_noise">
+<code class="sig-prename descclassname">medzoo.common.augment3D.gaussian_noise.</code><code class="sig-name descname">random_noise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">mean</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">std</span><span class="o">=</span><span class="default_value">0.001</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/gaussian_noise.html#random_noise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.gaussian_noise.random_noise" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – </p></li>
+<li><p><strong>mean</strong> – </p></li>
+<li><p><strong>std</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>random noice</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.random_crop">
+<span id="medzoo-common-augment3d-random-crop-module"></span><h2>medzoo.common.augment3D.random_crop module<a class="headerlink" href="#module-medzoo.common.augment3D.random_crop" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.random_crop.RandomCropToLabels">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.random_crop.</code><code class="sig-name descname">RandomCropToLabels</code><a class="reference internal" href="_modules/medzoo/common/augment3D/random_crop.html#RandomCropToLabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_crop.RandomCropToLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_crop.random_crop_to_labels">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_crop.</code><code class="sig-name descname">random_crop_to_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">label</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_crop.html#random_crop_to_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_crop.random_crop_to_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random center crop near the label area</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.random_flip">
+<span id="medzoo-common-augment3d-random-flip-module"></span><h2>medzoo.common.augment3D.random_flip module<a class="headerlink" href="#module-medzoo.common.augment3D.random_flip" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.random_flip.RandomFlip">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.random_flip.</code><code class="sig-name descname">RandomFlip</code><a class="reference internal" href="_modules/medzoo/common/augment3D/random_flip.html#RandomFlip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_flip.RandomFlip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_flip.flip_axis">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_flip.</code><code class="sig-name descname">flip_axis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">axis</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_flip.html#flip_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_flip.flip_axis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – </p></li>
+<li><p><strong>axis</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_flip.random_flip">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_flip.</code><code class="sig-name descname">random_flip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axis_for_flip</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_flip.html#random_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_flip.random_flip" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – </p></li>
+<li><p><strong>label</strong> – </p></li>
+<li><p><strong>axis_for_flip</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.random_rescale">
+<span id="medzoo-common-augment3d-random-rescale-module"></span><h2>medzoo.common.augment3D.random_rescale module<a class="headerlink" href="#module-medzoo.common.augment3D.random_rescale" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.random_rescale.RandomZoom">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.random_rescale.</code><code class="sig-name descname">RandomZoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_percentage</span><span class="o">=</span><span class="default_value">0.8</span></em>, <em class="sig-param"><span class="n">max_percentage</span><span class="o">=</span><span class="default_value">1.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_rescale.html#RandomZoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_rescale.RandomZoom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_rescale.random_zoom">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_rescale.</code><code class="sig-name descname">random_zoom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">min_percentage</span><span class="o">=</span><span class="default_value">0.8</span></em>, <em class="sig-param"><span class="n">max_percentage</span><span class="o">=</span><span class="default_value">1.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_rescale.html#random_zoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_rescale.random_zoom" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – [description]</p></li>
+<li><p><strong>min_percentage</strong> – [description]. Defaults to 0.8.</p></li>
+<li><p><strong>max_percentage</strong> – [description]. Defaults to 1.1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>zoom in/out aigmented img</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.random_rotate">
+<span id="medzoo-common-augment3d-random-rotate-module"></span><h2>medzoo.common.augment3D.random_rotate module<a class="headerlink" href="#module-medzoo.common.augment3D.random_rotate" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.random_rotate.RandomRotation">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.random_rotate.</code><code class="sig-name descname">RandomRotation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_angle</span><span class="o">=</span><span class="default_value">- 10</span></em>, <em class="sig-param"><span class="n">max_angle</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_rotate.html#RandomRotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_rotate.RandomRotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_rotate.random_rotate3D">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_rotate.</code><code class="sig-name descname">random_rotate3D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">min_angle</span></em>, <em class="sig-param"><span class="n">max_angle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_rotate.html#random_rotate3D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_rotate.random_rotate3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random rotated array in the same shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – 3D numpy array</p></li>
+<li><p><strong>min_angle</strong> – in degrees</p></li>
+<li><p><strong>max_angle</strong> – in degrees</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>3D rotated img</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D.random_shift">
+<span id="medzoo-common-augment3d-random-shift-module"></span><h2>medzoo.common.augment3D.random_shift module<a class="headerlink" href="#module-medzoo.common.augment3D.random_shift" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.random_shift.RandomShift">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.random_shift.</code><code class="sig-name descname">RandomShift</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_percentage</span><span class="o">=</span><span class="default_value">0.2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_shift.html#RandomShift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_shift.RandomShift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_shift.random_shift">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_shift.</code><code class="sig-name descname">random_shift</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">max_percentage</span><span class="o">=</span><span class="default_value">0.2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_shift.html#random_shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_shift.random_shift" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_numpy</strong> – </p></li>
+<li><p><strong>max_percentage</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.augment3D.random_shift.transform_matrix_offset_center_3d">
+<code class="sig-prename descclassname">medzoo.common.augment3D.random_shift.</code><code class="sig-name descname">transform_matrix_offset_center_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D/random_shift.html#transform_matrix_offset_center_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.random_shift.transform_matrix_offset_center_3d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – </p></li>
+<li><p><strong>x</strong> – </p></li>
+<li><p><strong>y</strong> – </p></li>
+<li><p><strong>z</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.augment3D">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.common.augment3D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.common.augment3D.ComposeTransforms">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.</code><code class="sig-name descname">ComposeTransforms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transforms</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">p</span><span class="o">=</span><span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D.html#ComposeTransforms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.ComposeTransforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Composes several transforms together.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.common.augment3D.RandomChoice">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.common.augment3D.</code><code class="sig-name descname">RandomChoice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transforms</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">p</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/augment3D.html#RandomChoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.augment3D.RandomChoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Choose a random tranform from list and apply</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transforms</strong> – tranforms to apply</p></li>
+<li><p><strong>p</strong> – probability</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="medzoo.common.losses3D.html" class="btn btn-neutral float-right" title="medzoo.common.losses3D package" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to MedicalZoo’s documentation!" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.common.augment3D package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.elastic_deform">medzoo.common.augment3D.elastic_deform module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.gaussian_noise">medzoo.common.augment3D.gaussian_noise module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.random_crop">medzoo.common.augment3D.random_crop module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.random_flip">medzoo.common.augment3D.random_flip module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.random_rescale">medzoo.common.augment3D.random_rescale module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.random_rotate">medzoo.common.augment3D.random_rotate module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D.random_shift">medzoo.common.augment3D.random_shift module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.augment3D">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

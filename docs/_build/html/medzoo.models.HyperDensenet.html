@@ -2,5 +2,803 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.HyperDensenet package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.models.HyperDensenet.html"/>
+  
+  <meta property="og:title" content="medzoo.models.HyperDensenet package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.models.HyperDensenet package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.models.HyperDensenet.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-models-hyperdensenet-package">
+<h1>medzoo.models.HyperDensenet package<a class="headerlink" href="#medzoo-models-hyperdensenet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.models.HyperDensenet.HyperDensenet">
+<span id="medzoo-models-hyperdensenet-hyperdensenet-module"></span><h2>medzoo.models.HyperDensenet.HyperDensenet module<a class="headerlink" href="#module-medzoo.models.HyperDensenet.HyperDensenet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">HyperDenseNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<dl class="py method">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">HyperDenseNet_2Mod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet_2Mod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<dl class="py method">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet_2Mod.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#HyperDenseNet_2Mod.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.HyperDenseNet_2Mod.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.ResidualConv">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">ResidualConv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nin</span></em>, <em class="sig-param"><span class="n">nout</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">BN</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ws</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">activ</span><span class="o">=</span><span class="default_value">LeakyReLU(negative_slope=0.2)</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#ResidualConv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.ResidualConv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.ResidualConv.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#ResidualConv.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.ResidualConv.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.ResidualConv.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.ResidualConv.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.avrgpool0125">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">avrgpool0125</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#avrgpool0125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.avrgpool0125" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.avrgpool025">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">avrgpool025</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#avrgpool025"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.avrgpool025" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.avrgpool05">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">avrgpool05</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#avrgpool05"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.avrgpool05" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.classificationNet">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">classificationNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">D_in</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#classificationNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.classificationNet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>D_in</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv</code><span class="sig-paren">(</span><em class="sig-param">nin</em>, <em class="sig-param">nout</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">bias=False</em>, <em class="sig-param">layer=&lt;class 'torch.nn.modules.conv.Conv2d'&gt;</em>, <em class="sig-param">BN=False</em>, <em class="sig-param">ws=False</em>, <em class="sig-param">activ=LeakyReLU(negative_slope=0.2)</em>, <em class="sig-param">gainWS=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nin</strong> – </p></li>
+<li><p><strong>nout</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>stride</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>bias</strong> – </p></li>
+<li><p><strong>layer</strong> – </p></li>
+<li><p><strong>BN</strong> – </p></li>
+<li><p><strong>ws</strong> – </p></li>
+<li><p><strong>activ</strong> – </p></li>
+<li><p><strong>gainWS</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.convBatch">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">convBatch</code><span class="sig-paren">(</span><em class="sig-param">nin</em>, <em class="sig-param">nout</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">bias=False</em>, <em class="sig-param">layer=&lt;class 'torch.nn.modules.conv.Conv2d'&gt;</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#convBatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.convBatch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nin</strong> – </p></li>
+<li><p><strong>nout</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>stride</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>bias</strong> – </p></li>
+<li><p><strong>layer</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.convBlock">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">convBlock</code><span class="sig-paren">(</span><em class="sig-param">nin</em>, <em class="sig-param">nout</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">batchNorm=False</em>, <em class="sig-param">layer=&lt;class 'torch.nn.modules.conv.Conv3d'&gt;</em>, <em class="sig-param">bias=True</em>, <em class="sig-param">dropout_rate=0.0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#convBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.convBlock" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nin</strong> – </p></li>
+<li><p><strong>nout</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>batchNorm</strong> – </p></li>
+<li><p><strong>layer</strong> – </p></li>
+<li><p><strong>bias</strong> – </p></li>
+<li><p><strong>dropout_rate</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">act_fn</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dilation</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>act_fn</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>stride</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_1">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_3">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">act_fn</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_3" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>act_fn</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_3_3">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_3_3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_3_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_3_3" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_Asym</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">kernelSize</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_Asym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>kernelSize</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_ERFNet">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_Asym_ERFNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">kernelSize</span></em>, <em class="sig-param"><span class="n">padding</span></em>, <em class="sig-param"><span class="n">drop</span></em>, <em class="sig-param"><span class="n">dilation</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_Asym_ERFNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_ERFNet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>kernelSize</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>drop</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_Asym_Inception</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">padding</span></em>, <em class="sig-param"><span class="n">dilation</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_Asym_Inception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception_WithIncreasedFeatMaps">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_block_Asym_Inception_WithIncreasedFeatMaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">mid_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">padding</span></em>, <em class="sig-param"><span class="n">dilation</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_block_Asym_Inception_WithIncreasedFeatMaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_block_Asym_Inception_WithIncreasedFeatMaps" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>mid_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>kernel_size</strong> – </p></li>
+<li><p><strong>padding</strong> – </p></li>
+<li><p><strong>dilation</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.conv_decod_block">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">conv_decod_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">act_fn</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#conv_decod_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.conv_decod_block" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>act_fn</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.croppCenter">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">croppCenter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensorToCrop</span></em>, <em class="sig-param"><span class="n">finalShape</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#croppCenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.croppCenter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensorToCrop</strong> – </p></li>
+<li><p><strong>finalShape</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.dilation_conv_block">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">dilation_conv_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">out_dim</span></em>, <em class="sig-param"><span class="n">act_fn</span></em>, <em class="sig-param"><span class="n">stride_val</span></em>, <em class="sig-param"><span class="n">dil_val</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#dilation_conv_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.dilation_conv_block" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dim</strong> – </p></li>
+<li><p><strong>out_dim</strong> – </p></li>
+<li><p><strong>act_fn</strong> – </p></li>
+<li><p><strong>stride_val</strong> – </p></li>
+<li><p><strong>dil_val</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.maxpool">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">maxpool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#maxpool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.maxpool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_16">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">maxpool_1_16</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#maxpool_1_16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_32">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">maxpool_1_32</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#maxpool_1_32"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_4">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">maxpool_1_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#maxpool_1_4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_8">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">maxpool_1_8</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#maxpool_1_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.maxpool_1_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.models.HyperDensenet.HyperDensenet.upSampleConv_Res">
+<code class="sig-prename descclassname">medzoo.models.HyperDensenet.HyperDensenet.</code><code class="sig-name descname">upSampleConv_Res</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nin</span></em>, <em class="sig-param"><span class="n">nout</span></em>, <em class="sig-param"><span class="n">upscale</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">BN</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ws</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">activ</span><span class="o">=</span><span class="default_value">LeakyReLU(negative_slope=0.2)</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/HyperDensenet/HyperDensenet.html#upSampleConv_Res"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.HyperDensenet.HyperDensenet.upSampleConv_Res" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nin</strong> – </p></li>
+<li><p><strong>nout</strong> – </p></li>
+<li><p><strong>upscale</strong> – </p></li>
+<li><p><strong>bias</strong> – </p></li>
+<li><p><strong>BN</strong> – </p></li>
+<li><p><strong>ws</strong> – </p></li>
+<li><p><strong>activ</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.models.HyperDensenet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.models.HyperDensenet" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.models.HyperDensenet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.HyperDensenet.HyperDensenet">medzoo.models.HyperDensenet.HyperDensenet module</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.HyperDensenet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

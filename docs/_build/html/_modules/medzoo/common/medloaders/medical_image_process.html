@@ -2,5 +2,644 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.common.medloaders.medical_image_process | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="../../../../_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/_modules/medzoo/common/medloaders/medical_image_process.html"/>
+  
+  <meta property="og:title" content="medzoo.common.medloaders.medical_image_process | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../medloaders.html">medzoo.common.medloaders</a> &gt;</li>
+        
+      <li>medzoo.common.medloaders.medical_image_process</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for medzoo.common.medloaders.medical_image_process</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">nibabel.processing</span> <span class="kn">import</span> <span class="n">resample_to_output</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">concentrate all pre-processing here here</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="load_medical_image"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.load_medical_image">[docs]</a><span class="k">def</span> <span class="nf">load_medical_image</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">viz3d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">to_canonical</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rescale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s1">&#39;full_volume_mean&#39;</span><span class="p">,</span>
+                       <span class="n">clip_intenisty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">crop_size</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">crop</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path:</span>
+<span class="sd">        type:</span>
+<span class="sd">        resample:</span>
+<span class="sd">        viz3d:</span>
+<span class="sd">        to_canonical:</span>
+<span class="sd">        rescale:</span>
+<span class="sd">        normalization:</span>
+<span class="sd">        clip_intenisty:</span>
+<span class="sd">        crop_size:</span>
+<span class="sd">        crop:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img_nii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">to_canonical</span><span class="p">:</span>
+        <span class="n">img_nii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">as_closest_canonical</span><span class="p">(</span><span class="n">img_nii</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">resample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">img_nii</span> <span class="o">=</span> <span class="n">resample_to_output</span><span class="p">(</span><span class="n">img_nii</span><span class="p">,</span> <span class="n">voxel_sizes</span><span class="o">=</span><span class="n">resample</span><span class="p">)</span>
+
+    <span class="n">img_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">img_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">viz3d</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">img_np</span><span class="p">)</span>
+
+    <span class="c1"># 1. Intensity outlier clipping</span>
+    <span class="k">if</span> <span class="n">clip_intenisty</span> <span class="ow">and</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span>
+        <span class="n">img_np</span> <span class="o">=</span> <span class="n">percentile_clip</span><span class="p">(</span><span class="n">img_np</span><span class="p">)</span>
+
+    <span class="c1"># 2. Rescale to specified output shape</span>
+    <span class="k">if</span> <span class="n">rescale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rescale_data_volume</span><span class="p">(</span><span class="n">img_np</span><span class="p">,</span> <span class="n">rescale</span><span class="p">)</span>
+
+    <span class="c1"># 3. intensity normalization</span>
+    <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">img_np</span><span class="p">)</span>
+
+    <span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span><span class="p">,</span> <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span>
+        <span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">normalize_intensity</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="n">normalization</span><span class="p">,</span> <span class="n">norm_values</span><span class="o">=</span><span class="p">(</span><span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span><span class="p">,</span> <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span><span class="p">))</span>
+    <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">crop_img</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">,</span> <span class="n">crop</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_tensor</span></div>
+
+
+<div class="viewcode-block" id="medical_image_transform"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.medical_image_transform">[docs]</a><span class="k">def</span> <span class="nf">medical_image_transform</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">normalization</span><span class="o">=</span><span class="s2">&quot;full_volume_mean&quot;</span><span class="p">,</span>
+                            <span class="n">norm_values</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img_tensor:</span>
+<span class="sd">        type:</span>
+<span class="sd">        normalization:</span>
+<span class="sd">        norm_values:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span><span class="p">,</span> <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span> <span class="o">=</span> <span class="n">norm_values</span>
+    <span class="c1"># Numpy-based transformations/augmentations here</span>
+
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span>
+        <span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">!=</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">normalize_intensity</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="n">normalization</span><span class="p">,</span> <span class="n">norm_values</span><span class="o">=</span><span class="p">(</span><span class="n">MEAN</span><span class="p">,</span> <span class="n">STD</span><span class="p">,</span> <span class="n">MAX</span><span class="p">,</span> <span class="n">MIN</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">img_tensor</span></div>
+
+
+<div class="viewcode-block" id="crop_img"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.crop_img">[docs]</a><span class="k">def</span> <span class="nf">crop_img</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">,</span> <span class="n">crop</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img_tensor:</span>
+<span class="sd">        crop_size:</span>
+<span class="sd">        crop:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">crop_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">img_tensor</span>
+    <span class="n">slices_crop</span><span class="p">,</span> <span class="n">w_crop</span><span class="p">,</span> <span class="n">h_crop</span> <span class="o">=</span> <span class="n">crop</span>
+    <span class="n">dim1</span><span class="p">,</span> <span class="n">dim2</span><span class="p">,</span> <span class="n">dim3</span> <span class="o">=</span> <span class="n">crop_size</span>
+    <span class="n">inp_img_dim</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">inp_img_dim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">full_dim1</span><span class="p">,</span> <span class="n">full_dim2</span><span class="p">,</span> <span class="n">full_dim3</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">elif</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">full_dim1</span><span class="p">,</span> <span class="n">full_dim2</span><span class="p">,</span> <span class="n">full_dim3</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">full_dim1</span> <span class="o">==</span> <span class="n">dim1</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[:,</span> <span class="n">w_crop</span><span class="p">:</span><span class="n">w_crop</span> <span class="o">+</span> <span class="n">dim2</span><span class="p">,</span>
+                     <span class="n">h_crop</span><span class="p">:</span><span class="n">h_crop</span> <span class="o">+</span> <span class="n">dim3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">full_dim2</span> <span class="o">==</span> <span class="n">dim2</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[</span><span class="n">slices_crop</span><span class="p">:</span><span class="n">slices_crop</span> <span class="o">+</span> <span class="n">dim1</span><span class="p">,</span> <span class="p">:,</span>
+                     <span class="n">h_crop</span><span class="p">:</span><span class="n">h_crop</span> <span class="o">+</span> <span class="n">dim3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">full_dim3</span> <span class="o">==</span> <span class="n">dim3</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[</span><span class="n">slices_crop</span><span class="p">:</span><span class="n">slices_crop</span> <span class="o">+</span> <span class="n">dim1</span><span class="p">,</span> <span class="n">w_crop</span><span class="p">:</span><span class="n">w_crop</span> <span class="o">+</span> <span class="n">dim2</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[</span><span class="n">slices_crop</span><span class="p">:</span><span class="n">slices_crop</span> <span class="o">+</span> <span class="n">dim1</span><span class="p">,</span> <span class="n">w_crop</span><span class="p">:</span><span class="n">w_crop</span> <span class="o">+</span> <span class="n">dim2</span><span class="p">,</span>
+                     <span class="n">h_crop</span><span class="p">:</span><span class="n">h_crop</span> <span class="o">+</span> <span class="n">dim3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">inp_img_dim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">img_tensor</span></div>
+
+
+<div class="viewcode-block" id="load_affine_matrix"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.load_affine_matrix">[docs]</a><span class="k">def</span> <span class="nf">load_affine_matrix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads an path to nifti file and returns the affine matrix as numpy array 4x4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">affine</span></div>
+
+
+<div class="viewcode-block" id="load_2d_image"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.load_2d_image">[docs]</a><span class="k">def</span> <span class="nf">load_2d_image</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">resize_dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;RGB&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img_path:</span>
+<span class="sd">        resize_dim:</span>
+<span class="sd">        type:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;RGB&#39;</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">resize_dim</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">resize_dim</span><span class="p">)</span>
+    <span class="n">pix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pix</span></div>
+
+
+<div class="viewcode-block" id="rescale_data_volume"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.rescale_data_volume">[docs]</a><span class="k">def</span> <span class="nf">rescale_data_volume</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Resize the 3d numpy array to the dim size</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        out_dim is the new 3d tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">depth</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img_numpy</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="n">out_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">depth</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">height</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">width</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="transform_coordinate_space"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.transform_coordinate_space">[docs]</a><span class="k">def</span> <span class="nf">transform_coordinate_space</span><span class="p">(</span><span class="n">modality_1</span><span class="p">,</span> <span class="n">modality_2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accepts nifty objects</span>
+<span class="sd">    Transfers coordinate space from modality_2 to modality_1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aff_t1</span> <span class="o">=</span> <span class="n">modality_1</span><span class="o">.</span><span class="n">affine</span>
+    <span class="n">aff_t2</span> <span class="o">=</span> <span class="n">modality_2</span><span class="o">.</span><span class="n">affine</span>
+    <span class="n">inv_af_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">aff_t2</span><span class="p">)</span>
+
+    <span class="n">out_shape</span> <span class="o">=</span> <span class="n">modality_1</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># desired transformation</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">inv_af_2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">aff_t1</span><span class="p">)</span>
+    <span class="n">transformed</span> <span class="o">=</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">modality_2</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),</span> <span class="n">T</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">out_shape</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">transformed</span></div>
+
+
+<div class="viewcode-block" id="normalize_intensity"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.normalize_intensity">[docs]</a><span class="k">def</span> <span class="nf">normalize_intensity</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s2">&quot;full_volume_mean&quot;</span><span class="p">,</span> <span class="n">norm_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Accepts an image tensor and normalizes it</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        normalization: choices = &quot;max&quot;, &quot;mean&quot; , type=str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">desired</span> <span class="o">=</span> <span class="n">img_tensor</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="n">mean_val</span><span class="p">,</span> <span class="n">std_val</span> <span class="o">=</span> <span class="n">desired</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">desired</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_tensor</span> <span class="o">-</span> <span class="n">mean_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">std_val</span>
+    <span class="k">elif</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
+        <span class="n">max_val</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img_tensor</span><span class="p">)</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span> <span class="o">/</span> <span class="n">max_val</span>
+    <span class="k">elif</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s1">&#39;brats&#39;</span><span class="p">:</span>
+        <span class="c1"># print(norm_values)</span>
+        <span class="n">normalized_tensor</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_tensor</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">img_tensor</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">img_tensor</span><span class="p">,</span> <span class="n">normalized_tensor</span><span class="p">)</span>
+        <span class="n">final_tensor</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="p">((</span><span class="n">final_tensor</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">norm_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="o">+</span> <span class="mf">10.0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">img_tensor</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">img_tensor</span><span class="p">,</span> <span class="n">final_tensor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">elif</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s1">&#39;full_volume_mean&#39;</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_tensor</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s1">&#39;max_min&#39;</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_tensor</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="p">((</span><span class="n">norm_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">norm_values</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+
+    <span class="k">elif</span> <span class="n">normalization</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">img_tensor</span> <span class="o">=</span> <span class="n">img_tensor</span>
+    <span class="k">return</span> <span class="n">img_tensor</span></div>
+
+
+<span class="c1">## todo percentiles</span>
+
+<div class="viewcode-block" id="clip_range"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.clip_range">[docs]</a><span class="k">def</span> <span class="nf">clip_range</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cut off outliers that are related to detected black in the image (the air area)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Todo median value!</span>
+    <span class="n">zero_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">img_numpy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> \
+                  <span class="n">img_numpy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> \
+                  <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">img_numpy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">8.0</span>
+    <span class="n">non_zeros_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">img_numpy</span> <span class="o">&gt;=</span> <span class="n">zero_value</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">max_z</span><span class="p">,</span> <span class="n">max_h</span><span class="p">,</span> <span class="n">max_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">non_zeros_idx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">min_z</span><span class="p">,</span> <span class="n">min_h</span><span class="p">,</span> <span class="n">min_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">non_zeros_idx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">img_numpy</span><span class="p">[</span><span class="n">min_z</span><span class="p">:</span><span class="n">max_z</span><span class="p">,</span> <span class="n">min_h</span><span class="p">:</span><span class="n">max_h</span><span class="p">,</span> <span class="n">min_w</span><span class="p">:</span><span class="n">max_w</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">y</span></div>
+
+
+<div class="viewcode-block" id="percentile_clip"><a class="viewcode-back" href="../../../../medzoo.common.medloaders.html#medzoo.common.medloaders.medical_image_process.percentile_clip">[docs]</a><span class="k">def</span> <span class="nf">percentile_clip</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">min_val</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_val</span><span class="o">=</span><span class="mf">99.8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Intensity normalization based on percentile</span>
+<span class="sd">    Clips the range based on the quarile values.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">    min_val: should be in the range [0,100]</span>
+<span class="sd">    max_val: should be in the range [0,100]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        intesity normalized image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">min_val</span><span class="p">)</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">img_numpy</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
+
+    <span class="n">img_numpy</span><span class="p">[</span><span class="n">img_numpy</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">]</span> <span class="o">=</span> <span class="n">low</span>
+    <span class="n">img_numpy</span><span class="p">[</span><span class="n">img_numpy</span> <span class="o">&gt;</span> <span class="n">high</span><span class="p">]</span> <span class="o">=</span> <span class="n">high</span>
+    <span class="k">return</span> <span class="n">img_numpy</span></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

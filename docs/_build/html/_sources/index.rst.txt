@@ -32,11 +32,9 @@ If you use MMF in your work or use any models published in MMF, please cite:
    :maxdepth: 1
    :caption: Library Reference
 
-   medzoo/common/augment3D
-   medzoo/common/losses3d
-   medzoo/common/medloaders
-   medzoo/common/visual3D_temp
-   medzoo/models
+   medzoo.common.augment3D
+   medzoo.common.losses3D
+
 
 
 Indices and tables

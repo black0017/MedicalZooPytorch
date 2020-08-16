@@ -2,5 +2,741 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.HighResNet3D.HighResNet3D | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="../../../../_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/_modules/medzoo/models/HighResNet3D/HighResNet3D.html"/>
+  
+  <meta property="og:title" content="medzoo.models.HighResNet3D.HighResNet3D | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../models.html">medzoo.models</a> &gt;</li>
+        
+      <li>medzoo.models.HighResNet3D.HighResNet3D</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for medzoo.models.HighResNet3D.HighResNet3D</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="kn">from</span> <span class="nn">medzoo.models.BaseModelClass</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation based on the paper:</span>
+<span class="sd">https://arxiv.org/pdf/1707.01992.pdf</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="ConvInit"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.ConvInit">[docs]</a><span class="k">class</span> <span class="nc">ConvInit</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConvInit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">bn1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">)</span>
+        <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">bn1</span><span class="p">,</span> <span class="n">relu1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ConvInit.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.ConvInit.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span></div></div>
+
+
+<div class="viewcode-block" id="ConvRed"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.ConvRed">[docs]</a><span class="k">class</span> <span class="nc">ConvRed</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConvRed</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+
+        <span class="n">bn1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_red</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">bn1</span><span class="p">,</span> <span class="n">relu1</span><span class="p">,</span> <span class="n">conv1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ConvRed.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.ConvRed.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_red</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DilatedConv2"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.DilatedConv2">[docs]</a><span class="k">class</span> <span class="nc">DilatedConv2</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DilatedConv2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">32</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+        <span class="n">bn1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">bn1</span><span class="p">,</span> <span class="n">relu1</span><span class="p">,</span> <span class="n">conv1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DilatedConv2.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.DilatedConv2.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DilatedConv4"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.DilatedConv4">[docs]</a><span class="k">class</span> <span class="nc">DilatedConv4</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DilatedConv4</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">64</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+
+        <span class="n">bn1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">bn1</span><span class="p">,</span> <span class="n">relu1</span><span class="p">,</span> <span class="n">conv1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DilatedConv4.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.DilatedConv4.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Conv1x1x1"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.Conv1x1x1">[docs]</a><span class="k">class</span> <span class="nc">Conv1x1x1</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Conv1x1x1</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="n">classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+
+        <span class="n">bn1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">bn1</span><span class="p">,</span> <span class="n">relu1</span><span class="p">,</span> <span class="n">conv1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Conv1x1x1.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.Conv1x1x1.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_dil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="HighResNet3D"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D">[docs]</a><span class="k">class</span> <span class="nc">HighResNet3D</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">shortcut_type</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">dropout_layer</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HighResNet3D</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_type</span> <span class="o">=</span> <span class="n">shortcut_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_channels</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span> <span class="o">=</span> <span class="mi">32</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span> <span class="o">=</span> <span class="mi">64</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_out_channels</span> <span class="o">=</span> <span class="mi">80</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_type</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">res_pad_1</span> <span class="o">=</span> <span class="n">Conv1x1x1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">res_pad_2</span> <span class="o">=</span> <span class="n">Conv1x1x1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_init</span> <span class="o">=</span> <span class="n">ConvInit</span><span class="p">(</span><span class="n">in_channels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_red</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_red</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_red</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil2block1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil2block2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil2block3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil4block1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil4</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil4block2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil4</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dil4block3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_dil4</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dropout_layer</span><span class="p">:</span>
+            <span class="n">conv_out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">drop3d</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout3d</span><span class="p">()</span>
+            <span class="n">conv1x1x1</span> <span class="o">=</span> <span class="n">Conv1x1x1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv_out_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv_out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">conv_out</span><span class="p">,</span> <span class="n">drop3d</span><span class="p">,</span> <span class="n">conv1x1x1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv_out</span> <span class="o">=</span> <span class="n">Conv1x1x1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HighResNet3D.shortcut_pad"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.shortcut_pad">[docs]</a>    <span class="k">def</span> <span class="nf">shortcut_pad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">desired_channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+<span class="sd">            desired_channels:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_type</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+            <span class="n">batch_size</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">dim0</span><span class="p">,</span> <span class="n">dim1</span><span class="p">,</span> <span class="n">dim2</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">extra_channels</span> <span class="o">=</span> <span class="n">desired_channels</span> <span class="o">-</span> <span class="n">channels</span>
+            <span class="n">zero_channels</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">extra_channels</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">zeros_half</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">zero_channels</span><span class="p">,</span> <span class="n">dim0</span><span class="p">,</span> <span class="n">dim1</span><span class="p">,</span> <span class="n">dim2</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">zeros_half</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">zeros_half</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_type</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">desired_channels</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_pad_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">desired_channels</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_pad_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.create_red"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.create_red">[docs]</a>    <span class="k">def</span> <span class="nf">create_red</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            in_channels:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conv_red_1</span> <span class="o">=</span> <span class="n">ConvRed</span><span class="p">(</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">conv_red_2</span> <span class="o">=</span> <span class="n">ConvRed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">red_channels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">conv_red_1</span><span class="p">,</span> <span class="n">conv_red_2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.create_dil2"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.create_dil2">[docs]</a>    <span class="k">def</span> <span class="nf">create_dil2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            in_channels:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conv_dil2_1</span> <span class="o">=</span> <span class="n">DilatedConv2</span><span class="p">(</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">conv_dil2_2</span> <span class="o">=</span> <span class="n">DilatedConv2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">conv_dil2_1</span><span class="p">,</span> <span class="n">conv_dil2_2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.create_dil4"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.create_dil4">[docs]</a>    <span class="k">def</span> <span class="nf">create_dil4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            in_channels:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conv_dil4_1</span> <span class="o">=</span> <span class="n">DilatedConv4</span><span class="p">(</span><span class="n">in_channels</span><span class="p">)</span>
+        <span class="n">conv_dil4_2</span> <span class="o">=</span> <span class="n">DilatedConv4</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">conv_dil4_1</span><span class="p">,</span> <span class="n">conv_dil4_2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.red_forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.red_forward">[docs]</a>    <span class="k">def</span> <span class="nf">red_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">x_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_init</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x_red_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x_red_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks2</span><span class="p">(</span><span class="n">x_red_1</span> <span class="o">+</span> <span class="n">x_res</span><span class="p">)</span>
+        <span class="n">x_red_3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">red_blocks3</span><span class="p">(</span><span class="n">x_red_2</span> <span class="o">+</span> <span class="n">x_red_1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x_red_3</span><span class="p">,</span> <span class="n">x_red_2</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.dilation2"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.dilation2">[docs]</a>    <span class="k">def</span> <span class="nf">dilation2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_red_3</span><span class="p">,</span> <span class="n">x_red_2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x_red_3:</span>
+<span class="sd">            x_red_2:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_dil2_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2block1</span><span class="p">(</span><span class="n">x_red_3</span> <span class="o">+</span> <span class="n">x_red_2</span><span class="p">)</span>
+        <span class="c1"># print(x_dil2_1.shape ,x_red_3.shape )</span>
+
+        <span class="n">x_red_padded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_pad</span><span class="p">(</span><span class="n">x_red_3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2_channels</span><span class="p">)</span>
+
+        <span class="n">x_dil2_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2block2</span><span class="p">(</span><span class="n">x_dil2_1</span> <span class="o">+</span> <span class="n">x_red_padded</span><span class="p">)</span>
+        <span class="n">x_dil2_3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil2block3</span><span class="p">(</span><span class="n">x_dil2_2</span> <span class="o">+</span> <span class="n">x_dil2_1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x_dil2_3</span><span class="p">,</span> <span class="n">x_dil2_2</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.dilation4"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.dilation4">[docs]</a>    <span class="k">def</span> <span class="nf">dilation4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_dil2_3</span><span class="p">,</span> <span class="n">x_dil2_2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x_dil2_3:</span>
+<span class="sd">            x_dil2_2:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_dil4_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4block1</span><span class="p">(</span><span class="n">x_dil2_3</span> <span class="o">+</span> <span class="n">x_dil2_2</span><span class="p">)</span>
+        <span class="n">x_dil2_padded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut_pad</span><span class="p">(</span><span class="n">x_dil2_3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4_channels</span><span class="p">)</span>
+        <span class="n">x_dil4_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4block2</span><span class="p">(</span><span class="n">x_dil4_1</span> <span class="o">+</span> <span class="n">x_dil2_padded</span><span class="p">)</span>
+        <span class="n">x_dil4_3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dil4block3</span><span class="p">(</span><span class="n">x_dil4_2</span> <span class="o">+</span> <span class="n">x_dil4_1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x_dil4_3</span> <span class="o">+</span> <span class="n">x_dil4_2</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.forward"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_red_3</span><span class="p">,</span> <span class="n">x_red_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">red_forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x_dil2_3</span><span class="p">,</span> <span class="n">x_dil2_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation2</span><span class="p">(</span><span class="n">x_red_3</span><span class="p">,</span> <span class="n">x_red_2</span><span class="p">)</span>
+        <span class="n">x_dil4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation4</span><span class="p">(</span><span class="n">x_dil2_3</span><span class="p">,</span> <span class="n">x_dil2_2</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_out</span><span class="p">(</span><span class="n">x_dil4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span></div>
+
+<div class="viewcode-block" id="HighResNet3D.test"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.HighResNet3D.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">target</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;High3DResnet ok!&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="test_all_modules"><a class="viewcode-back" href="../../../../medzoo.models.HighResNet3D.html#medzoo.models.HighResNet3D.HighResNet3D.test_all_modules">[docs]</a><span class="k">def</span> <span class="nf">test_all_modules</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">ConvInit</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">m1</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ConvInit OK&quot;</span><span class="p">)</span>
+
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">ConvRed</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">m2</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ConvRed OK&quot;</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">m3</span> <span class="o">=</span> <span class="n">DilatedConv2</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">m3</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DilatedConv2 OK&quot;</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">m4</span> <span class="o">=</span> <span class="n">DilatedConv4</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">m4</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DilatedConv4 OK&quot;</span><span class="p">)</span>
+
+    <span class="n">m4</span> <span class="o">=</span> <span class="n">Conv1x1x1</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">m4</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
+
+<span class="c1"># test_all_modules()</span>
+
+<span class="c1"># model = HighResNet3D(in_channels=1, classes=4)</span>
+<span class="c1"># model.test()</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

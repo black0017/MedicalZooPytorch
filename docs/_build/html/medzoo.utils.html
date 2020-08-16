@@ -2,5 +2,706 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.utils package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.utils.html"/>
+  
+  <meta property="og:title" content="medzoo.utils package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.utils package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.utils.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-utils-package">
+<h1>medzoo.utils package<a class="headerlink" href="#medzoo-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.utils.config_reader">
+<span id="medzoo-utils-config-reader-module"></span><h2>medzoo.utils.config_reader module<a class="headerlink" href="#module-medzoo.utils.config_reader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.utils.config_reader.ConfigReader">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.utils.config_reader.</code><code class="sig-name descname">ConfigReader</code><a class="reference internal" href="_modules/medzoo/utils/config_reader.html#ConfigReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.config_reader.ConfigReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="medzoo.utils.config_reader.ConfigReader.read_config">
+<em class="property">static </em><code class="sig-name descname">read_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/config_reader.html#ConfigReader.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.config_reader.ConfigReader.read_config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config_path</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.utils.covid_utils">
+<span id="medzoo-utils-covid-utils-module"></span><h2>medzoo.utils.covid_utils module<a class="headerlink" href="#module-medzoo.utils.covid_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.utils.covid_utils.MetricTracker">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.utils.covid_utils.</code><code class="sig-name descname">MetricTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">keys</span></em>, <em class="sig-param"><span class="n">writer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'/'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.avg_Acc">
+<code class="sig-name descname">avg_Acc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.avg_Acc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.avg_Acc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.display_terminal">
+<code class="sig-name descname">display_terminal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iter</span></em>, <em class="sig-param"><span class="n">epoch</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'train'</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.display_terminal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.display_terminal" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iter</strong> – iteration or partial epoch</p></li>
+<li><p><strong>epoch</strong> – epoch of training</p></li>
+<li><p><strong>loss</strong> – any loss numpy</p></li>
+<li><p><strong>mode</strong> – train or val ( for training and validation)</p></li>
+<li><p><strong>summary</strong> – to print total statistics at the end of epoch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.print_all_metrics">
+<code class="sig-name descname">print_all_metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.print_all_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.print_all_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">writer_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.update" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – </p></li>
+<li><p><strong>value</strong> – </p></li>
+<li><p><strong>n</strong> – </p></li>
+<li><p><strong>writer_step</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.covid_utils.MetricTracker.update_all_metrics">
+<code class="sig-name descname">update_all_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iteration</span></em>, <em class="sig-param"><span class="n">values_dict</span></em>, <em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">writer_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#MetricTracker.update_all_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.MetricTracker.update_all_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iteration</strong> – </p></li>
+<li><p><strong>values_dict</strong> – </p></li>
+<li><p><strong>n</strong> – </p></li>
+<li><p><strong>writer_step</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.covid_utils.accuracy">
+<code class="sig-prename descclassname">medzoo.utils.covid_utils.</code><code class="sig-name descname">accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – </p></li>
+<li><p><strong>target</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.covid_utils.print_stats">
+<code class="sig-prename descclassname">medzoo.utils.covid_utils.</code><code class="sig-name descname">print_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">epoch</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">trainloader</span></em>, <em class="sig-param"><span class="n">metrics</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#print_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.print_stats" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>epoch</strong> – </p></li>
+<li><p><strong>num_samples</strong> – </p></li>
+<li><p><strong>trainloader</strong> – </p></li>
+<li><p><strong>metrics</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.covid_utils.print_summary">
+<code class="sig-prename descclassname">medzoo.utils.covid_utils.</code><code class="sig-name descname">print_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">epoch</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">metrics</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#print_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.print_summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>epoch</strong> – </p></li>
+<li><p><strong>num_samples</strong> – </p></li>
+<li><p><strong>metrics</strong> – </p></li>
+<li><p><strong>mode</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.covid_utils.read_txt">
+<code class="sig-prename descclassname">medzoo.utils.covid_utils.</code><code class="sig-name descname">read_txt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">txt_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/covid_utils.html#read_txt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.covid_utils.read_txt" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>txt_path</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.utils.general">
+<span id="medzoo-utils-general-module"></span><h2>medzoo.utils.general module<a class="headerlink" href="#module-medzoo.utils.general" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.utils.general.adjust_opt">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">adjust_opt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">epoch</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#adjust_opt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.adjust_opt" title="Permalink to this definition">¶</a></dt>
+<dd><p>for custom learning rate scheduling</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.datestr">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">datestr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#datestr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.datestr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.load_list">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">load_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#load_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.load_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>functionality to load the lists of subvolume names</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.make_dirs">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">make_dirs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#make_dirs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.make_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates new directory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.make_dirs_if_not_present">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">make_dirs_if_not_present</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#make_dirs_if_not_present"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.make_dirs_if_not_present" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates new directory if not present</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.prepare_input">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">prepare_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_tuple</span></em>, <em class="sig-param"><span class="n">inModalities</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">inChannels</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">cuda</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#prepare_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.prepare_input" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_tuple</strong> – contains all the input modalities. the segmentation map is always the last position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.reproducibility">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">reproducibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#reproducibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.reproducibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>enchances reproducibility among experiments</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.save_arguments">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">save_arguments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#save_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.save_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>path</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.save_list">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">save_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">list</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#save_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.save_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>functionality to save the lists of subvolume names</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.utils.general.shuffle_lists">
+<code class="sig-prename descclassname">medzoo.utils.general.</code><code class="sig-name descname">shuffle_lists</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">ls</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">777</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/general.html#shuffle_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.general.shuffle_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>zipped shuffling of any number of input lists</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.utils.logger">
+<span id="medzoo-utils-logger-module"></span><h2>medzoo.utils.logger module<a class="headerlink" href="#module-medzoo.utils.logger" title="Permalink to this headline">¶</a></h2>
+<p>Input/output functions.</p>
+<dl class="py class">
+<dt id="medzoo.utils.logger.Logger">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.utils.logger.</code><code class="sig-name descname">Logger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log_lovel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/logger.html#Logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.logger.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="medzoo.utils.logger.Logger.get_logger">
+<code class="sig-name descname">get_logger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/logger.html#Logger.get_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.logger.Logger.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.utils.timer">
+<span id="medzoo-utils-timer-module"></span><h2>medzoo.utils.timer module<a class="headerlink" href="#module-medzoo.utils.timer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.utils.timer.Timer">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.utils.timer.</code><code class="sig-name descname">Timer</code><a class="reference internal" href="_modules/medzoo/utils/timer.html#Timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.timer.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="medzoo.utils.timer.Timer.DEFAULT_TIME_FORMAT">
+<code class="sig-name descname">DEFAULT_TIME_FORMAT</code><em class="property"> = ['%03dms', '%02ds', '%02dm', '%02dh']</em><a class="headerlink" href="#medzoo.utils.timer.Timer.DEFAULT_TIME_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.utils.timer.Timer.DEFAULT_TIME_FORMAT_DATE_TIME">
+<code class="sig-name descname">DEFAULT_TIME_FORMAT_DATE_TIME</code><em class="property"> = '%Y-%m-%d-%H:%M:%S'</em><a class="headerlink" href="#medzoo.utils.timer.Timer.DEFAULT_TIME_FORMAT_DATE_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.timer.Timer.get_current">
+<code class="sig-name descname">get_current</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/timer.html#Timer.get_current"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.timer.Timer.get_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.timer.Timer.get_time">
+<code class="sig-name descname">get_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/timer.html#Timer.get_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.timer.Timer.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> – </p></li>
+<li><p><strong>end</strong> – </p></li>
+<li><p><strong>time_format</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.timer.Timer.get_time_since_start">
+<code class="sig-name descname">get_time_since_start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/timer.html#Timer.get_time_since_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.timer.Timer.get_time_since_start" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_format</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.utils.timer.Timer.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/utils/timer.html#Timer.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.utils.timer.Timer.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.utils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils.config_reader">medzoo.utils.config_reader module</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils.covid_utils">medzoo.utils.covid_utils module</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils.general">medzoo.utils.general module</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils.logger">medzoo.utils.logger module</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils.timer">medzoo.utils.timer module</a></li>
+<li><a class="reference internal" href="#module-medzoo.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

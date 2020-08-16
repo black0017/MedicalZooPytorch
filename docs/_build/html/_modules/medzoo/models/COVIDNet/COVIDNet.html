@@ -2,5 +2,635 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.COVIDNet.COVIDNet | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="../../../../_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/_modules/medzoo/models/COVIDNet/COVIDNet.html"/>
+  
+  <meta property="og:title" content="medzoo.models.COVIDNet.COVIDNet | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../models.html">medzoo.models</a> &gt;</li>
+        
+      <li>medzoo.models.COVIDNet.COVIDNet</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for medzoo.models.COVIDNet.COVIDNet</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<div class="viewcode-block" id="Flatten"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.Flatten">[docs]</a><span class="k">class</span> <span class="nc">Flatten</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="Flatten.forward"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.Flatten.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">input</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PEXP"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.PEXP">[docs]</a><span class="k">class</span> <span class="nc">PEXP</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_input</span><span class="p">,</span> <span class="n">n_out</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PEXP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        • First-stage Projection: 1×1 convolutions for projecting input features to a lower dimension,</span>
+
+<span class="sd">        • Expansion: 1×1 convolutions for expanding features</span>
+<span class="sd">            to a higher dimension that is different than that of the</span>
+<span class="sd">            input features,</span>
+
+
+<span class="sd">        • Depth-wise Representation: efficient 3×3 depthwise convolutions for learning spatial characteristics to</span>
+<span class="sd">            minimize computational complexity while preserving</span>
+<span class="sd">            representational capacity,</span>
+
+<span class="sd">        • Second-stage Projection: 1×1 convolutions for projecting features back to a lower dimension, and</span>
+
+<span class="sd">        • Extension: 1×1 convolutions that finally extend channel dimensionality to a higher dimension to produce</span>
+<span class="sd">             the final features.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">n_input</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="n">n_input</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                     <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">n_input</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n_input</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span>
+                                               <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                     <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n_input</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">out_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n_input</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span>
+                                               <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n_input</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                     <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">n_input</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">out_channels</span><span class="o">=</span><span class="n">n_input</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                                               <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                     <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">n_input</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="n">n_out</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<div class="viewcode-block" id="PEXP.forward"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.PEXP.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CovidNet"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CovidNet">[docs]</a><span class="k">class</span> <span class="nc">CovidNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CovidNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;pexp1_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">],</span>
+            <span class="s1">&#39;pexp1_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">],</span>
+            <span class="s1">&#39;pexp1_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">],</span>
+            <span class="s1">&#39;pexp2_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">],</span>
+            <span class="s1">&#39;pexp2_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">],</span>
+            <span class="s1">&#39;pexp2_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">],</span>
+            <span class="s1">&#39;pexp2_4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_5&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp3_6&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">],</span>
+            <span class="s1">&#39;pexp4_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">2048</span><span class="p">],</span>
+            <span class="s1">&#39;pexp4_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2048</span><span class="p">,</span> <span class="mi">2048</span><span class="p">],</span>
+            <span class="s1">&#39;pexp4_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2048</span><span class="p">,</span> <span class="mi">2048</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;conv1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;pool&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">filters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">filters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">PEXP</span><span class="p">(</span><span class="n">filters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">filters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;large&#39;</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;conv1_1x1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;conv2_1x1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;conv3_1x1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;conv4_1x1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__forward__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_large_net</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__forward__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_small_net</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;flatten&#39;</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;fc1&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">2048</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;fc2&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">256</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span>
+
+<div class="viewcode-block" id="CovidNet.forward"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CovidNet.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__forward__</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CovidNet.forward_large_net"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CovidNet.forward_large_net">[docs]</a>    <span class="k">def</span> <span class="nf">forward_large_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">out_conv1_1x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1_1x1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">pepx11</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">pepx12</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_2</span><span class="p">(</span><span class="n">pepx11</span> <span class="o">+</span> <span class="n">out_conv1_1x1</span><span class="p">)</span>
+        <span class="n">pepx13</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_3</span><span class="p">(</span><span class="n">pepx12</span> <span class="o">+</span> <span class="n">pepx11</span> <span class="o">+</span> <span class="n">out_conv1_1x1</span><span class="p">)</span>
+
+        <span class="n">out_conv2_1x1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2_1x1</span><span class="p">(</span><span class="n">pepx12</span> <span class="o">+</span> <span class="n">pepx11</span> <span class="o">+</span> <span class="n">pepx13</span> <span class="o">+</span> <span class="n">out_conv1_1x1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">pepx21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_1</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx13</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx12</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">out_conv1_1x1</span><span class="p">,</span>
+                                                                                                       <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx22</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_2</span><span class="p">(</span><span class="n">pepx21</span> <span class="o">+</span> <span class="n">out_conv2_1x1</span><span class="p">)</span>
+        <span class="n">pepx23</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_3</span><span class="p">(</span><span class="n">pepx22</span> <span class="o">+</span> <span class="n">pepx21</span> <span class="o">+</span> <span class="n">out_conv2_1x1</span><span class="p">)</span>
+        <span class="n">pepx24</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_4</span><span class="p">(</span><span class="n">pepx23</span> <span class="o">+</span> <span class="n">pepx21</span> <span class="o">+</span> <span class="n">pepx22</span> <span class="o">+</span> <span class="n">out_conv2_1x1</span><span class="p">)</span>
+
+        <span class="n">out_conv3_1x1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv3_1x1</span><span class="p">(</span><span class="n">pepx22</span> <span class="o">+</span> <span class="n">pepx21</span> <span class="o">+</span> <span class="n">pepx23</span> <span class="o">+</span> <span class="n">pepx24</span> <span class="o">+</span> <span class="n">out_conv2_1x1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">pepx31</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_1</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx24</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx21</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx22</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx23</span><span class="p">,</span>
+                                                                                                       <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span>
+                <span class="n">out_conv2_1x1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx32</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_2</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">)</span>
+        <span class="n">pepx33</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_3</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">)</span>
+        <span class="n">pepx34</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_4</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">)</span>
+        <span class="n">pepx35</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_5</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">pepx34</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">)</span>
+        <span class="n">pepx36</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_6</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">pepx34</span> <span class="o">+</span> <span class="n">pepx35</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">)</span>
+
+        <span class="n">out_conv4_1x1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conv4_1x1</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">pepx34</span> <span class="o">+</span> <span class="n">pepx35</span> <span class="o">+</span> <span class="n">pepx36</span> <span class="o">+</span> <span class="n">out_conv3_1x1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">pepx41</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_1</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx31</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx34</span><span class="p">,</span>
+                                                                                                       <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span>
+                <span class="n">pepx35</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx36</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">out_conv3_1x1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx42</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_2</span><span class="p">(</span><span class="n">pepx41</span> <span class="o">+</span> <span class="n">out_conv4_1x1</span><span class="p">)</span>
+        <span class="n">pepx43</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_3</span><span class="p">(</span><span class="n">pepx41</span> <span class="o">+</span> <span class="n">pepx42</span> <span class="o">+</span> <span class="n">out_conv4_1x1</span><span class="p">)</span>
+        <span class="n">flattened</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pepx41</span> <span class="o">+</span> <span class="n">pepx42</span> <span class="o">+</span> <span class="n">pepx43</span> <span class="o">+</span> <span class="n">out_conv4_1x1</span><span class="p">)</span>
+
+        <span class="n">fc1out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">flattened</span><span class="p">))</span>
+        <span class="n">fc2out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">fc1out</span><span class="p">))</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">fc2out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">logits</span></div>
+
+<div class="viewcode-block" id="CovidNet.forward_small_net"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CovidNet.forward_small_net">[docs]</a>    <span class="k">def</span> <span class="nf">forward_small_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">pepx11</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">pepx12</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_2</span><span class="p">(</span><span class="n">pepx11</span><span class="p">)</span>
+        <span class="n">pepx13</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp1_3</span><span class="p">(</span><span class="n">pepx12</span> <span class="o">+</span> <span class="n">pepx11</span><span class="p">)</span>
+
+        <span class="n">pepx21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_1</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx13</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx12</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx22</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_2</span><span class="p">(</span><span class="n">pepx21</span><span class="p">)</span>
+        <span class="n">pepx23</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_3</span><span class="p">(</span><span class="n">pepx22</span> <span class="o">+</span> <span class="n">pepx21</span><span class="p">)</span>
+        <span class="n">pepx24</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp2_4</span><span class="p">(</span><span class="n">pepx23</span> <span class="o">+</span> <span class="n">pepx21</span> <span class="o">+</span> <span class="n">pepx22</span><span class="p">)</span>
+
+        <span class="n">pepx31</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_1</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx24</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx21</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx22</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx23</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx32</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_2</span><span class="p">(</span><span class="n">pepx31</span><span class="p">)</span>
+        <span class="n">pepx33</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_3</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span><span class="p">)</span>
+        <span class="n">pepx34</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_4</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span><span class="p">)</span>
+        <span class="n">pepx35</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_5</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">pepx34</span><span class="p">)</span>
+        <span class="n">pepx36</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp3_6</span><span class="p">(</span><span class="n">pepx31</span> <span class="o">+</span> <span class="n">pepx32</span> <span class="o">+</span> <span class="n">pepx33</span> <span class="o">+</span> <span class="n">pepx34</span> <span class="o">+</span> <span class="n">pepx35</span><span class="p">)</span>
+
+        <span class="n">pepx41</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_1</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx31</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx34</span><span class="p">,</span>
+                                                                                                       <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span>
+                <span class="n">pepx35</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">pepx36</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">pepx42</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_2</span><span class="p">(</span><span class="n">pepx41</span><span class="p">)</span>
+        <span class="n">pepx43</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pexp4_3</span><span class="p">(</span><span class="n">pepx41</span> <span class="o">+</span> <span class="n">pepx42</span><span class="p">)</span>
+        <span class="n">flattened</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pepx41</span> <span class="o">+</span> <span class="n">pepx42</span> <span class="o">+</span> <span class="n">pepx43</span><span class="p">)</span>
+
+        <span class="n">fc1out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">flattened</span><span class="p">))</span>
+        <span class="n">fc2out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">fc1out</span><span class="p">))</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">fc2out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">logits</span></div></div>
+
+
+<div class="viewcode-block" id="CNN"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CNN">[docs]</a><span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;resnet18&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;resnet18&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;resnext50_32x4d&#39;</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnext50_32x4d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;mobilenet_v2&#39;</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">mobilenet_v2</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CNN.forward"><a class="viewcode-back" href="../../../../medzoo.models.COVIDNet.html#medzoo.models.COVIDNet.COVIDNet.CNN.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

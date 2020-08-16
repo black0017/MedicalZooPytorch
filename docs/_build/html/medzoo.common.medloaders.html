@@ -2,5 +2,684 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.common.medloaders package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.common.medloaders.html"/>
+  
+  <meta property="og:title" content="medzoo.common.medloaders package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.common.medloaders package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.common.medloaders.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-common-medloaders-package">
+<h1>medzoo.common.medloaders package<a class="headerlink" href="#medzoo-common-medloaders-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.common.medloaders.medical_image_process">
+<span id="medzoo-common-medloaders-medical-image-process-module"></span><h2>medzoo.common.medloaders.medical_image_process module<a class="headerlink" href="#module-medzoo.common.medloaders.medical_image_process" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.clip_range">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">clip_range</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#clip_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.clip_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cut off outliers that are related to detected black in the image (the air area)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.crop_img">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">crop_img</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_tensor</span></em>, <em class="sig-param"><span class="n">crop_size</span></em>, <em class="sig-param"><span class="n">crop</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#crop_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.crop_img" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_tensor</strong> – </p></li>
+<li><p><strong>crop_size</strong> – </p></li>
+<li><p><strong>crop</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.load_2d_image">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">load_2d_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_path</span></em>, <em class="sig-param"><span class="n">resize_dim</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'RGB'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#load_2d_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.load_2d_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_path</strong> – </p></li>
+<li><p><strong>resize_dim</strong> – </p></li>
+<li><p><strong>type</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.load_affine_matrix">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">load_affine_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#load_affine_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.load_affine_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads an path to nifti file and returns the affine matrix as numpy array 4x4</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.load_medical_image">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">load_medical_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resample</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">viz3d</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">to_canonical</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">rescale</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalization</span><span class="o">=</span><span class="default_value">'full_volume_mean'</span></em>, <em class="sig-param"><span class="n">clip_intenisty</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">crop_size</span><span class="o">=</span><span class="default_value">0, 0, 0</span></em>, <em class="sig-param"><span class="n">crop</span><span class="o">=</span><span class="default_value">0, 0, 0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#load_medical_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.load_medical_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – </p></li>
+<li><p><strong>type</strong> – </p></li>
+<li><p><strong>resample</strong> – </p></li>
+<li><p><strong>viz3d</strong> – </p></li>
+<li><p><strong>to_canonical</strong> – </p></li>
+<li><p><strong>rescale</strong> – </p></li>
+<li><p><strong>normalization</strong> – </p></li>
+<li><p><strong>clip_intenisty</strong> – </p></li>
+<li><p><strong>crop_size</strong> – </p></li>
+<li><p><strong>crop</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.medical_image_transform">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">medical_image_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_tensor</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalization</span><span class="o">=</span><span class="default_value">'full_volume_mean'</span></em>, <em class="sig-param"><span class="n">norm_values</span><span class="o">=</span><span class="default_value">0.0, 1.0, 1.0, 0.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#medical_image_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.medical_image_transform" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_tensor</strong> – </p></li>
+<li><p><strong>type</strong> – </p></li>
+<li><p><strong>normalization</strong> – </p></li>
+<li><p><strong>norm_values</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.normalize_intensity">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">normalize_intensity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_tensor</span></em>, <em class="sig-param"><span class="n">normalization</span><span class="o">=</span><span class="default_value">'full_volume_mean'</span></em>, <em class="sig-param"><span class="n">norm_values</span><span class="o">=</span><span class="default_value">0, 1, 1, 0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#normalize_intensity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.normalize_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts an image tensor and normalizes it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>normalization</strong> – choices = “max”, “mean” , type=str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.percentile_clip">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">percentile_clip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">min_val</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_val</span><span class="o">=</span><span class="default_value">99.8</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#percentile_clip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.percentile_clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intensity normalization based on percentile
+Clips the range based on the quarile values.</p>
+<p>Args:
+min_val: should be in the range [0,100]
+max_val: should be in the range [0,100]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>intesity normalized image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.rescale_data_volume">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">rescale_data_volume</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_numpy</span></em>, <em class="sig-param"><span class="n">out_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#rescale_data_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.rescale_data_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize the 3d numpy array to the dim size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>is the new 3d tuple</strong> (<em>out_dim</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_image_process.transform_coordinate_space">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_image_process.</code><code class="sig-name descname">transform_coordinate_space</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modality_1</span></em>, <em class="sig-param"><span class="n">modality_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_image_process.html#transform_coordinate_space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_image_process.transform_coordinate_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts nifty objects
+Transfers coordinate space from modality_2 to modality_1</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.medloaders.medical_loader_utils">
+<span id="medzoo-common-medloaders-medical-loader-utils-module"></span><h2>medzoo.common.medloaders.medical_loader_utils module<a class="headerlink" href="#module-medzoo.common.medloaders.medical_loader_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.create_sub_volumes">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">create_sub_volumes</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">ls</span></em>, <em class="sig-param"><span class="n">dataset_name</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">full_vol_dim</span></em>, <em class="sig-param"><span class="n">crop_size</span></em>, <em class="sig-param"><span class="n">sub_vol_path</span></em>, <em class="sig-param"><span class="n">normalization</span><span class="o">=</span><span class="default_value">'max_min'</span></em>, <em class="sig-param"><span class="n">th_percent</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#create_sub_volumes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.create_sub_volumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ls</strong> – list of modality paths, where the last path is the segmentation map</p></li>
+<li><p><strong>dataset_name</strong> – which dataset is used</p></li>
+<li><p><strong>mode</strong> – train/val</p></li>
+<li><p><strong>samples</strong> – train/val samples to generate</p></li>
+<li><p><strong>full_vol_dim</strong> – full image size</p></li>
+<li><p><strong>crop_size</strong> – train volume size</p></li>
+<li><p><strong>sub_vol_path</strong> – path for the particular patient</p></li>
+<li><p><strong>th_percent</strong> – the % of the croped dim that corresponds to non-zero labels</p></li>
+<li><p><strong>crop_type</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.find3Dlabel_boundaries">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">find3Dlabel_boundaries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segmentation_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#find3Dlabel_boundaries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.find3Dlabel_boundaries" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>segmentation_map</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.find_non_zero_labels_mask">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">find_non_zero_labels_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segmentation_map</span></em>, <em class="sig-param"><span class="n">th_percent</span></em>, <em class="sig-param"><span class="n">crop_size</span></em>, <em class="sig-param"><span class="n">crop</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#find_non_zero_labels_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.find_non_zero_labels_mask" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segmentation_map</strong> – </p></li>
+<li><p><strong>th_percent</strong> – </p></li>
+<li><p><strong>crop_size</strong> – </p></li>
+<li><p><strong>crop</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.find_random_crop_dim">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">find_random_crop_dim</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">full_vol_dim</span></em>, <em class="sig-param"><span class="n">crop_size</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#find_random_crop_dim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.find_random_crop_dim" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_vol_dim</strong> – </p></li>
+<li><p><strong>crop_size</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.fix_seg_map">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">fix_seg_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segmentation_map</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="o">=</span><span class="default_value">'iseg2017'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#fix_seg_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.fix_seg_map" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segmentation_map</strong> – </p></li>
+<li><p><strong>dataset</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.generate_padded_subvolumes">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">generate_padded_subvolumes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">full_volume</span></em>, <em class="sig-param"><span class="n">kernel_dim</span><span class="o">=</span><span class="default_value">32, 32, 32</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#generate_padded_subvolumes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.generate_padded_subvolumes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_volume</strong> – </p></li>
+<li><p><strong>kernel_dim</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.get_all_sub_volumes">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">get_all_sub_volumes</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">ls</span></em>, <em class="sig-param"><span class="n">dataset_name</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">full_vol_dim</span></em>, <em class="sig-param"><span class="n">crop_size</span></em>, <em class="sig-param"><span class="n">sub_vol_path</span></em>, <em class="sig-param"><span class="n">normalization</span><span class="o">=</span><span class="default_value">'max_min'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#get_all_sub_volumes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.get_all_sub_volumes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*ls</strong> – </p></li>
+<li><p><strong>dataset_name</strong> – </p></li>
+<li><p><strong>mode</strong> – </p></li>
+<li><p><strong>samples</strong> – </p></li>
+<li><p><strong>full_vol_dim</strong> – </p></li>
+<li><p><strong>crop_size</strong> – </p></li>
+<li><p><strong>sub_vol_path</strong> – </p></li>
+<li><p><strong>normalization</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.medical_loader_utils.get_viz_set">
+<code class="sig-prename descclassname">medzoo.common.medloaders.medical_loader_utils.</code><code class="sig-name descname">get_viz_set</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">ls</span></em>, <em class="sig-param"><span class="n">dataset_name</span></em>, <em class="sig-param"><span class="n">test_subject</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sub_vol_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders/medical_loader_utils.html#get_viz_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.medical_loader_utils.get_viz_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns total 3d input volumes (t1 and t2 or more) and segmentation maps
+3d total vol shape : torch.Size([1, 144, 192, 256])</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.common.medloaders">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.common.medloaders" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="medzoo.common.medloaders.generate_datasets">
+<code class="sig-prename descclassname">medzoo.common.medloaders.</code><code class="sig-name descname">generate_datasets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">'.././datasets'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders.html#generate_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.generate_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>path</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="medzoo.common.medloaders.select_full_volume_for_infer">
+<code class="sig-prename descclassname">medzoo.common.medloaders.</code><code class="sig-name descname">select_full_volume_for_infer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">'.././datasets'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/common/medloaders.html#select_full_volume_for_infer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.common.medloaders.select_full_volume_for_infer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>path</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.common.medloaders package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.medloaders.medical_image_process">medzoo.common.medloaders.medical_image_process module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.medloaders.medical_loader_utils">medzoo.common.medloaders.medical_loader_utils module</a></li>
+<li><a class="reference internal" href="#module-medzoo.common.medloaders">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>

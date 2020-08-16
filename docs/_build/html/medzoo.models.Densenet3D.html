@@ -2,5 +2,501 @@
 
 
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>medzoo.models.Densenet3D package | MedicalZoo 1.0 documentation</title>
+  
 
+  
+  <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  
+  
+  <link rel="canonical" href="http://localhost:63342/medzoo.models.Densenet3D.html"/>
+  
+  <meta property="og:title" content="medzoo.models.Densenet3D package | MedicalZoo 1.0 documentation">
+  <meta name="description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:description" content="API docs for Medical Zoo . Medical Zoo is a 3D multi-modal medical image segmentation library in PyTorch">
+  <meta property="og:image" content="https://mmf.sh/img/logo.png">
+  <meta property="twitter:image" content="">
+  <meta name="twitter:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="" aria-label="MMF"></a>
+
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.augment3D.html">medzoo.common.augment3D package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medzoo.common.losses3D.html">medzoo.common.losses3D package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>medzoo.models.Densenet3D package</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/medzoo.models.Densenet3D.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="medzoo-models-densenet3d-package">
+<h1>medzoo.models.Densenet3D package<a class="headerlink" href="#medzoo-models-densenet3d-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-medzoo.models.Densenet3D.Densenet3D">
+<span id="medzoo-models-densenet3d-densenet3d-module"></span><h2>medzoo.models.Densenet3D.Densenet3D module<a class="headerlink" href="#module-medzoo.models.Densenet3D.Densenet3D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Densenet3D.Densenet3D.</code><code class="sig-name descname">DualPathDenseNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">drop_rate</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">fusion</span><span class="o">=</span><span class="default_value">'concat'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualPathDenseNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">multi_channel_medical_img</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualPathDenseNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>multi_channel_medical_img</strong> – shape of [batch, input_channels, height, width, depth]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>late fusion classification predictions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualPathDenseNet.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualPathDenseNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Densenet3D.Densenet3D.</code><code class="sig-name descname">DualSingleDenseNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">drop_rate</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualSingleDenseNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<p>2-stream and 3-stream implementation with early fusion
+dual-single-densenet OR Disentangled modalities with early fusion in the paper</p>
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">multi_channel_medical_img</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualSingleDenseNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>multi_channel_medical_img</strong> – shape of [batch, input_channels, height, width, depth]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>late fusion classification predictions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#DualSingleDenseNet.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.DualSingleDenseNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet">
+<em class="property">class </em><code class="sig-prename descclassname">medzoo.models.Densenet3D.Densenet3D.</code><code class="sig-name descname">SinglePathDenseNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">drop_rate</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">return_logits</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">early_fusion</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#SinglePathDenseNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="medzoo.models.html#medzoo.models.BaseModelClass.BaseModel" title="medzoo.models.BaseModelClass.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">medzoo.models.BaseModelClass.BaseModel</span></code></a></p>
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#SinglePathDenseNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medzoo/models/Densenet3D/Densenet3D.html#SinglePathDenseNet.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be implemented by the subclass so that
+models can perform a forward propagation
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#medzoo.models.Densenet3D.Densenet3D.SinglePathDenseNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-medzoo.models.Densenet3D">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-medzoo.models.Densenet3D" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, black0017.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">medzoo.models.Densenet3D package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.Densenet3D.Densenet3D">medzoo.models.Densenet3D.Densenet3D module</a></li>
+<li><a class="reference internal" href="#module-medzoo.models.Densenet3D">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Medical Zoo</a></li>
+            <li><a href="">Get Started</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="">Resources</a></li>
+            <li><a href="">Docs</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="https://github.com/black0017/MedicalZooPytorch/issues" target="_blank">Github Issues</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="MedicalZoo"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="">Get Started</a>
+          </li>
+
+          <li>
+            <a href="">Features</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li class="active">
+            <a href="">API</a>
+          </li>
+          <li>
+            <a href="https://github.com/black0017/MedicalZooPytorch">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
 </html>
