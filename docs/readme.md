@@ -11,7 +11,7 @@ https://www.sphinx-doc.org/en/master/usage/extensions/index.html
 
 # generate docs 
 - cd docs
-- sphinx-apidoc -f -o .  ../medzoo/
+- sphinx-apidoc -f -o ./source/ ../medzoo/
 
 # generate html
 make html
