@@ -1,0 +1,46 @@
+.tutorials-header .header-logo  {
+    background-image: url("../images/med-zoo-logo.png");
+}
+
+.header-logo {
+    height: 80px;
+    width: 244px;
+    position: absolute;
+    background-image: url(../images/med-zoo-logo.png);
+    background-repeat: no-repeat;
+    background-size: 244px 80px;
+    display: block;
+    float: left;
+    left: -20px;
+    top: -22px;
+    z-index: 10;
+}
+@media screen and (min-width: 1100px) {
+    .header-logo {
+        background-size: 120px 50px;
+        position: absolute;
+        height: 50px;
+        width: 120px;
+        top: -5px;
+        left: -10px;
+    }
+}
+
+
+.footer-logo {
+    background-image: url("../images/med-zoo-logo.png");
+    background-size: 244px 80px;
+    height: 80px;
+    width: 244px;
+}
+
+@media screen and (min-width: 1100px) {
+    .footer-logo {
+        background-size: 120px 50px;
+        position: absolute;
+        height: 50px;
+        width: 120px;
+        top: -5px;
+        left: -10px;
+    }
+}

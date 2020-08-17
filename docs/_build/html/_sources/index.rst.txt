@@ -44,3 +44,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. _docs: http://medzoo.web.app/api

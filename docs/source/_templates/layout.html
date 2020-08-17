@@ -29,9 +29,9 @@
   <meta property="og:title" content="{{ title|striptags|e }}{{ titlesuffix }}">
   <meta name="description" content="{{ theme_variables.og['description'] }}">
   <meta property="og:description" content="{{ theme_variables.og['description'] }}">
-  <meta property="og:image" content="https://mmf.sh/img/logo.png">
-  <meta property="twitter:image" content="">
-  <meta name="twitter:image:alt" content="">
+  <meta property="og:image" content="{{ pathto('_static/images/med-zoo-log.png', 1) }}">
+  <meta property="twitter:image" content="{{ pathto('_static/images/med-zoo-log.png', 1) }}">
+  <meta name="twitter:image:alt" content="{{ pathto('_static/images/med-zoo-log.png', 1) }}">
   <meta name="twitter:card" content="summary_large_image">
   {# CSS #}
 
@@ -89,7 +89,7 @@
 <div class="container-fluid header-holder tutorials-header" id="header-holder">
   <div class="container">
     <div class="header-container">
-      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="MMF"></a>
+      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="MedicalZoo"></a>
 
       <div class="main-menu">
         <ul>
