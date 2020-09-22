@@ -12,6 +12,13 @@ Implementations based on the HyperDenseNet paper: https://arxiv.org/pdf/1804.029
 
 class _HyperDenseLayer(nn.Sequential):
     def __init__(self, num_input_features, num_output_channels, drop_rate):
+        """
+
+        Args:
+            num_input_features (int): Number of input channels
+            num_output_channels (int): Number of channels produced by the convolution
+            drop_rate (float): Dropout ratio of output channels
+        """
         super(_HyperDenseLayer, self).__init__()
         self.add_module('norm1', nn.BatchNorm3d(num_input_features)),
         self.add_module('relu1', nn.ReLU(inplace=True)),
@@ -24,9 +31,10 @@ class _HyperDenseLayer(nn.Sequential):
         """
 
         Args:
-            x:
+            x: input channels
 
         Returns:
+            output channels of the layer
 
         """
         new_features = super(_HyperDenseLayer, self).forward(x)
@@ -82,9 +90,19 @@ class _HyperDenseBlockEarlyFusion(nn.Sequential):
 
 class SinglePathDenseNet(BaseModel):
     """
-
+    Single Dense Path Net from https://arxiv.org/pdf/1804.02967.pdf
+    The two modalities are concatenated early and passed as input to the network.
     """
     def __init__(self, in_channels, classes=4, drop_rate=0.1, return_logits=True, early_fusion=False):
+        """
+        Args
+            in_channels (int): Number of input modalities i.e. T1,T2 etc..
+            classes (int): Number of classes for segmentation. Default: 4
+            drop_rate (float, optional):  Dropout rate for dense layers. Default: 0.1
+
+            return_logits (bool, optional):         Default: True
+            early_fusion (bool, optional):
+        """
         super(SinglePathDenseNet, self).__init__()
         self.return_logits = return_logits
         self.features = nn.Sequential()
@@ -137,7 +155,7 @@ class SinglePathDenseNet(BaseModel):
         """
 
         Args:
-            x:
+            x: input volume (5D Tensor)
 
         Returns:
 
@@ -164,17 +182,18 @@ class SinglePathDenseNet(BaseModel):
 
 class DualPathDenseNet(BaseModel):
     """
-
+    Implementations based on the HyperDenseNet paper: https://arxiv.org/pdf/1804.02967.pdf
     """
     def __init__(self, in_channels, classes=4, drop_rate=0, fusion='concat'):
         """2-stream and 3-stream implementation with late fusion
         
         Args
-            in_channels: 2 or 3 (dual or triple path based on paper specifications).
+            in_channels (int): Number of input channels. 2 or 3 (dual or triple path based on paper specifications).
                Channels are the input modalities i.e T1,T2 etc..
-            drop_rate:  dropout rate for dense layers
-            classes: number of classes to segment
-            fusion: 'concat or 'sum'
+            classes (int): Number of classes to segment
+            drop_rate (float):  Dropout rate for dense layers Default: 0.0
+
+            fusion (string): 'concat or 'sum' Default:'concat'
         """
         super(DualPathDenseNet, self).__init__()
         self.input_channels = in_channels
@@ -263,14 +282,13 @@ class DualSingleDenseNet(BaseModel):
     dual-single-densenet OR Disentangled modalities with early fusion in the paper
     """
 
-    def __init__(self, in_channels, classes=4, drop_rate=0.5, ):
+    def __init__(self, in_channels, classes=4, drop_rate=0.5 ):
         """
         Args:
-            input_channels: 2 or 3 (dual or triple path based on paper specifications).
-                Channels are the input modalities i.e T1,T2 etc..
-            drop_rate:  dropout rate for dense layers
-            classes: number of classes to segment
-            fusion: 'concat or 'sum'
+            in_channels (int): Number of input channels. 2 or 3 (dual or triple path based on paper specifications).
+               Channels are the input modalities i.e T1,T2 etc..
+            classes (int): Number of classes to segment
+            drop_rate (float):  Dropout rate for dense layers Default: 0.0
         """
         super(DualSingleDenseNet, self).__init__()
         self.input_channels = in_channels

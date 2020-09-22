@@ -4,27 +4,10 @@ import torch.nn.functional as F
 from torchvision import models
 
 
-class Flatten(nn.Module):
-    def forward(self, input):
-        """
-
-        Args:
-            input:
-
-        Returns:
-
-        """
-        return input.view(input.size(0), -1)
-
 
 class PEXP(nn.Module):
     """
-
-    """
-    def __init__(self, n_input, n_out):
-        super(PEXP, self).__init__()
-
-        '''
+    Constructs a Module with the following components.
         • First-stage Projection: 1×1 convolutions for projecting input features to a lower dimension,
 
         • Expansion: 1×1 convolutions for expanding features
@@ -40,8 +23,11 @@ class PEXP(nn.Module):
 
         • Extension: 1×1 convolutions that finally extend channel dimensionality to a higher dimension to produce
              the final features.
+    """
+    def __init__(self, n_input, n_out):
+        super(PEXP, self).__init__()
 
-        '''
+
 
         self.network = nn.Sequential(nn.Conv2d(in_channels=n_input, out_channels=n_input // 2, kernel_size=1),
                                      nn.Conv2d(in_channels=n_input // 2, out_channels=int(3 * n_input / 4),
@@ -65,10 +51,18 @@ class PEXP(nn.Module):
 
 
 class CovidNet(nn.Module):
+
     """
 
     """
-    def __init__(self, model='large', n_classes=3):
+    def __init__(self, model_type='large', n_classes=3):
+
+        """
+        Args:
+            model_type (string): Specify model type of CovidNet 'small' or 'large' Default: 'large'
+            n_classes (int): Number of output classes
+        """
+
         super(CovidNet, self).__init__()
         filters = {
             'pexp1_1': [64, 256],
@@ -97,7 +91,7 @@ class CovidNet(nn.Module):
             else:
                 self.add_module(key, PEXP(filters[key][0], filters[key][1]))
 
-        if (model == 'large'):
+        if (model_type == 'large'):
 
             self.add_module('conv1_1x1', nn.Conv2d(in_channels=64, out_channels=256, kernel_size=1))
             self.add_module('conv2_1x1', nn.Conv2d(in_channels=256, out_channels=512, kernel_size=1))
@@ -107,7 +101,7 @@ class CovidNet(nn.Module):
             self.__forward__ = self.forward_large_net
         else:
             self.__forward__ = self.forward_small_net
-        self.add_module('flatten', Flatten())
+        self.add_module('flatten', nn.Flatten())
         self.add_module('fc1', nn.Linear(7 * 7 * 2048, 1024))
 
         self.add_module('fc2', nn.Linear(1024, 256))
@@ -223,16 +217,22 @@ class CNN(nn.Module):
     """
 
     """
-    def __init__(self, classes, model='resnet18'):
+    def __init__(self, classes, backbone='resnet18'):
+        """
+
+        Args:
+            classes (int): Number of output classes
+            backbone (string): Type of CNN
+        """
         super(CNN, self).__init__()
-        if (model == 'resnet18'):
+        if (backbone == 'resnet18'):
             self.cnn = models.resnet18(pretrained=True)
             self.cnn.fc = nn.Linear(512, classes)
-        elif (model == 'resnext50_32x4d'):
+        elif (backbone == 'resnext50_32x4d'):
 
             self.cnn = models.resnext50_32x4d(pretrained=True)
             self.cnn.classifier = nn.Linear(1280, classes)
-        elif (model == 'mobilenet_v2'):
+        elif (backbone == 'mobilenet_v2'):
 
             self.cnn = models.mobilenet_v2(pretrained=True)
             self.cnn.classifier = nn.Linear(1280, classes)

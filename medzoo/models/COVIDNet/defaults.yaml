@@ -1,1 +1,4 @@
 model_config:
+  model_name: CovidNet
+  classes: 3
+  model_type: large

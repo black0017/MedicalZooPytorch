@@ -6,11 +6,11 @@ def random_noise(img_numpy, mean=0, std=0.001):
 
     Args:
         img_numpy:
-        mean:
+        mean: mean value of
         std:
 
     Returns:
-        random noice
+        image with added random noise
 
     """
     noise = np.random.normal(mean, std, img_numpy.shape)

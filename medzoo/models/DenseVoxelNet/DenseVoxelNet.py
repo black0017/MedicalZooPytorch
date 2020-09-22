@@ -26,6 +26,14 @@ def init_weights(m):
 
 class _DenseLayer(nn.Sequential):
     def __init__(self, num_input_features, growth_rate, bn_size, drop_rate=0.2):
+        """
+
+        Args:
+            num_input_features (int): Number of input channels
+            growth_rate (int): Growth rate of output filters
+            bn_size (int):
+            drop_rate (float): Dropout ratio of output channels Default: 0.2
+        """
         super(_DenseLayer, self).__init__()
         self.add_module('norm1', nn.BatchNorm3d(num_input_features)),
         self.add_module('relu1', nn.ReLU(inplace=True)),
@@ -58,6 +66,15 @@ class _DenseBlock(nn.Sequential):
     """
 
     def __init__(self, num_layers, num_input_features, bn_size, growth_rate, drop_rate=0.2):
+        """
+
+        Args:
+            num_layers (int): Number of layers
+            num_input_features (int): Number of input channels
+            bn_size (int):
+            growth_rate (int): Growth rate of output filters
+            drop_rate (float):  Dropout ratio of output channels Default: 0.2
+        """
         super(_DenseBlock, self).__init__()
         for i in range(num_layers):
             layer = _DenseLayer(num_input_features + i * growth_rate, growth_rate, bn_size, drop_rate)
@@ -90,12 +107,18 @@ class _Transition(nn.Module):
 
 class _Upsampling(nn.Sequential):
     """
-    For transpose conv
+    Implementation of transpose convolutions
     o = output, p = padding, k = kernel_size, s = stride, d = dilation
     o = (i -1)*s - 2*p + k + output_padding = (i-1)*2 +2 = 2*i
     """
 
     def __init__(self, input_features, out_features):
+        """
+
+        Args:
+            input_features (int): Number of input channels
+            out_features (int): Number of output channels
+        """
         super(_Upsampling, self).__init__()
         self.tr_conv1_features = 128  # defined in the paper
         self.tr_conv2_features = out_features
@@ -120,6 +143,12 @@ class DenseVoxelNet(BaseModel):
     """
 
     def __init__(self, in_channels=1, classes=3):
+        """
+
+        Args:
+            in_channels (int): Number of input channels
+            classes (int): Number of classes
+        """
         super(DenseVoxelNet, self).__init__()
         num_input_features = 16
         self.dense_1_out_features = 160

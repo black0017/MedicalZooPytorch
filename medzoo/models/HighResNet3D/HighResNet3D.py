@@ -11,9 +11,14 @@ https://arxiv.org/pdf/1707.01992.pdf
 
 class ConvInit(nn.Module):
     """
-
+    3D Convolution with normalization
     """
     def __init__(self, in_channels):
+        """
+
+        Args:
+            in_channels (int):
+        """
         super(ConvInit, self).__init__()
         self.num_features = 16
         self.in_channels = in_channels
@@ -28,9 +33,11 @@ class ConvInit(nn.Module):
         """
 
         Args:
-            x:
+            x: 5D Tensor [batch x channels x depth x height x width]
 
         Returns:
+            y1:
+            y2:
 
         """
         y1 = self.conv1(x)
@@ -44,6 +51,11 @@ class ConvRed(nn.Module):
 
     """
     def __init__(self, in_channels):
+        """
+
+        Args:
+            in_channels (int): Number of input channels
+        """
         super(ConvRed, self).__init__()
         self.num_features = 16
         self.in_channels = in_channels
@@ -67,9 +79,15 @@ class ConvRed(nn.Module):
 
 class DilatedConv2(nn.Module):
     """
+    Dilated 3D Convolutions
 
     """
     def __init__(self, in_channels):
+        """
+
+        Args:
+            in_channels (int): Number of input channels
+        """
         super(DilatedConv2, self).__init__()
         self.num_features = 32
         self.in_channels = in_channels
@@ -93,9 +111,14 @@ class DilatedConv2(nn.Module):
 
 class DilatedConv4(nn.Module):
     """
-
+    Dilated 3D Convolutions
     """
     def __init__(self, in_channels):
+        """
+
+        Args:
+            in_channels ():
+        """
         super(DilatedConv4, self).__init__()
         self.num_features = 64
         self.in_channels = in_channels
@@ -120,9 +143,15 @@ class DilatedConv4(nn.Module):
 
 class Conv1x1x1(nn.Module):
     """
-
+    1x1x1 Convolutions
     """
     def __init__(self, in_channels, classes):
+        """
+
+        Args:
+            in_channels (int): Number of input channels
+            classes (int): Number of output classes
+        """
         super(Conv1x1x1, self).__init__()
         self.num_features = classes
         self.in_channels = in_channels
@@ -147,9 +176,18 @@ class Conv1x1x1(nn.Module):
 
 class HighResNet3D(BaseModel):
     """
+    Implementation based on the paper: https://arxiv.org/pdf/1707.01992.pdf
 
     """
     def __init__(self, in_channels=1, classes=4, shortcut_type="A", dropout_layer=True):
+        """
+
+        Args:
+            in_channels (int): Number of input channels
+            classes (int): Number of output classes
+            shortcut_type (int): Type of residual connections Default: "A"
+            dropout_layer (bool, optional): Use dropout layers Default: True
+        """
         super(HighResNet3D, self).__init__()
         self.in_channels = in_channels
         self.shortcut_type = shortcut_type
@@ -188,12 +226,13 @@ class HighResNet3D(BaseModel):
 
     def shortcut_pad(self, x, desired_channels):
         """
-
+        Padding tensor with zeros to use in residual connection
         Args:
             x:
-            desired_channels:
+            desired_channels (int): Desired number of channels
 
         Returns:
+            y: Padded Tensor
 
         """
         if self.shortcut_type == 'A':

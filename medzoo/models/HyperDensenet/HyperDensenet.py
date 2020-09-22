@@ -14,16 +14,16 @@ def conv(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Con
     """
 
     Args:
-        nin:
-        nout:
-        kernel_size:
-        stride:
-        padding:
-        bias:
-        layer:
-        BN:
+        nin: number of input filters
+        nout: number of output filters
+        kernel_size: kernel size of filter (Default:3)
+        stride:  stride of filter (Default:1)
+        padding: padding size of filter (Default:1)
+        bias: use bias weight (Default:False)
+        layer: type of layer (Default:Conv2D)
+        BN: use batch normalization (Default: False)
         ws:
-        activ:
+        activ: activation function (Default: nn.LeakyRelu(0.2))
         gainWS:
 
     Returns:
@@ -48,8 +48,9 @@ def conv(nin, nout, kernel_size=3, stride=1, padding=1, bias=False, layer=nn.Con
 
 class ResidualConv(nn.Module):
     """
-
+    Implemenation of Residual Convolution
     """
+
     def __init__(self, nin, nout, bias=False, BN=False, ws=False, activ=nn.LeakyReLU(0.2)):
         super(ResidualConv, self).__init__()
 
@@ -89,13 +90,13 @@ def upSampleConv_Res(nin, nout, upscale=2, bias=False, BN=False, ws=False, activ
     """
 
     Args:
-        nin:
-        nout:
+        nin: number of input filters
+        nout: number of output filters
         upscale:
-        bias:
-        BN:
+        bias: use bias (Default=False)
+        BN: use batch normalization
         ws:
-        activ:
+        activ: activation Function (Default: nn.LeakyRelU(0.2))
 
     Returns:
 
@@ -110,8 +111,8 @@ def conv_block(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dila
     """
 
     Args:
-        in_dim:
-        out_dim:
+        in_dim: input dimension
+        out_dim: output dimension
         act_fn:
         kernel_size:
         stride:
@@ -520,6 +521,7 @@ class HyperDenseNet_2Mod(BaseModel):
     """
 
     """
+
     def __init__(self, in_channels=2, classes=4):
         super(HyperDenseNet_2Mod, self).__init__()
         self.num_classes = classes
@@ -682,6 +684,7 @@ class HyperDenseNet(BaseModel):
     """
 
     """
+
     def __init__(self, in_channels=3, classes=4):
         super(HyperDenseNet, self).__init__()
         assert in_channels == 3, "HyperDensenet supports 3 in_channels. For 2 in_channels use HyperDenseNet_2Mod "
