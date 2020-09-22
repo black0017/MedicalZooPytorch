@@ -1,1 +1,8 @@
-model_config:
+in_channels: 3 # modalities
+out_channels: 32
+norm: "group"
+dropout: 0.2
+classes: 4
+max_conv_channels: 256
+dim: (64, 64, 64)
+upsampling: True # Upsampling VS Transpose convolutions

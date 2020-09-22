@@ -10,14 +10,22 @@ Implementation based on the original paper https://arxiv.org/pdf/1810.11654.pdf
 
 class GreenBlock(nn.Module):
     """
-
+    The Green block as illustrated in the paper page 3, Fig.1
     """
-    def __init__(self, in_channels, out_channels=32, norm="group"):
+
+    def __init__(self, in_channels, norm="group"):
+        """
+        Each Green block is a ResNet-like block with the GroupNorm normalization.
+
+        Args:
+            in_channels: The medical image modalities i.e. 4 for Brats
+            norm: The in-layer normalization mathod. "group is the default"
+        """
         super(GreenBlock, self).__init__()
-        if norm == "batch":
+        if norm == "group":
             norm_1 = nn.BatchNorm3d(num_features=in_channels)
             norm_2 = nn.BatchNorm3d(num_features=in_channels)
-        elif norm == "group":
+        else:
             norm_1 = nn.GroupNorm(num_groups=8, num_channels=in_channels)
             norm_2 = nn.GroupNorm(num_groups=8, num_channels=in_channels)
 
@@ -37,9 +45,9 @@ class GreenBlock(nn.Module):
         """
 
         Args:
-            x:
+            x: 5D Tensor of shape [batch, channels, slices/depth, height, width]
 
-        Returns:
+        Returns: an identical shape 5D tensor
 
         """
         x = self.layer_1(x)
@@ -51,30 +59,36 @@ class GreenBlock(nn.Module):
 
 class DownBlock(nn.Module):
     """
-
+    The downsampling convolutional block in the encoder path.
+    It halfs the spatial dimensions with 2-strided 3x3x3 convolutions
     """
+
     def __init__(self, in_channels, out_channels):
+        """
+        Args:
+            in_channels: the inputs feature maps of the 3D convolution
+            out_channels: the output feature maps of the 3D convolution
+        """
         super(DownBlock, self).__init__()
         self.conv = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(3, 3, 3),
                               stride=2, padding=1)
 
     def forward(self, x):
-        """
-
-        Args:
-            x:
-
-        Returns:
-
-        """
         return self.conv(x)
 
 
 class BlueBlock(nn.Module):
     """
-
+    The blue block in Figure 1. It is a 3D convolutions with 3x3x3 kernels
+    that is used in the input and the output. The spatial image size is not modified.
     """
+
     def __init__(self, in_channels, out_channels=32):
+        """
+        Args:
+            in_channels: the inputs feature maps of the 3D convolution
+            out_channels: the output feature maps of the 3D convolution
+        """
         super(BlueBlock, self).__init__()
         self.conv = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(3, 3, 3),
                               stride=1, padding=1)
@@ -93,10 +107,17 @@ class BlueBlock(nn.Module):
 
 class UpBlock1(nn.Module):
     """
-    TODO fix transpose conv to double spatial dim
+    Transpose conv. block that doubles the spatial dimension in the decoder part
+    It uses 1x1x1 kernels with a stride of two.
     """
 
     def __init__(self, in_channels, out_channels):
+        """
+
+        Args:
+            in_channels: the inputs feature maps of the 3D convolution
+            out_channels: the output feature maps of the 3D convolution
+        """
         super(UpBlock1, self).__init__()
         self.transp_conv = nn.ConvTranspose3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1, 1),
                                               stride=2, padding=1)
@@ -115,13 +136,16 @@ class UpBlock1(nn.Module):
 
 class UpBlock2(nn.Module):
     """
-
+    Casual Upsampling that doubles the spatial dimension in the decoder part
+    It uses common interpolations. The official work uses bilinear upsampling
+    but it is not supported in Pytorch for 3D volumes.
     """
+
     def __init__(self, in_channels, out_channels):
         super(UpBlock2, self).__init__()
         self.conv_1 = nn.Conv3d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1, 1),
                                 stride=1)
-        # self.up_sample_1 = nn.Upsample(scale_factor=2, mode="bilinear") # TODO currently not supported in PyTorch 1.4 :(
+        # self.up_sample_1 = nn.Upsample(scale_factor=2, mode="bilinear")
         self.up_sample_1 = nn.Upsample(scale_factor=2, mode="nearest")
 
     def forward(self, x):
@@ -153,16 +177,22 @@ def reparametrize(mu, logvar):
 
 class ResNetEncoder(nn.Module):
     """
+    The resnet-like encoder of the total architecture.
 
     """
+
     def __init__(self, in_channels, start_channels=32):
+        """
+        Args:
+            in_channels: the input image modalities
+            start_channels: the feature maps of the initial layer. default is 32
+        """
         super(ResNetEncoder, self).__init__()
 
         self.start_channels = start_channels
         self.down_channels_1 = 2 * self.start_channels
         self.down_channels_2 = 2 * self.down_channels_1
         self.down_channels_3 = 2 * self.down_channels_2
-        # print("self.down_channels_3", self.down_channels_3)
 
         self.blue_1 = BlueBlock(in_channels=in_channels, out_channels=self.start_channels)
 
@@ -189,12 +219,12 @@ class ResNetEncoder(nn.Module):
 
     def forward(self, x):
         """
-
         Args:
-            x:
+            x: 5D Tensor of shape [batch, channels, slices/depth, height, width]
 
-        Returns:
-
+        Returns: x1, x2, x3, x4
+        x4 is the last layer output
+        x1,x2,x3 is the intermediate features that will be used in the decoded for long-skip connections
         """
         x = self.blue_1(x)
         x = self.drop(x)
@@ -218,8 +248,10 @@ class ResNetEncoder(nn.Module):
 
 class Decoder(nn.Module):
     """
-
+    The decoder part.
+    It upsamples the bottleneck information in the volume dimension
     """
+
     def __init__(self, in_channels=256, classes=4):
         super(Decoder, self).__init__()
         out_up_1_channels = int(in_channels / 2)
@@ -242,14 +274,15 @@ class Decoder(nn.Module):
 
     def forward(self, x1, x2, x3, x4):
         """
+        The inputs as taken from the encoder
 
         Args:
-            x1:
-            x2:
-            x3:
-            x4:
+            x1: first layer out feat.
+            x2: second layer out feat.
+            x3: pre-last layer
+            x4: last layer out
 
-        Returns:
+        Returns: Segmentation map baed on the specified classes
 
         """
         x = self.up_1(x4)
@@ -264,19 +297,17 @@ class Decoder(nn.Module):
 
 class VAE(nn.Module):
     """
-
+    The variational auto-endoder
     """
+
     def __init__(self, in_channels=256, in_dim=(10, 10, 10), out_dim=(2, 64, 64, 64)):
         super(VAE, self).__init__()
         self.in_channels = in_channels
         self.in_dim = in_dim
         self.out_dim = out_dim
         self.modalities = out_dim[0]
-        self.encoder_channels = 16  # int(in_channels >> 4)
+        self.encoder_channels = int(in_channels >> 4)
         self.split_dim = int(self.in_channels / 2)
-
-        # self.reshape_dim = (int(self.out_dim[1] / 16), int(self.out_dim[2] / 16), int(self.out_dim[3] / 16))
-        # self.linear_in_dim = int(16 * (in_dim[0] / 2) * (in_dim[1] / 2) * (in_dim[2] / 2))
 
         self.reshape_dim = (int(self.out_dim[1] / self.encoder_channels), int(self.out_dim[2] / self.encoder_channels),
                             int(self.out_dim[3] / self.encoder_channels))
@@ -285,9 +316,9 @@ class VAE(nn.Module):
 
         self.linear_vu_dim = self.encoder_channels * self.reshape_dim[0] * self.reshape_dim[1] * self.reshape_dim[2]
 
-        channels_vup2 = int(self.in_channels / 2)  # 128
-        channels_vup1 = int(channels_vup2 / 2)  # 64
-        channels_vup0 = int(channels_vup1 / 2)  # 32
+        channels_vup2 = int(self.in_channels / 2)
+        channels_vup1 = int(channels_vup2 / 2)
+        channels_vup0 = int(channels_vup1 / 2)
 
         group_1 = nn.GroupNorm(num_groups=8, num_channels=in_channels)
         relu_1 = nn.ReLU()
@@ -298,7 +329,6 @@ class VAE(nn.Module):
 
         self.linear_1 = nn.Linear(self.linear_in_dim, in_channels)
 
-        # TODO VU layer here
         self.linear_vu = nn.Linear(channels_vup2, self.linear_vu_dim)
         relu_vu = nn.ReLU()
         VUup_block = UpBlock2(in_channels=self.encoder_channels, out_channels=self.in_channels)
@@ -345,9 +375,18 @@ class VAE(nn.Module):
 
 class ResNet3dVAE(BaseModel):
     """
-
+    The total architecture
     """
+
     def __init__(self, in_channels=2, classes=4, max_conv_channels=256, dim=(64, 64, 64)):
+        """
+
+        Args:
+            in_channels:
+            classes:
+            max_conv_channels: the encoder out channels. with this parameter we control the size of the model
+            dim:
+        """
         super(ResNet3dVAE, self).__init__()
         self.dim = dim
         vae_in_dim = (int(dim[0] >> 3), int(dim[1] >> 3), int(dim[0] >> 3))
@@ -355,7 +394,7 @@ class ResNet3dVAE(BaseModel):
 
         self.classes = classes
         self.modalities = in_channels
-        start_channels = 32  # int(max_conv_channels >> 3)
+        start_channels = int(max_conv_channels >> 3)
 
         self.encoder = ResNetEncoder(in_channels=in_channels, start_channels=start_channels)
         self.decoder = Decoder(in_channels=max_conv_channels, classes=classes)
