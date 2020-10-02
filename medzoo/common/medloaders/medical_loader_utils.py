@@ -52,7 +52,6 @@ def fix_seg_map(segmentation_map, dataset="iseg2017"):
         NCR = 1
         NET_NCR = 1
         ET = 3
-        # print('dsdsdsdsd')
         segmentation_map[segmentation_map == 1] = NET_NCR
         segmentation_map[segmentation_map == 2] = ED
         segmentation_map[segmentation_map == 3] = 3

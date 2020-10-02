@@ -178,7 +178,6 @@ def reparametrize(mu, logvar):
 class ResNetEncoder(nn.Module):
     """
     The resnet-like encoder of the total architecture.
-
     """
 
     def __init__(self, in_channels, start_channels=32):

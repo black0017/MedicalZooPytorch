@@ -1,26 +1,34 @@
-
+# training options
 batchSz: 2
-dim: [32,32,32]
-nEpochs: 5
-classes: 4
-samples_train: 10
-samples_val: 10
-inChannels: 2
-inModalities: 2
-threshold: 0.0001  # threshhold for non-empty sub volume sampling
-terminal_show_freq: 50 # iterations for terminal display
 augmentation: true # whether to use 3D data augmentations
-normalization: 'full_volume_mean' #('max_min', 'full_volume_mean', 'brats', 'max', 'mean')
-fold_id: 1
-split: 0.8 # how to split train and val data
-lr: 1e-3
-fold_lr: 1
-cuda: false
-loadData: false
-resume: '' # define your checkpoint here
 opt: sgd #('sgd', 'adam', 'rmsprop')
+lr: 1e-3 # the learning rate of the optimizer
+nEpochs: 5    # number of epochs to train the dataset
+cuda: false
+loadData: false # load generated subvolumes
+normalization: 'full_volume_mean' #('max_min', 'full_volume_mean', 'brats', 'max', 'mean')
+
+# patch-based training
+samples_train: 10 # how many training samples to generate
+samples_val: 10  # how many val samples to generate
+dim: [ 32,32,32 ] # sub-volume training size
+threshold: 0.0001  # threshhold percentage for non-empty(zero) sub volume sampling , because epty volumes create instabilities in training
+
+
+fold_lr: 1
+terminal_show_freq: 50 # how many iterations for terminal display
 log_dir: '../runs/'
+
 # TODO
 pretrained: false # search for pretrained models with the same input modalities
+fold_id: 1  # should be removed and keep only split percntage
+split: 0.8 # how to split train and val data
+classes: 4   # segmentation voxel classes (must be specified in the dataset configs)
+resume: '' # define your checkpoint here
+
+# should be in the dataset config files
+inChannels: 2
+inModalities: 2
+
 
 

@@ -10,5 +10,4 @@ torchsummary>=1.5.1
 torchnet>=0.0.4
 matplotlib>=3.2.1
 Pillow>=7.0.0
-torchsummaryX
 

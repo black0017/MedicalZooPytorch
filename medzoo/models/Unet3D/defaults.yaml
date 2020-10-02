@@ -1,1 +1,4 @@
-model_config:
+base_n_filter: 8
+mode: 'nearest' # for upsampling
+normalization: 'instance' # or 'batch'
+pooling: False # uses strided convolutions when false

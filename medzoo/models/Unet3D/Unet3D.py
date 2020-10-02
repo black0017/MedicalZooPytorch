@@ -79,7 +79,6 @@ class UNet3D(BaseModel):
                                         bias=False)
         self.ds3_1x1_conv3d = nn.Conv3d(self.base_n_filter * 4, self.n_classes, kernel_size=1, stride=1, padding=0,
                                         bias=False)
-        self.sigmoid = nn.Sigmoid()
 
     def conv_norm_lrelu(self, feat_in, feat_out):
         """
@@ -148,9 +147,10 @@ class UNet3D(BaseModel):
         """
 
         Args:
-            x:
+            x: accept a 5D input tensor
 
-        Returns:
+        Returns: a 5D input tensor with the same spatial dims as the input.
+         Out channels are  the number of classes.
 
         """
         #  Level 1 context pathway
