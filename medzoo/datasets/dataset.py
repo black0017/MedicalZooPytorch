@@ -10,7 +10,7 @@ Based on this repository: https://github.com/black0017/MICCAI-2019-Prostate-Canc
 """
 
 
-class MedzooDataset(ABC, Dataset):
+class MedzooDataset(Dataset):
 
     def __init__(self, config, mode, root_path='.././datasets'):
         """
@@ -19,23 +19,18 @@ class MedzooDataset(ABC, Dataset):
 
         self.mode = mode
         self.root_path = root_path
-        self.crop_dim = config.dim
-        self.full_vol_dim = config.full_dim
+        self.crop_size = config.crop_size
+        self.full_vol_dim = config.image_dim
         self.classes = config.classes
         self.threshold = config.threshold
         self.split = config.split
-        self.load = config.loadData
-        self.save = config.loadData
         self.augmentation = config.augmentation
         self.normalization = config.normalization
-        self.subvol = '_vol_' + str(self.crop_dim[0]) + 'x' + str(self.crop_dim[1]) + 'x' + str(self.crop_dim[2])
+        self.subvol = '_vol_' + str(self.crop_size[0]) + 'x' + str(self.crop_size[1]) + 'x' + str(self.crop_size[2])
         self.affine = None
         self.augment_transform = None
+        self.samples = config[self.mode].total_samples
 
-        if mode == 'train':
-            self.samples = config.samples_train
-        else:
-            self.samples = config.samples_val
 
     def load_dataset(self):
 

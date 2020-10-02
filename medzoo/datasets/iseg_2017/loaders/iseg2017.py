@@ -4,14 +4,14 @@ import os
 import numpy as np
 import torch
 from torch.utils.data import Dataset
-
+from omegaconf import OmegaConf
 import medzoo.common.augment3D as augment3D
 import medzoo.utils as utils
 from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
+from medzoo.datasets.dataset import MedzooDataset
 
-
-class MRIDatasetISEG2017(Dataset):
+class MRIDatasetISEG2017(MedzooDataset):
     """
     Code for reading the infant brain MRI dataset of ISEG 2017 challenge
     """
@@ -27,18 +27,17 @@ class MRIDatasetISEG2017(Dataset):
             fold_id: 1 to 10 values
             samples: number of sub-volumes that you want to create
         """
+        config = OmegaConf.load('/mnt/784C5F3A4C5EF1FC/PROJECTS/MedZoo_dev/MedicalZooPytorch/medzoo/datasets/iseg_2017/defaults.yaml')['dataset_config']
+
+        super().__init__( config, mode, root_path=dataset_path)
         self.mode = mode
         self.root = str(dataset_path)
+
         self.training_path = self.root + '/iseg_2017/iSeg-2017-Training/'
         self.testing_path = self.root + '/iseg_2017/iSeg-2017-Testing/'
-        self.CLASSES = 4
-        self.full_vol_dim = (144, 192, 256)  # slice, width, height
-        self.threshold = args.threshold
-        self.normalization = args.normalization
-        self.augmentation = args.augmentation
-        self.crop_size = crop_dim
+
         self.list = []
-        self.samples = samples
+        self.samples = config[self.mode].total_samples
         self.full_volume = None
         self.save_name = self.root + '/iseg_2017/iSeg-2017-Training/iseg2017-list-' + mode + '-samples-' + str(
             samples) + '.txt'
@@ -109,7 +108,7 @@ class MRIDatasetISEG2017(Dataset):
         t1, t2, s = np.load(t1_path), np.load(t2_path), np.load(seg_path)
 
         if self.mode == 'train' and self.augmentation:
-            print('augmentation reee')
+
             [augmented_t1, augmented_t2], augmented_s = self.transform([t1, t2], s)
 
             return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(

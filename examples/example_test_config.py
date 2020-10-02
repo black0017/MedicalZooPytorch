@@ -35,6 +35,7 @@ def main():
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(config,
                                                                                                path='../medzoo/datasets')
+
     model, optimizer = medzoo.create_model(config)
     criterion = DiceLoss(classes=config.classes)
 
@@ -55,7 +56,7 @@ def get_arguments():
 
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_name', type=str, default="iseg2019")
+    parser.add_argument('--dataset_name', type=str, default="iseg2017")
     parser.add_argument('--model', type=str, default='UNET3D',
                         choices=('VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
     parser.add_argument('--config', type=str, default='../medzoo/defaults.yaml')

@@ -10,10 +10,10 @@ class Trainer:
     Trainer class
     """
 
-    def __init__(self, args, model, criterion, optimizer, train_data_loader,
+    def __init__(self, config, model, criterion, optimizer, train_data_loader,
                  valid_data_loader=None, lr_scheduler=None):
 
-        self.args = args
+        self.config = config
         self.model = model
         self.optimizer = optimizer
         self.criterion = criterion
@@ -24,17 +24,17 @@ class Trainer:
         self.do_validation = self.valid_data_loader is not None
         self.lr_scheduler = lr_scheduler
         self.log_step = int(np.sqrt(train_data_loader.batch_size))
-        self.writer = TensorboardWriter(args)
+        self.writer = TensorboardWriter(config)
 
         self.save_frequency = 10
-        self.terminal_show_freq = self.args.terminal_show_freq
+        self.terminal_show_freq = self.config.terminal_show_freq
         self.start_epoch = 1
 
     def training(self):
         """
 
         """
-        for epoch in range(self.start_epoch, self.args.nEpochs):
+        for epoch in range(self.start_epoch, self.config.nEpochs):
             self.train_epoch(epoch)
 
             if self.do_validation:
@@ -42,8 +42,8 @@ class Trainer:
 
             val_loss = self.writer.data['val']['loss'] / self.writer.data['val']['count']
 
-            if self.args.save is not None and ((epoch + 1) % self.save_frequency):
-                self.model.save_checkpoint(self.args.save,
+            if self.config.save is not None and ((epoch + 1) % self.save_frequency):
+                self.model.save_checkpoint(self.config.save,
                                            epoch, val_loss,
                                            optimizer=self.optimizer)
 
@@ -64,7 +64,7 @@ class Trainer:
 
             self.optimizer.zero_grad()
 
-            input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
+            input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config)
             input_tensor.requires_grad = True
             output = self.model(input_tensor)
             loss_dice, per_ch_score = self.criterion(output, target)
@@ -90,7 +90,7 @@ class Trainer:
 
         for batch_idx, input_tuple in enumerate(self.valid_data_loader):
             with torch.no_grad():
-                input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
+                input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config)
                 input_tensor.requires_grad = False
 
                 output = self.model(input_tensor)

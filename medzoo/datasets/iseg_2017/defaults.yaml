@@ -2,12 +2,18 @@ dataset_config:
   name: iseg2017
   input_channels: 4
   classes:  4
-  augmentation:
-    randomflip: True
-    randomcrop: True
-    gaussiannoise:  True
-  normalization:  True
-  image_dim:  144, 192, 256
-  total_samples:
-  crop_size:  64,64,64
-  threshold:  0.01
+  crop_size:  [64,64,64]
+  image_dim:  [144, 192, 256]
+  threshold: 0.01
+  split: 0.1
+  train:
+    augmentation: True
+    normalization:  True
+    total_samples: 10
+  val:
+    normalization: True
+    total_samples: 10
+  test:
+    normalization: True
+    total_samples: 1
+    crop_size: [144, 192, 256]
