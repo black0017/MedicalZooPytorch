@@ -40,7 +40,6 @@ def generate_datasets(args, path='.././datasets'):
 
         val_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path,)
 
-
     elif args.dataset_name == "mrbrains4":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path)
 
@@ -117,11 +116,9 @@ def select_full_volume_for_infer(args, path='.././datasets'):
         loader = MRIDatasetISEG2017('viz', dataset_path=path)
 
     elif args.dataset_name == "iseg2019":
-        train_loader = MRIDatasetISEG2019('train', dataset_path=path, crop_dim=args.dim,
-                                          split_id=split_idx, samples=samples_train)
+        train_loader = MRIDatasetISEG2019('train', dataset_path=path)
 
-        val_loader = MRIDatasetISEG2019('val', dataset_path=path, crop_dim=args.dim, split_id=split_idx,
-                                        samples=samples_val)
+        val_loader = MRIDatasetISEG2019('val', dataset_path=path)
     elif args.dataset_name == "mrbrains4":
         train_loader = MRIDatasetMRBRAINS2018('train', dataset_path=path)
 

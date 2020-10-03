@@ -36,6 +36,7 @@ class MedzooDataset(Dataset):
         self.voxels_space = config.voxels_space
         self.to_canonical = config.to_canonical
         self.transform = None
+        self.split_idx = config.split_idx
 
 
 

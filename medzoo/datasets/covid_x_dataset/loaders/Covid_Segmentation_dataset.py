@@ -32,7 +32,6 @@ class COVID_Seg_Dataset(MedzooDataset):
 
         self.sub_vol_path = dataset_path + '/covid_segmap_dataset/generated/' + mode + self.subvol + '/'
 
-        self.split_idx= 0.2
         self.sub_task = 'lung'
 
         self.train_images, self.train_labels, self.val_labels, self.val_images = [], [], [], []
