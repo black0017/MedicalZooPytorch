@@ -43,6 +43,9 @@ class CovidCTDataset(MedzooDataset):
         self.normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         self.transform = None
 
+        self.load_dataset()
+
+
     def preprocess_train(self):
         train_transformer = transforms.Compose([
             transforms.Resize(256),

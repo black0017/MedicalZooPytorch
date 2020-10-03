@@ -40,6 +40,9 @@ class COVID_Seg_Dataset(MedzooDataset):
         self.list_IDs = None
         self.list_labels = None
 
+        self.load_dataset()
+
+
 
     def load(self):
         utils.make_dirs(self.sub_vol_path)

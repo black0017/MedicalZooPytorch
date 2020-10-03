@@ -49,6 +49,9 @@ class MICCAIBraTS2020(MedzooDataset):
         self.labels = None
         self.split_idx = 260
 
+        self.load_dataset()
+
+
     def augment(self):
         self.transform = augment3D.RandomChoice(
             transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),

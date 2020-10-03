@@ -48,6 +48,9 @@ class MICCAIBraTS2019(MedzooDataset):
         self.list_IDsFlair = None
         self.labels = None
 
+        self.load_dataset()
+
+
     def augment(self):
         self.transform = augment3D.RandomChoice(
             transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),

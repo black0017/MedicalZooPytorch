@@ -46,6 +46,9 @@ class IXIMRIdataset(MedzooDataset):
         self.list_IDsT1 = None
         self.list_IDsT2 = None
 
+        self.load_dataset()
+
+
     def preprocess(self):
         utils.make_dirs(self.sub_vol_path)
         print(self.pathT1)

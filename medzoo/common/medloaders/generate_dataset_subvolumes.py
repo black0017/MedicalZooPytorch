@@ -9,7 +9,7 @@ from ...datasets.covid_x_dataset.loaders.COVIDxdataset import COVIDxDataset
 from ...datasets.covid_x_dataset.loaders.Covid_Segmentation_dataset import COVID_Seg_Dataset
 from ...datasets.iseg_2017.loaders.iseg2017 import MRIDatasetISEG2017
 from ...datasets.iseg_2019.loaders.iseg2019 import MRIDatasetISEG2019
-from ...datasets.iseg_2019.loaders.iseg2019_example import MRIDatasetISEG2019Example
+from ...datasets.iseg_2019.loaders.iseg2019 import MRIDatasetISEG2019Example
 from ...datasets.ixi.loaders.ixi_t1_t2 import IXIMRIdataset
 from ...datasets.mrbrains_2018.loaders.mrbrains2018 import MRIDatasetMRBRAINS2018
 from ...utils.logger import Logger

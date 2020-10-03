@@ -38,6 +38,9 @@ class MRIDatasetMRBRAINS2018(MedzooDataset):
 
         self.sub_vol_path = self.root_path + '/mrbrains_2018/generated/' + mode + self.subvol + '/'
 
+        self.load_dataset()
+
+
     def load(self):
         ## load pre-generated data
         self.list = utils.load_list(self.save_name)

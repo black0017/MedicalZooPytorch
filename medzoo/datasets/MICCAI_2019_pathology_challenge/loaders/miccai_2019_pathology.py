@@ -52,6 +52,9 @@ class MICCAI2019_gleason_pathology(MedzooDataset):
 
         self.split_idx = 150
 
+        self.load_dataset()
+
+
 
     def preprocess_train(self):
         self.list_imgs = self.image_paths[0:self.split_idx]

@@ -31,6 +31,7 @@ class COVIDxDataset(Dataset):
         self.full_volume = None
         self.affine = None
 
+
     def __len__(self):
         return len(self.paths)
 
