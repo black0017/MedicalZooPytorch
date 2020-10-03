@@ -12,7 +12,7 @@ class CovidCTDataset(MedzooDataset):
     """
 
     """
-    def __init__(self, config, mode, dataset_path, txt_COVID, txt_NonCOVID, transform=None):
+    def __init__(self, config, mode, dataset_path, txt_COVID, txt_NonCOVID):
         """
         Args:
             txt_path (string): Path to the txt file with annotations.
@@ -64,7 +64,6 @@ class CovidCTDataset(MedzooDataset):
             self.normalize
         ])
         self.transform = val_transformer
-
 
     def __len__(self):
         return len(self.img_list)
