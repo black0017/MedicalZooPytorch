@@ -1,1 +1,4 @@
 dataset_config:
+
+voxels_space=(2, 2, 2), modalities=2, to_canonical=False,
+                 save=True

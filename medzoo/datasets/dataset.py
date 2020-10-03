@@ -31,6 +31,10 @@ class MedzooDataset(Dataset):
         self.augment_transform = None
         self.samples = config[self.mode].total_samples
         self.fold = int(config.fold)
+        self.save = config.save
+        self.modalities = config.modalities
+        self.voxels_space = config.voxels_space
+        self.to_canonical = config.to_canonical
 
 
 

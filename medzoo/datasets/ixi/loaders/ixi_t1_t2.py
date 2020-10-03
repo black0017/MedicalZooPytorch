@@ -8,16 +8,16 @@ from torch.utils.data import Dataset
 import medzoo.utils as utils
 # from medzoo.medloaders import img_loader
 from medzoo.common.medloaders import medical_image_process as img_loader
+from medzoo.datasets.dataset import MedzooDataset
 
 
-class IXIMRIdataset(Dataset):
+class IXIMRIdataset(MedzooDataset):
     """
     Code for reading the IXI brain MRI dataset
     This loader is implemented for cross-dataset testing
     """
 
-    def __init__(self, args, dataset_path='./data', voxels_space=(2, 2, 2), modalities=2, to_canonical=False,
-                 save=True):
+    def __init__(self, config,mode, dataset_path='./data'):
         """
 
         Args:
@@ -29,26 +29,25 @@ class IXIMRIdataset(Dataset):
             save: to save the generated data offline for faster reading
                 and not load RAM
         """
-        self.root = str(dataset_path)
-        self.modalities = modalities
-        self.pathT1 = self.root + '/ixi/T1/'
-        self.pathT2 = self.root + '/ixi/T2/'
-        self.save = save
-        self.CLASSES = 4
+        super().__init__(config, mode, dataset_path)
+
+        self.pathT1 = self.root_path + '/ixi/T1/'
+        self.pathT2 = self.root_path + '/ixi/T2/'
         self.full_vol_dim = (150, 256, 256)  # slice, width, height
-        self.voxels_space = voxels_space
-        self.modalities = str(modalities)
+
         self.list = []
         self.full_volume = None
-        self.to_canonical = to_canonical
         self.affine = None
 
-        subvol = '_vol_' + str(self.voxels_space[0]) + 'x' + str(self.voxels_space[1]) + 'x' + str(
+        self.subvol = '_vol_' + str(self.voxels_space[0]) + 'x' + str(self.voxels_space[1]) + 'x' + str(
             self.voxels_space[2])
+        self.sub_vol_path = self.root_path + '/ixi/generated/' + self.subvol + '/'
 
-        if self.save:
-            self.sub_vol_path = self.root + '/ixi/generated/' + subvol + '/'
-            utils.make_dirs(self.sub_vol_path)
+        self.list_IDsT1 = None
+        self.list_IDsT2 = None
+
+    def preprocess(self):
+        utils.make_dirs(self.sub_vol_path)
         print(self.pathT1)
         self.list_IDsT1 = sorted(glob.glob(os.path.join(self.pathT1, '*T1.nii.gz')))
         self.list_IDsT2 = sorted(glob.glob(os.path.join(self.pathT2, '*T2.nii.gz')))
