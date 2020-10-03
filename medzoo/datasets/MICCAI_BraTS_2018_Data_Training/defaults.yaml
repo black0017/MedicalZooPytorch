@@ -16,3 +16,10 @@ dataset_config:
   classes=5, crop_dim=(200, 200, 150), split_idx=260,
   samples=10,
   load=False
+
+
+  2020
+
+  classes=5, crop_dim=(200, 200, 150), split_idx=260,
+  samples=10,
+  load=False

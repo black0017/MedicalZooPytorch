@@ -9,16 +9,15 @@ import medzoo.common.augment3D as augment3D
 import medzoo.utils as utils
 from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.medloaders.medical_loader_utils import create_sub_volumes
+from medzoo.datasets.dataset import MedzooDataset
 
 
-class MICCAIBraTS2020(Dataset):
+class MICCAIBraTS2020(MedzooDataset):
     """
     Code for reading the infant brain MICCAIBraTS2020 challenge
     """
 
-    def __init__(self, args, mode, dataset_path='./datasets', classes=5, crop_dim=(200, 200, 150), split_idx=260,
-                 samples=10,
-                 load=False):
+    def __init__(self, config, mode, dataset_path='./datasets'):
         """
 
         Args: 
@@ -28,79 +27,86 @@ class MICCAIBraTS2020(Dataset):
             split_idx: 1 to 10 values
             samples: number of sub-volumes that you want to create
         """
-        self.mode = mode
-        self.root = str(dataset_path)
-        self.training_path = self.root + '/brats2020/MICCAI_BraTS_2020_Data_Training/'
-        self.testing_path = self.root + '/brats2020/MICCAI_BraTS_2020_Data_Validation/'
+
+        super().__init__(config, mode, dataset_path)
+
+        self.training_path = self.root_path + '/brats2020/MICCAI_BraTS_2020_Data_Training/'
+        self.testing_path = self.root_path + '/brats2020/MICCAI_BraTS_2020_Data_Validation/'
         self.full_vol_dim = (240, 240, 155)  # slice, width, height
-        self.crop_size = crop_dim
-        self.threshold = args.threshold
-        self.normalization = args.normalization
-        self.augmentation = args.augmentation
+
         self.list = []
-        self.samples = samples
+
         self.full_volume = None
-        self.classes = classes
-        if self.augmentation:
-            self.transform = augment3D.RandomChoice(
-                transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
-                            augment3D.ElasticTransform()], p=0.5)
-        self.save_name = self.root + '/brats2020/brats2020-list-' + mode + '-samples-' + str(samples) + '.txt'
 
-        if load:
-            ## load pre-generated data
-            self.list = utils.load_list(self.save_name)
-            list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
-            self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
-            return
+        self.save_name = self.root_path + '/brats2020/brats2020-list-' + self.mode + '-samples-' + str(self.samples) + '.txt'
 
-        subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
-        self.sub_vol_path = self.root + '/brats2020/generated/' + mode + subvol + '/'
+        self.sub_vol_path = self.root_path + '/brats2020/generated/' + self.mode + self.subvol + '/'
+
+        self.list_IDsT1 = None
+        self.list_IDsT1ce = None
+        self.list_IDsT2 = None
+        self.list_IDsFlair = None
+        self.labels = None
+        self.split_idx = 260
+
+    def augment(self):
+        self.transform = augment3D.RandomChoice(
+            transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
+                        augment3D.ElasticTransform()], p=0.5)
+
+    def load(self):
+        ## load pre-generated data
+        self.list = utils.load_list(self.save_name)
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
+        self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
+
+    def preprocess(self):
         utils.make_dirs(self.sub_vol_path)
 
-        list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*/*t1.nii.gz')))
-        list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*/*t1ce.nii.gz')))
-        list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*/*t2.nii.gz')))
-        list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*/*_flair.nii.gz')))
-        labels = sorted(glob.glob(os.path.join(self.training_path, '*/*_seg.nii.gz')))
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*/*t1.nii.gz')))
+        self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*/*t1ce.nii.gz')))
+        self.list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*/*t2.nii.gz')))
+        self.list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*/*_flair.nii.gz')))
+        self.labels = sorted(glob.glob(os.path.join(self.training_path, '*/*_seg.nii.gz')))
 
-        list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels = utils.shuffle_lists(list_IDsT1, list_IDsT1ce,
-                                                                                          list_IDsT2,
-                                                                                          list_IDsFlair, labels,
+        self.list_IDsT1, self.list_IDsT1ce, self.list_IDsT2, self.list_IDsFlair, self.labels = utils.shuffle_lists(self.list_IDsT1, self.list_IDsT1ce,
+                                                                                          self.list_IDsT2,
+                                                                                          self.list_IDsFlair, self.labels,
                                                                                           seed=17)
-        assert len(list_IDsT1) == len(list_IDsT2) == len(list_IDsT1ce) == len(list_IDsFlair)
-        self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
+        assert len(self.list_IDsT1) == len(self.list_IDsT2) == len(self.list_IDsT1ce) == len(self.list_IDsFlair)
+        self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
 
-        if self.mode == 'train':
-            print('Brats2020, Total data:', len(list_IDsT1))
-            list_IDsT1 = list_IDsT1[:split_idx]
-            list_IDsT1ce = list_IDsT1ce[:split_idx]
-            list_IDsT2 = list_IDsT2[:split_idx]
-            list_IDsFlair = list_IDsFlair[:split_idx]
-            labels = labels[:split_idx]
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2020", mode=mode, samples=samples,
-                                           full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
-                                           sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
+    def preprocess_train(self):
+        print('Brats2020, Total data:', len(self.list_IDsT1))
+        self.list_IDsT1 = self.list_IDsT1[:self.split_idx]
+        self.list_IDsT1ce = self.list_IDsT1ce[:self.split_idx]
+        self.list_IDsT2 = self.list_IDsT2[:self.split_idx]
+        self.list_IDsFlair = self.list_IDsFlair[:self.split_idx]
+        self.labels =self.labels[:self.split_idx]
+        self.list = create_sub_volumes(self.list_IDsT1, self.list_IDsT1ce, self.list_IDsT2, self.list_IDsFlair, self.labels,
+                                       dataset_name="brats2020", mode=self.mode, samples=self.samples,
+                                       full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
+                                       sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
 
-        elif self.mode == 'val':
-            list_IDsT1 = list_IDsT1[split_idx:]
-            list_IDsT1ce = list_IDsT1ce[split_idx:]
-            list_IDsT2 = list_IDsT2[split_idx:]
-            list_IDsFlair = list_IDsFlair[split_idx:]
-            labels = labels[split_idx:]
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2020", mode=mode, samples=samples,
-                                           full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
-                                           sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
-        elif self.mode == 'test':
-            self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1.nii.gz')))
-            self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1ce.nii.gz')))
-            self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t2.nii.gz')))
-            self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
-            self.labels = None
-            # Todo inference code here
+    def preprocess_val(self):
+        self.list_IDsT1 = self.list_IDsT1[self.split_idx:]
+        self.list_IDsT1ce = self.list_IDsT1ce[self.split_idx:]
+        self.list_IDsT2 = self.list_IDsT2[self.split_idx:]
+        self.list_IDsFlair = self.list_IDsFlair[self.split_idx:]
+        self.labels = self.labels[self.split_idx:]
+        self.list = create_sub_volumes(self.list_IDsT1, self.list_IDsT1ce, self.list_IDsT2, self.list_IDsFlair, self.labels,
+                                       dataset_name="brats2020", mode=self.mode, samples=self.samples,
+                                       full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
+                                       sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
+    def preprocess_test(self):
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1.nii.gz')))
+        self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1ce.nii.gz')))
+        self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t2.nii.gz')))
+        self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
+        self.labels = None
+        # Todo inference code here
 
+    def save(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):
