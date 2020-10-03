@@ -1,1 +1,6 @@
 dataset_config:
+covid segmentation dataset
+
+fold=0, n_classes=3, samples=10,  crop_dim=(32, 32, 32)
+
+ful_vol_dim =  (512, 512, 301)

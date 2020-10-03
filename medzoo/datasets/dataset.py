@@ -30,6 +30,8 @@ class MedzooDataset(Dataset):
         self.affine = None
         self.augment_transform = None
         self.samples = config[self.mode].total_samples
+        self.fold = int(config.fold)
+
 
 
     def load_dataset(self):
@@ -51,7 +53,7 @@ class MedzooDataset(Dataset):
             self.preprocess_train()
         elif self.mode == 'val':
             self.preprocess_val()
-        else:
+        elif self.mode == 'test':
             self.preprocess_test()
 
         if self.save:
