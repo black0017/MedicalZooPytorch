@@ -9,16 +9,15 @@ import medzoo.common.augment3D as augment3D
 import medzoo.utils as utils
 from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.medloaders.medical_loader_utils import create_sub_volumes
+from medzoo.datasets.dataset import MedzooDataset
 
 
-class MICCAIBraTS2018(Dataset):
+class MICCAIBraTS2018(MedzooDataset):
     """
     Code for reading the infant brain MICCAIBraTS2018 challenge
     """
 
-    def __init__(self, args, mode, dataset_path='./datasets', classes=5, crop_dim=(32, 32, 32), split_idx=10,
-                 samples=10,
-                 load=False):
+    def __init__(self, config, mode, dataset_path='./datasets',):
         """
         Args:
             mode: 'train','val','test'
@@ -27,77 +26,86 @@ class MICCAIBraTS2018(Dataset):
             split_idx: 1 to 10 values
             samples: number of sub-volumes that you want to create
         """
-        self.mode = mode
-        self.root = str(dataset_path)
-        self.training_path = self.root + '/MICCAI_BraTS_2018_Data_Training/'
-        self.testing_path = self.root + ' '
-        self.CLASSES = 4
-        self.full_vol_dim = (240, 240, 155)  # slice, width, height
-        self.crop_size = crop_dim
-        self.threshold = args.threshold
-        self.normalization = args.normalization
-        self.augmentation = args.augmentation
-        self.list = []
-        self.samples = samples
-        self.full_volume = None
-        self.classes = classes
-        self.save_name = self.root + '/MICCAI_BraTS_2018_Data_Training/brats2018-list-' + mode + '-samples-' + str(
-            samples) + '.txt'
-        if self.augmentation:
-            self.transform = augment3D.RandomChoice(
-                transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
-                            augment3D.ElasticTransform()], p=0.5)
-        if load:
-            ## load pre-generated data
-            list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
-            self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
-            self.list = utils.load_list(self.save_name)
-            return
 
-        subvol = '_vol_' + str(crop_dim[0]) + 'x' + str(crop_dim[1]) + 'x' + str(crop_dim[2])
-        self.sub_vol_path = self.root + '/MICCAI_BraTS_2018_Data_Training/generated/' + mode + subvol + '/'
+        super().__init__(config, mode, dataset_path)
+
+        self.training_path = self.root_path + '/MICCAI_BraTS_2018_Data_Training/'
+        self.testing_path = self.root_path + ' '
+        self.CLASSES = 4
+        # slice, width, height
+
+        self.list = []
+        self.full_volume = None
+        self.save_name = self.root_path + '/MICCAI_BraTS_2018_Data_Training/brats2018-list-' + mode + '-samples-' + str(
+            self.samples) + '.txt'
+
+        self.split_idx = 10
+
+        self.sub_vol_path = self.root_path + '/MICCAI_BraTS_2018_Data_Training/generated/' + mode + self.subvol + '/'
+
+        self.list_IDsT1= None
+        self.list_IDsT1ce = None
+        self.list_IDsT2 = None
+        self.list_IDsFlair = None
+
+        self.labels = None
+
+    def augment(self):
+        self.transform = augment3D.RandomChoice(
+            transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
+                        augment3D.ElasticTransform()], p=0.5)
+
+    def load(self):
+        ## load pre-generated data
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
+        self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
+        self.list = utils.load_list(self.save_name)
+
+    def preprocess(self):
         utils.make_dirs(self.sub_vol_path)
 
-        list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
-        list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1ce.nii.gz')))
-        list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
-        list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
-        labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1.nii.gz')))
+        self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t1ce.nii.gz')))
+        self.list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*t2.nii.gz')))
+        self.list_IDsFlair = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_flair.nii.gz')))
+        self.labels = sorted(glob.glob(os.path.join(self.training_path, '*GG/*/*_seg.nii.gz')))
         # print(len(list_IDsT1),len(list_IDsT2),len(list_IDsFlair),len(labels))
 
-        self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
+        self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
 
-        if self.mode == 'train':
-            list_IDsT1 = list_IDsT1[:split_idx]
-            list_IDsT1ce = list_IDsT1ce[:split_idx]
-            list_IDsT2 = list_IDsT2[:split_idx]
-            list_IDsFlair = list_IDsFlair[:split_idx]
-            labels = labels[:split_idx]
+    def preprocess_train(self):
+        self. list_IDsT1 = self.list_IDsT1[: self.split_idx ]
+        self.list_IDsT1ce = self.list_IDsT1ce[: self.split_idx ]
+        self.list_IDsT2 = self.list_IDsT2[: self.split_idx ]
+        self.list_IDsFlair = self.list_IDsFlair[: self.split_idx ]
+        self.labels = self.labels[: self.split_idx ]
 
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2018", mode=mode, samples=samples,
-                                           full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
-                                           sub_vol_path=self.sub_vol_path, normalization=self.normalization,
-                                           th_percent=self.threshold)
-        elif self.mode == 'val':
-            list_IDsT1 = list_IDsT1[split_idx:]
-            list_IDsT1ce = list_IDsT1ce[split_idx:]
-            list_IDsT2 = list_IDsT2[split_idx:]
-            list_IDsFlair = list_IDsFlair[split_idx:]
-            labels = labels[split_idx:]
-            self.list = create_sub_volumes(list_IDsT1, list_IDsT1ce, list_IDsT2, list_IDsFlair, labels,
-                                           dataset_name="brats2018", mode=mode, samples=samples,
-                                           full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
-                                           sub_vol_path=self.sub_vol_path, normalization=self.normalization,
-                                           th_percent=self.threshold)
+        self.list = create_sub_volumes(self.list_IDsT1, self.list_IDsT1ce, self.list_IDsT2, self.list_IDsFlair, self.labels,
+                                       dataset_name="brats2018", mode=self.mode, samples=self.samples,
+                                       full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
+                                       sub_vol_path=self.sub_vol_path, normalization=self.normalization,
+                                       th_percent=self.threshold)
 
-        elif self.mode == 'test':
-            self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1.nii.gz')))
-            self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1ce.nii.gz')))
-            self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t2.nii.gz')))
-            self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
-            self.labels = None
+    def preprocess_val(self):
+        self.list_IDsT1 = self.list_IDsT1[self.split_idx:]
+        self.list_IDsT1ce = self.list_IDsT1ce[self.split_idx:]
+        self.list_IDsT2 = self.list_IDsT2[self.split_idx:]
+        self.list_IDsFlair = self.list_IDsFlair[self.split_idx:]
+        self.labels = self.labels[self.split_idx:]
+        self.list = create_sub_volumes(self.list_IDsT1,self.list_IDsT1ce, self.list_IDsT2, self.list_IDsFlair, self.labels,
+                                       dataset_name="brats2018", mode=self.mode, samples=self.samples,
+                                       full_vol_dim=self.full_vol_dim, crop_size=self.crop_size,
+                                       sub_vol_path=self.sub_vol_path, normalization=self.normalization,
+                                       th_percent=self.threshold)
 
+    def preprocess_test(self):
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1.nii.gz')))
+        self.list_IDsT1ce = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t1ce.nii.gz')))
+        self.list_IDsT2 = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*t2.nii.gz')))
+        self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
+        self.labels = None
+
+    def save(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):
@@ -116,3 +124,5 @@ class MICCAIBraTS2018(Dataset):
                 0), torch.FloatTensor(img_seg.copy())
 
         return img_t1, img_t1ce, img_t2, img_flair, img_seg
+
+
