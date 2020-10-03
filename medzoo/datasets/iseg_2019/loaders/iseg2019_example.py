@@ -10,7 +10,6 @@ from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
 from medzoo.datasets.dataset import MedzooDataset
 
-
 class MRIDatasetISEG2019Example(MedzooDataset):
     """
     Code for reading the infant brain MRI dataset of ISEG 2017 challenge
@@ -40,8 +39,8 @@ class MRIDatasetISEG2019Example(MedzooDataset):
     def load(self):
         ## load pre-generated data
         self.list = utils.load_list(self.save_name)
-        list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
-        self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
+        self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
+        self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
 
     def preprocess(self):
         utils.make_dirs(self.sub_vol_path)
@@ -57,7 +56,7 @@ class MRIDatasetISEG2019Example(MedzooDataset):
         self.labels = self.labels[:self.split_idx]
         self.list = create_sub_volumes(self.list_IDsT1, self.list_IDsT2, self.labels, dataset_name="iseg2019",
                                        mode=self.mode, samples=self.samples, full_vol_dim=self.full_vol_dim,
-                                       crop_size=self.crop_dim,
+                                       crop_size=self.crop_size,
                                        sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
 
     def preprocess_val(self):
@@ -66,7 +65,7 @@ class MRIDatasetISEG2019Example(MedzooDataset):
         labels = self.labels[self.split_idx:]
         self.list = create_sub_volumes(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019",
                                        mode=self.mode, samples=self.samples, full_vol_dim=self.full_vol_dim,
-                                       crop_size=self.crop_dim,
+                                       crop_size=self.crop_size,
                                        sub_vol_path=self.sub_vol_path, th_percent=self.threshold)
 
         self.full_volume = get_viz_set(list_IDsT1, list_IDsT2, labels, dataset_name="iseg2019")

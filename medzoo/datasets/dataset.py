@@ -16,7 +16,7 @@ class MedzooDataset(Dataset):
         """
         Args:
         """
-
+        config = config.config_dataset
         self.mode = mode
         self.root_path = root_path
         self.crop_size = config.crop_size
@@ -80,6 +80,10 @@ class MedzooDataset(Dataset):
 
     @abstractmethod
     def preprocess_test(self):
+        pass
+
+    @abstractmethod
+    def preprocess_viz(self):
         pass
 
     @abstractmethod
