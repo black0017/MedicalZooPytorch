@@ -1,1 +1,4 @@
 dataset_config:
+
+classes=4, dim=(32, 32, 32), split_id=0, samples=1000,
+                 load=False, full_vol_dim =  (240, 240, 48) threshold = 0.1
