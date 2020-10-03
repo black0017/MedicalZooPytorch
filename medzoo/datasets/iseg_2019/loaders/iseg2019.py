@@ -10,7 +10,7 @@ from medzoo.common.medloaders import medical_image_process as img_loader
 from medzoo.common.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
 from medzoo.datasets.dataset import MedzooDataset
 
-class MRIDatasetISEG2019Example(MedzooDataset):
+class MRIDatasetISEG2019(MedzooDataset):
     """
     Code for reading the infant brain MRI dataset of ISEG 2017 challenge
     """
