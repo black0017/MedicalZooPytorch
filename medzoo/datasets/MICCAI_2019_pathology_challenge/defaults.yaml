@@ -1,1 +1,5 @@
 dataset_config:
+
+ split_idx=150, crop_dim=(512, 512), samples=100,
+                 classes=7,
+                 save=True

@@ -6,20 +6,19 @@ from torch.utils.data import Dataset
 
 import medzoo.utils as utils
 from medzoo.common.medloaders import medical_image_process as img_loader
+from medzoo.datasets.dataset import MedzooDataset
 
 """
 Based on this repository: https://github.com/black0017/MICCAI-2019-Prostate-Cancer-segmentation-challenge
 """
 
 
-class MICCAI2019_gleason_pathology(Dataset):
+class MICCAI2019_gleason_pathology(MedzooDataset):
     """
     Code for reading Gleason 2019 MICCAI Challenge
     """
 
-    def __init__(self, args, mode, dataset_path='.././datasets', split_idx=150, crop_dim=(512, 512), samples=100,
-                 classes=7,
-                 save=True):
+    def __init__(self, config, mode, dataset_path='.././datasets'):
         """
         Args:
             mode: 'train','val'
@@ -28,40 +27,44 @@ class MICCAI2019_gleason_pathology(Dataset):
             crop_dim: 2 element tuple to decide crop values
             samples: number of sub-grids to create(patches of the input img)
         """
-        image_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Train Imgs/Train Imgs/*.jpg"))
-        label_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Labels/*.png"))
+        super().__init__(config, mode, dataset_path)
 
-        image_paths, label_paths = utils.shuffle_lists(image_paths, label_paths, seed=17)
+        self.image_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Train Imgs/Train Imgs/*.jpg"))
+        self.label_paths = sorted(glob.glob(dataset_path + "/MICCAI_2019_pathology_challenge/Labels/*.png"))
+
+        self.image_paths, self.abel_paths = utils.shuffle_lists(self.image_paths, self.label_paths, seed=17)
         self.full_volume = None
-        self.affine = None
 
         self.slices = 244  # dataset instances
-        self.mode = mode
-        self.crop_dim = crop_dim
         self.sample_list = []
-        self.samples = samples
-        self.save = save
-        self.root = dataset_path
         self.per_image_sample = int(self.samples / self.slices)
         if self.per_image_sample < 1:
             self.per_image_sample = 1
 
         print("per image sampleeeeee", self.per_image_sample)
 
-        sub_grid = '_2dgrid_' + str(crop_dim[0]) + 'x' + str(crop_dim[1])
+        sub_grid = '_2dgrid_' + str(self.crop_size[0]) + 'x' + str(self.crop_size[1])
 
-        if self.save:
-            self.sub_vol_path = self.root + '/MICCAI_2019_pathology_challenge/generated/' + mode + sub_grid + '/'
-            utils.make_dirs(self.sub_vol_path)
+        self.sub_vol_path = self.root_path + '/MICCAI_2019_pathology_challenge/generated/' + mode + sub_grid + '/'
 
-        if self.mode == 'train':
-            self.list_imgs = image_paths[0:split_idx]
-            self.list_labels = label_paths[0:split_idx]
-        elif self.mode == 'val':
-            self.list_imgs = image_paths[split_idx:]
-            self.list_labels = label_paths[split_idx:]
+        self.list_imgs = None
+        self.list_labels = None
 
-        self.generate_samples()
+        self.split_idx = 150
+
+
+    def preprocess_train(self):
+        self.list_imgs = self.image_paths[0:self.split_idx]
+        self.list_labels = self.label_paths[0:self.split_idx]
+
+    def preprocess_val(self):
+        self.list_imgs = self.image_paths[self.split_idx:]
+        self.list_labels = self.label_paths[self.split_idx:]
+
+    def save(self):
+        utils.make_dirs(self.sub_vol_path)
+
+
 
     def __len__(self):
         return len(self.sample_list)
@@ -75,7 +78,7 @@ class MICCAI2019_gleason_pathology(Dataset):
             img_tensor, segmentation_map = tuple_in
             return img_tensor, segmentation_map
 
-    def generate_samples(self):
+    def preprocess(self):
         """
 
         """
@@ -89,11 +92,11 @@ class MICCAI2019_gleason_pathology(Dataset):
             label_numpy = img_loader.load_2d_image(label_path, type='LA')
             for i in range(self.per_image_sample):
                 h_crop, w_crop = self.generate_patch(img_numpy)
-                img_cropped = img_numpy[h_crop:(h_crop + self.crop_dim[0]),
-                              w_crop:(w_crop + self.crop_dim[1]), :]
+                img_cropped = img_numpy[h_crop:(h_crop + self.crop_size[0]),
+                              w_crop:(w_crop + self.crop_size[1]), :]
 
-                label_cropped = label_numpy[h_crop:(h_crop + self.crop_dim[0]),
-                                w_crop:(w_crop + self.crop_dim[1])]
+                label_cropped = label_numpy[h_crop:(h_crop + self.crop_size[0]),
+                                w_crop:(w_crop + self.crop_size[1])]
 
                 img_tensor = torch.from_numpy(img_cropped).float()
                 label_tensor = torch.from_numpy(label_cropped)
@@ -121,11 +124,11 @@ class MICCAI2019_gleason_pathology(Dataset):
 
         """
         h, w, c = img.shape
-        if h < self.crop_dim[0] or w < self.crop_dim[1]:
+        if h < self.crop_size[0] or w < self.crop_size[1]:
             print('dim error')
-            print(h, self.crop_dim[0], w, self.crop_dim[1])
-        h_crop = np.random.randint(h - self.crop_dim[0])
-        w_crop = np.random.randint(w - self.crop_dim[1])
+            print(h, self.crop_size[0], w, self.crop_size[1])
+        h_crop = np.random.randint(h - self.crop_size[0])
+        w_crop = np.random.randint(w - self.crop_size[1])
         return h_crop, w_crop
 
     def norm_img(self, img_tensor):
@@ -147,7 +150,7 @@ class MICCAI2019_gleason_pathology(Dataset):
         """
 
         """
-        tuple_maps = read_labels(self.dataset_path)
+        tuple_maps = read_labels(self.root_path)
         preprocess_labels(tuple_maps)
 
 
