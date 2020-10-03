@@ -3,16 +3,16 @@ import os
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-from torch.utils.data import Dataset
 
+from medzoo.datasets.dataset import MedzooDataset
 from medzoo.utils.covid_utils import read_txt
 
 
-class CovidCTDataset(Dataset):
+class CovidCTDataset(MedzooDataset):
     """
 
     """
-    def __init__(self, mode, root_dir, txt_COVID, txt_NonCOVID, transform=None):
+    def __init__(self, config, mode, dataset_path, txt_COVID, txt_NonCOVID, transform=None):
         """
         Args:
             txt_path (string): Path to the txt file with annotations.
@@ -30,39 +30,38 @@ class CovidCTDataset(Dataset):
                 - img2.png
                 - ......
         """
-        self.root_dir = root_dir
+        super().__init__(config, mode, dataset_path)
+
         self.txt_path = [txt_COVID, txt_NonCOVID]
-        self.classes = ['CT_COVID', 'CT_NonCOVID']
-        self.num_cls = len(self.classes)
+        self.classes_names = ['CT_COVID', 'CT_NonCOVID']
+        self.classes = len(self.classes_names)
         self.img_list = []
-        self.full_volume = None
-        self.affine = None
-        for c in range(self.num_cls):
-            cls_list = [[os.path.join(self.root_dir, self.classes[c], item), c] for item in read_txt(self.txt_path[c])]
+        for c in range(self.classes):
+            cls_list = [[os.path.join(self.root_path, self.classes_names[c], item), c] for item in read_txt(self.txt_path[c])]
             self.img_list += cls_list
 
-        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        self.normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        self.transform = None
+
+    def preprocess_train(self):
         train_transformer = transforms.Compose([
             transforms.Resize(256),
             transforms.RandomResizedCrop((224), scale=(0.5, 1.0)),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
-            normalize
+            self.normalize
         ])
+        self.transform = train_transformer
 
+    def preprocess_val(self):
         val_transformer = transforms.Compose([
             transforms.Resize(224),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
-            normalize
+            self.normalize
         ])
-        if (mode == 'train'):
+        self.transform = val_transformer
 
-            self.transform = train_transformer
-
-        else:
-            self.transform = val_transformer
-        print('samples = ', len(self.img_list))
 
     def __len__(self):
         return len(self.img_list)
