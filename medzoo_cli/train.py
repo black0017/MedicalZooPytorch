@@ -19,12 +19,12 @@ def train():
     """
     args = get_arguments()
 
-    config = ConfigReader.read_config(args.config,args.model)
+    config = ConfigReader.read_config(args.model_config,args.dataset_config,  args.model, args.dataset)
     config.model = args.model
-    config.dataset_name = args.dataset_name
+    config.dataset = args.dataset
 
     config.save = 'saved_models/' + args.model + '_checkpoints/' + args.model + '_{}_{}_'.format(
-        utils.datestr(), args.dataset_name)
+        utils.datestr(), args.dataset)
 
     utils.reproducibility(config, seed)
     utils.make_dirs(config.save)
@@ -49,12 +49,13 @@ def get_arguments():
 
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_name', type=str, default="iseg2017")
-    parser.add_argument('--model', type=str, default='Unet3D',
+    parser.add_argument('--dataset', type=str, default="iseg2017")
+    parser.add_argument('--model', type=str, default='UNET3D',
                         choices=(
-                        'COVIDNet', 'Densenet3D', 'DenseVoxelNet', 'HighResNet3D', 'HyperDensenet', 'ResNet3D_VAE',
-                        'ResNet3DMedNet', "SkipDenseNet3D", "Unet2D", "Unet3D", "Vnet"))
-    parser.add_argument('--config', type=str)
+                        'VNET', 'VNET2', 'UNET3D', 'DENSENET1', 'DENSENET2', 'DENSENET3', 'HYPERDENSENET'))
+    parser.add_argument('--dataset_config', type=str)
+    parser.add_argument('--model_config', type=str)
+
 
     args = parser.parse_args()
 
