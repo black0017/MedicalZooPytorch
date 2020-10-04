@@ -20,21 +20,18 @@ def train():
     args = get_arguments()
 
     config = ConfigReader.read_config(args.model_config,args.dataset_config,  args.model, args.dataset)
-    config.model = args.model
-    config.dataset = args.dataset
 
     config.save = 'saved_models/' + args.model + '_checkpoints/' + args.model + '_{}_{}_'.format(
         utils.datestr(), args.dataset)
 
-    utils.reproducibility(config, seed)
+    utils.reproducibility(config.dataset_config, seed)
     utils.make_dirs(config.save)
-
-    training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(config,
+    training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(config.dataset_config,
                                                                                                path='medzoo/datasets')
-    model, optimizer = create_model(config)
-    criterion = DiceLoss(classes=config.classes)
+    model, optimizer = create_model(config.model_config)
+    criterion = DiceLoss(classes=config.dataset_config.classes)
 
-    if config.cuda:
+    if config.model_config.cuda:
         model = model.cuda()
 
     trainer = medzoo_trainer.Trainer(config, model, criterion, optimizer, train_data_loader=training_generator,

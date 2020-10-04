@@ -28,14 +28,14 @@ class TensorboardWriter():
     """
     def __init__(self, args):
 
-        name_model = args.log_dir + args.model + "_" + args.dataset_name + "_" + utils.datestr()
-        self.writer = SummaryWriter(log_dir=args.log_dir + name_model, comment=name_model)
+        name_model = args.model_config.log_dir + args.model_config.model + "_" + args.dataset_config.dataset_name + "_" + utils.datestr()
+        self.writer = SummaryWriter(log_dir=args.model_config.log_dir + name_model, comment=name_model)
 
         utils.make_dirs(args.save)
         self.csv_train, self.csv_val = self.create_stats_files(args.save)
-        self.dataset_name = args.dataset_name
-        self.classes = args.classes
-        self.label_names = dict_class_names[args.dataset_name]
+        self.dataset_name = args.dataset_config.dataset_name
+        self.classes = args.dataset_config.classes
+        self.label_names = dict_class_names[args.dataset_config.dataset_name]
 
         self.data = self.create_data_structure()
 

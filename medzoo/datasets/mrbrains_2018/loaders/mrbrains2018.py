@@ -79,7 +79,7 @@ class MRIDatasetMRBRAINS2018(MedzooDataset):
                                        crop_size=self.crop_size, sub_vol_path=self.sub_vol_path,
                                        th_percent=self.threshold)
 
-    def save(self):
+    def save_list(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):

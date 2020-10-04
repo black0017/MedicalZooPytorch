@@ -81,7 +81,7 @@ class MRIDatasetISEG2019(MedzooDataset):
             transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
                         augment3D.ElasticTransform()], p=0.5)
 
-    def save(self):
+    def save_list(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):

@@ -104,7 +104,7 @@ class MRIDatasetISEG2017(MedzooDataset):
         self.labels = self.labels[ self.split_idx:]
         self.full_volume = get_viz_set(self.list_IDsT1, self.list_IDsT2, self.labels, dataset_name="iseg2017")
 
-    def save(self):
+    def save_list(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):

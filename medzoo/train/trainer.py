@@ -34,7 +34,7 @@ class Trainer:
         """
 
         """
-        for epoch in range(self.start_epoch, self.config.nEpochs):
+        for epoch in range(self.start_epoch, self.config.model_config.nEpochs):
             self.train_epoch(epoch)
 
             if self.do_validation:
@@ -64,7 +64,7 @@ class Trainer:
 
             self.optimizer.zero_grad()
 
-            input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config)
+            input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config.model_config)
             input_tensor.requires_grad = True
             output = self.model(input_tensor)
             loss_dice, per_ch_score = self.criterion(output, target)
@@ -90,7 +90,7 @@ class Trainer:
 
         for batch_idx, input_tuple in enumerate(self.valid_data_loader):
             with torch.no_grad():
-                input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config)
+                input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.config.model_config)
                 input_tensor.requires_grad = False
 
                 output = self.model(input_tensor)

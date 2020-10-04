@@ -1,5 +1,8 @@
 dataset_config:
-  name: iseg2017
+  load: False
+  save: True
+  dataset_name: iseg2017
+  batchSz: 2
   input_channels: 4
   classes:  4
   crop_size:  [64,64,64]

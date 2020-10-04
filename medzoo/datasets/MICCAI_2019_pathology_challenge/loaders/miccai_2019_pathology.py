@@ -64,7 +64,7 @@ class MICCAI2019_gleason_pathology(MedzooDataset):
         self.list_imgs = self.image_paths[self.split_idx:]
         self.list_labels = self.label_paths[self.split_idx:]
 
-    def save(self):
+    def save_list(self):
         utils.make_dirs(self.sub_vol_path)
 
 

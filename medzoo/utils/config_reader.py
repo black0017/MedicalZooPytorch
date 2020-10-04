@@ -37,7 +37,6 @@ class ConfigReader:
         model_config = ConfigReader.load_config(model_config_path, model_name, ConfigType.MODEL_CONFIG)
 
         config =  OmegaConf.merge(dataset_config, model_config)
-        print(config)
         return config
 
     @staticmethod

@@ -1,5 +1,11 @@
 model_config:
-  base_n_filter: 8
-  mode: 'nearest' # for upsampling
-  normalization: 'instance' # or 'batch'
-  pooling: False # uses strided convolutions when false
+  model: UNET3D
+  classes: 4
+  opt: sgd
+  inChannels: 2
+  lr: 1e-3
+  terminal_show_freq: 50 # how many iterations for terminal display
+  log_dir: '../runs/'
+  nEpochs: 5
+  inModalities: 2
+  cuda: False

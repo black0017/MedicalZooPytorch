@@ -108,7 +108,7 @@ class MICCAIBraTS2018(MedzooDataset):
         self.list_IDsFlair = sorted(glob.glob(os.path.join(self.testing_path, '*GG/*/*_flair.nii.gz')))
         self.labels = None
 
-    def save(self):
+    def save_list(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):

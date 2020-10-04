@@ -16,7 +16,7 @@ class MedzooDataset(Dataset):
         """
         Args:
         """
-        config = config.config_dataset
+        config = config
         self.mode = mode
         self.root_path = root_path
         self.crop_size = config.crop_size
@@ -30,14 +30,14 @@ class MedzooDataset(Dataset):
         self.affine = None
         self.augment_transform = None
         self.samples = config[self.mode].total_samples
-        self.fold = int(config.fold)
+        self.fold = config.fold
         self.save = config.save
         self.modalities = config.modalities
         self.voxels_space = config.voxels_space
         self.to_canonical = config.to_canonical
         self.transform = None
         self.split_idx = config.split_idx
-
+        self.load = config.load
 
 
     def load_dataset(self):
@@ -63,7 +63,7 @@ class MedzooDataset(Dataset):
             self.preprocess_test()
 
         if self.save:
-            self.save()
+            self.save_list()
 
 
     @abstractmethod
@@ -95,7 +95,7 @@ class MedzooDataset(Dataset):
         pass
 
     @abstractmethod
-    def save(self):
+    def save_list(self):
         pass
 
 

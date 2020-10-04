@@ -106,7 +106,7 @@ class MICCAIBraTS2019(MedzooDataset):
         self.labels = None
         # Todo inference code here
 
-    def save(self):
+    def save_list(self):
         utils.save_list(self.save_name, self.list)
 
     def __len__(self):
