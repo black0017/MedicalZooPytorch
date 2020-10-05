@@ -4,6 +4,7 @@ from medzoo.utils.logger import Logger
 
 LOG = Logger(name='medloader').get_logger()
 
+
 def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None):
     """
     Returns total 3d input volumes (t1 and t2 or more) and segmentation maps
@@ -34,13 +35,13 @@ def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None
 
 def fix_seg_map(segmentation_map, dataset="iseg2017"):
     """
+    Function that corrects the segmentation maps of each dataset
 
     Args:
-        segmentation_map:
-        dataset:
+        segmentation_map: numpy otr tensor
+        dataset (str): name of the dataset
 
-    Returns:
-
+    Returns: fixed segm. map
     """
     if dataset == "iseg2017" or dataset == "iseg2019":
         label_values = [0, 10, 150, 250]
@@ -87,8 +88,8 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
 
     Returns:
         [type]: [description]
-    """                       
-   
+    """
+
     total = len(ls[0])
     assert total != 0, "Problem reading data. Check the data paths."
     modalities = len(ls)
@@ -98,13 +99,11 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
 
     LOG.info(f'Mode: {mode} Subvolume samples to generate: {samples} Volumes: {total}')
     for i in range(samples):
-        # print(i)
         random_index = np.random.randint(total)
         sample_paths = []
         tensor_images = []
         for j in range(modalities):
             sample_paths.append(ls[j][random_index])
-        # print(sample_paths)
         while True:
             label_path = sample_paths[-1]
             crop = find_random_crop_dim(full_vol_dim, crop_size)
@@ -113,7 +112,6 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
                                                                   crop=crop)
 
             full_segmentation_map = fix_seg_map(full_segmentation_map, dataset_name)
-            # print(full_segmentation_map.shape)
             if find_non_zero_labels_mask(full_segmentation_map, th_percent, crop_size, crop):
                 segmentation_map = img_loader.load_medical_image(label_path, type='label', crop_size=crop_size,
                                                                  crop=crop)
@@ -143,6 +141,66 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
     return list
 
 
+def find_random_crop_dim(full_vol_dim, crop_size):
+    """
+
+    Args:
+        full_vol_dim:
+        crop_size:
+
+    Returns:
+
+    """
+    assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
+    assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
+    assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
+
+    if full_vol_dim[0] == crop_size[0]:
+        slices = crop_size[0]
+    else:
+        slices = np.random.randint(full_vol_dim[0] - crop_size[0])
+
+    if full_vol_dim[1] == crop_size[1]:
+        w_crop = crop_size[1]
+    else:
+        w_crop = np.random.randint(full_vol_dim[1] - crop_size[1])
+
+    if full_vol_dim[2] == crop_size[2]:
+        h_crop = crop_size[2]
+    else:
+        h_crop = np.random.randint(full_vol_dim[2] - crop_size[2])
+
+    return (slices, w_crop, h_crop)
+
+
+def find_non_zero_labels_mask(segmentation_map, th_percent, crop_size, crop):
+    """
+
+    Args:
+        segmentation_map:
+        th_percent:
+        crop_size:
+        crop:
+
+    Returns:
+
+    """
+    d1, d2, d3 = segmentation_map.shape
+    segmentation_map[segmentation_map > 0] = 1
+    total_voxel_labels = segmentation_map.sum()
+
+    cropped_segm_map = img_loader.crop_img(segmentation_map, crop_size, crop)
+    crop_voxel_labels = cropped_segm_map.sum()
+
+    label_percentage = crop_voxel_labels / total_voxel_labels
+    # print(label_percentage,total_voxel_labels,crop_voxel_labels)
+    if label_percentage >= th_percent:
+        return True
+    else:
+        return False
+
+
+# TODO DEAD CODE?
 def get_all_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size, sub_vol_path,
                         normalization='max_min'):
     """
@@ -238,38 +296,6 @@ def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
     return patches
 
 
-def find_random_crop_dim(full_vol_dim, crop_size):
-    """
-
-    Args:
-        full_vol_dim:
-        crop_size:
-
-    Returns:
-
-    """
-    assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
-    assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
-    assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
-
-    if full_vol_dim[0] == crop_size[0]:
-        slices = crop_size[0]
-    else:
-        slices = np.random.randint(full_vol_dim[0] - crop_size[0])
-
-    if full_vol_dim[1] == crop_size[1]:
-        w_crop = crop_size[1]
-    else:
-        w_crop = np.random.randint(full_vol_dim[1] - crop_size[1])
-
-    if full_vol_dim[2] == crop_size[2]:
-        h_crop = crop_size[2]
-    else:
-        h_crop = np.random.randint(full_vol_dim[2] - crop_size[2])
-
-    return (slices, w_crop, h_crop)
-
-
 def find3Dlabel_boundaries(segmentation_map):
     """
 
@@ -287,28 +313,3 @@ def find3Dlabel_boundaries(segmentation_map):
     return labels_voxels
 
 
-def find_non_zero_labels_mask(segmentation_map, th_percent, crop_size, crop):
-    """
-
-    Args:
-        segmentation_map:
-        th_percent:
-        crop_size:
-        crop:
-
-    Returns:
-
-    """
-    d1, d2, d3 = segmentation_map.shape
-    segmentation_map[segmentation_map > 0] = 1
-    total_voxel_labels = segmentation_map.sum()
-
-    cropped_segm_map = img_loader.crop_img(segmentation_map, crop_size, crop)
-    crop_voxel_labels = cropped_segm_map.sum()
-
-    label_percentage = crop_voxel_labels / total_voxel_labels
-    # print(label_percentage,total_voxel_labels,crop_voxel_labels)
-    if label_percentage >= th_percent:
-        return True
-    else:
-        return False

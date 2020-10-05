@@ -18,12 +18,13 @@ LOG = Logger(name='medloader').get_logger()
 
 def generate_datasets(args, path='.././datasets'):
     """
+    Generates the train/val data of the chosen dataset
 
     Args:
         args:
-        path:
+        path: dataset dir
 
-    Returns:
+    Returns: train and val_loader + full volume for inference and affine matrix
 
     """
     params = {'batch_size': args.batchSz,
@@ -38,7 +39,7 @@ def generate_datasets(args, path='.././datasets'):
     elif args.dataset_name == "iseg2019":
         train_loader = MRIDatasetISEG2019(args, 'train', dataset_path=path)
 
-        val_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path,)
+        val_loader = MRIDatasetISEG2019(args, 'val', dataset_path=path, )
 
     elif args.dataset_name == "mrbrains4":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path)
@@ -47,7 +48,7 @@ def generate_datasets(args, path='.././datasets'):
     elif args.dataset_name == "mrbrains9":
         train_loader = MRIDatasetMRBRAINS2018(args, 'train', dataset_path=path)
 
-        val_loader = MRIDatasetMRBRAINS2018(args, 'val', dataset_path=path,)
+        val_loader = MRIDatasetMRBRAINS2018(args, 'val', dataset_path=path)
     elif args.dataset_name == "miccai2019":
         val_loader = MICCAI2019_gleason_pathology(args, 'val', dataset_path=path)
 
@@ -99,6 +100,8 @@ def generate_datasets(args, path='.././datasets'):
 
 def select_full_volume_for_infer(args, path='.././datasets'):
     """
+    Note: experimental
+    For inference!
 
     Args:
         args:
@@ -110,7 +113,6 @@ def select_full_volume_for_infer(args, path='.././datasets'):
     params = {'batch_size': args.batchSz,
               'shuffle': True,
               'num_workers': 2}
-
 
     if args.dataset_name == "iseg2017":
         loader = MRIDatasetISEG2017('viz', dataset_path=path)

@@ -25,6 +25,7 @@ class DictToNumpy(Augment):
             return input_tensor, label_tensor
         return input_tensor, None
 
+
 class PrepareInput(Augment):
     def __init__(self, modality_keys, apply_to_label=True):
         """
@@ -46,6 +47,7 @@ class PrepareInput(Augment):
             return torch.from_numpy(input_tensor), torch.from_numpy(label_tensor)
         return torch.from_numpy(input_tensor), None
 
+
 class DictToTensor(Augment):
     def __init__(self, modality_keys, apply_to_label=True):
         """
@@ -55,6 +57,7 @@ class DictToTensor(Augment):
             apply_to_label ():
         """
         super(DictToTensor, self).__init__(modality_keys, apply_to_label)
+
     """
     Converts the input image to a tensor
     """
@@ -72,6 +75,7 @@ class DictToTensor(Augment):
             else:
                 data[key] = torch.as_tensor(np.ascontiguousarray(data[key]))
         return data
+
 
 class DictToList(object):
     def __call__(self, data):

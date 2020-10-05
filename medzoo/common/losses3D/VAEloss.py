@@ -20,8 +20,8 @@ def loss_vae(recon_x, x, mu, logvar, type="BCE", h1=0.1, h2=0.1):
 
     Returns:
         total loss of VAE
-    """    
-   
+    """
+
     batch = recon_x.shape[0]
     assert recon_x.size() == x.size()
     assert recon_x.shape[0] == x.shape[0]
@@ -35,3 +35,14 @@ def loss_vae(recon_x, x, mu, logvar, type="BCE", h1=0.1, h2=0.1):
         loss_rec = torch.sum(torch.sqrt(rec_flat * rec_flat - x_flat * x_flat))
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
     return loss_rec * h1 + KLD * h2
+
+
+class VAE_loss(object):
+    # TODO test
+    def __init__(self, type="BCE", h1=0.1, h2=0.1):
+        self.type = type
+        self.h1 = h1
+        self.h2 = h2
+
+    def __call__(self, recon_x, x, mu, logvar):
+        return loss_vae(recon_x, x, mu, logvar, type="BCE", h1=0.1, h2=0.1)

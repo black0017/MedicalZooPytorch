@@ -1,7 +1,6 @@
 import math
 
 import nibabel as nib
-import torch
 import torch.nn.functional as F
 
 from .viz_2d import *
@@ -127,8 +126,8 @@ def visualize_3D_no_overlap_new(args, full_volume, affine, model, epoch, dim):
     
     Returns:
         3d reconstructed volume
-    """    
-    
+    """
+
     classes = args.classes
     modalities, slices, height, width = full_volume.shape
     full_volume_dim = (slices, height, width)

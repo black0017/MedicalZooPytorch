@@ -1,3 +1,5 @@
+# models
+
 COVIDNET: 'COVIDNet'
 DENSENET3: 'Densenet3D'
 DENSEVOXELNET: 'DenseVoxelNet'
@@ -9,6 +11,8 @@ SKIPDENSENET3D: 'SkipDenseNet3D'
 UNET2D: 'Unet2D'
 UNET3D: 'Unet3D'
 VNET: 'Vnet'
+
+# datasets
 
 COVID_CT: 'covid_ct_dataset'
 COVIDx: 'covid_x_dataset'

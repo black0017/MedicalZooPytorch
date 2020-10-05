@@ -24,7 +24,8 @@ dict_class_names = {"iseg2017": ["Air", "CSF", "GM", "WM"],
 
 class TensorboardWriter():
     """
-
+    Concentrate all the training progress of the model in this class.
+    It uses tensorboard writer.
     """
     def __init__(self, args):
 
@@ -39,11 +40,10 @@ class TensorboardWriter():
 
         self.data = self.create_data_structure()
 
-    def create_data_structure(self, ):
+    def create_data_structure(self):
         """
-
-        Returns:
-
+        Initializes the data that we ll be keeping track of.
+        Returns: dictionary that contains all the train/val data
         """
         data = {"train": dict((label, 0.0) for label in self.label_names),
                 "val": dict((label, 0.0) for label in self.label_names)}
@@ -56,7 +56,8 @@ class TensorboardWriter():
         return data
 
     def display_terminal(self, iter, epoch, mode='train', summary=False):
-        """[summary]
+        """
+        Method to display train stats on terminal
 
         Args:
             iter: iteration or partial epoch
@@ -92,11 +93,12 @@ class TensorboardWriter():
 
     def create_stats_files(self, path):
         """
+        Creates csv files to save the train stats so you can process them out of tensorboard
 
         Args:
-            path:
+            path: where to create the data
 
-        Returns:
+        Returns: train and val path
 
         """
         train_f = open(os.path.join(path, 'train.csv'), 'w')
@@ -105,6 +107,7 @@ class TensorboardWriter():
 
     def reset(self, mode):
         """
+        Resets train statistics for every epoch
 
         Args:
             mode:
@@ -126,7 +129,7 @@ class TensorboardWriter():
             writer_step: tensorboard writer step
         """        
        
-        # WARNING ASSUMING THAT CHANNELS IN SAME ORDER AS DICTIONARY
+        # TODO WARNING ASSUMING THAT CHANNELS IN SAME ORDER AS DICTIONARY
 
         dice_coeff = np.mean(channel_score) * 100
 
@@ -142,9 +145,10 @@ class TensorboardWriter():
 
     def write_end_of_epoch(self, epoch):
         """
+        Updates training stats at the end of epoch + tensorboard
 
         Args:
-            epoch:
+            epoch: the current epoch
         """
         self.writer.add_scalars('DSC/', {'train': self.data['train']['dsc'] / self.data['train']['count'],
                                          'val': self.data['val']['dsc'] / self.data['val']['count'],
