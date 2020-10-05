@@ -46,6 +46,14 @@ class MRIDatasetISEG2017(MedzooDataset):
         self.transform = None
 
         self.load_dataset()
+        if self.augmentation:
+            self.augment()
+        else:
+            self.transform = augment3D.Compose(
+            [augment3D.ScaleIntensity(self.modality_keys),
+             augment3D.AddChannelDim(self.modality_keys, apply_to_label=False),
+             augment3D.DictToTensor(self.modality_keys),
+             augment3D.DictToList()])
 
 
     def load(self):
@@ -55,10 +63,12 @@ class MRIDatasetISEG2017(MedzooDataset):
         self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
 
     def augment(self):
-        self.transform = augment3D.RandomChoice(
-            transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
-                        augment3D.ElasticTransform()], p=0.5)
 
+        self.transform = augment3D.Compose(
+            [augment3D.ScaleIntensity(self.modality_keys),
+             augment3D.AddChannelDim(self.modality_keys, apply_to_label=False),
+             augment3D.DictToTensor(self.modality_keys),
+             augment3D.DictToList()])
     def preprocess(self):
         utils.make_dirs(self.sub_vol_path)
         self.list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
@@ -112,13 +122,12 @@ class MRIDatasetISEG2017(MedzooDataset):
 
     def __getitem__(self, index):
         t1_path, t2_path, seg_path = self.list[index]
-        t1, t2, s = np.load(t1_path), np.load(t2_path), np.load(seg_path)
 
-        if self.mode == 'train' and self.augmentation:
+        data = {self.modality_keys[0]:np.load(t1_path),
+                self.modality_keys[1]:np.load(t2_path),
+                self.modality_keys[2]:np.load(seg_path)}
+        input_tuple = self.transform(data)
 
-            [augmented_t1, augmented_t2], augmented_s = self.transform([t1, t2], s)
+        return input_tuple
 
-            return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(
-                augmented_t2.copy()).unsqueeze(0), torch.FloatTensor(augmented_s.copy())
 
-        return torch.FloatTensor(t1).unsqueeze(0), torch.FloatTensor(t2).unsqueeze(0), torch.FloatTensor(s)

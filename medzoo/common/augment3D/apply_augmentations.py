@@ -1,8 +1,51 @@
 import random
+from abc import ABC, abstractmethod
+
 import numpy as np
 
-
 functions = ['elastic_deform', 'random_crop', 'random_flip', 'random_rescale', 'random_rotate', 'random_shift']
+
+
+class Augment(ABC):
+
+    def __init__(self, modality_keys, apply_to_label):
+        """
+
+        Args:
+            modality_keys (list): List of data
+            apply_to_label ():
+        """
+        self.modality_keys = modality_keys
+        self.apply_to_label = apply_to_label
+
+    @abstractmethod
+    def __call__(self, data):
+        """
+
+        """
+        raise NotImplementedError
+
+
+class RandomAugment(Augment):
+    def __init__(self, modality_keys, apply_to_label):
+        super(RandomAugment, self).__init__(modality_keys, apply_to_label)
+
+    def __call__(self, input):
+        raise NotImplementedError
+
+    def set_random(self, **args):
+        raise NotImplementedError
+
+
+class Compose(object):
+    def __init__(self, transforms=[]):
+        self.transforms = transforms
+
+    def __call__(self, data):
+        for t in self.transforms:
+            data = t(data)
+        return data
+
 
 class RandomChoice(object):
     """Choose a random tranform from list and apply

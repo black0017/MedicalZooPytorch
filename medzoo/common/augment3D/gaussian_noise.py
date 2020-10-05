@@ -1,7 +1,7 @@
 import numpy as np
+from .apply_augmentations import Augment
 
-
-def random_noise(img_numpy, mean=0, std=0.001):
+def random_noise(img_numpy, noise):
     """
 
     Args:
@@ -13,28 +13,24 @@ def random_noise(img_numpy, mean=0, std=0.001):
         image with added random noise
 
     """
-    noise = np.random.normal(mean, std, img_numpy.shape)
+
 
     return img_numpy + noise
 
 
-class GaussianNoise(object):
+class GaussianNoise(Augment):
     """
 
     """
-    def __init__(self, mean=0, std=0.001):
+    def __init__(self, modality_keys, apply_to_label=False, mean=0, std=0.001):
+        super(GaussianNoise, self).__init__(modality_keys, apply_to_label)
         self.mean = mean
         self.std = std
 
-    def __call__(self, img_numpy, label=None):
-        """
-        Args:
-            img_numpy (numpy): Image to be flipped.
-            label (numpy): Label segmentation map to be flipped
+    def __call__(self, data):
+        noise = np.random.normal(self.mean, self.std, data[self.modality_keys[0]].shape)
+        for key in self.modality_keys:
+            if key != 'label':
+                data[key] = random_noise(data[key], noise)
 
-        Returns:
-            img_numpy (numpy):  flipped img.
-            label (numpy): flipped Label segmentation.
-        """
-
-        return random_noise(img_numpy, self.mean, self.std), label
+        return data

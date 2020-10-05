@@ -5,10 +5,11 @@ dataset_config:
   batchSz: 2
   input_channels: 4
   classes:  4
+  modality_keys: [t1,t2,label]
   crop_size:  [64,64,64]
   image_dim:  [144, 192, 256]
   threshold: 0.01
-  split: 0.1
+  split: 0.9
   train:
     augmentation: True
     normalization:  True

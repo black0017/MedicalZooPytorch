@@ -1,22 +1,16 @@
+from abc import abstractmethod
 
-
-from abc import ABC, abstractmethod
-
+import torch
 from torch.utils.data import Dataset
 
 
-"""
-Based on this repository: https://github.com/black0017/MICCAI-2019-Prostate-Cancer-segmentation-challenge
-"""
-
-
-class MedzooDataset(Dataset):
+class SimpleDataset(Dataset):
 
     def __init__(self, config, mode, root_path='.././datasets'):
         """
         Args:
         """
-        config = config
+
         self.mode = mode
         self.root_path = root_path
         self.crop_size = config.crop_size
@@ -24,24 +18,33 @@ class MedzooDataset(Dataset):
         self.classes = config.classes
         self.threshold = config.threshold
         self.split = config.split
-        self.augmentation = config[self.mode].augmentation
-        self.normalization = config[self.mode].normalization
+        self.augmentation = config.augmentation
+        self.normalization = config.normalization
+        self.samples = config[self.mode].total_samples
+        self.num_modalities = config.num_modalities
         self.subvol = '_vol_' + str(self.crop_size[0]) + 'x' + str(self.crop_size[1]) + 'x' + str(self.crop_size[2])
         self.affine = None
         self.augment_transform = None
-        self.samples = config[self.mode].total_samples
-        self.fold = config.fold
-        self.save = config.save
-        self.modalities = config.modalities
-        self.modality_keys = config.modality_keys
-        self.voxels_space = config.voxels_space
-        self.to_canonical = config.to_canonical
-        self.transform = None
-        self.split_idx = config.split_idx
-        self.load = config.load
+        self.full_volume = None
 
+        self.modality_keys = ['T1', 'T2', 'label']  # config.modality_keys#
+        self.dict = {}
 
-    def load_dataset(self):
+    def __len__(self):
+        return len(self.dict)
+
+    def __getitem__(self, index):
+        inputs = []
+        sample = self.dict[index]
+        for i in range(self.num_modalities - 1):
+            x = self.load_data(i)
+            inputs.append(x)
+        inputs = torch.stack(inputs)
+
+        y = self.load_data(self.num_modalities - 1)
+        return inputs, y
+
+    def load_data(self, path):
 
         if self.load:
             self.load()
@@ -60,12 +63,11 @@ class MedzooDataset(Dataset):
             self.preprocess_train()
         elif self.mode == 'val':
             self.preprocess_val()
-        elif self.mode == 'test':
+        else:
             self.preprocess_test()
 
         if self.save:
-            self.save_list()
-
+            self.save()
 
     @abstractmethod
     def load(self):
@@ -92,14 +94,5 @@ class MedzooDataset(Dataset):
         pass
 
     @abstractmethod
-    def preprocess_viz(self):
+    def save(self):
         pass
-
-    @abstractmethod
-    def save_list(self):
-        pass
-
-
-
-
-

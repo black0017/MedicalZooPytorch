@@ -9,6 +9,6 @@ from medzoo.models.SkipDenseNet3D.SkipDenseNet3D import SkipDenseNet3D
 from medzoo.models.Unet2D.Unet2D import Unet
 from medzoo.models.Unet3D.Unet3D import UNet3D
 from medzoo.models.Vnet.Vnet import VNet, VNetLight
-from medzoo.models import create_model
+from medzoo.models.create_model import create_model
 
 
