@@ -35,7 +35,14 @@ class MRIDatasetISEG2019(MedzooDataset):
         self.split_idx = int(self.split * 10)
 
         self.load_dataset()
-
+        if self.augmentation:
+            self.augment()
+        else:
+            self.transform = augment3D.Compose(
+            [augment3D.ScaleIntensity(self.modality_keys),
+             augment3D.AddChannelDim(self.modality_keys, apply_to_label=False),
+             augment3D.DictToTensor(self.modality_keys),
+             augment3D.DictToList()])
     def load(self):
         ## load pre-generated data
         self.list = utils.load_list(self.save_name)
@@ -49,6 +56,7 @@ class MRIDatasetISEG2019(MedzooDataset):
         self.list_IDsT2 = sorted(glob.glob(os.path.join(self.training_path, '*T2.img')))
         self.labels = sorted(glob.glob(os.path.join(self.training_path, '*label.img')))
         self.affine = img_loader.load_affine_matrix(self.list_IDsT1[0])
+
 
     def preprocess_train(self):
         self.list_IDsT1 = self.list_IDsT1[:self.split_idx]
@@ -77,9 +85,12 @@ class MRIDatasetISEG2019(MedzooDataset):
         # todo inference here
 
     def augment(self):
-        self.augment_transform = augment3D.RandomChoice(
-            transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
-                        augment3D.ElasticTransform()], p=0.5)
+        self.transform = augment3D.Compose(
+            [augment3D.ScaleIntensity(self.modality_keys),
+             augment3D.AddChannelDim(self.modality_keys, apply_to_label=False),
+             augment3D.DictToTensor(self.modality_keys),
+             augment3D.DictToList()])
+
 
     def save_list(self):
         utils.save_list(self.save_name, self.list)
@@ -88,14 +99,15 @@ class MRIDatasetISEG2019(MedzooDataset):
         return len(self.list)
 
     def __getitem__(self, index):
+
         t1_path, t2_path, seg_path = self.list[index]
-        t1, t2, s = np.load(t1_path), np.load(t2_path), np.load(seg_path)
-        if self.mode == 'train' and self.augmentation:
-            [augmented_t1, augmented_t2], augmented_s = self.augment_transform([t1, t2], s)
 
-            return torch.FloatTensor(augmented_t1.copy()).unsqueeze(0), torch.FloatTensor(
-                augmented_t2.copy()).unsqueeze(0), torch.FloatTensor(augmented_s.copy())
+        data = {self.modality_keys[0]:np.load(t1_path),
+                self.modality_keys[1]:np.load(t2_path),
+                self.modality_keys[2]:np.load(seg_path)}
+        input_tuple = self.transform(data)
 
-        return torch.FloatTensor(t1).unsqueeze(0), torch.FloatTensor(t2).unsqueeze(0), torch.FloatTensor(s)
+        return input_tuple
+
 
 
