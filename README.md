@@ -10,7 +10,7 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/black0017/MedicalZooPytorch/blob/master/Quickstart_MedicalZoo.ipynb)
 ![](https://img.shields.io/github/license/black0017/MedicalZooPytorch)
 
-We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source **medical image segmentation library of state of the art 3D deep neural networks in PyTorch**. We also implemented a bunch of data loaders of the most common medical image datasets.  This project started as an [MSc Thesis](https://nemertes.lis.upatras.gr/jspui/handle/10889/12754 "MSc thesis link") and is currently **under further development.** Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and data-loaders.  
+We strongly believe in open and **reproducible deep learning research**. Our goal is to implement an open-source **medical image segmentation library of state of the art 3D deep neural networks in PyTorch**. We also implemented a bunch of data loaders of the most common medical image datasets.  This project started as an [MSc Thesis](https://nemertes.lis.upatras.gr/jspui/handle/10889/12754 "MSc thesis link") and is currently under further development. Although this work was initially focused on **3D multi-modal brain MRI segmentation** we are slowly adding more architectures and data-loaders.  
 
 #### Top priorities 21-07
 [Update] 21-07 We have just received a brand new GPU. The project developedment was postponed due to lack of computational resources. We will be back with more updates. Please Watch our Github repository for releases to be notified. We are always looking for passionate open-source contributos. Full credits will be given.
@@ -27,9 +27,9 @@ We strongly believe in open and **reproducible deep learning research**. Our goa
 - [ ] New notebooks with google colab support
 
 ## Quick Start
-- If you want to quickly understand the fundamental concepts for deep learning in medical imaging, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"). We provide a general high-level overview of all the aspects of medical image segmentation and deep learning.
+- If you want to quickly understand the fundamental concepts for deep learning in medical imaging, we strongly advice to check our [blog post](https://theaisummer.com/medical-image-deep-learning/ "MedicalZooPytorch article"). We provide a general high-level overview of all the aspects of medical image segmentation and deep learning. For a broader overview on MRI applications find my latest [review article](https://theaisummer.com/mri-beyond-segmentation/).
 
-- Recentrly, I have published another article on medical image coordinated and DICOM images. Link [here](https://theaisummer.com/medical-image-coordinates/).
+- To grasp more fundamental medical imaging concepts, check out our [post](https://theaisummer.com/medical-image-coordinates/) on coordinate systems and DICOM images.
 
 - For a more holistic approach on Deep Learning in MRI you may advice my thesis [this](https://nemertes.lis.upatras.gr/jspui/handle/10889/12754 "MSc thesis link").
 
