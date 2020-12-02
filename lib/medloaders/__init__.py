@@ -21,7 +21,10 @@ def generate_datasets(args, path='.././datasets'):
     samples_val = args.samples_val
     split_percent = args.split
 
-    if args.dataset_name == "iseg2017":
+    if args.dataset_name == "test_dataset":
+        pass
+
+    elif args.dataset_name == "iseg2017":
         total_data = 10
         split_idx = int(split_percent * total_data)
         train_loader = MRIDatasetISEG2017(args, 'train', dataset_path=path, crop_dim=args.dim,
