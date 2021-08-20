@@ -254,7 +254,7 @@ class ResNet3dVAE(BaseModel):
     def __init__(self, in_channels=2, classes=4, max_conv_channels=256, dim=(64, 64, 64)):
         super(ResNet3dVAE, self).__init__()
         self.dim = dim
-        vae_in_dim = (int(dim[0] >> 3), int(dim[1] >> 3), int(dim[0] >> 3))
+        vae_in_dim = (int(dim[0] >> 3), int(dim[1] >> 3), int(dim[2] >> 3))
         vae_out_dim = (in_channels, dim[0], dim[1], dim[2])
 
         self.classes = classes
