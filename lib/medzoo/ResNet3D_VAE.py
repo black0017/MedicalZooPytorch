@@ -235,7 +235,7 @@ class VAE(nn.Module):
         x = x.view(-1, self.linear_in_dim)
         x = self.linear_1(x)
         mu = x[:, :self.split_dim]
-        logvar = torch.log(x[:, self.split_dim:])
+        logvar = x[:, self.split_dim:]
         y = reparametrize(mu, logvar)
         y = self.linear_vu(y)
         y = y.view(-1, self.encoder_channels, self.reshape_dim[0], self.reshape_dim[1], self.reshape_dim[2])
