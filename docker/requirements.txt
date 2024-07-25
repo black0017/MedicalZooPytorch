@@ -1,6 +1,6 @@
 scipy>=1.4.1
 numpy>=1.18.2
-torch==1.4.0
+torch==2.2.0
 nibabel>=3.0.2
 tensorboard>=2.2.0
 torchsummary>=1.5.1
