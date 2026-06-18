@@ -4,15 +4,31 @@ import torch
 
 def expand_as_one_hot(input, C, ignore_index=None):
     """
-    Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted to its corresponding one-hot vector
-    :param input: 4D input image (NxDxHxW)
+    Converts NxDxHxW label image to NxCxDxHxW, where each label gets converted
+    to its corresponding one-hot vector.
+    :param input: 4D input image (NxDxHxW) or 5D with a singleton channel
+                  dimension (Nx1xDxHxW).  If 5D with C channels already,
+                  the tensor is returned as-is.
     :param C: number of channels/labels
     :param ignore_index: ignore index to be kept during the expansion
     :return: 5D output image (NxCxDxHxW)
     """
     if input.dim() == 5:
-        return input
-    assert input.dim() == 4
+        # Already one-hot encoded with the correct number of classes
+        if input.size(1) == C:
+            return input
+        # Singleton channel dimension (e.g. [N, 1, D, H, W] from DataLoader);
+        # squeeze to 4D so the one-hot expansion below can run
+        if input.size(1) == 1:
+            input = input.squeeze(1)
+        else:
+            raise ValueError(
+                f"expand_as_one_hot: expected 5D target to have 1 or {C} "
+                f"channels, got {input.size(1)}"
+            )
+    assert input.dim() == 4, (
+        f"expand_as_one_hot: expected 4D input (NxDxHxW), got {input.dim()}D"
+    )
 
     # expand the input tensor to Nx1xDxHxW before scattering
     input = input.unsqueeze(1)
